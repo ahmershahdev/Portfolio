@@ -13,7 +13,7 @@
     content="Hi, I’m Ahmer Shah. Software Engineering student and Full-Stack Developer. Explore my work, projects, and skills.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ahmershahdev.github.io/Portfolio/">
-  <meta property="og:image" content="https://ahmershahdev.github.io/assets/images/logo/logo.webp">
+  <meta property="og:image" content="https://ahmershahdev.github.io/Portfolio/assets/images/logo/logo.webp">
   <title>Ahmer Shah - Portfolio</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
@@ -39,7 +39,7 @@
     "https://linkedin.com/in/ahmer-shah"
   ],
   "jobTitle": "Software Engineering Student & Full-Stack Developer",
-  "image": "https://ahmershah.com/assets/images/logo/logo.webp",
+  "image": "https://ahmershahdev.github.io/Portfolio/assets/images/logo/logo.webp",
   "description": "Ahmer Shah – Software Engineering student & Full-Stack Developer. Check out my projects, skills, and certifications."
 }
 </script>
@@ -571,7 +571,10 @@
                 or just talking about technology and gaming!
               </p>
 
-              <form class="contact-form" action="/contact" method="POST">
+              <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="2548376b-ea68-446c-8346-c09520ce35f8">
+                <!-- Honeypot field for spam protection (hidden from users) -->
+                <input type="checkbox" name="botcheck" id="botcheck" style="display: none !important;" tabindex="-1" autocomplete="off">
                 <div class="row">
                   <div class="col-md-6">
                     <input type="text" class="form-control" name="name" placeholder="Your Name" required minlength="2"
@@ -581,8 +584,7 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" required
-                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
+                    <input type="email" class="form-control" name="email" placeholder="Your Email" required />
                     <div class="invalid-feedback">
                       Please enter a valid email address.
                     </div>
@@ -602,7 +604,7 @@
                 </div>
 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-neon" aria-label="Send Message">
+                  <button type="submit" id="submit-btn" class="btn btn-neon" aria-label="Send Message">
                     Send Message
                   </button>
                 </div>
@@ -641,6 +643,28 @@
     </div>
   </footer>
 
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title text-neon-green" id="successModalLabel">
+            <i class="bi bi-check-circle-fill me-2"></i>Success!
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center py-4">
+          <p class="mb-0">Your message has been sent successfully!</p>
+          <p class="text-muted mt-2">I'll get back to you as soon as possible.</p>
+        </div>
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-neon" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://web3forms.com/client/script.js" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="assets/js/script.js" defer></script>

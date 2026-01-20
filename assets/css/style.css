@@ -344,3 +344,10 @@ footer {
 #backToTop:hover {
   background: linear-gradient(to right, #1f2226, #000);
 }
+
+/* Spinner for loading state */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.15em;
+}
