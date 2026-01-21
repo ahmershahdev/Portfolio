@@ -741,7 +741,7 @@
 
   <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-3.7.1.min.js"></script>
-<script src="assets/js/script.js" defer></script>
+<script type="module" src="assets/js/script.js" defer></script>
 <script type="importmap">
 {
   "imports": {
@@ -749,124 +749,6 @@
     "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
   }
 }
-</script>
-
-<script type="module">
-   import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'; 
-
-    (function () {
-        const container = document.getElementById('three-bg-container');
-        if (!container) return;
-
-        const scene = new THREE.Scene();
-        scene.fog = new THREE.Fog(0x000000, 5, 45);
-
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-        const renderer = new THREE.WebGLRenderer({ 
-            antialias: window.innerWidth > 768, 
-            alpha: true, 
-            powerPreference: "high-performance" 
-        });
-
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 1.5));
-        
-        renderer.outputColorSpace = THREE.SRGBColorSpace; 
-        renderer.toneMapping = THREE.ReinhardToneMapping;
-        renderer.toneMappingExposure = 3.5;
-        container.appendChild(renderer.domElement);
-
-        scene.add(new THREE.AmbientLight(0xffffff, 1.5));
-        const mainLight = new THREE.DirectionalLight(0xffffff, 4);
-        mainLight.position.set(2, 5, 5);
-        scene.add(mainLight);
-
-        const geometry = new THREE.PlaneGeometry(100, 100, 32, 32);
-        const meshGround = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-            color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.15
-        }));
-        meshGround.rotation.x = -Math.PI / 2;
-        meshGround.position.y = -4;
-        scene.add(meshGround);
-
-        const rainCount = 1200;
-        const rainGeo = new THREE.BufferGeometry();
-        const rainPos = new Float32Array(rainCount * 3);
-        for (let i = 0; i < rainCount * 3; i++) rainPos[i] = (Math.random() - 0.5) * 40;
-        rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
-        const rain = new THREE.Points(rainGeo, new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.05 }));
-        scene.add(rain);
-
-        const loader = new GLTFLoader();
-        let ironMan = null, ironManHead = null, targetX = 0, targetY = 0;
-
-        loader.load('assets/character/iron_man.glb', (gltf) => {
-            ironMan = gltf.scene;
-            ironMan.traverse(node => {
-                if (node.isMesh) {
-                    node.material.depthWrite = true;
-                    node.material.metalness = 1;
-                    node.material.roughness = 0.3;
-                    node.material.precision = "lowp";
-                }
-                if (node.name.toLowerCase().includes('head')) ironManHead = node;
-            });
-            if (!ironManHead) ironManHead = ironMan.getObjectByName('Head') || ironMan.children[0];
-            const box = new THREE.Box3().setFromObject(ironMan);
-            const center = box.getCenter(new THREE.Vector3());
-            const size = box.getSize(new THREE.Vector3());
-            const scaleFactor = 7.5 / Math.max(size.x, size.y, size.z);
-            ironMan.scale.set(scaleFactor, scaleFactor, scaleFactor);
-            ironMan.position.set(-center.x * scaleFactor, (-center.y * scaleFactor) - 3, -center.z * scaleFactor);
-            scene.add(ironMan);
-        }, undefined, (error) => {
-            console.error("Iron Man failed to fly in:", error);
-        });
-
-        camera.position.set(0, 0, 15);
-
-        document.addEventListener('mousemove', (e) => {
-            targetY = (e.clientX / window.innerWidth - 0.5) * 1.2;
-            targetX = (e.clientY / window.innerHeight - 0.5) * 0.5;
-        }, { passive: true });
-
-        function animate() {
-            requestAnimationFrame(animate);
-            const time = performance.now() * 0.001;
-            
-            const posAttr = meshGround.geometry.attributes.position;
-            for (let i = 0; i < posAttr.count; i++) {
-                const x = posAttr.getX(i);
-                posAttr.setZ(i, Math.sin(x * 0.3 + time) * 0.4);
-            }
-            posAttr.needsUpdate = true;
-
-            const rPos = rain.geometry.attributes.position.array;
-            for (let i = 1; i < rPos.length; i += 3) {
-                rPos[i] -= 0.12;
-                if (rPos[i] < -15) rPos[i] = 25;
-            }
-            rain.geometry.attributes.position.needsUpdate = true;
-
-            if (ironMan) {
-                ironMan.position.y = -3 + Math.sin(time * 2) * 0.1;
-                if (ironManHead) {
-                    ironManHead.rotation.y = THREE.MathUtils.lerp(ironManHead.rotation.y, targetY, 0.1);
-                    ironManHead.rotation.x = THREE.MathUtils.lerp(ironManHead.rotation.x, targetX, 0.1);
-                }
-            }
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }, { passive: true });
-    })();
 </script>
 </body>
 
