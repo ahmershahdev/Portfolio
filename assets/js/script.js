@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 (function () {
     const container = document.getElementById('three-bg-container');
@@ -46,7 +47,11 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
     const rain = new THREE.Points(rainGeo, new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.05 }));
     scene.add(rain);
 
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
     const loader = new GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
+
     let ironMan = null, targetX = 0, targetY = 0;
 
     loader.load('assets/character/iron_man.glb', (gltf) => {
@@ -64,6 +69,14 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
         ironMan.scale.set(scaleFactor, scaleFactor, scaleFactor);
         ironMan.position.set(-center.x * scaleFactor, -5.5, -center.z * scaleFactor);
         scene.add(ironMan);
+    }, (xhr) => {
+        if (xhr.lengthComputable) {
+            const percent = (xhr.loaded / xhr.total) * 100;
+            const $bar = document.getElementById('loading-bar');
+            const $text = document.getElementById('load-percent');
+            if ($bar) $bar.style.width = percent + '%';
+            if ($text) $text.innerText = Math.round(percent) + '%';
+        }
     });
 
     camera.position.set(0, 0, 15);
