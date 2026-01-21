@@ -183,25 +183,43 @@ $(document).ready(function () {
 
     let sections = [];
     const updateSectionCache = () => {
-        sections = navBtn.map(function () {
-            const target = $(this).attr("href");
-            if ($(target).length) return { el: $(this), top: $(target).offset().top - 100, bottom: $(target).offset().top + $(target).outerHeight() - 100 };
-        }).get();
+        sections = []; 
+        navBtn.each(function () {
+            const targetId = $(this).attr("href");
+            const $target = $(targetId);
+            if ($target.length) {
+                const top = $target.offset().top;
+                sections.push({
+                    el: $(this),
+                    top: top - navHeight - 50, 
+                    bottom: top + $target.outerHeight() - navHeight
+                });
+            }
+        });
     };
-    updateSectionCache();
-    $(window).on("resize", updateSectionCache);
+
+    $(window).on("load", updateSectionCache);
+    
+    let resizeTimer;
+    $(window).on("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(updateSectionCache, 200); 
+    });
 
     navBtn.on("click", function (e) {
-        const section = $(this).attr("href");
-        if ($(section).length) {
+        const sectionId = $(this).attr("href");
+        const $section = $(sectionId);
+        if ($section.length) {
             e.preventDefault();
-            $("html, body").stop().animate({ scrollTop: $(section).offset().top - navHeight }, 800, 'swing');
+            $("html, body").stop().animate({ 
+                scrollTop: $section.offset().top - navHeight 
+            }, 800);
             if (navbarCollapse.hasClass("show")) navbarCollapse.collapse('hide');
         }
     });
 
     $(window).on("scroll", function () {
-        const position = $(this).scrollTop();
+        const position = window.scrollY || window.pageYOffset;
         position > 300 ? upBtn.addClass("show") : upBtn.removeClass("show");
         for (let i = 0; i < sections.length; i++) {
             if (position >= sections[i].top && position < sections[i].bottom) {
@@ -215,11 +233,11 @@ $(document).ready(function () {
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                setTimeout(() => { entry.target.classList.add('reveal-visible'); }, 100);
+                entry.target.classList.add('reveal-visible');
                 revealObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
+    }, { threshold: 0.1 });
     document.querySelectorAll('[class*="reveal-"]').forEach(el => revealObserver.observe(el));
 
     if (contactForm) {
@@ -237,43 +255,3 @@ $(document).ready(function () {
         });
     }
 });
-
-const cursorCanvas = document.getElementById('cursor-canvas');
-if (cursorCanvas) {
-    const ctx = cursorCanvas.getContext('2d');
-    let mouse = { x: 0, y: 0 }, dots = [], totalDots = 12, friction = 0.4, isVisible = false;
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-    if (!isTouchDevice) {
-        for (let i = 0; i < totalDots; i++) dots.push({ x: 0, y: 0 });
-        window.addEventListener('mousemove', (e) => { isVisible = true; mouse.x = e.clientX; mouse.y = e.clientY; });
-        window.addEventListener('mouseout', () => { isVisible = false; });
-        
-        function animateCursor() {
-            ctx.clearRect(0, 0, cursorCanvas.width, cursorCanvas.height);
-            if (isVisible) {
-                let x = mouse.x, y = mouse.y;
-                dots.forEach((dot, index) => {
-                    dot.x += (x - dot.x) * friction; dot.y += (y - dot.y) * friction;
-                    const color = index % 2 === 0 ? '#0ff0fc' : '#00ff41';
-                    ctx.globalAlpha = 1 - (index / totalDots);
-                    ctx.beginPath(); ctx.fillStyle = color;
-                    const size = (totalDots - index) * 1.1;
-                    ctx.shadowBlur = 10; ctx.shadowColor = color;
-                    ctx.arc(dot.x, dot.y, size, 0, Math.PI * 2); ctx.fill();
-                    if (index > 0) {
-                        ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 1.5;
-                        ctx.moveTo(dots[index - 1].x, dots[index - 1].y); ctx.lineTo(dot.x, dot.y); ctx.stroke();
-                    }
-                    x = dot.x; y = dot.y;
-                });
-            }
-            requestAnimationFrame(animateCursor);
-        }
-        window.addEventListener('resize', () => { cursorCanvas.width = window.innerWidth; cursorCanvas.height = window.innerHeight; });
-        cursorCanvas.width = window.innerWidth; cursorCanvas.height = window.innerHeight;
-        animateCursor();
-    } else {
-        cursorCanvas.style.display = 'none';
-    }
-}
