@@ -11,16 +11,18 @@ let renderer;
     scene.fog = new THREE.Fog(0x000000, 5, 45);
 
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 15);
+
+    const homeGroup = new THREE.Group();
+    const scrollGroup = new THREE.Group();
+    scene.add(homeGroup);
+    scene.add(scrollGroup);
+
     renderer = new THREE.WebGLRenderer({ 
         antialias: window.innerWidth > 768, 
         alpha: true, 
         powerPreference: "high-performance" 
     });
-
-     $('.offcanvas-body .nav-link').on('click', function() {
-    if(renderer) renderer.toneMappingExposure = 3.0; 
-});
-
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.outputColorSpace = THREE.SRGBColorSpace; 
@@ -34,7 +36,7 @@ let renderer;
     scene.add(mainLight);
 
     const chestLight = new THREE.PointLight(0x00f0ff, 20, 15);
-    scene.add(chestLight);
+    scrollGroup.add(chestLight);
 
     const geometry = new THREE.PlaneGeometry(100, 100, 32, 32);
     const meshGround = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
@@ -42,7 +44,7 @@ let renderer;
     }));
     meshGround.rotation.x = -Math.PI / 2;
     meshGround.position.y = -6;
-    scene.add(meshGround);
+    scrollGroup.add(meshGround);
 
     const rainCount = 1200;
     const rainGeo = new THREE.BufferGeometry();
@@ -50,7 +52,7 @@ let renderer;
     for (let i = 0; i < rainCount * 3; i++) rainPos[i] = (Math.random() - 0.5) * 40;
     rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
     const rain = new THREE.Points(rainGeo, new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.05 }));
-    scene.add(rain);
+    scrollGroup.add(rain);
 
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
@@ -58,7 +60,6 @@ let renderer;
     loader.setDRACOLoader(dracoLoader);
 
     let ironMan = null, targetX = 0, targetY = 0;
-
     loader.load('assets/character/iron_man.glb', (gltf) => {
         ironMan = gltf.scene;
         ironMan.traverse(node => {
@@ -73,10 +74,19 @@ let renderer;
         const scaleFactor = 9.5 / Math.max(size.x, size.y, size.z);
         ironMan.scale.set(scaleFactor, scaleFactor, scaleFactor);
         ironMan.position.set(-center.x * scaleFactor, -5.5, -center.z * scaleFactor);
-        scene.add(ironMan);
+        scrollGroup.add(ironMan);
     });
 
-    camera.position.set(0, 0, 15);
+    let roomModel = null;
+    loader.load('assets/background/background_room.glb', (gltf) => {
+        roomModel = gltf.scene;
+        const box = new THREE.Box3().setFromObject(roomModel);
+        const size = box.getSize(new THREE.Vector3());
+        const scaleFactor = 25 / Math.max(size.x, size.y, size.z);
+        roomModel.scale.set(scaleFactor, scaleFactor, scaleFactor);
+        roomModel.position.y = -4; 
+        homeGroup.add(roomModel);
+    });
 
     document.addEventListener('mousemove', (e) => {
         targetY = (e.clientX / window.innerWidth - 0.5) * 1.0; 
@@ -84,64 +94,55 @@ let renderer;
         if (renderer.toneMappingExposure < 4.0) renderer.toneMappingExposure += 0.05;
     }, { passive: true });
 
-    document.addEventListener('touchmove', (e) => {
-        const touch = e.touches[0];
-        targetY = (touch.clientX / window.innerWidth - 0.5) * 1.0;
-        targetX = (touch.clientY / window.innerHeight - 0.5) * 0.4;
-    }, { passive: true });
-
-    function handleOrientation(event) {
-        if (!event.gamma || !event.beta) return;
-        targetY = THREE.MathUtils.clamp(event.gamma / 45, -1, 1); 
-        targetX = THREE.MathUtils.clamp((event.beta - 45) / 45, -0.5, 0.5);
-    }
-
-    document.addEventListener('click', () => {
-        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-            DeviceOrientationEvent.requestPermission().then(res => {
-                if (res === 'granted') window.addEventListener('deviceorientation', handleOrientation);
-            }).catch(console.error);
-        } else {
-            window.addEventListener('deviceorientation', handleOrientation);
-        }
-
-        if (ironMan) {
-            renderer.toneMappingExposure = 7.0;
-            chestLight.intensity = 150;
-            setTimeout(() => {
-                renderer.toneMappingExposure = 3.0;
-                chestLight.intensity = 20;
-            }, 100);
-        }
-    });
+    let transitionFactor = 0; 
 
     function animate() {
         requestAnimationFrame(animate);
         const time = performance.now() * 0.001;
+        const scrollPos = window.scrollY;
+        const viewportHeight = window.innerHeight;
+
+        const targetFactor = THREE.MathUtils.clamp(scrollPos / (viewportHeight * 0.8), 0, 1);
+        transitionFactor = THREE.MathUtils.lerp(transitionFactor, targetFactor, 0.08);
+
+        homeGroup.position.y = transitionFactor * 20;
+        homeGroup.scale.set(1 - transitionFactor, 1 - transitionFactor, 1 - transitionFactor);
+        homeGroup.visible = transitionFactor < 0.95;
+
+        scrollGroup.position.y = (1 - transitionFactor) * -20;
+        scrollGroup.visible = transitionFactor > 0.05;
+
+        if (homeGroup.visible && roomModel) {
+            roomModel.rotation.y = THREE.MathUtils.lerp(roomModel.rotation.y, targetY * 0.5, 0.05);
+            roomModel.rotation.x = THREE.MathUtils.lerp(roomModel.rotation.x, targetX * 0.2, 0.05);
+        }
+
+        if (scrollGroup.visible) {
+            const posAttr = meshGround.geometry.attributes.position;
+            for (let i = 0; i < posAttr.count; i++) {
+                const x = posAttr.getX(i);
+                posAttr.setZ(i, Math.sin(x * 0.3 + time) * 0.4);
+            }
+            posAttr.needsUpdate = true;
+
+            const rPos = rain.geometry.attributes.position.array;
+            for (let i = 1; i < rPos.length; i += 3) {
+                rPos[i] -= 0.18;
+                if (rPos[i] < -15) rPos[i] = 25;
+            }
+            rain.geometry.attributes.position.needsUpdate = true;
+
+            if (ironMan) {
+                const hoverY = -5.0 + Math.sin(time * 2) * 0.15;
+                ironMan.position.y = hoverY;
+                chestLight.position.set(0, hoverY + 6.5, 1.5);
+                ironMan.rotation.y = THREE.MathUtils.lerp(ironMan.rotation.y, targetY, 0.1);
+                ironMan.rotation.x = THREE.MathUtils.lerp(ironMan.rotation.x, targetX, 0.1);
+                chestLight.intensity = (18 + Math.sin(time * 4) * 6) * transitionFactor;
+            }
+        }
+
         if (renderer.toneMappingExposure > 3.0) renderer.toneMappingExposure -= 0.03;
-
-        const posAttr = meshGround.geometry.attributes.position;
-        for (let i = 0; i < posAttr.count; i++) {
-            const x = posAttr.getX(i);
-            posAttr.setZ(i, Math.sin(x * 0.3 + time) * 0.4);
-        }
-        posAttr.needsUpdate = true;
-
-        const rPos = rain.geometry.attributes.position.array;
-        for (let i = 1; i < rPos.length; i += 3) {
-            rPos[i] -= 0.18;
-            if (rPos[i] < -15) rPos[i] = 25;
-        }
-        rain.geometry.attributes.position.needsUpdate = true;
-
-        if (ironMan) {
-            const hoverY = -5.0 + Math.sin(time * 2) * 0.15;
-            ironMan.position.y = hoverY;
-            chestLight.position.set(0, hoverY + 6.5, 1.5);
-            ironMan.rotation.y = THREE.MathUtils.lerp(ironMan.rotation.y, targetY, 0.1);
-            ironMan.rotation.x = THREE.MathUtils.lerp(ironMan.rotation.x, targetX, 0.1);
-            chestLight.intensity = 18 + Math.sin(time * 4) * 6;
-        }
         renderer.render(scene, camera);
     }
     animate();
@@ -151,6 +152,10 @@ let renderer;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }, { passive: true });
+
+    $('.offcanvas-body .nav-link').on('click', function() {
+        if(renderer) renderer.toneMappingExposure = 3.0; 
+    });
 })();
 
 console.log(
