@@ -112,44 +112,47 @@
 
   <div id="three-bg-container"></div>
   <canvas id="cursor-canvas"></canvas>
-  <header>
-    <nav class="navbar navbar-expand-lg fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#home" aria-label="Ahmer Shah Portfolio Home">AHMER SHAH</a>
+<header>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container d-flex justify-content-between align-items-center">
+      
+      <a class="navbar-brand" href="#home">AHMER SHAH</a>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="bi bi-list" style="color: #0ff0fc; font-size: 1.8rem"></i>
-        </button>
+      <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+        <span class="menu-btn-text">MENU</span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#education">Education</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#skills">Skills</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#certificates">Certifications</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#projects">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
-            </li>
-          </ul>
-        </div>
+      <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end" id="desktopNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
       </div>
-    </nav>
-  </header>
+
+    </div>
+  </nav>
+
+  <div class="offcanvas offcanvas-start bg-black text-white" tabindex="-1" id="offcanvasNavbar" style="width: 280px; border-right: 1px solid #0ff0fc;">
+    <div class="offcanvas-header border-bottom border-secondary">
+      <h5 class="offcanvas-title" style="color: #0ff0fc; font-weight: bold; letter-spacing: 2px;">SYSTEM MENU</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="#home" data-bs-dismiss="offcanvas">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about" data-bs-dismiss="offcanvas">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#education" data-bs-dismiss="offcanvas">Education</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills" data-bs-dismiss="offcanvas">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects" data-bs-dismiss="offcanvas">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact" data-bs-dismiss="offcanvas">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
 
   <main>
     <section id="home" class="hero-section d-flex align-items-center reveal-visible" aria-label="Introduction">

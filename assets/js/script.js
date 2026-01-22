@@ -285,6 +285,10 @@ $(document).ready(function () {
         });
     }
 
+    $('.offcanvas-body .nav-link').on('click', function() {
+    if(renderer) renderer.toneMappingExposure = 3.0; 
+});
+
     const cursorCanvas = document.getElementById('cursor-canvas');
 if (cursorCanvas) {
     const ctx = cursorCanvas.getContext('2d');
