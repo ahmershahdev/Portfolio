@@ -112,47 +112,49 @@
 
   <div id="three-bg-container"></div>
   <canvas id="cursor-canvas"></canvas>
-<header>
-  <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container d-flex justify-content-between align-items-center">
-      
-      <a class="navbar-brand" href="#home">AHMER SHAH</a>
+  <header>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container d-flex justify-content-between align-items-center">
 
-      <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
-        <span class="menu-btn-text">MENU</span>
-      </button>
+        <a class="navbar-brand" href="#home">AHMER SHAH</a>
 
-      <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end" id="desktopNav">
+        <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar">
+          <span class="menu-btn-text">MENU</span>
+        </button>
+
+        <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end" id="desktopNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+            <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+            <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start bg-black text-white" tabindex="-1" id="offcanvasNavbar"
+      style="width: 280px; border-right: 1px solid #0ff0fc;">
+      <div class="offcanvas-header border-bottom border-secondary">
+        <h5 class="offcanvas-title" style="color: #0ff0fc; font-weight: bold; letter-spacing: 2px;">SYSTEM MENU</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#home" data-bs-dismiss="offcanvas">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about" data-bs-dismiss="offcanvas">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education" data-bs-dismiss="offcanvas">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills" data-bs-dismiss="offcanvas">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects" data-bs-dismiss="offcanvas">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact" data-bs-dismiss="offcanvas">Contact</a></li>
         </ul>
       </div>
-
     </div>
-  </nav>
-
-  <div class="offcanvas offcanvas-start bg-black text-white" tabindex="-1" id="offcanvasNavbar" style="width: 280px; border-right: 1px solid #0ff0fc;">
-    <div class="offcanvas-header border-bottom border-secondary">
-      <h5 class="offcanvas-title" style="color: #0ff0fc; font-weight: bold; letter-spacing: 2px;">SYSTEM MENU</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="#home" data-bs-dismiss="offcanvas">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about" data-bs-dismiss="offcanvas">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#education" data-bs-dismiss="offcanvas">Education</a></li>
-        <li class="nav-item"><a class="nav-link" href="#skills" data-bs-dismiss="offcanvas">Skills</a></li>
-        <li class="nav-item"><a class="nav-link" href="#projects" data-bs-dismiss="offcanvas">Projects</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact" data-bs-dismiss="offcanvas">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</header>
+  </header>
 
   <main>
     <section id="home" class="hero-section d-flex align-items-center reveal-visible" aria-label="Introduction">
@@ -222,6 +224,12 @@
         <div class="row">
           <div class="col-lg-10 mx-auto">
             <article class="neon-border p-4 p-md-5" role="main">
+              <div class="terminal-header d-flex mb-4 border-bottom border-secondary pb-2">
+                <span class="dot bg-danger me-2"></span>
+                <span class="dot bg-warning me-2"></span>
+                <span class="dot bg-success"></span>
+                <span class="ms-auto small text-secondary font-monospace">@ahmershahdev</span>
+              </div>
               <p class="mb-4 lead-custom">
                 Hi, I'm <strong class="text-neon-green">Ahmer Shah</strong> — a passionate Software Engineering student
                 with a solid academic background and a deep interest in technology.
@@ -263,7 +271,7 @@
 
               <article class="timeline-item pb-5 border-start border-neon-green ps-4 position-relative" role="listitem">
                 <i class="bi bi-mortarboard-fill timeline-icon" aria-hidden="true"></i>
-                <h2 class="h5 mb-1 text-uppercase">Hyderabad Institute For Technology & Management Science</h2>
+                <h3 class="h5 mb-1 text-uppercase">Hyderabad Institute For Technology & Management Science</h3>
                 <div class="text-neon-blue mb-2 fw-bold">
                   Bachelor's in Software Engineering |
                   <time datetime="2024-11">Nov 2024</time> — <time datetime="2028-12">Dec 2028</time>
@@ -276,7 +284,7 @@
 
               <article class="timeline-item pb-5 border-start border-neon-green ps-4 position-relative" role="listitem">
                 <i class="bi bi-code-slash timeline-icon" aria-hidden="true"></i>
-                <h2 class="h5 mb-1 text-uppercase">Aptech Pakistan</h2>
+                <h3 class="h5 mb-1 text-uppercase">Aptech Pakistan</h3>
                 <div class="text-neon-blue mb-2 fw-bold">
                   Advanced Diploma in Software Engineering (ADSE) |
                   <time datetime="2025-08">Aug 2025</time> — <time datetime="2028-09">Sep 2028</time>
@@ -289,7 +297,7 @@
 
               <article class="timeline-item pb-5 border-start border-neon-green ps-4 position-relative" role="listitem">
                 <i class="bi bi-book timeline-icon" aria-hidden="true"></i>
-                <h2 class="h5 mb-1 text-uppercase">Superior College of Science Hyderabad</h2>
+                <h3 class="h5 mb-1 text-uppercase">Superior College of Science Hyderabad</h3>
                 <div class="text-neon-blue mb-2 fw-bold">
                   Higher Secondary Certificate (HSC) — Pre-Engineering |
                   <time datetime="2022-07">Jul 2022</time> — <time datetime="2024-07">Jul 2024</time>
@@ -301,7 +309,7 @@
 
               <article class="timeline-item ps-4 border-start border-neon-green position-relative" role="listitem">
                 <i class="bi bi-pencil-square timeline-icon" aria-hidden="true"></i>
-                <h2 class="h5 mb-1 text-uppercase">St. Bonaventure's High School Hyderabad</h2>
+                <h3 class="h5 mb-1 text-uppercase">St. Bonaventure's High School Hyderabad</h3>
                 <div class="text-neon-blue mb-2 fw-bold">
                   Secondary School Certificate (SSC) — Computer Science |
                   <time datetime="2012-04">Apr 2012</time> — <time datetime="2022-07">Jul 2022</time>
@@ -337,8 +345,8 @@
 
           <div class="col-md-6 col-lg-4 d-flex">
             <div class="skill-item w-100 p-3" role="group" aria-label="Backend Development Skills">
-              <h2 class="h5"><i class="bi bi-file-earmark-code-fill text-neon-blue me-2" aria-hidden="true"></i> Backend
-                Development</h2>
+              <h3 class="h5"><i class="bi bi-file-earmark-code-fill text-neon-blue me-2" aria-hidden="true"></i> Backend
+                Development</h3>
               <p class="small text-secondary">PHP, Laravel, WordPress</p>
               <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1)">
                 <div class="progress-bar" role="progressbar"
@@ -350,7 +358,7 @@
 
           <div class="col-md-6 col-lg-4 d-flex">
             <div class="skill-item w-100 p-3" role="group" aria-label="Database Skills">
-              <h2 class="h5"><i class="bi bi-server text-neon-blue me-2" aria-hidden="true"></i> Databases</h2>
+              <h3 class="h5"><i class="bi bi-server text-neon-blue me-2" aria-hidden="true"></i> Databases</h3>
               <p class="small text-secondary">MySQL</p>
               <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1)">
                 <div class="progress-bar" role="progressbar"
@@ -362,8 +370,8 @@
 
           <div class="col-md-6 col-lg-4 d-flex">
             <div class="skill-item w-100 p-3" role="group" aria-label="Programming Languages Skills">
-              <h2 class="h5"><i class="bi bi-braces text-neon-blue me-2" aria-hidden="true"></i> Programming Languages
-              </h2>
+              <h3 class="h5"><i class="bi bi-braces text-neon-blue me-2" aria-hidden="true"></i> Programming Languages
+              </h3>
               <p class="small text-secondary">Basic JavaScript</p>
               <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1)">
                 <div class="progress-bar" role="progressbar"
@@ -375,7 +383,7 @@
 
           <div class="col-md-6 col-lg-4 d-flex">
             <div class="skill-item w-100 p-3" role="group" aria-label="Development Tools Skills">
-              <h2 class="h5"><i class="bi bi-tools text-neon-blue me-2" aria-hidden="true"></i> Development Tools</h2>
+              <h3 class="h5"><i class="bi bi-tools text-neon-blue me-2" aria-hidden="true"></i> Development Tools</h3>
               <p class="small text-secondary">Git, GitHub, VS Code, WordPress</p>
               <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1)">
                 <div class="progress-bar" role="progressbar"
@@ -387,7 +395,7 @@
 
           <div class="col-md-6 col-lg-4 d-flex">
             <div class="skill-item w-100 p-3" role="group" aria-label="AI Tools Skills">
-              <h2 class="h5"><i class="bi bi-cpu text-neon-blue me-2" aria-hidden="true"></i> AI-Assisted Tools</h2>
+              <h3 class="h5"><i class="bi bi-cpu text-neon-blue me-2" aria-hidden="true"></i> AI-Assisted Tools</h3>
               <p class="small text-secondary">GitHub Copilot, Cursor AI, ChatGPT, Claude</p>
               <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1)">
                 <div class="progress-bar" role="progressbar"
@@ -399,8 +407,8 @@
 
           <div class="col-md-6 col-lg-4 d-flex">
             <div class="skill-item w-100 p-3" role="group" aria-label="Microsoft Office Skills">
-              <h2 class="h5"><i class="bi bi-file-earmark-text text-neon-blue me-2" aria-hidden="true"></i> Microsoft
-                Office</h2>
+              <h3 class="h5"><i class="bi bi-file-earmark-text text-neon-blue me-2" aria-hidden="true"></i> Microsoft
+                Office</h3>
               <p class="small text-secondary">Word, PowerPoint, Excel</p>
               <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1)">
                 <div class="progress-bar" role="progressbar"
@@ -412,7 +420,7 @@
 
           <div class="col-md-6 col-lg-4 d-flex">
             <div class="skill-item w-100 p-3" role="group" aria-label="SEO Skills">
-              <h2 class="h5"><i class="bi bi-search text-neon-blue me-2" aria-hidden="true"></i> SEO</h2>
+              <h3 class="h5"><i class="bi bi-search text-neon-blue me-2" aria-hidden="true"></i> SEO</h3>
               <p class="small text-secondary">Advanced Search Engine Optimization</p>
               <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1)">
                 <div class="progress-bar" role="progressbar"
@@ -424,7 +432,7 @@
 
           <div class="col-md-6 col-lg-4 d-flex">
             <div class="skill-item w-100 p-3" role="group" aria-label="Web Technologies Skills">
-              <h2 class="h5"><i class="bi bi-globe text-neon-blue me-2" aria-hidden="true"></i> Web Technologies</h2>
+              <h3 class="h5"><i class="bi bi-globe text-neon-blue me-2" aria-hidden="true"></i> Web Technologies</h3>
               <p class="small text-secondary">AJAX, JSON, XML</p>
               <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1)">
                 <div class="progress-bar" role="progressbar"

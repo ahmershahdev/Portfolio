@@ -378,3 +378,98 @@ window.addEventListener('deviceorientation', (event) => {
         ticking = true;
     }
 });
+
+const skillCards = document.querySelectorAll('.skill-item');
+
+const applySkillTilt = (card, x, y) => {
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (centerY - (y - rect.top)) / 15;
+    const rotateY = ((x - rect.left) - centerX) / 15;
+
+    window.requestAnimationFrame(() => {
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+};
+
+skillCards.forEach(card => {
+   
+    card.addEventListener('mousemove', (e) => applySkillTilt(card, e.clientX, e.clientY));
+    
+    card.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        applySkillTilt(card, touch.clientX, touch.clientY);
+    }, { passive: false });
+
+    const reset = () => card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    card.addEventListener('mouseleave', reset);
+    card.addEventListener('touchend', reset);
+});
+
+const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.progress-bar').forEach(bar => {
+                bar.style.width = bar.getAttribute('aria-valuenow') + '%';
+            });
+        }
+    });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.skill-item').forEach(item => skillObserver.observe(item));
+
+const educationItems = document.querySelectorAll('.timeline-item');
+
+educationItems.forEach(item => {
+  const handleMove = (e) => {
+    const rect = item.getBoundingClientRect();
+    const x = (e.clientX || e.touches[0].clientX) - rect.left;
+    const y = (e.clientY || e.touches[0].clientY) - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (centerY - y) / 50; 
+    const rotateY = (x - centerX) / 100;
+
+    window.requestAnimationFrame(() => {
+      item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateX(10px) translateZ(20px)`;
+    });
+  };
+
+  const handleReset = () => {
+    item.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateX(0px) translateZ(0px)`;
+  };
+
+  item.addEventListener('mousemove', handleMove);
+  item.addEventListener('mouseleave', handleReset);
+
+  item.addEventListener('touchmove', handleMove, { passive: true });
+  item.addEventListener('touchend', handleReset);
+});
+
+const textElement = document.querySelector('.glowing-text');
+const originalText = textElement.innerText;
+const chars = '!<>-_\\/[]{}—=+*^?#________';
+
+function scrambleText() {
+    let iteration = 0;
+    const interval = setInterval(() => {
+        textElement.innerText = originalText
+            .split("")
+            .map((letter, index) => {
+                if (index < iteration) return originalText[index];
+                return chars[Math.floor(Math.random() * chars.length)];
+            })
+            .join("");
+
+        if (iteration >= originalText.length) clearInterval(interval);
+        iteration += 1 / 3;
+    }, 30);
+}
+
+document.querySelector('.neon-border').addEventListener('mouseenter', scrambleText);
+document.querySelector('.neon-border').addEventListener('touchstart', scrambleText, {passive: true});
+

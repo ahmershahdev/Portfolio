@@ -133,7 +133,7 @@ button:active,
 }
 
 .offcanvas-body .nav-link {
-  font-size: 1.1rem;
+  font-size: 2rem;
   font-weight: 500;
   letter-spacing: 1px;
   padding: 1rem 0;
@@ -143,6 +143,7 @@ button:active,
   transition: all 0.3s ease;
   opacity: 0;
   transform: translateX(-20px);
+  font-family: 'Orbitron', sans-serif;
 }
 
 .offcanvas-body .nav-link.active {
@@ -488,11 +489,30 @@ html {
   to { width: 100%; left: 0; }
 }
 
+
+
 .hero-section {
   min-height: 100vh;
   display: flex;
   align-items: center;
   padding-top: 80px;
+  background: rgba(0, 20, 10, 0.4) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+.hero-section ul li {
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.hero-section ul li:hover {
+  background: rgba(0, 255, 65, 0.1);
+  padding-left: 20px;
 }
 
 .glowing-text {
@@ -513,9 +533,45 @@ html {
 }
 
 .neon-border {
-  border: 2px solid transparent;
-  border-image: linear-gradient(45deg, #0ff0fc, #00ff41) 1;
-  background-color: rgba(10, 15, 20, 0.85);
+  background: rgba(10, 15, 20, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  border-radius: 15px;
+  position: relative;
+  transition: border-color 0.5s ease;
+}
+
+.neon-border::before {
+  content: "";
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(45deg, #00ff41, #0ff0fc, #00ff41);
+  background-size: 400%;
+  z-index: -1;
+  border-radius: 16px;
+  opacity: 0.3;
+  filter: blur(10px);
+  animation: neonGlow 10s linear infinite;
+}
+
+@keyframes neonGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.neon-border strong, .neon-border .text-neon-green {
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.font-monospace {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .section-title {
@@ -532,58 +588,89 @@ html {
   border-image: linear-gradient(to right, #0ff0fc, #00ff41) 1;
 }
 
+#education .timeline {
+  perspective: 1000px;
+}
+
 .timeline-item {
   position: relative;
-  padding-left: 30px;
+  padding-left: 40px; 
   margin-bottom: 2.5rem;
   border-left: 2px solid #0ff0fc;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .timeline-icon {
   position: absolute;
-  left: -12px;
+  left: -16px;
+  top: 0;
   background: #0a0f14;
   color: #39ff14;
-  padding: 2px;
-  font-size: 1.2rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #0ff0fc;
+  border-radius: 50%;
+  font-size: 1rem;
+  z-index: 2;
+  transition: all 0.3s ease;
 }
 
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: -10px;
-  top: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #00ff41;
+.timeline-item:hover {
+  transform: translateX(10px) translateZ(20px);
+  border-left-color: #39ff14;
+  background: rgba(0, 255, 65, 0.05); 
+}
+
+.timeline-item:hover .timeline-icon {
+  background: #39ff14;
+  color: #0a0f14;
+  box-shadow: 0 0 15px #39ff14;
+  transform: scale(1.2) rotate(10deg);
+}
+
+ .timeline-item {
+  transform: translateZ(40px); 
+}
+
+#skills .row {
+  perspective: 1000px;
 }
 
 .skill-item {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: rgba(10, 15, 20, 0.7);
+  background-color: rgba(10, 15, 20, 0.9) !important;
   border: 1px solid rgba(0, 255, 252, 0.2);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s ease;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
-.skill-item h4 {
-  margin-bottom: 1rem;
+.skill-item .progress {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  overflow: visible; 
+  transform: translateZ(20px); 
 }
 
-.skill-item p {
-  flex-grow: 1;
-  margin-bottom: 1.5rem;
+.skill-item .progress-bar {
+  width: 0%; 
+  background: linear-gradient(90deg, #0ff0fc, #00ff41) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 252, 0.5);
+  transition: width 1.5s cubic-bezier(0.1, 0.5, 0.5, 1);
 }
 
-.skill-item:hover {
-  border-color: #00ff41;
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(0, 255, 252, 0.3), 0 0 30px rgba(0, 255, 65, 0.2);
+.skill-item h3, .skill-item p {
+  transform: translateZ(30px); 
 }
 
 .project-card {
