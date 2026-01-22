@@ -6,29 +6,58 @@
 }
 
 body {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="2" fill="%230ff0fc"/><path d="M16 8v4M16 20v4M8 16h4M20 16h4" stroke="%2300ff41" stroke-width="1.5" stroke-linecap="round"/><path d="M6 6l3 3M23 23l3 3M26 6l-3 3M9 23l-3 3" stroke="%2300ff41" stroke-width="1" opacity="0.5"/></svg>') 16 16, auto;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2300f0ff' stroke-width='1.5'><line x1='16' y1='6' x2='16' y2='12'/><line x1='16' y1='20' x2='16' y2='26'/><line x1='6' y1='16' x2='12' y2='16'/><line x1='20' y1='16' x2='26' y2='16'/><circle cx='16' cy='16' r='1.5' fill='%2300f0ff' stroke='none'/></g></svg>") 16 16, auto;
   font-family: "Exo 2", sans-serif;
   background-color: #0a0a0f;
   color: #f0f8ff;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
-a:hover,
-button:hover,
-.nav-link:hover,
-.social-icon:hover,
-.btn:hover {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M12 4H4v8M20 4h8v8M12 28H4v-8M20 28h8v8" fill="none" stroke="%230ff0fc" stroke-width="2"/><circle cx="16" cy="16" r="3" fill="%230ff0fc"><animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/></circle></svg>') 16 16, pointer !important;
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
 }
 
-a:active,
-button:active,
-.nav-link:active,
-.social-icon:active,
-.btn:active {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M16 4l12 12-12 12L4 16z" fill="%23ff2d2d" stroke="white" stroke-width="1.5"/><circle cx="16" cy="16" r="2" fill="white"/></svg>') 16 16, pointer !important;
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover,
+  .nav-link:hover,
+  .social-icon:hover,
+  a:hover,
+  button:hover {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2300ff41' stroke-width='2'><line x1='16' y1='4' x2='16' y2='28'/><line x1='4' y1='16' x2='28' y2='16'/><circle cx='16' cy='16' r='8' stroke-dasharray='4'/></g></svg>") 16 16, pointer !important;
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+  }
+
+  .btn:active,
+  .nav-link:active,
+  .social-icon:active,
+  a:active,
+  button:active {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%23ff003c' stroke-width='2'><circle cx='16' cy='16' r='12'/><circle cx='16' cy='16' r='2' fill='%23ff003c'/></g></svg>") 16 16, pointer !important;
+  }
 }
 
+@media (hover: none) {
+  body, .btn, .nav-link, .social-icon, a, button {
+    cursor: auto !important;
+  }
+
+  .btn:hover,
+  .nav-link:hover,
+  .social-icon:hover,
+  a:hover,
+  button:hover,
+  .btn:active,
+  .nav-link:active {
+    cursor: auto !important;
+    transform: none !important;
+    filter: none !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+  }
+}
 #loader-wrapper {
   position: fixed;
   top: 0;
@@ -626,14 +655,40 @@ html {
   position: relative;
   display: inline-block;
   margin-bottom: 3rem;
-  user-select: none;
-  background: linear-gradient(to right, #0ff0fc, #00ff41);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 8vw, 3rem);
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #0ff0fc 0%, #00ff41 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  padding-bottom: 10px;
-  border-bottom: 3px solid;
-  border-image: linear-gradient(to right, #0ff0fc, #00ff41) 1;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5));
+  letter-spacing: clamp(2px, 1vw, 5px);
+  transform: perspective(500px) rotateX(10deg);
+  max-width: 100%;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(2px, 0.5vw, 3px);
+  background: linear-gradient(to right, #0ff0fc, #00ff41);
+  box-shadow: 0 0 15px #0ff0fc;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    transform: perspective(500px) rotateX(5deg);
+    margin-bottom: 2rem;
+    text-align: center;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 #education {

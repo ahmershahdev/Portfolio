@@ -52,6 +52,7 @@ let renderer;
     rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
     const rain = new THREE.Points(rainGeo, new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.06 }));
     scrollGroup.add(rain);
+
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
     const loader = new GLTFLoader();
@@ -87,49 +88,19 @@ let renderer;
         homeGroup.add(roomModel);
     });
 
-    let secretRoom = null;
-    loader.load('assets/blender/background/secret_room.glb', (gltf) => {
-        secretRoom = gltf.scene;
-        const box = new THREE.Box3().setFromObject(secretRoom);
-        const size = box.getSize(new THREE.Vector3());
-        const scaleFactor = 35 / Math.max(size.x, size.y, size.z);
-        secretRoom.scale.set(scaleFactor, scaleFactor, scaleFactor);
-        secretRoom.position.set(0, -10, -8);
-        contactGroup.add(secretRoom);
-    });
-
-    function handleOrientation(event) {
-        let x = event.beta;
-        let y = event.gamma;
-
-        if (x === null || y === null) return;
-
-        targetY = THREE.MathUtils.clamp(y / 45, -1, 1);
-        targetX = THREE.MathUtils.clamp((x - 45) / 45, -0.5, 0.5);
+    function updateInput(x, y) {
+        targetY = (x / window.innerWidth - 0.5) * 1.5;
+        targetX = (y / window.innerHeight - 0.5) * 0.8;
     }
-
-    if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', handleOrientation, true);
-    }
-
-    const requestGyroAccess = () => {
-        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-            DeviceOrientationEvent.requestPermission()
-                .then(response => {
-                    if (response === 'granted') {
-                        window.addEventListener('deviceorientation', handleOrientation, true);
-                    }
-                })
-                .catch(console.error);
-        }
-    };
-
-    document.body.addEventListener('click', requestGyroAccess, { once: true });
-    document.body.addEventListener('touchstart', requestGyroAccess, { once: true });
 
     document.addEventListener('mousemove', (e) => {
-        targetY = (e.clientX / window.innerWidth - 0.5) * 1.5;
-        targetX = (e.clientY / window.innerHeight - 0.5) * 0.8;
+        updateInput(e.clientX, e.clientY);
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            updateInput(e.touches[0].clientX, e.touches[0].clientY);
+        }
     }, { passive: true });
 
     let transitionFactor = 0;
@@ -183,10 +154,8 @@ let renderer;
                 const hoverY = -5.0 + Math.sin(time * 2.5) * 0.2;
                 ironMan.position.y = hoverY;
                 chestLight.position.set(0, hoverY + 6.5, 1.5);
-
                 ironMan.rotation.y = THREE.MathUtils.lerp(ironMan.rotation.y, targetY, 0.15);
                 ironMan.rotation.x = THREE.MathUtils.lerp(ironMan.rotation.x, targetX, 0.15);
-
                 chestLight.intensity = (20 + Math.sin(time * 5) * 8) * transitionFactor * (1 - contactTransition);
             }
         }
@@ -397,7 +366,7 @@ const applyRotation = (card, x, y) => {
     const rotateY = ((x - rect.left) - centerX) / 10;
 
     window.requestAnimationFrame(() => {
-        card.style.transform = `perspective(1000px) translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        card.style.transform = `perspective(1000px) translateY(-2px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
     });
 };
 
@@ -510,32 +479,50 @@ if (textElement && trigger) {
     if (!aboutBox) return;
 
     const update3D = (x, y) => {
-
         aboutBox.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
-
-        const shine = aboutBox.querySelector('::after');
         aboutBox.style.setProperty('--shine-x', `${y * 2}%`);
         aboutBox.style.setProperty('--shine-y', `${-x * 2}%`);
+    };
+
+    const resetPosition = () => {
+        aboutBox.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        aboutBox.style.setProperty('--shine-x', `50%`);
+        aboutBox.style.setProperty('--shine-y', `50%`);
+    };
+
+    const handleInput = (clientX, clientY) => {
+        const rect = aboutBox.getBoundingClientRect();
+        const x = (rect.height / 2 - (clientY - rect.top)) / 20;
+        const y = ((clientX - rect.left) - rect.width / 2) / 30;
+        update3D(x, y);
     };
 
     document.addEventListener('mousemove', (e) => {
         if (window.innerWidth < 992) return;
         const rect = aboutBox.getBoundingClientRect();
-        const x = (rect.height / 2 - (e.clientY - rect.top)) / 20;
-        const y = ((e.clientX - rect.left) - rect.width / 2) / 30;
-        update3D(x, y);
+        if (
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom
+        ) {
+            handleInput(e.clientX, e.clientY);
+        } else {
+            resetPosition();
+        }
     });
 
-    window.addEventListener('deviceorientation', (e) => {
-        if (window.innerWidth >= 992) return;
-        const beta = e.beta || 0;
-        const gamma = e.gamma || 0;
-        const rotX = Math.max(Math.min(beta - 45, 15), -15);
-        const rotY = Math.max(Math.min(gamma, 15), -15);
-        update3D(rotX, rotY);
-    }, true);
+    aboutBox.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        handleInput(touch.clientX, touch.clientY);
+    }, { passive: true });
 
-    aboutBox.addEventListener('mouseleave', () => {
-        aboutBox.style.transform = `rotateX(0deg) rotateY(0deg)`;
-    });
+    aboutBox.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        handleInput(touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    aboutBox.addEventListener('mouseleave', resetPosition);
+    aboutBox.addEventListener('touchend', resetPosition);
+    aboutBox.addEventListener('touchcancel', resetPosition);
 })();
