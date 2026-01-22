@@ -69,14 +69,6 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
         ironMan.scale.set(scaleFactor, scaleFactor, scaleFactor);
         ironMan.position.set(-center.x * scaleFactor, -5.5, -center.z * scaleFactor);
         scene.add(ironMan);
-    }, (xhr) => {
-        if (xhr.lengthComputable) {
-            const percent = (xhr.loaded / xhr.total) * 100;
-            const $bar = document.getElementById('loading-bar');
-            const $text = document.getElementById('load-percent');
-            if ($bar) $bar.style.width = percent + '%';
-            if ($text) $text.innerText = Math.round(percent) + '%';
-        }
     });
 
     camera.position.set(0, 0, 15);
@@ -87,7 +79,27 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
         if (renderer.toneMappingExposure < 4.0) renderer.toneMappingExposure += 0.05;
     }, { passive: true });
 
+    document.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        targetY = (touch.clientX / window.innerWidth - 0.5) * 1.0;
+        targetX = (touch.clientY / window.innerHeight - 0.5) * 0.4;
+    }, { passive: true });
+
+    function handleOrientation(event) {
+        if (!event.gamma || !event.beta) return;
+        targetY = THREE.MathUtils.clamp(event.gamma / 45, -1, 1); 
+        targetX = THREE.MathUtils.clamp((event.beta - 45) / 45, -0.5, 0.5);
+    }
+
     document.addEventListener('click', () => {
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission().then(res => {
+                if (res === 'granted') window.addEventListener('deviceorientation', handleOrientation);
+            }).catch(console.error);
+        } else {
+            window.addEventListener('deviceorientation', handleOrientation);
+        }
+
         if (ironMan) {
             renderer.toneMappingExposure = 7.0;
             chestLight.intensity = 150;
@@ -121,8 +133,8 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
             const hoverY = -5.0 + Math.sin(time * 2) * 0.15;
             ironMan.position.y = hoverY;
             chestLight.position.set(0, hoverY + 6.5, 1.5);
-            ironMan.rotation.y = THREE.MathUtils.lerp(ironMan.rotation.y, targetY, 0.4);
-            ironMan.rotation.x = THREE.MathUtils.lerp(ironMan.rotation.x, targetX, 0.4);
+            ironMan.rotation.y = THREE.MathUtils.lerp(ironMan.rotation.y, targetY, 0.1);
+            ironMan.rotation.x = THREE.MathUtils.lerp(ironMan.rotation.x, targetX, 0.1);
             chestLight.intensity = 18 + Math.sin(time * 4) * 6;
         }
         renderer.render(scene, camera);
