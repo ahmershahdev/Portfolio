@@ -428,53 +428,82 @@ document.querySelectorAll('.skill-item').forEach(item => skillObserver.observe(i
 const educationItems = document.querySelectorAll('.timeline-item');
 
 educationItems.forEach(item => {
-  const handleMove = (e) => {
-    const rect = item.getBoundingClientRect();
-    const x = (e.clientX || e.touches[0].clientX) - rect.left;
-    const y = (e.clientY || e.touches[0].clientY) - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    let rect, rafId, isMoving = false;
 
-    const rotateX = (centerY - y) / 50; 
-    const rotateY = (x - centerX) / 100;
+    const handleEnter = () => {
+        rect = item.getBoundingClientRect();
+        isMoving = true;
+    };
 
-    window.requestAnimationFrame(() => {
-      item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateX(10px) translateZ(20px)`;
-    });
-  };
+    const handleMove = (e) => {
+        if (!isMoving || !rect) return;
 
-  const handleReset = () => {
-    item.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateX(0px) translateZ(0px)`;
-  };
+        const clientX = e.clientX || e.touches[0].clientX;
+        const clientY = e.clientY || e.touches[0].clientY;
 
-  item.addEventListener('mousemove', handleMove);
-  item.addEventListener('mouseleave', handleReset);
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        const rotateX = (rect.height / 2 - y) / 50;
+        const rotateY = (x - rect.width / 2) / 100;
 
-  item.addEventListener('touchmove', handleMove, { passive: true });
-  item.addEventListener('touchend', handleReset);
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+            item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateX(10px) translateZ(20px)`;
+        });
+    };
+
+    const handleReset = () => {
+        isMoving = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        item.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateX(0px) translateZ(0px)`;
+    };
+
+    item.addEventListener('mouseenter', handleEnter, { passive: true });
+    item.addEventListener('mousemove', handleMove, { passive: true });
+    item.addEventListener('mouseleave', handleReset, { passive: true });
+
+    item.addEventListener('touchstart', handleEnter, { passive: true });
+    item.addEventListener('touchmove', handleMove, { passive: true });
+    item.addEventListener('touchend', handleReset, { passive: true });
 });
 
 const textElement = document.querySelector('.glowing-text');
+const trigger = document.querySelector('.neon-border');
 const originalText = textElement.innerText;
 const chars = '!<>-_\\/[]{}—=+*^?#________';
+let frameId = null;
 
-function scrambleText() {
+function scramble() {
+    if (frameId) cancelAnimationFrame(frameId);
+
     let iteration = 0;
-    const interval = setInterval(() => {
-        textElement.innerText = originalText
-            .split("")
-            .map((letter, index) => {
-                if (index < iteration) return originalText[index];
-                return chars[Math.floor(Math.random() * chars.length)];
-            })
-            .join("");
+    const startTime = performance.now();
 
-        if (iteration >= originalText.length) clearInterval(interval);
-        iteration += 1 / 3;
-    }, 30);
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        iteration = elapsed / 50; 
+
+        let result = "";
+        for (let i = 0; i < originalText.length; i++) {
+            if (i < iteration) {
+                result += originalText[i];
+            } else {
+                result += chars[Math.floor(Math.random() * chars.length)];
+            }
+        }
+
+        textElement.innerText = result;
+
+        if (iteration < originalText.length) {
+            frameId = requestAnimationFrame(update);
+        } else {
+            textElement.innerText = originalText;
+            frameId = null;
+        }
+    }
+
+    frameId = requestAnimationFrame(update);
 }
 
-document.querySelector('.neon-border').addEventListener('mouseenter', scrambleText);
-document.querySelector('.neon-border').addEventListener('touchstart', scrambleText, {passive: true});
-
+trigger.addEventListener('mouseenter', scramble);
+trigger.addEventListener('touchstart', scramble, { passive: true });
