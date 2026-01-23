@@ -265,11 +265,40 @@ $(document).ready(function () {
         }
     });
 
+
     window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) { if (!upBtn.hasClass("show")) upBtn.addClass("show"); }
-        else { upBtn.removeClass("show"); }
+        if (window.scrollY > 400) {
+            upBtn.addClass("show");
+        } else {
+            upBtn.removeClass("show");
+        }
     }, { passive: true });
 
+    function firePistol(e) {
+        if (e.cancelable) {
+            e.preventDefault();
+        }
+
+        if (upBtn.hasClass('firing')) return;
+
+        upBtn.addClass('firing');
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        setTimeout(() => {
+            upBtn.removeClass('firing');
+        }, 1000);
+    }
+
+    upBtn.on('click', firePistol);
+
+    const btnElement = document.getElementById('backToTop');
+    if (btnElement) {
+        btnElement.addEventListener('touchstart', firePistol, { passive: false });
+    }
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
