@@ -183,7 +183,7 @@ console.log(
 
 $(document).ready(function () {
     const $bar = $('#loading-bar'), $percentText = $('#load-percent'), $quote = $('#dynamic-quote'), $wrapper = $('#loader-wrapper'), $typeElement = $("#typewriter");
-    const navBtn = $(".nav-link"), upBtn = $("#backToTop"), navbarCollapse = $(".navbar-collapse"), contactForm = document.getElementById('contact-form');
+    const navBtn = $(".nav-link"), dropdownLinks = $(".dropdown-item"), upBtn = $("#backToTop"), navbarCollapse = $(".navbar-collapse"), contactForm = document.getElementById('contact-form');
     const navHeight = 65;
     let isScrollingManual = false;
 
@@ -214,7 +214,14 @@ $(document).ready(function () {
                 if (entry.isIntersecting) {
                     const id = `#${entry.target.id}`;
                     navBtn.removeClass("active").removeAttr("aria-current");
-                    $(`.nav-link[href="${id}"]`).addClass("active").attr("aria-current", "page");
+                    dropdownLinks.removeClass("active");
+
+                    const $target = $(`.nav-link[href="${id}"], .dropdown-item[href="${id}"]`);
+                    $target.addClass("active").attr("aria-current", "page");
+
+                    if ($target.hasClass('dropdown-item')) {
+                        $target.closest('.dropdown').find('.nav-link').addClass('active');
+                    }
                 }
             });
         }, { rootMargin: `-${navHeight}px 0px -45% 0px`, threshold: 0 });
@@ -251,54 +258,47 @@ $(document).ready(function () {
         setTimeout(type, speed);
     })();
 
-    navBtn.on("click", function (e) {
-        const id = $(this).attr("href"), targetEl = document.querySelector(id);
+    navBtn.add(dropdownLinks).on("click", function (e) {
+        const id = $(this).attr("href");
+        if (!id || id.startsWith("javascript")) return;
+        const targetEl = document.querySelector(id);
         if (targetEl) {
             e.preventDefault();
             isScrollingManual = true;
             navBtn.removeClass("active").removeAttr("aria-current");
+            dropdownLinks.removeClass("active");
             $(this).addClass("active").attr("aria-current", "page");
+            if ($(this).hasClass('dropdown-item')) {
+                $(this).closest('.dropdown').find('.nav-link').addClass('active');
+            }
             const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight + 1;
             window.scrollTo({ top: targetPos, behavior: 'smooth' });
             setTimeout(() => { isScrollingManual = false; }, 850);
             if (navbarCollapse.hasClass("show")) navbarCollapse.collapse('hide');
+            const offcanvasEl = document.getElementById('offcanvasNavbar');
+            if (offcanvasEl && offcanvasEl.classList.contains('show')) {
+                bootstrap.Offcanvas.getInstance(offcanvasEl).hide();
+            }
         }
     });
 
-
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-            upBtn.addClass("show");
-        } else {
-            upBtn.removeClass("show");
-        }
+        if (window.scrollY > 400) upBtn.addClass("show");
+        else upBtn.removeClass("show");
     }, { passive: true });
 
     function firePistol(e) {
-        if (e.cancelable) {
-            e.preventDefault();
-        }
-
+        if (e.cancelable) e.preventDefault();
         if (upBtn.hasClass('firing')) return;
-
         upBtn.addClass('firing');
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-
-        setTimeout(() => {
-            upBtn.removeClass('firing');
-        }, 1000);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => { upBtn.removeClass('firing'); }, 1000);
     }
 
     upBtn.on('click', firePistol);
-
     const btnElement = document.getElementById('backToTop');
-    if (btnElement) {
-        btnElement.addEventListener('touchstart', firePistol, { passive: false });
-    }
+    if (btnElement) btnElement.addEventListener('touchstart', firePistol, { passive: false });
+
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -412,7 +412,7 @@ $(document).ready(function () {
 
     const textEl = document.querySelector('.glowing-text'), trig = document.querySelector('.neon-border');
     if (textEl && trig) {
-        const orig = textEl.innerText, chars = '!<>-_\\/[]{}—=+*^?#________';
+        const orig = textEl.innerText, chars = '!<>-_\\/[]{}—=+*^?________';
         let fid = null;
         trig.addEventListener('mouseenter', () => {
             if (fid) cancelAnimationFrame(fid);

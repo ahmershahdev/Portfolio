@@ -148,13 +148,31 @@
         </button>
 
         <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end" id="desktopNav">
-          <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-            <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-            <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item"><a class="nav-link" href="#home"><i
+                  class="fas fa-terminal me-2"></i><span>Home</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#about"><i
+                  class="fas fa-user-secret me-2"></i><span>About</span></a></li>
+
+
+
+            <li class="nav-item"><a class="nav-link" href="#education"><i
+                  class="fas fa-university me-2"></i><span>Education</span></a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="skillsDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-microchip me-2"></i><span>Capabilities</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark custom-glow-menu" aria-labelledby="skillsDropdown">
+                <li><a class="dropdown-item" href="#skills"><i class="fas fa-code-branch me-2"></i>Skills</a></li>
+                <li><a class="dropdown-item" href="#projects"><i class="fas fa-project-diagram me-2"></i>Projects</a>
+                </li>
+                <li><a class="dropdown-item" href="#certificates"><i class="fas fa-shield-alt me-2"></i>Certificates</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#contact"><i
+                  class="fas fa-satellite-dish me-2"></i><span>Contact</span></a></li>
           </ul>
         </div>
 
@@ -164,17 +182,27 @@
     <div class="offcanvas offcanvas-start bg-black text-white" tabindex="-1" id="offcanvasNavbar"
       style="width: 280px; border-right: 1px solid #0ff0fc;">
       <div class="offcanvas-header border-bottom border-secondary">
-        <h5 class="offcanvas-title" style="color: #0ff0fc; font-weight: bold; letter-spacing: 2px;">SYSTEM MENU</h5>
+        <h5 class="offcanvas-title" style="color: #0ff0fc; font-weight: bold; letter-spacing: 2px;">
+          <i class="fas fa-shredder me-2"></i>SYSTEM_MENU
+        </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="#home" data-bs-dismiss="offcanvas">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about" data-bs-dismiss="offcanvas">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#education" data-bs-dismiss="offcanvas">Education</a></li>
-          <li class="nav-item"><a class="nav-link" href="#skills" data-bs-dismiss="offcanvas">Skills</a></li>
-          <li class="nav-item"><a class="nav-link" href="#projects" data-bs-dismiss="offcanvas">Projects</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact" data-bs-dismiss="offcanvas">Contact</a></li>
+          <li class="nav-item"><a class="nav-link py-3" href="#home" data-bs-dismiss="offcanvas"><i
+                class="fas fa-terminal me-3"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link py-3" href="#about" data-bs-dismiss="offcanvas"><i
+                class="fas fa-user-secret me-3"></i>About</a></li>
+          <li class="nav-item"><a class="nav-link py-3" href="#education" data-bs-dismiss="offcanvas"><i
+                class="fas fa-microchip me-3"></i>Education</a></li>
+          <li class="nav-item"><a class="nav-link py-3" href="#skills" data-bs-dismiss="offcanvas"><i
+                class="fas fa-code-branch me-3"></i>Skills</a></li>
+          <li class="nav-item"><a class="nav-link py-3" href="#certificates" data-bs-dismiss="offcanvas"><i
+                class="fas fa-shield-alt me-3"></i>Certification</a></li>
+          <li class="nav-item"><a class="nav-link py-3" href="#projects" data-bs-dismiss="offcanvas"><i
+                class="fas fa-project-diagram me-3"></i>Projects</a></li>
+          <li class="nav-item"><a class="nav-link py-3" href="#contact" data-bs-dismiss="offcanvas"><i
+                class="fas fa-satellite-dish me-3"></i>Contact</a></li>
         </ul>
       </div>
     </div>
