@@ -23,7 +23,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
         powerPreference: "high-performance",
         precision: "lowp"
     });
-    
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -100,14 +100,34 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
     let tF = 0, cF = 0;
     const clock = new THREE.Clock();
 
+    let currentScrollY = 0;
+    let cachedTotalH = 2000;
+    let cachedWinH = 800;
+
+    window.addEventListener('load', () => {
+        currentScrollY = window.pageYOffset;
+        cachedTotalH = document.documentElement.scrollHeight;
+        cachedWinH = window.innerHeight;
+    });
+
+    window.addEventListener('scroll', () => {
+        currentScrollY = window.pageYOffset;
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        cachedTotalH = document.documentElement.scrollHeight;
+        cachedWinH = window.innerHeight;
+        camera.aspect = window.innerWidth / cachedWinH;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, cachedWinH);
+    }, { passive: true });
+
     function animate() {
         requestAnimationFrame(animate);
         const time = clock.getElapsedTime();
-        const scrollY = window.scrollY;
-        const totalH = document.documentElement.scrollHeight;
 
-        tF = THREE.MathUtils.lerp(tF, THREE.MathUtils.clamp(scrollY / (window.innerHeight * 0.8), 0, 1), 0.08);
-        cF = THREE.MathUtils.lerp(cF, (window.innerHeight + scrollY) >= (totalH - 750) ? 1 : 0, 0.08);
+        tF = THREE.MathUtils.lerp(tF, THREE.MathUtils.clamp(currentScrollY / (cachedWinH * 0.8), 0, 1), 0.08);
+        cF = THREE.MathUtils.lerp(cF, (cachedWinH + currentScrollY) >= (cachedTotalH - 750) ? 1 : 0, 0.08);
 
         homeGroup.position.y = tF * 25;
         homeGroup.scale.setScalar(1 - tF);
@@ -151,12 +171,6 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
         renderer.render(scene, camera);
     }
     animate();
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    }, { passive: true });
 })();
 
 console.log(
@@ -171,7 +185,7 @@ $(document).ready(function () {
     const $bar = $('#loading-bar'), $percentText = $('#load-percent'), $quote = $('#dynamic-quote'), $wrapper = $('#loader-wrapper'), $typeElement = $("#typewriter");
     const navBtn = $(".nav-link"), upBtn = $("#backToTop"), navbarCollapse = $(".navbar-collapse"), contactForm = document.getElementById('contact-form');
     const navHeight = 65;
-    let sections = [], isScrollingManual = false;
+    let isScrollingManual = false;
 
     $('html, body').css({ 'overflow-x': 'hidden', 'overflow-y': 'hidden', 'scroll-behavior': 'smooth' });
 
@@ -193,38 +207,37 @@ $(document).ready(function () {
         $percentText.text(Math.floor(loadWidth) + '%');
     }, 60);
 
-    const updateSectionCache = () => {
-        sections = [];
-        $("#desktopNav .nav-link").each(function () {
-            const id = $(this).attr("href");
-            const $target = $(id);
-            if ($target.length) {
-                const top = Math.floor($target.offset().top);
-                sections.push({ id: id, top: top - navHeight - 20, bottom: top + $target.outerHeight() - navHeight });
-            }
-        });
+    const initNavObserver = () => {
+        const observer = new IntersectionObserver((entries) => {
+            if (isScrollingManual) return;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = `#${entry.target.id}`;
+                    navBtn.removeClass("active").removeAttr("aria-current");
+                    $(`.nav-link[href="${id}"]`).addClass("active").attr("aria-current", "page");
+                }
+            });
+        }, { rootMargin: `-${navHeight}px 0px -45% 0px`, threshold: 0 });
+        document.querySelectorAll("section[id]").forEach(section => observer.observe(section));
     };
 
     const finishLoading = () => {
         clearInterval(loadingInterval);
         $bar.stop().css('width', '100%');
         $percentText.text('100%');
-        updateSectionCache();
         setTimeout(() => {
             if ($wrapper.length) {
-                $wrapper.fadeOut(600, function () {
+                $wrapper.fadeOut(400, function () {
                     $(this).hide();
                     $('html, body').css({ 'overflow-y': 'auto', 'overflow-x': 'hidden' });
+                    initNavObserver();
                 });
             }
-        }, 200);
+        }, 100);
     };
 
-    const failsafe = setTimeout(finishLoading, 3000);
-    $(window).on("load", () => { 
-        clearTimeout(failsafe); 
-        setTimeout(finishLoading, 100); 
-    });
+    const failsafe = setTimeout(finishLoading, 1500);
+    $(window).on("load", () => { clearTimeout(failsafe); finishLoading(); });
 
     let pIdx = 0, cIdx = 0, isDeleting = false;
     (function type() {
@@ -238,39 +251,24 @@ $(document).ready(function () {
         setTimeout(type, speed);
     })();
 
-    let resizeTimer;
-    $(window).on("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(updateSectionCache, 200); });
-
     navBtn.on("click", function (e) {
-        const id = $(this).attr("href");
-        const $target = $(id);
-        if ($target.length) {
+        const id = $(this).attr("href"), targetEl = document.querySelector(id);
+        if (targetEl) {
             e.preventDefault();
             isScrollingManual = true;
             navBtn.removeClass("active").removeAttr("aria-current");
-            $(`.nav-link[href="${id}"]`).addClass("active").attr("aria-current", "page");
-            $("html, body").stop().animate({ scrollTop: $target.offset().top - navHeight + 1 }, 800, () => {
-                setTimeout(() => { isScrollingManual = false; }, 50);
-            });
+            $(this).addClass("active").attr("aria-current", "page");
+            const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight + 1;
+            window.scrollTo({ top: targetPos, behavior: 'smooth' });
+            setTimeout(() => { isScrollingManual = false; }, 850);
             if (navbarCollapse.hasClass("show")) navbarCollapse.collapse('hide');
         }
     });
 
-    $(window).on("scroll", () => {
-        const pos = window.pageYOffset;
-        pos > 300 ? upBtn.addClass("show") : upBtn.removeClass("show");
-        if (isScrollingManual) return;
-        const checkPos = pos + 10;
-        for (let i = 0; i < sections.length; i++) {
-            if (checkPos >= sections[i].top && checkPos < sections[i].bottom) {
-                if (!$(`.nav-link[href="${sections[i].id}"]`).hasClass("active")) {
-                    navBtn.removeClass("active").removeAttr("aria-current");
-                    $(`.nav-link[href="${sections[i].id}"]`).addClass("active").attr("aria-current", "page");
-                }
-                break;
-            }
-        }
-    });
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) { if (!upBtn.hasClass("show")) upBtn.addClass("show"); }
+        else { upBtn.removeClass("show"); }
+    }, { passive: true });
 
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -300,11 +298,9 @@ $(document).ready(function () {
     const initCursor = () => {
         const cursorCanvas = document.getElementById('cursor-canvas');
         if (!cursorCanvas || 'ontouchstart' in window || navigator.maxTouchPoints > 0) return cursorCanvas && (cursorCanvas.style.display = 'none');
-        const ctx = cursorCanvas.getContext('2d');
-        let mouse = { x: 0, y: 0 }, dots = [], totalDots = 12, friction = 0.4, isVisible = false;
-        for (let i = 0; i < totalDots; i++) dots.push({ x: 0, y: 0 });
+        const ctx = cursorCanvas.getContext('2d', { alpha: true });
+        let mouse = { x: 0, y: 0 }, dots = Array.from({ length: 10 }, () => ({ x: 0, y: 0 })), friction = 0.4, isVisible = false;
         window.addEventListener('mousemove', (e) => { isVisible = true; mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
-        window.addEventListener('mouseout', () => isVisible = false);
         window.addEventListener('resize', () => { cursorCanvas.width = window.innerWidth; cursorCanvas.height = window.innerHeight; }, { passive: true });
         cursorCanvas.width = window.innerWidth; cursorCanvas.height = window.innerHeight;
         (function animateCursor() {
@@ -314,14 +310,9 @@ $(document).ready(function () {
                 dots.forEach((dot, i) => {
                     dot.x += (x - dot.x) * friction; dot.y += (y - dot.y) * friction;
                     const color = i % 2 === 0 ? '#0ff0fc' : '#00ff41';
-                    ctx.globalAlpha = 1 - (i / totalDots);
+                    ctx.globalAlpha = 1 - (i / 10);
                     ctx.beginPath(); ctx.fillStyle = color;
-                    ctx.shadowBlur = 10; ctx.shadowColor = color;
-                    ctx.arc(dot.x, dot.y, (totalDots - i) * 1.1, 0, Math.PI * 2); ctx.fill();
-                    if (i > 0) {
-                        ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 1.5;
-                        ctx.moveTo(dots[i - 1].x, dots[i - 1].y); ctx.lineTo(dot.x, dot.y); ctx.stroke();
-                    }
+                    ctx.arc(dot.x, dot.y, (10 - i) * 1.1, 0, Math.PI * 2); ctx.fill();
                     x = dot.x; y = dot.y;
                 });
             }
@@ -332,14 +323,24 @@ $(document).ready(function () {
 
     const handleTilt = (elements, intensity, scale) => {
         elements.forEach(el => {
+            let rect = null;
+            const updateRect = () => { rect = el.getBoundingClientRect(); };
             const move = (e) => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX || (e.touches ? e.touches[0].clientX : 0), y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-                requestAnimationFrame(() => el.style.transform = `perspective(1000px) rotateX(${(rect.height / 2 - (y - rect.top)) / intensity}deg) rotateY(${((x - rect.left) - rect.width / 2) / intensity}deg) scale3d(${scale},${scale},${scale})`);
+                if (!rect) updateRect();
+                const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+                const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+                requestAnimationFrame(() => {
+                    if (!rect) return;
+                    const rotateX = (rect.height / 2 - (y - rect.top)) / intensity;
+                    const rotateY = ((x - rect.left) - rect.width / 2) / intensity;
+                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale},${scale},${scale})`;
+                });
             };
-            const reset = () => el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)`;
+            const reset = () => { rect = null; el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)`; };
+            el.addEventListener('mouseenter', updateRect, { passive: true });
             el.addEventListener('mousemove', move, { passive: true });
-            el.addEventListener('touchmove', move, { passive: false });
+            el.addEventListener('touchstart', updateRect, { passive: true });
+            el.addEventListener('touchmove', move, { passive: true });
             el.addEventListener('mouseleave', reset);
             el.addEventListener('touchend', reset);
         });
@@ -357,18 +358,26 @@ $(document).ready(function () {
     document.querySelectorAll('.skill-item').forEach(item => skillObserver.observe(item));
 
     document.querySelectorAll('.timeline-item').forEach(item => {
-        let rect, raf;
+        let rect = null, raf = null;
+        const updateRect = () => { rect = item.getBoundingClientRect(); };
         const move = (e) => {
-            if (!rect) rect = item.getBoundingClientRect();
-            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0), y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            if (!rect) updateRect();
+            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
             if (raf) cancelAnimationFrame(raf);
-            raf = requestAnimationFrame(() => item.style.transform = `perspective(2000px) rotateX(${(rect.height / 2 - (y - rect.top)) / 10}deg) rotateY(${((x - rect.left) - rect.width / 2) / 10}deg) translateZ(50px)`);
+            raf = requestAnimationFrame(() => {
+                if (!rect) return;
+                const rotateX = (rect.height / 2 - (y - rect.top)) / 10;
+                const rotateY = ((x - rect.left) - rect.width / 2) / 10;
+                item.style.transform = `perspective(2000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(50px)`;
+            });
         };
         const reset = () => { rect = null; if (raf) cancelAnimationFrame(raf); item.style.transform = `perspective(2000px) rotateX(0) rotateY(0) translateZ(0)`; };
+        item.addEventListener('mouseenter', updateRect, { passive: true });
         item.addEventListener('mousemove', move, { passive: true });
-        item.addEventListener('mouseleave', reset);
-        item.addEventListener('touchstart', () => rect = item.getBoundingClientRect(), { passive: true });
+        item.addEventListener('touchstart', updateRect, { passive: true });
         item.addEventListener('touchmove', move, { passive: true });
+        item.addEventListener('mouseleave', reset);
         item.addEventListener('touchend', reset);
     });
 
@@ -376,7 +385,7 @@ $(document).ready(function () {
     if (textEl && trig) {
         const orig = textEl.innerText, chars = '!<>-_\\/[]{}—=+*^?#________';
         let fid = null;
-        trig.addEventListener('mouseenter', function scramble() {
+        trig.addEventListener('mouseenter', () => {
             if (fid) cancelAnimationFrame(fid);
             const start = performance.now();
             (function up(cur) {
@@ -389,23 +398,28 @@ $(document).ready(function () {
 
     const aboutBox = document.querySelector('#about .neon-border');
     if (aboutBox) {
-        const reset = () => { aboutBox.style.transform = `rotateX(0) rotateY(0)`; aboutBox.style.setProperty('--shine-x', '50%'); aboutBox.style.setProperty('--shine-y', '50%'); };
+        let aboutRect = null;
+        const updateAboutRect = () => { aboutRect = aboutBox.getBoundingClientRect(); };
+        const reset = () => { aboutRect = null; aboutBox.style.transform = `rotateX(0) rotateY(0)`; aboutBox.style.setProperty('--shine-x', '50%'); aboutBox.style.setProperty('--shine-y', '50%'); };
         const move = (e) => {
             if (window.innerWidth < 992) return;
-            const rect = aboutBox.getBoundingClientRect();
-            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0), y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-            aboutBox.style.transform = `rotateX(${(rect.height / 2 - (y - rect.top)) / 20}deg) rotateY(${((x - rect.left) - rect.width / 2) / 30}deg)`;
-            aboutBox.style.setProperty('--shine-x', `${((x - rect.left) - rect.width / 2) / 15 * 2}%`);
-            aboutBox.style.setProperty('--shine-y', `${-(rect.height / 2 - (y - rect.top)) / 10 * 2}%`);
+            if (!aboutRect) updateAboutRect();
+            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            requestAnimationFrame(() => {
+                if (!aboutRect) return;
+                aboutBox.style.transform = `rotateX(${(aboutRect.height / 2 - (y - aboutRect.top)) / 20}deg) rotateY(${((x - aboutRect.left) - aboutRect.width / 2) / 30}deg)`;
+                aboutBox.style.setProperty('--shine-x', `${((x - aboutRect.left) - aboutRect.width / 2) / 15 * 2}%`);
+                aboutBox.style.setProperty('--shine-y', `${-(aboutRect.height / 2 - (y - aboutRect.top)) / 10 * 2}%`);
+            });
         };
-        document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth < 992) return;
-            const r = aboutBox.getBoundingClientRect();
-            (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) ? move(e) : reset();
-        });
-        aboutBox.addEventListener('touchmove', (e) => {
-            if (window.innerWidth >= 992) move(e);
+        window.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < 992 || !aboutBox) return;
+            if (!aboutRect) updateAboutRect();
+            (e.clientX >= aboutRect.left && e.clientX <= aboutRect.right && e.clientY >= aboutRect.top && e.clientY <= aboutRect.bottom) ? move(e) : reset();
         }, { passive: true });
+        aboutBox.addEventListener('touchstart', updateAboutRect, { passive: true });
+        aboutBox.addEventListener('touchmove', move, { passive: true });
         aboutBox.addEventListener('mouseleave', reset);
         aboutBox.addEventListener('touchend', reset);
     }
