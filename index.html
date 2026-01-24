@@ -31,27 +31,28 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
 
-  <link rel="icon" type="image/x-icon" href="assets/images/favicon/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#000000">
 
-  <link rel="preload" href="assets/css/style.css" as="style" fetchpriority="high">
   <link rel="preload" href="assets/blender/character/iron_man.glb" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="https://www.gstatic.com/draco/versioned/decoders/1.5.6/draco_wasm_wrapper.js" as="script"
+    crossorigin="anonymous">
   <link rel="preload" href="https://www.gstatic.com/draco/versioned/decoders/1.5.6/draco_decoder.wasm" as="fetch"
     crossorigin="anonymous">
+
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon/favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#000000">
 
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/all.min.css" media="print" onload="this.media='all'">
+
+  <link rel="stylesheet" href="assets/css/style.min.css" fetchpriority="high">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
     media="print" onload="this.media='all'">
-
-  <link rel="stylesheet" href="assets/css/style.css">
 
   <style>
     .glowing-text {
@@ -806,7 +807,7 @@
 
   <script src="assets/js/jquery-3.7.1.min.js" defer></script>
   <script src="assets/js/bootstrap.min.js" defer></script>
-  <script type="module" src="assets/js/script.js" defer></script>
+  <script type="module" src="assets/js/script.min.js" defer></script>
 </body>
 
 </html>
