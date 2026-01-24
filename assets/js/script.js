@@ -2,14 +2,14 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
-(function () {
+(function initializeThreeScene() {
     const container = document.getElementById('three-bg-container');
     if (!container) return;
 
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x000000, 5, 60);
 
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 200);
+    const camera = new THREE.PerspectiveCamera(65, container.clientWidth / container.clientHeight, 0.1, 200);
     camera.position.set(0, 0, 15);
 
     const homeGroup = new THREE.Group();
@@ -24,14 +24,15 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
         precision: "lowp"
     });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ReinhardToneMapping;
-    renderer.toneMappingExposure = 3.0;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 2.0;
     container.appendChild(renderer.domElement);
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+    
     const mainLight = new THREE.DirectionalLight(0xffffff, 4);
     mainLight.position.set(5, 10, 7.5);
     scene.add(mainLight);
@@ -39,138 +40,218 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
     const chestLight = new THREE.PointLight(0x00f0ff, 20, 15);
     scrollGroup.add(chestLight);
 
-    const groundGeo = new THREE.PlaneGeometry(120, 120, 32, 32);
-    const meshGround = new THREE.Mesh(groundGeo, new THREE.MeshBasicMaterial({
-        color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.1
-    }));
-    meshGround.rotation.x = -Math.PI / 2;
-    meshGround.position.y = -6;
-    scrollGroup.add(meshGround);
+    const groundGeometry = new THREE.PlaneGeometry(120, 120, 16, 16);
+    const groundMaterial = new THREE.MeshBasicMaterial({
+        color: 0x00f0ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.1,
+        depthWrite: false
+    });
+    const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
+    groundMesh.rotation.x = -Math.PI / 2;
+    groundMesh.position.y = -8;
+    scrollGroup.add(groundMesh);
 
-    const rainCount = 1200;
-    const rainGeo = new THREE.BufferGeometry();
-    const rainPos = new Float32Array(rainCount * 3);
-    for (let i = 0; i < rainCount * 3; i++) rainPos[i] = (Math.random() - 0.5) * 60;
-    rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
-    const rain = new THREE.Points(rainGeo, new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.06 }));
+    const RAIN_COUNT = 800;
+    const rainGeometry = new THREE.BufferGeometry();
+    const rainPositions = new Float32Array(RAIN_COUNT * 3);
+    const rainVelocities = new Float32Array(RAIN_COUNT);
+    
+    for (let i = 0; i < RAIN_COUNT * 3; i += 3) {
+        rainPositions[i] = (Math.random() - 0.5) * 60;
+        rainPositions[i + 1] = (Math.random() - 0.5) * 40 + 10;
+        rainPositions[i + 2] = (Math.random() - 0.5) * 60;
+        rainVelocities[i/3] = 0.22 + Math.random() * 0.1;
+    }
+    
+    rainGeometry.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
+    const rainMaterial = new THREE.PointsMaterial({ 
+        color: 0x00f0ff, 
+        size: 0.06,
+        transparent: true,
+        opacity: 0.8
+    });
+    const rain = new THREE.Points(rainGeometry, rainMaterial);
     scrollGroup.add(rain);
 
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
-    const loader = new GLTFLoader();
-    loader.setDRACOLoader(dracoLoader);
+    
+    const modelLoader = new GLTFLoader();
+    modelLoader.setDRACOLoader(dracoLoader);
 
-    let ironMan, roomModel, targetX = 0, targetY = 0;
-    const v3 = new THREE.Vector3(), box = new THREE.Box3();
+    let ironManModel = null;
+    let roomModel = null;
+    let targetX = 0;
+    let targetY = 0;
+    
+    const tempVector = new THREE.Vector3();
+    const sizeVector = new THREE.Vector3();
+    const boundingBox = new THREE.Box3();
+    const metalMaterialProps = { metalness: 1, roughness: 0.2 };
 
-    loader.load('assets/blender/character/iron_man.glb', (gltf) => {
-        ironMan = gltf.scene;
-        ironMan.traverse(n => {
-            if (n.isMesh) {
-                n.material.metalness = 1;
-                n.material.roughness = 0.2;
+    modelLoader.load('assets/blender/character/iron_man.glb', (gltf) => {
+        ironManModel = gltf.scene;
+        ironManModel.traverse((node) => {
+            if (node.isMesh && node.material) {
+                Object.assign(node.material, metalMaterialProps);
+                node.material.needsUpdate = true;
             }
         });
-        box.setFromObject(ironMan);
-        const center = box.getCenter(v3.clone()), size = box.getSize(v3.clone());
-        const s = 9.5 / Math.max(size.x, size.y, size.z);
-        ironMan.scale.set(s, s, s);
-        ironMan.position.set(-center.x * s, -5.5, -center.z * s);
-        scrollGroup.add(ironMan);
+
+        boundingBox.setFromObject(ironManModel);
+        boundingBox.getSize(sizeVector);
+        const maxDimension = Math.max(sizeVector.x, sizeVector.y, sizeVector.z);
+        const scaleFactor = 12 / maxDimension;
+        
+        ironManModel.scale.setScalar(scaleFactor);
+        ironManModel.position.set(0, -6, 0);
+        chestLight.position.set(0, -5, 1.5);
+        scrollGroup.add(ironManModel);
+        gltf.scene = null;
     });
 
-    loader.load('assets/blender/background/background_room.glb', (gltf) => {
+    modelLoader.load('assets/blender/background/background_room.glb', (gltf) => {
         roomModel = gltf.scene;
-        box.setFromObject(roomModel);
-        const size = box.getSize(v3.clone());
-        const s = 30 / Math.max(size.x, size.y, size.z);
-        roomModel.scale.set(s, s, s);
+        roomModel.traverse((node) => {
+            if (node.isMesh) node.frustumCulled = true;
+        });
+
+        boundingBox.setFromObject(roomModel);
+        boundingBox.getSize(sizeVector);
+        const maxDimension = Math.max(sizeVector.x, sizeVector.y, sizeVector.z);
+        const scaleFactor = 30 / maxDimension;
+        
+        roomModel.scale.setScalar(scaleFactor);
         roomModel.position.y = -4;
         homeGroup.add(roomModel);
+        gltf.scene = null;
     });
 
-    const updateIn = (x, y) => {
+    function updateInputPosition(x, y) {
         targetY = (x / window.innerWidth - 0.5) * 1.5;
         targetX = (y / window.innerHeight - 0.5) * 0.8;
-    };
+    }
 
-    document.addEventListener('mousemove', (e) => updateIn(e.clientX, e.clientY), { passive: true });
-    document.addEventListener('touchmove', (e) => e.touches[0] && updateIn(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    let mouseMoveTimeout = null;
+    document.addEventListener('mousemove', (e) => {
+        if (mouseMoveTimeout) return;
+        mouseMoveTimeout = setTimeout(() => {
+            updateInputPosition(e.clientX, e.clientY);
+            mouseMoveTimeout = null;
+        }, 16);
+    }, { passive: true });
 
-    let tF = 0, cF = 0;
-    const clock = new THREE.Clock();
+    document.addEventListener('touchmove', (e) => {
+        if (e.touches[0]) updateInputPosition(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
 
-    let currentScrollY = 0;
-    let cachedTotalH = 2000;
-    let cachedWinH = 800;
+    let transitionFactor = 0;
+    let contactFactor = 0;
+    const animationClock = new THREE.Clock();
+    let currentScrollY = window.pageYOffset;
+    let totalDocumentHeight = document.documentElement.scrollHeight;
+    let windowHeight = window.innerHeight;
 
-    window.addEventListener('load', () => {
-        currentScrollY = window.pageYOffset;
-        cachedTotalH = document.documentElement.scrollHeight;
-        cachedWinH = window.innerHeight;
-    });
-
+    let scrollTimeout = null;
     window.addEventListener('scroll', () => {
-        currentScrollY = window.pageYOffset;
+        if (scrollTimeout) return;
+        scrollTimeout = setTimeout(() => {
+            currentScrollY = window.pageYOffset;
+            scrollTimeout = null;
+        }, 16);
     }, { passive: true });
 
+    let resizeTimeout = null;
     window.addEventListener('resize', () => {
-        cachedTotalH = document.documentElement.scrollHeight;
-        cachedWinH = window.innerHeight;
-        camera.aspect = window.innerWidth / cachedWinH;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, cachedWinH);
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            totalDocumentHeight = document.documentElement.scrollHeight;
+            windowHeight = window.innerHeight;
+            camera.aspect = container.clientWidth / windowHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }, 150);
     }, { passive: true });
 
-    function animate() {
+    const rainPositionArray = rain.geometry.attributes.position.array;
+    
+    function animate(currentTime) {
         requestAnimationFrame(animate);
-        const time = clock.getElapsedTime();
-
-        tF = THREE.MathUtils.lerp(tF, THREE.MathUtils.clamp(currentScrollY / (cachedWinH * 0.8), 0, 1), 0.08);
-        cF = THREE.MathUtils.lerp(cF, (cachedWinH + currentScrollY) >= (cachedTotalH - 750) ? 1 : 0, 0.08);
-
-        homeGroup.position.y = tF * 25;
-        homeGroup.scale.setScalar(1 - tF);
-        homeGroup.visible = tF < 0.98;
-
-        scrollGroup.position.y = ((1 - tF) * -25) + (cF * 25);
-        scrollGroup.scale.setScalar(1 - cF);
-        scrollGroup.visible = tF > 0.02 && cF < 0.98;
-
-        contactGroup.position.y = (1 - cF) * -25;
-        contactGroup.visible = cF > 0.02;
-
+        
+        const elapsedTime = animationClock.getElapsedTime();
+        const targetTransition = Math.min(currentScrollY / (windowHeight * 0.8), 1);
+        transitionFactor += (targetTransition - transitionFactor) * 0.08;
+        
+        const targetContact = (windowHeight + currentScrollY) >= (totalDocumentHeight - 750) ? 1 : 0;
+        contactFactor += (targetContact - contactFactor) * 0.08;
+        
+        transitionFactor = Math.max(0, Math.min(1, transitionFactor));
+        contactFactor = Math.max(0, Math.min(1, contactFactor));
+        
+        homeGroup.position.y = transitionFactor * 25;
+        homeGroup.scale.setScalar(1 - transitionFactor);
+        homeGroup.visible = transitionFactor < 0.98;
+        
+        scrollGroup.position.y = ((1 - transitionFactor) * -25) + (contactFactor * 25);
+        scrollGroup.scale.setScalar(1 - contactFactor);
+        scrollGroup.visible = transitionFactor > 0.02 && contactFactor < 0.98;
+        
         if (homeGroup.visible && roomModel) {
-            roomModel.rotation.y = THREE.MathUtils.lerp(roomModel.rotation.y, targetY * 0.5, 0.1);
-            roomModel.rotation.x = THREE.MathUtils.lerp(roomModel.rotation.x, targetX * 0.2, 0.1);
+            roomModel.rotation.y += (targetY * 0.5 - roomModel.rotation.y) * 0.1;
+            roomModel.rotation.x += (targetX * 0.2 - roomModel.rotation.x) * 0.1;
         }
-
+        
         if (scrollGroup.visible) {
-            const gPos = meshGround.geometry.attributes.position;
-            for (let i = 0; i < gPos.count; i++) {
-                gPos.setZ(i, Math.sin(gPos.getX(i) * 0.3 + time) * 0.5);
-            }
-            gPos.needsUpdate = true;
-
-            const rP = rain.geometry.attributes.position.array;
-            for (let i = 1; i < rP.length; i += 3) {
-                rP[i] -= 0.22;
-                if (rP[i] < -20) rP[i] = 30;
+            groundMesh.position.z = Math.sin(elapsedTime * 0.5) * 2;
+            for (let i = 0; i < RAIN_COUNT; i++) {
+                const yIndex = i * 3 + 1;
+                rainPositionArray[yIndex] -= rainVelocities[i];
+                if (rainPositionArray[yIndex] < -20) {
+                    rainPositionArray[yIndex] = 30;
+                    rainPositionArray[yIndex - 1] = (Math.random() - 0.5) * 60;
+                    rainPositionArray[yIndex + 1] = (Math.random() - 0.5) * 60;
+                }
             }
             rain.geometry.attributes.position.needsUpdate = true;
-
-            if (ironMan) {
-                const hY = -5.0 + Math.sin(time * 2.5) * 0.2;
-                ironMan.position.y = hY;
-                chestLight.position.set(0, hY + 6.5, 1.5);
-                ironMan.rotation.y = THREE.MathUtils.lerp(ironMan.rotation.y, targetY, 0.15);
-                ironMan.rotation.x = THREE.MathUtils.lerp(ironMan.rotation.x, targetX, 0.15);
-                chestLight.intensity = (20 + Math.sin(time * 5) * 8) * tF * (1 - cF);
+            
+            if (ironManModel) {
+                const hoverHeight = Math.sin(elapsedTime * 2.5) * 0.3;
+                ironManModel.position.y = -6 + hoverHeight;
+                chestLight.position.set(0, -5 + hoverHeight, 1.5);
+                ironManModel.rotation.y += (targetY - ironManModel.rotation.y) * 0.15;
+                ironManModel.rotation.x += (targetX - ironManModel.rotation.x) * 0.15;
+                const baseIntensity = 25 + Math.sin(elapsedTime * 5) * 10;
+                chestLight.intensity = baseIntensity * transitionFactor * (1 - contactFactor);
             }
         }
+        
+        contactGroup.position.y = (1 - contactFactor) * -25;
+        contactGroup.visible = contactFactor > 0.02;
         renderer.render(scene, camera);
     }
-    animate();
+    
+    animate(0);
+    
+    window.cleanupThreeScene = function() {
+        [groundGeometry, rainGeometry].forEach(geo => geo?.dispose());
+        [groundMaterial, rainMaterial].forEach(mat => mat?.dispose());
+        [ironManModel, roomModel].forEach(model => {
+            if (model) {
+                model.traverse((node) => {
+                    if (node.isMesh) {
+                        node.geometry?.dispose();
+                        if (node.material) {
+                            if (Array.isArray(node.material)) node.material.forEach(m => m.dispose());
+                            else node.material.dispose();
+                        }
+                    }
+                });
+            }
+        });
+        renderer.domElement.remove();
+    };
 })();
 
 console.log(
@@ -181,275 +262,592 @@ console.log(
     "background: #00ffff; padding:5px 0;"
 );
 
-$(document).ready(function () {
-    const $bar = $('#loading-bar'), $percentText = $('#load-percent'), $quote = $('#dynamic-quote'), $wrapper = $('#loader-wrapper'), $typeElement = $("#typewriter");
-    const navBtn = $(".nav-link"), dropdownLinks = $(".dropdown-item"), upBtn = $("#backToTop"), navbarCollapse = $(".navbar-collapse"), contactForm = document.getElementById('contact-form');
-    const navHeight = 65;
-    let isScrollingManual = false;
+$(document).ready(function initializeUI() {
 
-    $('html, body').css({ 'overflow-x': 'hidden', 'overflow-y': 'hidden', 'scroll-behavior': 'smooth' });
+    const loadingBar = $('#loading-bar');
+    const loadPercent = $('#load-percent');
+    const dynamicQuote = $('#dynamic-quote');
+    const loaderWrapper = $('#loader-wrapper');
+    const typewriterElement = $("#typewriter");
 
-    const phrases = ["SWE Student", "Full-Stack Web Developer", "SQL Developer", "WordPress Developer", "PHP Developer", "Laravel Developer", "SEO"];
-    const quotes = [
+    const navLinks = $(".nav-link");
+    const dropdownItems = $(".dropdown-item");
+    const backToTopButton = $("#backToTop");
+    const navbarCollapse = $(".navbar-collapse");
+    const contactForm = document.getElementById('contact-form');
+
+    const NAVBAR_HEIGHT = 65;
+    let isManualScrolling = false;
+
+
+    $('html, body').css({
+        'overflow-x': 'hidden',
+        'overflow-y': 'hidden',
+        'scroll-behavior': 'smooth'
+    });
+
+
+    const professionPhrases = [
+        "SWE Student",
+        "Full-Stack Web Developer",
+        "SQL Developer",
+        "WordPress Developer",
+        "PHP Developer",
+        "Laravel Developer",
+        "SEO"
+    ];
+
+    const philosophicalQuotes = [
         "A cage went in search of a bird. — Franz Kafka",
         "Man is sometimes extraordinarily, passionately, in love with suffering. — Fyodor Dostoevsky",
         "He who has a why to live can bear almost any how. — Friedrich Nietzsche",
         "It is better to be feared than loved, if one cannot be both. — Niccolò Machiavelli"
     ];
 
-    if ($quote.length) $quote.text(quotes[Math.floor(Math.random() * quotes.length)]);
 
-    let loadWidth = 0;
+    if (dynamicQuote.length) {
+        const randomQuoteIndex = Math.floor(Math.random() * philosophicalQuotes.length);
+        dynamicQuote.text(philosophicalQuotes[randomQuoteIndex]);
+    }
+
+
+    let loadingProgress = 0;
     const loadingInterval = setInterval(() => {
-        loadWidth += Math.random() * 12 + 5;
-        if (loadWidth >= 96) { loadWidth = 96; clearInterval(loadingInterval); }
-        $bar.css('width', loadWidth + '%');
-        $percentText.text(Math.floor(loadWidth) + '%');
+        loadingProgress += Math.random() * 12 + 5;
+
+        if (loadingProgress >= 96) {
+            loadingProgress = 96;
+            clearInterval(loadingInterval);
+        }
+
+        loadingBar.css('width', loadingProgress + '%');
+        loadPercent.text(Math.floor(loadingProgress) + '%');
     }, 60);
 
-    const initNavObserver = () => {
-        const observer = new IntersectionObserver((entries) => {
-            if (isScrollingManual) return;
-            entries.forEach(entry => {
+
+    function initializeNavigationObserver() {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            if (isManualScrolling) return;
+
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    const id = `#${entry.target.id}`;
-                    navBtn.removeClass("active").removeAttr("aria-current");
-                    dropdownLinks.removeClass("active");
+                    const sectionId = `#${entry.target.id}`;
 
-                    const $target = $(`.nav-link[href="${id}"], .dropdown-item[href="${id}"]`);
-                    $target.addClass("active").attr("aria-current", "page");
 
-                    if ($target.hasClass('dropdown-item')) {
-                        $target.closest('.dropdown').find('.nav-link').addClass('active');
+                    navLinks.removeClass("active").removeAttr("aria-current");
+                    dropdownItems.removeClass("active");
+
+
+                    const currentLink = $(`.nav-link[href="${sectionId}"], .dropdown-item[href="${sectionId}"]`);
+                    currentLink.addClass("active").attr("aria-current", "page");
+
+
+                    if (currentLink.hasClass('dropdown-item')) {
+                        currentLink.closest('.dropdown').find('.nav-link').addClass('active');
                     }
                 }
             });
-        }, { rootMargin: `-${navHeight}px 0px -45% 0px`, threshold: 0 });
-        document.querySelectorAll("section[id]").forEach(section => observer.observe(section));
-    };
+        }, {
+            rootMargin: `-${NAVBAR_HEIGHT}px 0px -45% 0px`,
+            threshold: 0
+        });
 
-    const finishLoading = () => {
+
+        document.querySelectorAll("section[id]").forEach((section) => {
+            sectionObserver.observe(section);
+        });
+    }
+
+
+    function finishLoadingSequence() {
         clearInterval(loadingInterval);
-        $bar.stop().css('width', '100%');
-        $percentText.text('100%');
+        loadingBar.stop().css('width', '100%');
+        loadPercent.text('100%');
+
         setTimeout(() => {
-            if ($wrapper.length) {
-                $wrapper.fadeOut(400, function () {
+            if (loaderWrapper.length) {
+                loaderWrapper.fadeOut(400, function () {
                     $(this).hide();
-                    $('html, body').css({ 'overflow-y': 'auto', 'overflow-x': 'hidden' });
-                    initNavObserver();
+                    $('html, body').css({
+                        'overflow-y': 'auto',
+                        'overflow-x': 'hidden'
+                    });
+                    initializeNavigationObserver();
                 });
             }
         }, 100);
-    };
+    }
 
-    const failsafe = setTimeout(finishLoading, 1500);
-    $(window).on("load", () => { clearTimeout(failsafe); finishLoading(); });
 
-    let pIdx = 0, cIdx = 0, isDeleting = false;
-    (function type() {
-        if (!$typeElement.length) return;
-        const currentPhrase = phrases[pIdx];
-        $typeElement.text(currentPhrase.substring(0, isDeleting ? cIdx - 1 : cIdx + 1));
-        isDeleting ? cIdx-- : cIdx++;
-        let speed = isDeleting ? 40 : 80;
-        if (!isDeleting && cIdx === currentPhrase.length) { isDeleting = true; speed = 2000; }
-        else if (isDeleting && cIdx === 0) { isDeleting = false; pIdx = (pIdx + 1) % phrases.length; speed = 500; }
-        setTimeout(type, speed);
-    })();
+    const loadingFailsafe = setTimeout(finishLoadingSequence, 1500);
 
-    navBtn.add(dropdownLinks).on("click", function (e) {
-        const id = $(this).attr("href");
-        if (!id || id.startsWith("javascript")) return;
-        const targetEl = document.querySelector(id);
-        if (targetEl) {
-            e.preventDefault();
-            isScrollingManual = true;
-            navBtn.removeClass("active").removeAttr("aria-current");
-            dropdownLinks.removeClass("active");
+    $(window).on("load", () => {
+        clearTimeout(loadingFailsafe);
+        finishLoadingSequence();
+    });
+
+
+    let phraseIndex = 0;
+    let characterIndex = 0;
+    let isDeleting = false;
+
+    function typeWriterAnimation() {
+        if (!typewriterElement.length) return;
+
+        const currentPhrase = professionPhrases[phraseIndex];
+
+        if (isDeleting) {
+            typewriterElement.text(currentPhrase.substring(0, characterIndex - 1));
+            characterIndex--;
+        } else {
+            typewriterElement.text(currentPhrase.substring(0, characterIndex + 1));
+            characterIndex++;
+        }
+
+        let typingSpeed = isDeleting ? 40 : 80;
+
+        if (!isDeleting && characterIndex === currentPhrase.length) {
+            isDeleting = true;
+            typingSpeed = 2000;
+        } else if (isDeleting && characterIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % professionPhrases.length;
+            typingSpeed = 500;
+        }
+
+        setTimeout(typeWriterAnimation, typingSpeed);
+    }
+
+    typeWriterAnimation();
+
+
+    function handleNavigationClick(event) {
+        const targetId = $(this).attr("href");
+
+        if (!targetId || targetId.startsWith("javascript")) {
+            return;
+        }
+
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+            event.preventDefault();
+            isManualScrolling = true;
+
+
+            navLinks.removeClass("active").removeAttr("aria-current");
+            dropdownItems.removeClass("active");
             $(this).addClass("active").attr("aria-current", "page");
+
             if ($(this).hasClass('dropdown-item')) {
                 $(this).closest('.dropdown').find('.nav-link').addClass('active');
             }
-            const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight + 1;
-            window.scrollTo({ top: targetPos, behavior: 'smooth' });
-            setTimeout(() => { isScrollingManual = false; }, 850);
-            if (navbarCollapse.hasClass("show")) navbarCollapse.collapse('hide');
-            const offcanvasEl = document.getElementById('offcanvasNavbar');
-            if (offcanvasEl && offcanvasEl.classList.contains('show')) {
-                bootstrap.Offcanvas.getInstance(offcanvasEl).hide();
+
+
+            const targetPosition = targetElement.getBoundingClientRect().top +
+                window.pageYOffset - NAVBAR_HEIGHT + 1;
+
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+
+
+            setTimeout(() => {
+                isManualScrolling = false;
+            }, 850);
+
+
+            if (navbarCollapse.hasClass("show")) {
+                navbarCollapse.collapse('hide');
+            }
+
+            const offcanvasElement = document.getElementById('offcanvasNavbar');
+            if (offcanvasElement && offcanvasElement.classList.contains('show')) {
+                bootstrap.Offcanvas.getInstance(offcanvasElement).hide();
             }
         }
-    });
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) upBtn.addClass("show");
-        else upBtn.removeClass("show");
-    }, { passive: true });
-
-    function firePistol(e) {
-        if (e.cancelable) e.preventDefault();
-        if (upBtn.hasClass('firing')) return;
-        upBtn.addClass('firing');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => { upBtn.removeClass('firing'); }, 1000);
     }
 
-    upBtn.on('click', firePistol);
-    const btnElement = document.getElementById('backToTop');
-    if (btnElement) btnElement.addEventListener('touchstart', firePistol, { passive: false });
+    navLinks.add(dropdownItems).on("click", handleNavigationClick);
+
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            backToTopButton.addClass("show");
+        } else {
+            backToTopButton.removeClass("show");
+        }
+    }, { passive: true });
+
+    function handleBackToTop(event) {
+        if (event.cancelable) {
+            event.preventDefault();
+        }
+
+        if (backToTopButton.hasClass('firing')) {
+            return;
+        }
+
+        backToTopButton.addClass('firing');
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        setTimeout(() => {
+            backToTopButton.removeClass('firing');
+        }, 1000);
+    }
+
+    backToTopButton.on('click', handleBackToTop);
+
+    const backToTopElement = document.getElementById('backToTop');
+    if (backToTopElement) {
+        backToTopElement.addEventListener('touchstart', handleBackToTop, { passive: false });
+    }
+
 
     const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal-visible');
                 revealObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
-    document.querySelectorAll('[class*="reveal-"]').forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('[class*="reveal-"]').forEach((element) => {
+        revealObserver.observe(element);
+    });
+
+
+    function createSectionObserver(sectionId, className) {
+        const sectionElement = document.getElementById(sectionId);
+
+        if (!sectionElement) return null;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('fog-fade-out');
+                    entry.target.classList.add(className);
+                    entry.target.classList.add('fog-fade-in');
+                } else {
+                    entry.target.classList.remove(className);
+                    entry.target.classList.remove('fog-fade-in');
+                    entry.target.classList.add('fog-fade-out');
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px'
+        });
+
+        observer.observe(sectionElement);
+        return observer;
+    }
+
+
+    createSectionObserver('education', 'camera-view-left-active');
+    createSectionObserver('skills', 'camera-view-right-active');
+    createSectionObserver('projects', 'camera-view-up-active');
+    createSectionObserver('certificates', 'camera-view-left-active');
+
 
     if (contactForm) {
-        const submitBtn = document.getElementById('submit-btn');
-        contactForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            submitBtn.disabled = true; submitBtn.innerHTML = "Transmitting...";
+        const submitButton = document.getElementById('submit-btn');
+
+        contactForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = "Transmitting...";
+
             try {
-                const res = await fetch("https://formspree.io/f/xgooljlk", {
-                    method: "POST", body: new FormData(this), headers: { 'Accept': 'application/json' }
+                const response = await fetch("https://formspree.io/f/xgooljlk", {
+                    method: "POST",
+                    body: new FormData(this),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
                 });
-                if (res.ok) { $('#form-success').fadeIn(); this.reset(); $(this).fadeOut(); }
-            } catch (err) { alert("Transmission failed."); }
-            finally { submitBtn.disabled = false; submitBtn.innerHTML = "Send Message"; }
+
+                if (response.ok) {
+                    $('#form-success').fadeIn();
+                    this.reset();
+                    $(this).fadeOut();
+                }
+            } catch (error) {
+                alert("Transmission failed.");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = "Send Message";
+            }
         });
     }
 
-    const initCursor = () => {
+
+    function initializeCustomCursor() {
         const cursorCanvas = document.getElementById('cursor-canvas');
-        if (!cursorCanvas || 'ontouchstart' in window || navigator.maxTouchPoints > 0) return cursorCanvas && (cursorCanvas.style.display = 'none');
-        const ctx = cursorCanvas.getContext('2d', { alpha: true });
-        let mouse = { x: 0, y: 0 }, dots = Array.from({ length: 10 }, () => ({ x: 0, y: 0 })), friction = 0.4, isVisible = false;
-        window.addEventListener('mousemove', (e) => { isVisible = true; mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
-        window.addEventListener('resize', () => { cursorCanvas.width = window.innerWidth; cursorCanvas.height = window.innerHeight; }, { passive: true });
-        cursorCanvas.width = window.innerWidth; cursorCanvas.height = window.innerHeight;
-        (function animateCursor() {
-            ctx.clearRect(0, 0, cursorCanvas.width, cursorCanvas.height);
-            if (isVisible) {
-                let x = mouse.x, y = mouse.y;
-                dots.forEach((dot, i) => {
-                    dot.x += (x - dot.x) * friction; dot.y += (y - dot.y) * friction;
-                    const color = i % 2 === 0 ? '#0ff0fc' : '#00ff41';
-                    ctx.globalAlpha = 1 - (i / 10);
-                    ctx.beginPath(); ctx.fillStyle = color;
-                    ctx.arc(dot.x, dot.y, (10 - i) * 1.1, 0, Math.PI * 2); ctx.fill();
-                    x = dot.x; y = dot.y;
+
+
+        if (!cursorCanvas || 'ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            if (cursorCanvas) cursorCanvas.style.display = 'none';
+            return;
+        }
+
+        const cursorContext = cursorCanvas.getContext('2d', { alpha: true });
+        const cursorDots = Array.from({ length: 10 }, () => ({ x: 0, y: 0 }));
+        const cursorFriction = 0.4;
+        let cursorVisible = false;
+        let cursorPosition = { x: 0, y: 0 };
+
+
+        window.addEventListener('mousemove', (event) => {
+            cursorVisible = true;
+            cursorPosition.x = event.clientX;
+            cursorPosition.y = event.clientY;
+        }, { passive: true });
+
+
+        function resizeCursorCanvas() {
+            cursorCanvas.width = window.innerWidth;
+            cursorCanvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCursorCanvas, { passive: true });
+        resizeCursorCanvas();
+
+
+        function animateCursor() {
+            cursorContext.clearRect(0, 0, cursorCanvas.width, cursorCanvas.height);
+
+            if (cursorVisible) {
+                let x = cursorPosition.x;
+                let y = cursorPosition.y;
+
+                cursorDots.forEach((dot, index) => {
+                    dot.x += (x - dot.x) * cursorFriction;
+                    dot.y += (y - dot.y) * cursorFriction;
+
+                    const dotColor = index % 2 === 0 ? '#0ff0fc' : '#00ff41';
+                    const dotOpacity = 1 - (index / 10);
+                    const dotSize = (10 - index) * 1.1;
+
+                    cursorContext.globalAlpha = dotOpacity;
+                    cursorContext.beginPath();
+                    cursorContext.fillStyle = dotColor;
+                    cursorContext.arc(dot.x, dot.y, dotSize, 0, Math.PI * 2);
+                    cursorContext.fill();
+
+                    x = dot.x;
+                    y = dot.y;
                 });
             }
-            requestAnimationFrame(animateCursor);
-        })();
-    };
-    initCursor();
 
-    const handleTilt = (elements, intensity, scale) => {
-        elements.forEach(el => {
-            let rect = null;
-            const updateRect = () => { rect = el.getBoundingClientRect(); };
-            const move = (e) => {
-                if (!rect) updateRect();
-                const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-                const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-                requestAnimationFrame(() => {
-                    if (!rect) return;
-                    const rotateX = (rect.height / 2 - (y - rect.top)) / intensity;
-                    const rotateY = ((x - rect.left) - rect.width / 2) / intensity;
-                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale},${scale},${scale})`;
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+    }
+
+    initializeCustomCursor();
+
+
+    function initializeTiltEffect(elements, intensity, scale) {
+        elements.forEach((element) => {
+            let elementBounds = null;
+            let animationFrame = null;
+
+            function updateElementBounds() {
+                elementBounds = element.getBoundingClientRect();
+            }
+
+            function handleTiltMove(event) {
+                if (!elementBounds) updateElementBounds();
+
+                const clientX = event.clientX || (event.touches ? event.touches[0].clientX : 0);
+                const clientY = event.clientY || (event.touches ? event.touches[0].clientY : 0);
+
+                if (animationFrame) cancelAnimationFrame(animationFrame);
+
+                animationFrame = requestAnimationFrame(() => {
+                    if (!elementBounds) return;
+
+                    const rotateX = (elementBounds.height / 2 - (clientY - elementBounds.top)) / intensity;
+                    const rotateY = ((clientX - elementBounds.left) - elementBounds.width / 2) / intensity;
+
+                    element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale},${scale},${scale})`;
                 });
-            };
-            const reset = () => { rect = null; el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)`; };
-            el.addEventListener('mouseenter', updateRect, { passive: true });
-            el.addEventListener('mousemove', move, { passive: true });
-            el.addEventListener('touchstart', updateRect, { passive: true });
-            el.addEventListener('touchmove', move, { passive: true });
-            el.addEventListener('mouseleave', reset);
-            el.addEventListener('touchend', reset);
+            }
+
+            function resetTilt() {
+                if (animationFrame) cancelAnimationFrame(animationFrame);
+                elementBounds = null;
+                element.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)`;
+            }
+
+
+            element.addEventListener('mouseenter', updateElementBounds, { passive: true });
+            element.addEventListener('mousemove', handleTiltMove, { passive: true });
+            element.addEventListener('touchstart', updateElementBounds, { passive: true });
+            element.addEventListener('touchmove', handleTiltMove, { passive: true });
+            element.addEventListener('mouseleave', resetTilt);
+            element.addEventListener('touchend', resetTilt);
         });
-    };
-    handleTilt(document.querySelectorAll('.project-card'), 10, 1.05);
-    handleTilt(document.querySelectorAll('.skill-item'), 15, 1.02);
+    }
+
+
+    initializeTiltEffect(document.querySelectorAll('.project-card'), 10, 1.05);
+    initializeTiltEffect(document.querySelectorAll('.skill-item'), 15, 1.02);
+
 
     const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.querySelectorAll('.progress-bar').forEach(bar => bar.style.width = bar.getAttribute('aria-valuenow') + '%');
+                entry.target.querySelectorAll('.progress-bar').forEach((bar) => {
+                    bar.style.width = bar.getAttribute('aria-valuenow') + '%';
+                });
             }
         });
     }, { threshold: 0.2 });
-    document.querySelectorAll('.skill-item').forEach(item => skillObserver.observe(item));
 
-    document.querySelectorAll('.timeline-item').forEach(item => {
-        let rect = null, raf = null;
-        const updateRect = () => { rect = item.getBoundingClientRect(); };
-        const move = (e) => {
-            if (!rect) updateRect();
-            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-            if (raf) cancelAnimationFrame(raf);
-            raf = requestAnimationFrame(() => {
-                if (!rect) return;
-                const rotateX = (rect.height / 2 - (y - rect.top)) / 10;
-                const rotateY = ((x - rect.left) - rect.width / 2) / 10;
-                item.style.transform = `perspective(2000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(50px)`;
-            });
-        };
-        const reset = () => { rect = null; if (raf) cancelAnimationFrame(raf); item.style.transform = `perspective(2000px) rotateX(0) rotateY(0) translateZ(0)`; };
-        item.addEventListener('mouseenter', updateRect, { passive: true });
-        item.addEventListener('mousemove', move, { passive: true });
-        item.addEventListener('touchstart', updateRect, { passive: true });
-        item.addEventListener('touchmove', move, { passive: true });
-        item.addEventListener('mouseleave', reset);
-        item.addEventListener('touchend', reset);
+    document.querySelectorAll('.skill-item').forEach((item) => {
+        skillObserver.observe(item);
     });
 
-    const textEl = document.querySelector('.glowing-text'), trig = document.querySelector('.neon-border');
-    if (textEl && trig) {
-        const orig = textEl.innerText, chars = '!<>-_\\/[]{}—=+*^?________';
-        let fid = null;
-        trig.addEventListener('mouseenter', () => {
-            if (fid) cancelAnimationFrame(fid);
-            const start = performance.now();
-            (function up(cur) {
-                const iter = (cur - start) / 50;
-                textEl.innerText = orig.split('').map((c, i) => i < iter ? c : chars[Math.floor(Math.random() * chars.length)]).join('');
-                if (iter < orig.length) fid = requestAnimationFrame(up); else textEl.innerText = orig;
-            })(performance.now());
+
+    document.querySelectorAll('.timeline-item').forEach((item) => {
+        let itemBounds = null;
+        let animationFrame = null;
+
+        function updateItemBounds() {
+            itemBounds = item.getBoundingClientRect();
+        }
+
+        function handleTimelineMove(event) {
+            if (!itemBounds) updateItemBounds();
+
+            const clientX = event.clientX || (event.touches ? event.touches[0].clientX : 0);
+            const clientY = event.clientY || (event.touches ? event.touches[0].clientY : 0);
+
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+
+            animationFrame = requestAnimationFrame(() => {
+                if (!itemBounds) return;
+
+                const rotateX = (itemBounds.height / 2 - (clientY - itemBounds.top)) / 10;
+                const rotateY = ((clientX - itemBounds.left) - itemBounds.width / 2) / 10;
+
+                item.style.transform = `perspective(2000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(50px)`;
+            });
+        }
+
+        function resetTimeline() {
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+            itemBounds = null;
+            item.style.transform = `perspective(2000px) rotateX(0) rotateY(0) translateZ(0)`;
+        }
+
+
+        item.addEventListener('mouseenter', updateItemBounds, { passive: true });
+        item.addEventListener('mousemove', handleTimelineMove, { passive: true });
+        item.addEventListener('touchstart', updateItemBounds, { passive: true });
+        item.addEventListener('touchmove', handleTimelineMove, { passive: true });
+        item.addEventListener('mouseleave', resetTimeline);
+        item.addEventListener('touchend', resetTimeline);
+    });
+
+
+    const glowingTextElement = document.querySelector('.glowing-text');
+    const neonBorderElement = document.querySelector('.neon-border');
+
+    if (glowingTextElement && neonBorderElement) {
+        const originalText = glowingTextElement.innerText;
+        const glitchCharacters = '!<>-_\\/[]{}—=+*^?________';
+        let glitchAnimationId = null;
+
+        neonBorderElement.addEventListener('mouseenter', () => {
+            if (glitchAnimationId) cancelAnimationFrame(glitchAnimationId);
+
+            const animationStart = performance.now();
+
+            function updateGlitch(currentTime) {
+                const iteration = (currentTime - animationStart) / 50;
+
+                glowingTextElement.innerText = originalText.split('').map((character, index) => {
+                    return index < iteration ? character : glitchCharacters[Math.floor(Math.random() * glitchCharacters.length)];
+                }).join('');
+
+                if (iteration < originalText.length) {
+                    glitchAnimationId = requestAnimationFrame(updateGlitch);
+                } else {
+                    glowingTextElement.innerText = originalText;
+                }
+            }
+
+            glitchAnimationId = requestAnimationFrame(updateGlitch);
         });
     }
 
-    const aboutBox = document.querySelector('#about .neon-border');
-    if (aboutBox) {
-        let aboutRect = null;
-        const updateAboutRect = () => { aboutRect = aboutBox.getBoundingClientRect(); };
-        const reset = () => { aboutRect = null; aboutBox.style.transform = `rotateX(0) rotateY(0)`; aboutBox.style.setProperty('--shine-x', '50%'); aboutBox.style.setProperty('--shine-y', '50%'); };
-        const move = (e) => {
+
+    const aboutBoxElement = document.querySelector('#about .neon-border');
+
+    if (aboutBoxElement) {
+        let aboutBoxBounds = null;
+
+        function updateAboutBoxBounds() {
+            aboutBoxBounds = aboutBoxElement.getBoundingClientRect();
+        }
+
+        function resetAboutBoxEffect() {
+            aboutBoxBounds = null;
+            aboutBoxElement.style.transform = `rotateX(0) rotateY(0)`;
+            aboutBoxElement.style.setProperty('--shine-x', '50%');
+            aboutBoxElement.style.setProperty('--shine-y', '50%');
+        }
+
+        function handleAboutBoxMove(event) {
             if (window.innerWidth < 992) return;
-            if (!aboutRect) updateAboutRect();
-            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            if (!aboutBoxBounds) updateAboutBoxBounds();
+
+            const clientX = event.clientX || (event.touches ? event.touches[0].clientX : 0);
+            const clientY = event.clientY || (event.touches ? event.touches[0].clientY : 0);
+
             requestAnimationFrame(() => {
-                if (!aboutRect) return;
-                aboutBox.style.transform = `rotateX(${(aboutRect.height / 2 - (y - aboutRect.top)) / 20}deg) rotateY(${((x - aboutRect.left) - aboutRect.width / 2) / 30}deg)`;
-                aboutBox.style.setProperty('--shine-x', `${((x - aboutRect.left) - aboutRect.width / 2) / 15 * 2}%`);
-                aboutBox.style.setProperty('--shine-y', `${-(aboutRect.height / 2 - (y - aboutRect.top)) / 10 * 2}%`);
+                if (!aboutBoxBounds) return;
+
+                const rotateX = (aboutBoxBounds.height / 2 - (clientY - aboutBoxBounds.top)) / 20;
+                const rotateY = ((clientX - aboutBoxBounds.left) - aboutBoxBounds.width / 2) / 30;
+
+                aboutBoxElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                aboutBoxElement.style.setProperty('--shine-x', `${((clientX - aboutBoxBounds.left) - aboutBoxBounds.width / 2) / 15 * 2}%`);
+                aboutBoxElement.style.setProperty('--shine-y', `${-(aboutBoxBounds.height / 2 - (clientY - aboutBoxBounds.top)) / 10 * 2}%`);
             });
-        };
-        window.addEventListener('mousemove', (e) => {
-            if (window.innerWidth < 992 || !aboutBox) return;
-            if (!aboutRect) updateAboutRect();
-            (e.clientX >= aboutRect.left && e.clientX <= aboutRect.right && e.clientY >= aboutRect.top && e.clientY <= aboutRect.bottom) ? move(e) : reset();
+        }
+
+
+        window.addEventListener('mousemove', (event) => {
+            if (window.innerWidth < 992 || !aboutBoxElement) return;
+
+            if (!aboutBoxBounds) updateAboutBoxBounds();
+
+            const isMouseOverBox = (
+                event.clientX >= aboutBoxBounds.left &&
+                event.clientX <= aboutBoxBounds.right &&
+                event.clientY >= aboutBoxBounds.top &&
+                event.clientY <= aboutBoxBounds.bottom
+            );
+
+            isMouseOverBox ? handleAboutBoxMove(event) : resetAboutBoxEffect();
         }, { passive: true });
-        aboutBox.addEventListener('touchstart', updateAboutRect, { passive: true });
-        aboutBox.addEventListener('touchmove', move, { passive: true });
-        aboutBox.addEventListener('mouseleave', reset);
-        aboutBox.addEventListener('touchend', reset);
+
+
+        aboutBoxElement.addEventListener('touchstart', updateAboutBoxBounds, { passive: true });
+        aboutBoxElement.addEventListener('touchmove', handleAboutBoxMove, { passive: true });
+        aboutBoxElement.addEventListener('mouseleave', resetAboutBoxEffect);
+        aboutBoxElement.addEventListener('touchend', resetAboutBoxEffect);
     }
 });

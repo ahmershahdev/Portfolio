@@ -2,16 +2,18 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.jquery.com https://cdn.jsdelivr.net https://unpkg.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: blob: https://ahmershahdev.github.io; connect-src 'self' blob: https://ahmershahdev.github.io https://cdn.jsdelivr.net https://unpkg.com https://www.gstatic.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self';">
 
   <title>Ahmer Shah - Portfolio</title>
-  <link rel="canonical" href="https://ahmershahdev.github.io/Portfolio/" />
+  <link rel="canonical" href="https://ahmershahdev.github.io/Portfolio/">
   <meta name="description"
     content="Ahmer Shah – Software Engineering student & Full-Stack Developer. Check out my projects, skills, and certifications.">
   <meta name="author" content="Ahmer Shah">
   <meta name="robots" content="index, follow">
-  <meta name="google-site-verification" content="MMrqB1cKF4SA4BszDlQ7Dy6SM6iY4UM6k-TSY21PZNg" />
+  <meta name="google-site-verification" content="MMrqB1cKF4SA4BszDlQ7Dy6SM6iY4UM6k-TSY21PZNg">
 
   <meta property="og:title" content="Ahmer Shah - Portfolio">
   <meta property="og:description"
@@ -22,11 +24,21 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Ahmer Shah Portfolio">
+
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://ahmershahdev.github.io/Portfolio/">
   <meta name="twitter:title" content="Ahmer Shah - Portfolio">
   <meta name="twitter:description" content="Hi, I'm Ahmer Shah. Software Engineering student and Full-Stack Developer.">
   <meta name="twitter:image" content="https://ahmershahdev.github.io/Portfolio/assets/images/logo/logo.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://code.jquery.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://code.jquery.com">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
   <link rel="icon" type="image/x-icon" href="assets/images/favicon/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
@@ -35,32 +47,19 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
-  <link rel="preconnect" href="https://code.jquery.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="dns-prefetch" href="https://code.jquery.com">
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link href="assets/css/fonts/bootstrap-icons.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" media="print"
     onload="this.media='all'" onerror="this.onerror=null;this.href='assets/css/bootstrap.min.css';">
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
     media="print" onload="this.media='all'" onerror="this.onerror=null;this.href='assets/css/bootstrap-icons.min.css';">
-
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link href="assets/js/three.min.js" as="script" crossorigin>
-  <link href="assets/blender/character/iron_man.glb" as="fetch" crossorigin>
-
-  <link href="assets/css/fonts/bootstrap-icons.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <link
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print"
+    onload="this.media='all'" onerror="this.onerror=null;this.href='assets/css/all.min.css';">
+  <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
-    rel="stylesheet" media="print" onload="this.media='all'">
+    media="print" onload="this.media='all'">
+
+  <link rel="stylesheet" href="assets/css/style.css">
 
   <script type="importmap">
   {
@@ -98,12 +97,13 @@
       "knowsAbout": ["Software Engineering", "Full-Stack Development", "Laravel", "JavaScript", "SEO", "AI"]
     }
   </script>
+</head>
 
-  <style>
-    .glowing-text {
-      font-display: swap;
-    }
-  </style>
+<style>
+  .glowing-text {
+    font-display: swap;
+  }
+</style>
 </head>
 
 <body>
@@ -137,17 +137,17 @@
   <div id="three-bg-container"></div>
   <canvas id="cursor-canvas"></canvas>
   <header>
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-xl fixed-top">
       <div class="container d-flex justify-content-between align-items-center">
 
         <a class="navbar-brand" href="#home">AHMER SHAH</a>
 
-        <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="offcanvas"
+        <button class="navbar-toggler border-0 d-md-none" type="button" data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasNavbar">
           <span class="menu-btn-text">MENU</span>
         </button>
 
-        <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end" id="desktopNav">
+        <div class="collapse navbar-collapse d-none d-md-flex justify-content-end" id="desktopNav">
           <ul class="navbar-nav align-items-center">
             <li class="nav-item"><a class="nav-link" href="#home"><i
                   class="fas fa-terminal me-2"></i><span>Home</span></a></li>
@@ -159,7 +159,7 @@
             <li class="nav-item"><a class="nav-link" href="#education"><i
                   class="fas fa-university me-2"></i><span>Education</span></a></li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="skillsDropdown" role="button"
+              <a class="nav-link dropdown-toggle" href="#dropdown" id="skillsDropdown" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-microchip me-2"></i><span>Capabilities</span>
               </a>
@@ -772,14 +772,14 @@
   <footer class="text-center py-5">
     <div class="container">
       <nav class="social-icons">
-        <a href="https://github.com/ahmershahdev" target="_blank" class="social-icon">
-          <i class="bi bi-github"></i>
+        <a href="https://github.com/ahmershahdev" target="_blank" class="social-icon" aria-label="GitHub Profile">
+          <i class="bi bi-github" aria-hidden="true"></i>
         </a>
-        <a href="https://linkedin.com/in/ahmer-shah" target="_blank" class="social-icon">
-          <i class="bi bi-linkedin"></i>
+        <a href="https://linkedin.com/in/ahmer-shah" target="_blank" class="social-icon" aria-label="Linkedln Profile">
+          <i class="bi bi-linkedin" aria-hidden="true"></i>
         </a>
-        <a href="mailto:ahmarshah170@gmail.com" class="social-icon">
-          <i class="bi bi-envelope-at-fill"></i>
+        <a href="mailto:ahmarshah170@gmail.com" class="social-icon" aria-label="Email">
+          <i class="bi bi-envelope-at-fill" aria-hidden="true"></i>
         </a>
       </nav>
 
@@ -825,7 +825,7 @@
     onerror="this.onerror=null; this.src='assets/js/jquery-3.7.1.min.js';"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer
-    onerror="this.onerror=null; this.src='assets/js/bootstrap.min.js';"></script>
+    onerror="this.onerror=null; this.src='assets/js/bootstrap.bundle.min.js';"></script>
 
   <script type="module" src="assets/js/script.js" defer></script>
 </body>
