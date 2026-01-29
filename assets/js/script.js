@@ -43,17 +43,6 @@ $(document).ready(function() {
         $dynamicQuote.text(philosophicalQuotes[Math.floor(Math.random() * philosophicalQuotes.length)]);
     }
 
-    let loadingProgress = 0;
-    const loadingInterval = setInterval(() => {
-        loadingProgress += Math.random() * 12 + 5;
-        if (loadingProgress >= 96) {
-            loadingProgress = 96;
-            clearInterval(loadingInterval);
-        }
-        $loadingBar.css('width', loadingProgress + '%');
-        $loadPercent.text(Math.floor(loadingProgress) + '%');
-    }, 60);
-
     function initializeNavigationObserver() {
         const sectionObserver = new IntersectionObserver((entries) => {
             if (isManualScrolling) return;
@@ -76,7 +65,6 @@ $(document).ready(function() {
     }
 
     function finishLoadingSequence() {
-        clearInterval(loadingInterval);
         $loadingBar.stop().css('width', '100%');
         $loadPercent.text('100%');
         setTimeout(() => {
@@ -93,38 +81,22 @@ $(document).ready(function() {
         }, 100);
     }
 
+    let loadingProgress = 0;
+    const loadingInterval = setInterval(() => {
+        loadingProgress += Math.random() * 12 + 5;
+        if (loadingProgress >= 96) {
+            loadingProgress = 96;
+            clearInterval(loadingInterval);
+        }
+        $loadingBar.css('width', loadingProgress + '%');
+        $loadPercent.text(Math.floor(loadingProgress) + '%');
+    }, 60);
+
     const loadingFailsafe = setTimeout(finishLoadingSequence, 1500);
     $(window).on("load", () => {
         clearTimeout(loadingFailsafe);
         finishLoadingSequence();
     });
-
-    let phraseIndex = 0;
-    let characterIndex = 0;
-    let isDeleting = false;
-
-    function typeWriterAnimation() {
-        if (!$typewriter.length) return;
-        const currentPhrase = professionPhrases[phraseIndex];
-        if (isDeleting) {
-            $typewriter.text(currentPhrase.substring(0, characterIndex - 1));
-            characterIndex--;
-        } else {
-            $typewriter.text(currentPhrase.substring(0, characterIndex + 1));
-            characterIndex++;
-        }
-        let typingSpeed = isDeleting ? 40 : 80;
-        if (!isDeleting && characterIndex === currentPhrase.length) {
-            isDeleting = true;
-            typingSpeed = 2000;
-        } else if (isDeleting && characterIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % professionPhrases.length;
-            typingSpeed = 500;
-        }
-        setTimeout(typeWriterAnimation, typingSpeed);
-    }
-    typeWriterAnimation();
 
     function handleNavigationClick(event) {
         const targetId = $(this).attr("href");
@@ -152,17 +124,17 @@ $(document).ready(function() {
             }
         }
     }
+
     $navLinks.add($dropdownItems).on("click", handleNavigationClick);
 
-    // Fix aria-hidden on offcanvas when showing/hiding
     const offcanvasElement = document.getElementById('offcanvasNavbar');
     if (offcanvasElement) {
         const offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
         offcanvasElement.addEventListener('show.bs.offcanvas', () => {
-            offcanvasElement.removeAttribute('aria-hidden');
+            offcanvasElement.removeAttribute('inert');
         });
         offcanvasElement.addEventListener('hide.bs.offcanvas', () => {
-            offcanvasElement.setAttribute('aria-hidden', 'true');
+            offcanvasElement.setAttribute('inert', '');
         });
     }
 
@@ -177,8 +149,37 @@ $(document).ready(function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => $backToTopButton.removeClass('firing'), 1000);
     }
+
     $backToTopButton.on('click', handleBackToTop);
     document.getElementById('backToTop')?.addEventListener('touchstart', handleBackToTop, { passive: false });
+
+    let phraseIndex = 0;
+    let characterIndex = 0;
+    let isDeleting = false;
+
+    function typeWriterAnimation() {
+        if (!$typewriter.length) return;
+        const currentPhrase = professionPhrases[phraseIndex];
+        if (isDeleting) {
+            $typewriter.text(currentPhrase.substring(0, characterIndex - 1));
+            characterIndex--;
+        } else {
+            $typewriter.text(currentPhrase.substring(0, characterIndex + 1));
+            characterIndex++;
+        }
+        let typingSpeed = isDeleting ? 40 : 80;
+        if (!isDeleting && characterIndex === currentPhrase.length) {
+            isDeleting = true;
+            typingSpeed = 2000;
+        } else if (isDeleting && characterIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % professionPhrases.length;
+            typingSpeed = 500;
+        }
+        setTimeout(typeWriterAnimation, typingSpeed);
+    }
+
+    typeWriterAnimation();
 
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -209,31 +210,16 @@ $(document).ready(function() {
     createSectionObserver('projects', 'camera-view-up-active');
     createSectionObserver('certificates', 'camera-view-left-active');
 
-    if (contactForm) {
-        const submitButton = document.getElementById('submit-btn');
-        contactForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            submitButton.disabled = true;
-            submitButton.innerHTML = "Transmitting...";
-            try {
-                const response = await fetch("https://formspree.io/f/xgooljlk", {
-                    method: "POST",
-                    body: new FormData(this),
-                    headers: { 'Accept': 'application/json' }
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.progress-bar').forEach((bar) => {
+                    bar.style.width = bar.getAttribute('aria-valuenow') + '%';
                 });
-                if (response.ok) {
-                    $('#form-success').fadeIn();
-                    this.reset();
-                    $(this).fadeOut();
-                }
-            } catch {
-                alert("Transmission failed.");
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerHTML = "Send Message";
             }
         });
-    }
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.skill-item').forEach((item) => skillObserver.observe(item));
 
     function initializeCustomCursor() {
         const cursorCanvas = document.getElementById('cursor-canvas');
@@ -283,6 +269,7 @@ $(document).ready(function() {
         }
         animateCursor();
     }
+
     initializeCustomCursor();
 
     function initializeTiltEffect(elements, intensity, scale) {
@@ -315,19 +302,9 @@ $(document).ready(function() {
             element.addEventListener('touchend', resetTilt);
         });
     }
+
     initializeTiltEffect(document.querySelectorAll('.project-card'), 10, 1.05);
     initializeTiltEffect(document.querySelectorAll('.skill-item'), 15, 1.02);
-
-    const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.querySelectorAll('.progress-bar').forEach((bar) => {
-                    bar.style.width = bar.getAttribute('aria-valuenow') + '%';
-                });
-            }
-        });
-    }, { threshold: 0.2 });
-    document.querySelectorAll('.skill-item').forEach((item) => skillObserver.observe(item));
 
     document.querySelectorAll('.timeline-item').forEach((item) => {
         let itemBounds = null;
@@ -421,6 +398,32 @@ $(document).ready(function() {
         aboutBoxElement.addEventListener('touchmove', handleAboutBoxMove, { passive: true });
         aboutBoxElement.addEventListener('mouseleave', resetAboutBoxEffect);
         aboutBoxElement.addEventListener('touchend', resetAboutBoxEffect);
+    }
+
+    if (contactForm) {
+        const submitButton = document.getElementById('submit-btn');
+        contactForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            submitButton.disabled = true;
+            submitButton.innerHTML = "Transmitting...";
+            try {
+                const response = await fetch("https://formspree.io/f/xgooljlk", {
+                    method: "POST",
+                    body: new FormData(this),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    $('#form-success').fadeIn();
+                    this.reset();
+                    $(this).fadeOut();
+                }
+            } catch {
+                alert("Transmission failed.");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = "Send Message";
+            }
+        });
     }
 });
 
