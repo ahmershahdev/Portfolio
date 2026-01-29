@@ -12,6 +12,7 @@ $(document).ready(function() {
     const $dropdownItems = $(".dropdown-item");
     const $backToTopButton = $("#backToTop");
     const $navbarCollapse = $(".navbar-collapse");
+    const $scrollProgressBar = $("#scroll-progress-bar");
     const contactForm = document.getElementById('contact-form');
     const NAVBAR_HEIGHT = 65;
     let isManualScrolling = false;
@@ -97,6 +98,22 @@ $(document).ready(function() {
         clearTimeout(loadingFailsafe);
         finishLoadingSequence();
     });
+
+    let scrollUpdateScheduled = false;
+    function updateScrollProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        $scrollProgressBar.css('width', scrollPercent + '%');
+        scrollUpdateScheduled = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!scrollUpdateScheduled) {
+            scrollUpdateScheduled = true;
+            requestAnimationFrame(updateScrollProgress);
+        }
+    }, { passive: true });
 
     function handleNavigationClick(event) {
         const targetId = $(this).attr("href");
@@ -209,6 +226,7 @@ $(document).ready(function() {
     createSectionObserver('skills', 'camera-view-right-active');
     createSectionObserver('projects', 'camera-view-up-active');
     createSectionObserver('certificates', 'camera-view-left-active');
+    createSectionObserver('contact', 'camera-view-back-active');
 
     const skillObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -478,7 +496,7 @@ function initializeThreeScene() {
     groundMesh.position.y = -8;
     scrollGroup.add(groundMesh);
 
-    const RAIN_COUNT = 800;
+    const RAIN_COUNT = 300;
     const rainGeometry = new THREE.BufferGeometry();
     const rainPositions = new Float32Array(RAIN_COUNT * 3);
     const rainVelocities = new Float32Array(RAIN_COUNT);
@@ -495,7 +513,7 @@ function initializeThreeScene() {
         color: 0x00f0ff, 
         size: 0.06,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.6
     });
     const rain = new THREE.Points(rainGeometry, rainMaterial);
     scrollGroup.add(rain);
