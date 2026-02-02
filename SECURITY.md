@@ -18,7 +18,7 @@ If you find a security vulnerability or a potential issue in my portfolio or its
 Instead, reach out to me privately so I can investigate and fix it promptly.
 
 📧 **Email:** [syedahmershahofficial@gmail.com](mailto:syedahmershahofficial@gmail.com)  
-💼 **LinkedIn:** [Ahmer Shah](https://www.linkedin.com/in/ahmer-shah)
+💼 **LinkedIn:** [Ahmer Shah](https://www.linkedin.com/in/syedahmershah)
 
 I take security seriously and will respond as quickly as possible.  
 Thank you for helping keep my personal site safe and trustworthy! 🙏✨
