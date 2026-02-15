@@ -1,0 +1,204 @@
+
+
+footer {
+  background-color: #050508;
+  border-top: 1px solid rgba(0, 255, 252, 0.2);
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+.quote-container {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(0, 240, 252, 0.1);
+}
+
+.quote-text {
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #0ff0fc;
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 2rem;
+  max-width: 650px;
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.9),
+    inset 0 0 15px rgba(0, 240, 252, 0.05);
+}
+
+.quote-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #00f0fc, #00ff41);
+  box-shadow: 0 0 15px rgba(0, 240, 252, 0.4);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .quote-text:hover {
+    border-color: #0ff0fc;
+    box-shadow: 0 0 30px rgba(0, 240, 252, 0.15);
+    transition: all 0.3s ease;
+  }
+}
+
+.quote-author {
+  display: block;
+  margin-top: 15px;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-align: right;
+  background: linear-gradient(
+    90deg,
+    #0ff0fc 0%,
+    #00ff41 10%,
+    #0ff0fc 20%,
+    #00ff41 30%,
+    #0ff0fc 40%,
+    #00ff41 50%,
+    #0ff0fc 60%,
+    #00ff41 70%,
+    #0ff0fc 80%,
+    #00ff41 90%,
+    #0ff0fc 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(0, 240, 252, 0.2);
+  animation: hacker-glide 10s linear infinite;
+  user-select: none;
+}
+
+.ahmer-clinical {
+  display: block;
+  margin-top: 10px;
+  color: #00ff41;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 2px;
+  font-family: "Inter", sans-serif;
+}
+
+#backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
+  text-decoration: none;
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+#backToTop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pistol-container {
+  position: relative;
+  color: #00ff41;
+  font-size: 2.5rem;
+  transform: rotate(-90deg);
+  transition: transform 0.1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+  z-index: 5;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.4));
+  pointer-events: none;
+}
+
+.bullet {
+  position: absolute;
+  width: 8px;
+  height: 40px;
+  background: linear-gradient(to top, #ff003c, #ff8a00);
+  box-shadow: 0 0 20px #ff003c;
+  border-radius: 10px;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.muzzle-flash {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 138, 0, 1) 0%,
+    rgba(255, 0, 60, 0.8) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translateY(-50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #backToTop:hover .pistol-container {
+    color: #0ff0fc;
+    filter: drop-shadow(0 0 15px #0ff0fc);
+    transform: rotate(-90deg) scale(1.1);
+  }
+}
+
+#backToTop.firing .pistol-container {
+  transform: rotate(-125deg) translateY(20px) !important;
+  color: #ff003c !important;
+  filter: drop-shadow(0 0 20px #ff003c);
+}
+
+#backToTop.firing .muzzle-flash {
+  animation: flash-pop 0.15s ease-out forwards;
+}
+
+#backToTop.firing .bullet {
+  animation: straight-shot 1s cubic-bezier(0.1, 0, 0.1, 1) forwards;
+}
+
+.modal-content {
+  background-color: #0a0a0f !important;
+  border: 2px solid transparent;
+  border-image: linear-gradient(45deg, #0ff0fc, #00ff41) 1;
+  color: #f0f8ff;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0, 255, 252, 0.2);
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(0, 255, 252, 0.2);
+}

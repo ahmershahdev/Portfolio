@@ -1,0 +1,113 @@
+
+
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #0a0a0a 0%, #000 100%);
+  z-index: 10000;
+  overflow: hidden;
+}
+
+#loading-bar {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+#loading-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: scan-light 1.5s infinite;
+}
+
+#load-percent {
+  text-shadow:
+    2px 0 #ff00ff,
+    -2px 0 #00ffff;
+  animation: glitch-text 2s infinite linear alternate-reverse;
+}
+
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.03),
+      rgba(0, 255, 0, 0.01),
+      rgba(0, 0, 255, 0.03)
+    );
+  background-size:
+    100% 4px,
+    3px 100%;
+  user-select: none;
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00ff41 0%, #0ff0fc 50%, #ff00ff 100%);
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.15s linear;
+}
+
+.spinner-border {
+  filter: drop-shadow(0 0 10px #0dcaf0);
+  border-right-color: transparent !important;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.15em;
+}
+
+.cyber-spinner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-text {
+  position: absolute;
+  color: #0dcaf0;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #0dcaf0;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@media (max-width: 576px) {
+  .spinner-border {
+    width: 70px !important;
+    height: 70px !important;
+  }
+}

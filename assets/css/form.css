@@ -1,0 +1,79 @@
+.contact-form .form-control {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: none !important;
+  border-left: 3px solid #00f0ff !important;
+  border-radius: 0 !important;
+  clip-path: polygon(0% 0%, 96% 0%, 100% 25%, 100% 100%, 4% 100%, 0% 75%);
+  color: #00f0ff !important;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 1.2rem;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+}
+
+.contact-form .form-control::placeholder {
+  color: rgba(0, 240, 255, 0.4);
+  font-size: 0.8rem;
+}
+
+.contact-form .form-control:focus {
+  background: rgba(0, 255, 65, 0.08) !important;
+  border-left: 4px solid #00ff41 !important;
+  box-shadow: -10px 0 20px rgba(0, 255, 65, 0.2) !important;
+  transform: scale(1.02);
+  color: #fff !important;
+}
+
+.contact-form label {
+  font-family: "Rajdhani", sans-serif;
+  color: #00f0ff;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  margin-top: 15px;
+}
+
+.invalid-feedback {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: bold;
+  color: #ff4d4d;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.form-success-message {
+  background-color: rgba(10, 15, 20, 0.95);
+  position: relative;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(rgba(10, 15, 20, 1), rgba(10, 15, 20, 1)),
+    linear-gradient(45deg, #0ff0fc, #00ff41);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  animation: success-glow 2s ease-in-out infinite alternate;
+}
+
+.form-success-message i {
+  color: #00ff41;
+  font-size: 1.5rem;
+  text-shadow:
+    0 0 10px #00ff41,
+    0 0 20px #00ff41;
+  animation: icon-pulse 1.5s ease-in-out infinite;
+}
+
+.form-success-message span {
+  color: #ffffff !important;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
