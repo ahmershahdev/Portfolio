@@ -1,5 +1,3 @@
-
-
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
@@ -80,6 +78,8 @@ export function initializeThreeScene() {
     const rain = new THREE.Points(rainGeometry, rainMaterial);
     scrollGroup.add(rain);
 
+    // Lazy-load models after scene setup
+    let modelsLoaded = false;
     
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
@@ -96,28 +96,7 @@ export function initializeThreeScene() {
     const boundingBox = new THREE.Box3();
     const metalMaterialProps = { metalness: 1, roughness: 0.2 };
 
-    
-    modelLoader.load('assets/blender/character/iron_man.glb', (gltf) => {
-        ironManModel = gltf.scene;
-        ironManModel.traverse((node) => {
-            if (node.isMesh && node.material) {
-                Object.assign(node.material, metalMaterialProps);
-                node.material.needsUpdate = true;
-            }
-        });
-
-        boundingBox.setFromObject(ironManModel);
-        boundingBox.getSize(sizeVector);
-        const maxDimension = Math.max(sizeVector.x, sizeVector.y, sizeVector.z);
-        const scaleFactor = 12 / maxDimension;
-        
-        ironManModel.scale.setScalar(scaleFactor);
-        ironManModel.position.set(0, -6, 0);
-        chestLight.position.set(0, -5, 1.5);
-        scrollGroup.add(ironManModel);
-    });
-
-    
+    // Load background immediately (smaller file, non-blocking)
     modelLoader.load('assets/blender/background/background_room.glb', (gltf) => {
         roomModel = gltf.scene;
         roomModel.traverse((node) => {
@@ -133,6 +112,30 @@ export function initializeThreeScene() {
         roomModel.position.y = -4;
         homeGroup.add(roomModel);
     });
+
+    // Defer Iron Man model loading to avoid blocking LCP
+    requestIdleCallback(() => {
+        modelLoader.load('assets/blender/character/iron_man.glb', (gltf) => {
+            modelsLoaded = true;
+            ironManModel = gltf.scene;
+            ironManModel.traverse((node) => {
+                if (node.isMesh && node.material) {
+                    Object.assign(node.material, metalMaterialProps);
+                    node.material.needsUpdate = true;
+                }
+            });
+
+            boundingBox.setFromObject(ironManModel);
+            boundingBox.getSize(sizeVector);
+            const maxDimension = Math.max(sizeVector.x, sizeVector.y, sizeVector.z);
+            const scaleFactor = 12 / maxDimension;
+            
+            ironManModel.scale.setScalar(scaleFactor);
+            ironManModel.position.set(0, -6, 0);
+            chestLight.position.set(0, -5, 1.5);
+            scrollGroup.add(ironManModel);
+        });
+    }, { timeout: 4000 });
 
     
     function updateInputPosition(x, y) {

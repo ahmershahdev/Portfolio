@@ -1,5 +1,3 @@
-
-
 const professionPhrases = [
     "SWE Student",
     "Full-Stack Web Developer",

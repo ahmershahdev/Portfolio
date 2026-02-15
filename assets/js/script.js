@@ -3,7 +3,6 @@ import { initializeNavigation } from './navigation.js';
 import { initializeAnimations } from './animations.js';
 import { initializeEffects } from './effects.js';
 import { initializeForm } from './form.js';
-import { initializeThreeScene } from './three-scene.js';
 
 $(document).ready(function() {
     
@@ -15,19 +14,23 @@ $(document).ready(function() {
 
     
     initializeLoader();
-
     
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeThreeScene);
-    } else {
-        initializeThreeScene();
-    }
+    // Load Three.js scene only after page becomes fully interactive (5s after page load)
+    // This ensures LCP completes before rendering expensive 3D scene
+    let threeSceneLoaded = false;
+    setTimeout(() => {
+        if (!threeSceneLoaded) {
+            threeSceneLoaded = true;
+            import('./three-scene.js').then(module => {
+                module.initializeThreeScene();
+            }).catch(err => console.error('Failed to load three-scene:', err));
+        }
+    }, 5000);
 
     
     window.addEventListener('loaderComplete', function() {
         
         initializeNavigation();
-        
                
         initializeAnimations();
         
@@ -35,6 +38,5 @@ $(document).ready(function() {
         initializeEffects();
     }, { once: true });
 
-    
     initializeForm();
 });
