@@ -1,8 +1,10 @@
 {
-  "name": "Ahmer Shah | Portfolio",
+  "name": "Ahmer Shah - Professional Portfolio",
   "short_name": "Ahmer Shah",
-  "description": "Portfolio of Ahmer Shah, Software Engineering Student & Full-Stack Developer",
-  "start_url": "index.html",
+  "description": "Professional portfolio of Ahmer Shah, showcasing expertise in software engineering and full-stack development with innovative projects and skills.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "assets/images/favicon/web-app-manifest-192x192.png",
@@ -20,5 +22,6 @@
   "theme_color": "#0a0f14",
   "background_color": "#0a0f14",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "categories": ["portfolio", "developer", "technology"]
 }
