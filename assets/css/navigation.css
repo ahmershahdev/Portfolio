@@ -1,14 +1,13 @@
 .navbar {
-  background-color: rgba(5, 5, 8, 0.95);
-  border-bottom: 1px solid rgba(0, 255, 252, 0.2);
-  padding: 1rem 0;
-  user-select: none;
+  background-color: rgba(5, 5, 8, 0.95) !important;
+  border-bottom: 1px solid rgba(0, 255, 252, 0.2) !important;
+  padding: 1rem 0 !important;
 }
 
 .navbar-brand {
-  font-size: 1.8rem;
-  font-family: "Orbitron", sans-serif;
-  font-weight: 900;
+  font-size: 1.8rem !important;
+  font-family: "Orbitron", sans-serif !important;
+  font-weight: 900 !important;
   text-transform: uppercase;
   background: linear-gradient(
     to right,
@@ -18,13 +17,13 @@
     #000000,
     #00ffff
   );
-  background-size: 200% auto;
+  background-size: 200% auto !important;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   animation: neon-hustle 6s linear infinite;
-  pointer-events: none;
-  user-select: none;
+  pointer-events: none !important;
+  user-select: none !important;
 }
 
 #desktopNav .navbar-nav {
@@ -35,7 +34,7 @@
   color: #a0a0c0 !important;
   margin: 0 0.5rem;
   font-weight: 500;
-  font-family: "Orbitron", sans-serif;
+  font-family: "Orbitron", sans-serif !important;
   position: relative;
   border-bottom: none !important;
   padding: 10px 22px !important;

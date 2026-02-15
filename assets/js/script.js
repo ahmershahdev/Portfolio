@@ -15,8 +15,6 @@ $(document).ready(function() {
     
     initializeLoader();
     
-    // Load Three.js scene only after page becomes fully interactive (5s after page load)
-    // This ensures LCP completes before rendering expensive 3D scene
     let threeSceneLoaded = false;
     setTimeout(() => {
         if (!threeSceneLoaded) {
