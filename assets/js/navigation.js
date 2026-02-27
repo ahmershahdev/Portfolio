@@ -1,4 +1,6 @@
-
+document.querySelectorAll('.project-img img, #three-bg-container').forEach(img => {
+  img.addEventListener('contextmenu', e => e.preventDefault());
+});
 
 const NAVBAR_HEIGHT = 65;
 let isManualScrolling = false;

@@ -1,14 +1,15 @@
-# <div align="center">🚀 Syed Ahmer Shah - Software Engineer Portfolio</div>
+# <div align="center">Ahmer Shah | Software Engineer & Full-Stack Developer ☕</div>
 
 <div align="center">
   <img src="assets/images/projects/3D_Portfolio.webp" alt="Portfolio Preview" width="50%">
   
   ### Modern, Interactive & Performance-Optimized Portfolio
 
-  [![Portfolio](https://img.shields.io/badge/Portfolio-Live-success?style=for-the-badge&logo=github)](https://ahmershahdev.github.io/Portfolio/)
-  [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](./LICENSE)
- ![Issues](https://img.shields.io/badge/Issues-welcome-blue?style=for-the-badge)
-  [![Maintenance](https://img.shields.io/badge/Maintained-yes-success.svg?style=for-the-badge)](https://github.com/ahmershahdev/Portfolio/commits/)
+[![Portfolio (GitHub Pages)](https://img.shields.io/badge/Portfolio-GitHub_Pages-success?style=for-the-badge&logo=github)](https://ahmershahdev.github.io/Portfolio/)
+[![Portfolio (ahmershah.dev)](https://img.shields.io/badge/Portfolio-ahmershah.dev-0ff0fc?style=for-the-badge&logo=google-chrome)](https://ahmershah.dev)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](./LICENSE)
+![Issues](https://img.shields.io/badge/Issues-welcome-blue?style=for-the-badge)
+[![Maintenance](https://img.shields.io/badge/Maintained-yes-success.svg?style=for-the-badge)](https://github.com/ahmershahdev/Portfolio/commits/)
 
   <p align="center">
     <a href="#overview">Overview</a> •
@@ -22,42 +23,30 @@
 
 ## 🌟 Overview
 
-Welcome to my professional portfolio! This project showcases my journey as a Software Engineer through an immersive, interactive web experience. Built with modern web technologies and optimized for performance, it represents my commitment to excellence in software development.
+Hi there! 👋 I'm Ahmer Shah, and I'm excited to welcome you to my portfolio. Here, you'll discover my journey as a Software Engineer and Full-Stack Developer through a modern, interactive web experience. From cutting-edge technologies and 3D animations to performance-driven design, this site is crafted to showcase my skills, projects, and passion for building impactful solutions. Feel free to explore and connect—I'm always open to new ideas and collaborations!
 
 ## ✨ Features
 
 ### 🎨 Modern Design
-- **Sleek UI/UX** with glass-morphism effects
-- **Responsive layout** optimized for all devices
-- **Interactive 3D animations** using Three.js & Blender ( through AI Technologies )
-- **Smooth transitions** powered by Anime.js ( through AI Technologies)
 
-### ⚡ Performance
-- **Optimized asset loading** with lazy loading
-- **Efficient 3D rendering** with hardware acceleration
-- **Fast load times** through code splitting
-- **SEO optimized** with proper meta tags
-
-## ✨ Features
-
-### 🎨 Modern Design
 - Sleek UI/UX with glass-morphism effects
 - Responsive layout optimized for all devices
 - Interactive 3D animations using Three.js & Blender (through AI technologies)
 - Smooth transitions powered by Anime.js (through AI technologies)
 
 ### ⚡ Performance
+
 - Optimized asset loading with lazy loading
+- Efficient 3D rendering with hardware acceleration
 - Fast load times through code splitting
 - SEO optimized with proper meta tags, sitemap.xml, canonical links, and JSON-LD structured data
 
 ### 🛠️ Technical
+
 - Dynamic project showcases with AI-enhanced 3D elements
 - Interactive skill visualization
-- Secure AJAX contact form
 - Real-time 3D elements
 - Optimized media: WebP images, ICO, lazy loading
-
 
 ## 🔧 Tech Stack
 
@@ -71,20 +60,20 @@ Welcome to my professional portfolio! This project showcases my journey as a Sof
 ![SEO](https://img.shields.io/badge/SEO-FF6F00?style=for-the-badge&logo=google&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)
 ![Blender (AI)](https://img.shields.io/badge/Blender-A57936?style=for-the-badge&logo=blender&logoColor=white)
-![AJAX](https://img.shields.io/badge/AJAX-007ACC?style=for-the-badge&logo=jquery&logoColor=white)
 
 </div>
-
 
 ## 📦 Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/ahmershahdev/Portfolio.git
    cd Portfolio
    ```
 
 2. **Open in browser**
+
    ```bash
    # Simple
    open index.html
@@ -120,7 +109,7 @@ Welcome to my professional portfolio! This project showcases my journey as a Sof
 
 ## 📬 Contact
 
-- **Email:** syedahmershahofficial@gmail.com
+- **Email:** syedahmershahofficial [at] gmail [dot] com
 - **Location:** Pakistan
 
 ## 📄 License
@@ -133,8 +122,7 @@ See [LICENSE](LICENSE.txt) for details.
 <div align="center">
   <img src="assets/images/logo/logo.webp" alt="Logo" width="60px">
   <br>
-  Made with ❤️ by Syed Ahmer Shah
+ Made with ❤️ and ☕ by Syed Ahmer Shah
   <br>
   © 2026 All Rights Reserved
 </div>
-

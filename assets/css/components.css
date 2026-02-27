@@ -240,6 +240,10 @@
   object-position: top;
   transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   aspect-ratio: 571 / 250;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  touch-action: none;
 }
 
 .project-card:hover .project-img img {

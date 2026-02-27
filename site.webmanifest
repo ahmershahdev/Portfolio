@@ -1,7 +1,7 @@
 {
-  "name": "Ahmer Shah - Professional Portfolio",
+  "name": "Ahmer Shah | Software Engineer & Full-Stack Developer",
   "short_name": "Ahmer Shah",
-  "description": "Professional portfolio of Ahmer Shah, showcasing expertise in software engineering and full-stack development with innovative projects and skills.",
+  "description": "Hey! I'm Ahmer Shah, a Software Engineering student & Full-Stack Developer crafting high-performance web & app solutions with Laravel, JavaScript, and AI.",
   "lang": "en",
   "start_url": "/",
   "scope": "/",
@@ -19,9 +19,28 @@
       "purpose": "any maskable"
     }
   ],
-  "theme_color": "#0a0f14",
-  "background_color": "#0a0f14",
+  "theme_color": "#000000",
+  "background_color": "#000000",
   "display": "standalone",
   "orientation": "portrait",
-  "categories": ["portfolio", "developer", "technology"]
+  "categories": [
+    "portfolio",
+    "software engineer",
+    "full-stack developer",
+    "dark theme",
+    "neon green",
+    "neon blue",
+    "technology",
+    "AI",
+    "web development",
+    "modern ui",
+    "immersive",
+    "creative",
+    "interactive",
+    "next-gen",
+    "personal brand",
+    "3d",
+    "animation",
+    "progressive web app"
+  ]
 }
