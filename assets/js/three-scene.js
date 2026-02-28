@@ -97,7 +97,7 @@ export function initializeThreeScene() {
     const metalMaterialProps = { metalness: 1, roughness: 0.2 };
 
     // Load background immediately (smaller file, non-blocking)
-    modelLoader.load('assets/blender/background/background_room.glb', (gltf) => {
+    modelLoader.load('https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/background_room.glb', (gltf) => {
         roomModel = gltf.scene;
         roomModel.traverse((node) => {
             if (node.isMesh) node.frustumCulled = true;
@@ -115,7 +115,7 @@ export function initializeThreeScene() {
 
     // Defer Iron Man model loading to avoid blocking LCP
     requestIdleCallback(() => {
-        modelLoader.load('assets/blender/character/iron_man.glb', (gltf) => {
+        modelLoader.load('https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/iron_man.glb', (gltf) => {
             modelsLoaded = true;
             ironManModel = gltf.scene;
             ironManModel.traverse((node) => {
