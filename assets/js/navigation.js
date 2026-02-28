@@ -14,7 +14,6 @@ export function initializeNavigation() {
 
     
     initializeNavigationObserver($navLinks, $dropdownItems);
-
     
     window.addEventListener('scroll', () => {
         $backToTopButton.toggleClass("show", window.scrollY > 400);
