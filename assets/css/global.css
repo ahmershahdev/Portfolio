@@ -67,18 +67,6 @@ h2::selection,
   text-shadow: 0 0 10px rgba(15, 240, 252, 1) !important;
 }
 
-body {
-  cursor:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2300f0ff' stroke-width='1.5'><line x1='16' y1='6' x2='16' y2='12'/><line x1='16' y1='20' x2='16' y2='26'/><line x1='6' y1='16' x2='12' y2='16'/><line x1='20' y1='16' x2='26' y2='16'/><circle cx='16' cy='16' r='1.5' fill='%2300f0ff' stroke='none'/></g></svg>")
-      16 16,
-    auto;
-  font-family: "Exo 2", sans-serif !important;
-  background-color: #0a0a0f !important;
-  color: #f0f8ff !important;
-  overflow-x: hidden !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
 html {
   scroll-behavior: smooth !important;
 }

@@ -4,37 +4,32 @@ import { initializeAnimations } from './animations.js';
 import { initializeEffects } from './effects.js';
 import { initializeForm } from './form.js';
 
-$(document).ready(function() {
-    
-    $('html, body').css({
-        'overflow-x': 'hidden',
-        'overflow-y': 'hidden',
-        'scroll-behavior': 'smooth'
-    });
-
-    
+document.addEventListener('DOMContentLoaded', () => {
     initializeLoader();
-    
-    let threeSceneLoaded = false;
-    setTimeout(() => {
-        if (!threeSceneLoaded) {
-            threeSceneLoaded = true;
-            import('./three-scene.js').then(module => {
-                module.initializeThreeScene();
-            }).catch(err => console.error('Failed to load three-scene:', err));
-        }
-    }, 5000);
-
-    
-    window.addEventListener('loaderComplete', function() {
-        
-        initializeNavigation();
-               
-        initializeAnimations();
-        
-        
-        initializeEffects();
-    }, { once: true });
-
     initializeForm();
+
+    window.addEventListener('loaderComplete', () => {
+        document.documentElement.style.overflowY = 'auto'; 
+        document.body.style.overflowY = 'auto';
+
+        initializeNavigation();
+        initializeAnimations();
+        initializeEffects();
+        
+        loadThreeScene();
+    }, { once: true });
 });
+
+function loadThreeScene() {
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => importThreeJS());
+    } else {
+        setTimeout(importThreeJS, 1000);
+    }
+}
+
+function importThreeJS() {
+    import('./three-scene.js')
+        .then(module => module.initializeThreeScene())
+        .catch(err => console.error('Failed to load three-scene:', err));
+}

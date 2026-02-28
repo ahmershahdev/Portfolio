@@ -6,59 +6,56 @@ const philosophicalQuotes = [
 ];
 
 export function initializeLoader() {
-    const loader = {
+    const els = {
         bar: document.getElementById('loading-bar'),
         percent: document.getElementById('load-percent'),
         quote: document.getElementById('dynamic-quote'),
-        wrapper: document.getElementById('loader-wrapper'),
-        isFinished: false
+        wrapper: document.getElementById('loader-wrapper')
     };
 
-    if (loader.quote) {
-        loader.quote.textContent = philosophicalQuotes[Math.floor(Math.random() * philosophicalQuotes.length)];
+    if (!els.wrapper) return;
+
+    if (els.quote) {
+        els.quote.textContent = philosophicalQuotes[Math.floor(Math.random() * philosophicalQuotes.length)];
     }
 
     let progress = 0;
+    let isFinished = false;
+
     const interval = setInterval(() => {
-        if (progress >= 96) return clearInterval(interval);
-        
-        progress += Math.random() * 12 + 5;
-        if (progress > 96) progress = 96;
-        
+        if (progress >= 90) return clearInterval(interval);
+        progress += Math.random() * 3; 
+        updateUI(Math.min(progress, 90));
+    }, 80);
+
+    function updateUI(val) {
         requestAnimationFrame(() => {
-            if (loader.bar) loader.bar.style.width = `${progress}%`;
-            if (loader.percent) loader.percent.textContent = `${Math.floor(progress)}%`;
+            if (els.bar) els.bar.style.width = `${val}%`;
+            if (els.percent) els.percent.textContent = `${Math.floor(val)}%`;
         });
-    }, 100);
+    }
 
     const finish = () => {
-        if (loader.isFinished) return;
-        loader.isFinished = true;
-        
+        if (isFinished) return;
+        isFinished = true;
         clearInterval(interval);
         
-        requestAnimationFrame(() => {
-            if (loader.bar) loader.bar.style.width = '100%';
-            if (loader.percent) loader.percent.textContent = '100%';
+        updateUI(100);
+
+        setTimeout(() => {
+            els.wrapper.classList.add('loader-hidden'); 
             
-            setTimeout(() => {
-                if (loader.wrapper) {
-                    loader.wrapper.style.transition = 'opacity 0.4s ease';
-                    loader.wrapper.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        loader.wrapper.style.display = 'none';
-                        document.documentElement.style.overflowY = 'auto';
-                        window.dispatchEvent(new CustomEvent('loaderComplete'));
-                    }, 400);
-                }
-            }, 200);
-        });
+            els.wrapper.addEventListener('transitionend', () => {
+                els.wrapper.style.display = 'none';
+                window.dispatchEvent(new CustomEvent('loaderComplete'));
+            }, { once: true });
+        }, 300);
     };
 
-    const failsafe = setTimeout(finish, 2500); 
+    const failsafe = setTimeout(finish, 4000); 
+
     window.addEventListener('load', () => {
         clearTimeout(failsafe);
-        finish();
+        setTimeout(finish, 400); 
     });
 }

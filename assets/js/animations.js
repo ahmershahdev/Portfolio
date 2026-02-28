@@ -9,94 +9,72 @@ const professionPhrases = [
 ];
 
 export function initializeAnimations() {
-    
     typeWriterAnimation();
+    initializeGlitchText();
 
-    
-    const revealObserver = new IntersectionObserver((entries) => {
+    const generalObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('reveal-visible');
-                revealObserver.unobserve(entry.target);
+                if (entry.target.classList.contains('skill-item')) {
+                    entry.target.querySelectorAll('.progress-bar').forEach(bar => {
+                        bar.style.width = bar.getAttribute('aria-valuenow') + '%';
+                    });
+                } else {
+                    entry.target.classList.add('reveal-visible');
+                    generalObserver.unobserve(entry.target);
+                }
             }
         });
     }, { threshold: 0.1 });
-    document.querySelectorAll('[class*="reveal-"]').forEach((element) => revealObserver.observe(element));
 
-    
-    initializeGlitchText();
-    initializeSkillProgress();
+    document.querySelectorAll('[class*="reveal-"], .skill-item').forEach(el => generalObserver.observe(el));
 
-    
-    createSectionObserver('education', 'camera-view-left-active');
-    createSectionObserver('skills', 'camera-view-right-active');
-    createSectionObserver('projects', 'camera-view-up-active');
-    createSectionObserver('certificates', 'camera-view-left-active');
-    createSectionObserver('contact', 'camera-view-back-active');
-}
+    const sections = {
+        'education': 'camera-view-left-active',
+        'skills': 'camera-view-right-active',
+        'projects': 'camera-view-up-active',
+        'certificates': 'camera-view-left-active',
+        'contact': 'camera-view-back-active'
+    };
 
-function typeWriterAnimation() {
-    const $typewriter = $("#typewriter");
-    if (!$typewriter.length) return;
-
-    let phraseIndex = 0;
-    let characterIndex = 0;
-    let isDeleting = false;
-
-    function animate() {
-        const currentPhrase = professionPhrases[phraseIndex];
-        if (isDeleting) {
-            $typewriter.text(currentPhrase.substring(0, characterIndex - 1));
-            characterIndex--;
-        } else {
-            $typewriter.text(currentPhrase.substring(0, characterIndex + 1));
-            characterIndex++;
-        }
-
-        let typingSpeed = isDeleting ? 40 : 80;
-        if (!isDeleting && characterIndex === currentPhrase.length) {
-            isDeleting = true;
-            typingSpeed = 2000;
-        } else if (isDeleting && characterIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % professionPhrases.length;
-            typingSpeed = 500;
-        }
-
-        setTimeout(animate, typingSpeed);
-    }
-
-    animate();
-}
-
-function createSectionObserver(sectionId, className) {
-    const sectionElement = document.getElementById(sectionId);
-    if (!sectionElement) return null;
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
+    const cameraObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const className = sections[entry.target.id];
             entry.target.classList.toggle(className, entry.isIntersecting);
             entry.target.classList.toggle('fog-fade-in', entry.isIntersecting);
             entry.target.classList.toggle('fog-fade-out', !entry.isIntersecting);
         });
-    }, { threshold: 0.2, rootMargin: '0px' });
-
-    observer.observe(sectionElement);
-    return observer;
-}
-
-function initializeSkillProgress() {
-    const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.querySelectorAll('.progress-bar').forEach((bar) => {
-                    bar.style.width = bar.getAttribute('aria-valuenow') + '%';
-                });
-            }
-        });
     }, { threshold: 0.2 });
 
-    document.querySelectorAll('.skill-item').forEach((item) => skillObserver.observe(item));
+    Object.keys(sections).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) cameraObserver.observe(el);
+    });
+}
+
+function typeWriterAnimation() {
+    const el = document.getElementById('typewriter');
+    if (!el) return;
+
+    let phraseIdx = 0, charIdx = 0, isDeleting = false;
+
+    function animate() {
+        const current = professionPhrases[phraseIdx];
+        el.textContent = current.substring(0, isDeleting ? charIdx-- : charIdx++);
+
+        let speed = isDeleting ? 40 : 80;
+        if (!isDeleting && charIdx > current.length) {
+            isDeleting = true;
+            speed = 2000;
+        } else if (isDeleting && charIdx < 0) {
+            isDeleting = false;
+            phraseIdx = (phraseIdx + 1) % professionPhrases.length;
+            charIdx = 0;
+            speed = 500;
+        }
+        setTimeout(animate, speed);
+    }
+    animate();
 }
 
 function initializeGlitchText() {

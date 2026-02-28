@@ -300,7 +300,8 @@
   width: 100%;
   max-width: 550px;
   transform-style: preserve-3d;
-  transition: transform 0.1s ease-out;
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  will-change: transform;
 }
 
 .timeline-item:nth-child(odd) {

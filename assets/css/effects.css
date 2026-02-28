@@ -16,6 +16,12 @@
   left: 0;
   z-index: 9999;
   pointer-events: none;
+  will-change: transform;
+}
+
+.tilt-element {
+    transition: transform 0.1s ease-out; 
+    transform-style: preserve-3d;
 }
 
 @media (hover: hover) and (pointer: fine) {

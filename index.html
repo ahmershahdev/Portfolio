@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="Content-Security-Policy" content="
 default-src 'self'; 
-script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://unpkg.com https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://www.googletagmanager.com; 
+script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://unpkg.com https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com; 
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
 font-src 'self' data: https://fonts.gstatic.com; 
 img-src 'self' data: blob: https://ahmershah.dev; 
-connect-src 'self' blob: https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://formspree.io https://pub-cf58c39336f64e21807389581d20ec09.r2.dev https://www.google-analytics.com; 
+connect-src 'self' blob: https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://formspree.io https://pub-cf58c39336f64e21807389581d20ec09.r2.dev; 
 worker-src 'self' blob:; 
 object-src 'none'; 
 base-uri 'self'; 
@@ -64,9 +64,26 @@ upgrade-insecure-requests;">
   <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/all.purged.css" media="print" onload="this.media='all'">
 
+  <style>
+    body {
+      cursor:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2300f0ff' stroke-width='1.5'><line x1='16' y1='6' x2='16' y2='12'/><line x1='16' y1='20' x2='16' y2='26'/><line x1='6' y1='16' x2='12' y2='16'/><line x1='20' y1='16' x2='26' y2='16'/><circle cx='16' cy='16' r='1.5' fill='%2300f0ff' stroke='none'/></g></svg>") 16 16,
+        auto;
+      font-family: "Exo 2", sans-serif !important;
+      background-color: #0a0a0f !important;
+      color: #f0f8ff !important;
+      overflow-x: hidden !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+
+    .glowing-text {
+      font-display: swap;
+    }
+  </style>
+
   <link rel="stylesheet" href="assets/css/global.css" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/animations.css">
-  <link rel="stylesheet" href="assets/css/navigation.css">
+  <link rel="stylesheet" href="assets/css/animations.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/navigation.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/loader.css">
   <link rel="stylesheet" href="assets/css/components.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/effects.css" media="print" onload="this.media='all'">
@@ -74,24 +91,13 @@ upgrade-insecure-requests;">
   <link rel="stylesheet" href="assets/css/form.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/footer.css" media="print" onload="this.media='all'">
 
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap">
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
+    as="style" onload="this.rel='stylesheet'">
 
-  <style>
-    .glowing-text {
-      font-display: swap
-    }
-  </style>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBW9VWENKC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-YBW9VWENKC');
-  </script>
-
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap">
+ 
   <script type="importmap">
   {
     "imports": {
@@ -740,7 +746,6 @@ upgrade-insecure-requests;">
                   <span class="badge bg-neon-red">CSS3</span>
                   <span class="badge bg-neon-blue">Bootstrap</span>
                   <span class="badge bg-neon-red">JavaScript</span>
-                  <span class="badge bg-neon-red">jQuery</span>
                   <span class="badge bg-neon-purple">Three.js</span>
                   <span class="badge bg-neon-green">Blender</span>
                   <span class="badge bg-neon-purple">GLTF</span>
@@ -780,6 +785,13 @@ upgrade-insecure-requests;">
 
               <div id="form-success" class="form-success-message" role="alert" aria-live="polite" aria-atomic="true"
                 aria-hidden="true" tabindex="-1" style="display: none;">
+
+                <div id="form-error" class="form-error-message" role="alert" aria-live="assertive" aria-atomic="true"
+                  aria-hidden="true" tabindex="-1" style="display: none;">
+                  <i class="bi bi-x-circle-fill me-2" aria-hidden="true"></i>
+                  <span>There was an error sending your message. Please try again.</span>
+                </div>
+
                 <i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i>
                 <span>Your message has been sent successfully! I'll get back to you soon.</span>
               </div>
@@ -834,7 +846,7 @@ upgrade-insecure-requests;">
         </div>
       </div>
     </section>
-    <a href="#home" id="backToTop" aria-label="Back to top" role="button">
+    <a href="#home" id="backToTop" aria-label="Back to top" role="button" style="cursor: none;">
       <div class="pistol-container">
         <i class="fa-solid fa-gun"></i>
         <div class="muzzle-flash"></div>
@@ -902,7 +914,6 @@ upgrade-insecure-requests;">
     </div>
   </div>
 
-  <script src="assets/js/jquery-3.7.1.min.js" defer></script>
   <script src="assets/js/bootstrap.bundle.min.js" defer></script>
   <script type="module" src="assets/js/script.js" defer></script>
 </body>

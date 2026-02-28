@@ -77,3 +77,45 @@
   color: #ffffff !important;
   text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
 }
+
+.form-error-message {
+  background-color: rgba(20, 10, 10, 0.95);
+  position: relative;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(rgba(20, 10, 10, 1), rgba(20, 10, 10, 1)),
+    linear-gradient(45deg, #ff0f41, #ff4100);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 0 20px rgba(255, 65, 0, 0.3);
+  animation: error-glow 2s ease-in-out infinite alternate;
+}
+
+.form-error-message i {
+  color: #ff0f41;
+  font-size: 1.5rem;
+  text-shadow:
+    0 0 10px #ff0f41,
+    0 0 20px #ff0f41;
+  animation: icon-pulse 1.5s ease-in-out infinite;
+}
+
+.form-error-message span {
+  color: #ffffff !important;
+  text-shadow: 0 0 5px rgba(255, 65, 0, 0.5);
+}
+
+@keyframes error-glow {
+  from {
+    box-shadow: 0 0 10px rgba(255, 65, 0, 0.2);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(255, 65, 0, 0.6);
+  }
+}
