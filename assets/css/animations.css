@@ -1,5 +1,3 @@
-
-
 @keyframes blink {
   0%,
   100% {
@@ -317,6 +315,83 @@
 .reveal-up.reveal-visible {
   transform: translateY(0) !important;
   opacity: 1 !important;
+}
+
+/* ====== Camera Fly-In Entry (triggered on loader complete) ====== */
+@keyframes camera-depth-arrive {
+  0% {
+    transform: perspective(1100px) translateZ(-1200px) scale(0.25)
+      rotateX(10deg);
+    opacity: 0;
+    filter: blur(18px) brightness(0);
+  }
+  30% {
+    opacity: 0.5;
+    filter: blur(6px) brightness(0.4);
+  }
+  70% {
+    filter: blur(1px) brightness(0.85);
+  }
+  100% {
+    transform: perspective(1100px) translateZ(0px) scale(1) rotateX(0deg);
+    opacity: 1;
+    filter: blur(0px) brightness(1);
+  }
+}
+
+main.page-enter {
+  animation: camera-depth-arrive 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-play-state: paused;
+  will-change: transform, opacity, filter;
+  transform-origin: 50% 45%;
+}
+
+main.page-enter.camera-fly-in {
+  animation-play-state: running;
+}
+
+/* ====== Curtain Reveal (opens from center outward) ====== */
+.curtain-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.curtain-reveal::before,
+.curtain-reveal::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 51%;
+  height: 100%;
+  background: #04040a;
+  z-index: 50;
+  transition: transform 0.92s cubic-bezier(0.77, 0, 0.18, 1);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.curtain-reveal::before {
+  left: 0;
+  transform: translateX(0%);
+  box-shadow:
+    inset -3px 0 24px rgba(0, 240, 255, 0.18),
+    inset -1px 0 0px rgba(0, 240, 255, 0.5);
+}
+
+.curtain-reveal::after {
+  right: 0;
+  transform: translateX(0%);
+  box-shadow:
+    inset 3px 0 24px rgba(0, 240, 255, 0.18),
+    inset 1px 0 0px rgba(0, 240, 255, 0.5);
+}
+
+.curtain-reveal.reveal-visible::before {
+  transform: translateX(-102%);
+}
+
+.curtain-reveal.reveal-visible::after {
+  transform: translateX(102%);
 }
 
 @media (max-width: 576px) {
