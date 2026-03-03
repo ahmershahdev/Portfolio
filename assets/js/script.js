@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.documentElement.style.overflowY = "auto";
       document.body.style.overflowY = "auto";
 
-      // Camera fly-in: page rushes from far-back Z-space into view
+      
       const mainEl = document.querySelector("main");
       if (mainEl) {
         requestAnimationFrame(() => {

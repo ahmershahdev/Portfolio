@@ -83,7 +83,7 @@ export function initializeThreeScene() {
   const rain = new THREE.Points(rainGeometry, rainMaterial);
   scrollGroup.add(rain);
 
-  // Lazy-load models after scene setup
+  
   let modelsLoaded = false;
 
   const dracoLoader = new DRACOLoader();
@@ -103,7 +103,7 @@ export function initializeThreeScene() {
   const boundingBox = new THREE.Box3();
   const metalMaterialProps = { metalness: 1, roughness: 0.2 };
 
-  // Load background immediately (smaller file, non-blocking)
+  
   modelLoader.load(
     "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/background_room.glb",
     (gltf) => {
@@ -123,7 +123,7 @@ export function initializeThreeScene() {
     },
     undefined,
     (error) => {
-      // Fallback to local asset if remote fails
+      
       modelLoader.load("assets/blender/background_room.glb", (gltf) => {
         roomModel = gltf.scene;
         roomModel.traverse((node) => {
@@ -172,7 +172,7 @@ export function initializeThreeScene() {
         },
         undefined,
         (error) => {
-          // Fallback to local asset if remote fails
+          
           modelLoader.load("assets/blender/iron_man.glb", (gltf) => {
             modelsLoaded = true;
             ironManModel = gltf.scene;

@@ -268,8 +268,6 @@
   transition: opacity 0.6s ease-out;
 }
 
-/* ===== Project Carousel ===== */
-
 .project-carousel {
   position: relative;
   min-height: 380px;
@@ -286,7 +284,6 @@
   opacity: 1;
 }
 
-/* Image comes from left with camera-view perspective */
 .project-img-col {
   transform: translateX(-120px) perspective(900px) rotateY(-20deg);
   opacity: 0;
@@ -295,7 +292,7 @@
     opacity 0.75s ease;
 }
 
-/* Info comes from right with camera-view perspective */
+
 .project-info-col {
   transform: translateX(120px) perspective(900px) rotateY(20deg);
   opacity: 0;
@@ -405,5 +402,574 @@
     display: table;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+/* =============================================
+   CERTIFICATE BOOK — Interactive Book Design
+   ============================================= */
+
+
+.cert-tabs-wrapper {
+  text-align: center;
+}
+
+.cert-tab-btn {
+  background: transparent;
+  border: 1.5px solid rgba(0, 240, 252, 0.35);
+  color: rgba(0, 240, 252, 0.65);
+  padding: 0.45rem 1.1rem;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cert-tab-btn:hover {
+  border-color: #0ff0fc;
+  color: #0ff0fc;
+  box-shadow: 0 0 12px rgba(0, 240, 252, 0.3);
+}
+
+.cert-tab-btn.active {
+  background: rgba(0, 240, 252, 0.12);
+  border-color: #0ff0fc;
+  color: #0ff0fc;
+  box-shadow: 0 0 18px rgba(0, 240, 252, 0.4);
+}
+
+.cert-tab-count {
+  font-size: 0.7rem;
+  background: rgba(0, 240, 252, 0.15);
+  border-radius: 50%;
+  padding: 1px 6px;
+  line-height: 1.4;
+}
+
+
+.cert-book-scene {
+  perspective: 2200px;
+  perspective-origin: 50% 40%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.cert-book {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  min-height: 480px;
+  transform: rotateX(4deg);
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.85));
+}
+
+.cert-book:hover {
+  transform: rotateX(2deg);
+}
+
+
+.book-cover-edge {
+  width: 22px;
+  flex-shrink: 0;
+  background: linear-gradient(to bottom, #030f07, #071a0a, #030f07);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  position: relative;
+  z-index: 5;
+}
+
+.book-cover-left-edge {
+  border-radius: 6px 0 0 6px;
+  box-shadow:
+    inset -3px 0 8px rgba(0, 0, 0, 0.5),
+    -4px 0 12px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(to right, #020b05, #071a0a);
+}
+
+.book-cover-right-edge {
+  border-radius: 0 6px 6px 0;
+  box-shadow:
+    inset 3px 0 8px rgba(0, 0, 0, 0.5),
+    4px 0 12px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(to left, #020b05, #071a0a);
+}
+
+
+.book-page {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #060f07 0%, #0a1a0b 100%);
+  border-top: 1px solid rgba(0, 240, 252, 0.15);
+  border-bottom: 1px solid rgba(0, 240, 252, 0.15);
+}
+
+.book-page-left {
+  border-left: none;
+  border-right: none;
+}
+
+.book-page-right {
+  border-left: none;
+  border-right: none;
+}
+
+
+.page-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(0, 240, 252, 0.04) 28px
+  );
+  z-index: 0;
+}
+
+.page-inner {
+  position: relative;
+  z-index: 2;
+  padding: 2.2rem 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.book-spine-divider {
+  width: 18px;
+  flex-shrink: 0;
+  background: linear-gradient(to bottom, #030a03, #0a2205, #030a03);
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+  box-shadow:
+    -3px 0 10px rgba(0, 0, 0, 0.5),
+    3px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.spine-glow {
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #0ff0fc,
+    #00ff41,
+    #0ff0fc,
+    transparent
+  );
+  box-shadow:
+    0 0 12px #0ff0fc,
+    0 0 24px rgba(0, 240, 252, 0.5);
+  animation: spineGlowPulse 3s ease-in-out infinite;
+}
+
+@keyframes spineGlowPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    box-shadow:
+      0 0 10px #0ff0fc,
+      0 0 20px rgba(0, 240, 252, 0.4);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 18px #0ff0fc,
+      0 0 35px rgba(0, 240, 252, 0.7);
+  }
+}
+
+
+.book-shadow {
+  width: 80%;
+  max-width: 700px;
+  height: 40px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 240, 252, 0.15) 0%,
+    transparent 75%
+  );
+  margin-top: -10px;
+  filter: blur(12px);
+}
+
+
+.book-flip-layer {
+  position: absolute;
+  top: 0;
+  right: 22px; 
+  width: calc(50% - 20px);
+  height: 100%;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  z-index: 20;
+  display: none;
+}
+
+.book-flip-layer.flipping-fwd {
+  display: block;
+  animation: certFlipForward 0.78s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.book-flip-layer.flipping-bck {
+  display: block;
+  animation: certFlipBackward 0.78s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes certFlipForward {
+  0% {
+    transform: rotateY(0deg) perspective(1200px) translateZ(0px);
+    box-shadow: none;
+  }
+  30% {
+    transform: rotateY(-50deg) perspective(1200px) translateZ(18px);
+    box-shadow: -12px 0 30px rgba(0, 0, 0, 0.55);
+  }
+  60% {
+    transform: rotateY(-120deg) perspective(1200px) translateZ(10px);
+    box-shadow: -6px 0 18px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    transform: rotateY(-180deg) perspective(1200px) translateZ(0px);
+    box-shadow: none;
+  }
+}
+
+@keyframes certFlipBackward {
+  0% {
+    transform: rotateY(0deg) perspective(1200px) translateZ(0px);
+    box-shadow: none;
+  }
+  30% {
+    transform: rotateY(50deg) perspective(1200px) translateZ(18px);
+    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.55);
+  }
+  60% {
+    transform: rotateY(120deg) perspective(1200px) translateZ(10px);
+    box-shadow: 6px 0 18px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    transform: rotateY(180deg) perspective(1200px) translateZ(0px);
+    box-shadow: none;
+  }
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  background: #070e08;
+  border-top: 1px solid rgba(0, 240, 252, 0.1);
+  border-bottom: 1px solid rgba(0, 240, 252, 0.1);
+}
+
+.flip-face-back {
+  transform: rotateY(180deg);
+}
+
+.flip-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 1.2rem;
+}
+
+
+.cert-issuer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid;
+  margin-bottom: 1rem;
+}
+
+.cert-page-number {
+  font-size: 0.65rem;
+  font-family: "Orbitron", sans-serif;
+  color: rgba(0, 240, 252, 0.35);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.cert-title-text {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.85rem, 2.5vw, 1.2rem);
+  color: #e2ffe8;
+  line-height: 1.35;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.25);
+}
+
+.cert-issuer-name {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cert-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.4rem;
+}
+
+.cert-skill-tag {
+  font-size: 0.68rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 240, 252, 0.3);
+  color: rgba(0, 240, 252, 0.8);
+  background: rgba(0, 240, 252, 0.06);
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.cert-badge-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(0, 240, 252, 0.5));
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.cert-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.55rem 1.4rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border: 1.5px solid;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.cert-view-btn:hover {
+  box-shadow: 0 0 22px rgba(0, 240, 252, 0.5);
+  transform: translateY(-2px);
+}
+
+
+.cert-img-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1.5rem;
+}
+
+.cert-main-img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 240, 252, 0.2);
+  box-shadow:
+    0 0 30px rgba(0, 240, 252, 0.12),
+    0 8px 32px rgba(0, 0, 0, 0.6);
+  transition:
+    box-shadow 0.3s,
+    transform 0.3s;
+}
+
+.cert-main-img:hover {
+  box-shadow:
+    0 0 45px rgba(0, 240, 252, 0.3),
+    0 12px 40px rgba(0, 0, 0, 0.7);
+  transform: scale(1.015);
+}
+
+
+.cert-nav-btn {
+  background: transparent;
+  border: 1.5px solid rgba(0, 240, 252, 0.5);
+  color: #0ff0fc;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.cert-nav-btn:hover {
+  background: rgba(0, 240, 252, 0.15);
+  box-shadow: 0 0 20px rgba(0, 240, 252, 0.4);
+  border-color: #0ff0fc;
+}
+
+.cert-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.cert-counter {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.78rem;
+  color: #0ff0fc;
+  letter-spacing: 3px;
+  text-align: center;
+  min-width: 68px;
+}
+
+
+.cert-dot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  max-width: 280px;
+}
+
+.cert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 240, 252, 0.2);
+  border: 1px solid rgba(0, 240, 252, 0.35);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.cert-dot.active {
+  background: #0ff0fc;
+  box-shadow: 0 0 8px rgba(0, 240, 252, 0.9);
+  transform: scale(1.25);
+}
+
+.cert-dot:hover:not(.active) {
+  background: rgba(0, 240, 252, 0.45);
+}
+
+
+.page-inner.page-fade-in {
+  animation: pageFadeIn 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+@media (max-width: 767px) {
+  .cert-book {
+    flex-direction: column;
+    transform: none;
+    min-height: auto;
+  }
+
+  .cert-book:hover {
+    transform: none;
+  }
+
+  .book-page-left,
+  .book-page-right {
+    min-height: 260px;
+  }
+
+  .book-cover-edge {
+    width: 100%;
+    height: 14px;
+  }
+
+  .book-cover-left-edge {
+    border-radius: 6px 6px 0 0;
+    box-shadow: none;
+  }
+
+  .book-cover-right-edge {
+    border-radius: 0 0 6px 6px;
+    box-shadow: none;
+  }
+
+  .book-spine-divider {
+    width: 100%;
+    height: 14px;
+  }
+
+  .spine-glow {
+    top: 50%;
+    left: 5%;
+    right: 5%;
+    bottom: auto;
+    width: auto;
+    height: 3px;
+    transform: translateY(-50%);
+  }
+
+  .book-flip-layer {
+    display: none !important;
+  }
+
+  .page-inner {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .cert-main-img {
+    max-height: 220px;
+  }
+
+  .cert-book-scene {
+    perspective: none;
+  }
+
+  .book-shadow {
+    display: none;
   }
 }

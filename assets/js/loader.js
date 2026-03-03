@@ -15,7 +15,7 @@ export function initializeLoader() {
 
   if (!els.wrapper) return;
 
-  // Lock scroll and hide scrollbar while loading
+  
   document.documentElement.style.overflow = "hidden";
   document.documentElement.style.scrollbarWidth = "none";
 
@@ -57,7 +57,7 @@ export function initializeLoader() {
         if (scrollRestored) return;
         scrollRestored = true;
         els.wrapper.style.display = "none";
-        // Restore scroll after loader is fully gone
+        
         document.documentElement.style.overflow = "";
         document.documentElement.style.scrollbarWidth = "";
         window.dispatchEvent(new CustomEvent("loaderComplete"));
@@ -66,7 +66,7 @@ export function initializeLoader() {
       els.wrapper.addEventListener("transitionend", restoreScroll, {
         once: true,
       });
-      // Fallback: ensure scroll is always restored even if transitionend doesn't fire
+      
       setTimeout(restoreScroll, 700);
     }, 300);
   };

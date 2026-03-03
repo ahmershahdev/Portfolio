@@ -21,7 +21,7 @@ export function initProjectCarousel() {
 
   function triggerAnimation(slide) {
     slide.classList.remove("animate-in");
-    // Double rAF ensures DOM re-renders before re-adding the class
+    
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         slide.classList.add("animate-in");
@@ -37,7 +37,7 @@ export function initProjectCarousel() {
     if (counter) counter.textContent = `${current + 1} / ${total}`;
   }
 
-  // IntersectionObserver: fire animation when section enters viewport
+  
   const carouselObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -57,7 +57,7 @@ export function initProjectCarousel() {
   prevBtn.addEventListener("click", () => showSlide(current - 1));
   nextBtn.addEventListener("click", () => showSlide(current + 1));
 
-  // Keyboard navigation
+  
   document.addEventListener("keydown", (e) => {
     const projectsSection = document.getElementById("projects");
     if (!projectsSection) return;
@@ -68,7 +68,7 @@ export function initProjectCarousel() {
     if (e.key === "ArrowRight") showSlide(current + 1);
   });
 
-  // Initialize counter
+  
   if (counter) counter.textContent = `1 / ${total}`;
 }
 

@@ -317,7 +317,7 @@
   opacity: 1 !important;
 }
 
-/* ====== Camera Fly-In Entry (triggered on loader complete) ====== */
+
 @keyframes camera-depth-arrive {
   0% {
     transform: perspective(1100px) translateZ(-1200px) scale(0.25)
@@ -350,7 +350,7 @@ main.page-enter.camera-fly-in {
   animation-play-state: running;
 }
 
-/* ====== Curtain Reveal (opens from center outward) ====== */
+
 .curtain-reveal {
   position: relative;
   overflow: hidden;

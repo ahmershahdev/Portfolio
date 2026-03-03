@@ -19,6 +19,11 @@
   font-size: 0.8rem;
 }
 
+
+.contact-form .float-label-group .form-control::placeholder {
+  color: transparent;
+}
+
 .contact-form .form-control:focus {
   background: rgba(0, 255, 65, 0.08) !important;
   border-left: 4px solid #00ff41 !important;
@@ -27,13 +32,42 @@
   color: #fff !important;
 }
 
-.contact-form label {
-  font-family: "Rajdhani", sans-serif;
-  color: #00f0ff;
+
+.contact-form .float-label-group {
+  position: relative;
+  margin-top: 1.4rem;
+  margin-bottom: 5px;
+}
+
+
+.contact-form .float-label-group label {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.25rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: rgba(0, 240, 255, 0.4);
   text-transform: uppercase;
-  font-size: 0.75rem;
+  letter-spacing: 2px;
+  pointer-events: none;
+  margin: 0;
+  z-index: 2;
+  transition:
+    top 0.25s ease,
+    font-size 0.25s ease,
+    color 0.25s ease,
+    letter-spacing 0.25s ease;
+}
+
+
+.contact-form .float-label-group .form-control:focus ~ label,
+.contact-form .float-label-group .form-control:not(:placeholder-shown) ~ label {
+  top: -1.1rem;
+  font-size: 0.62rem;
+  color: #00f0ff;
   letter-spacing: 3px;
-  margin-top: 15px;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
 }
 
 .invalid-feedback {

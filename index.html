@@ -15,6 +15,9 @@ worker-src 'self' blob:;
 object-src 'none'; 
 base-uri 'self'; 
 upgrade-insecure-requests;">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <title>Ahmer Shah | Software Engineer & Full-Stack Developer</title>
   <link rel="canonical" href="https://ahmershah.dev/">
@@ -89,7 +92,7 @@ upgrade-insecure-requests;">
   <link rel="stylesheet" href="assets/css/effects.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/sections.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/form.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="assets/css/footer.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/footer.css" fetchpriority="high">
 
   <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
@@ -255,13 +258,13 @@ upgrade-insecure-requests;">
     </nav>
   </header>
 
-  <div class="offcanvas offcanvas-start bg-black text-white" tabindex="-1" id="offcanvasNavbar" inert
+  <div class="offcanvas offcanvas-start bg-black text-white" tabindex="-1" id="offcanvasNavbar"
     style="width: 280px; border-right: 1px solid #0ff0fc;">
     <div class="offcanvas-header border-bottom border-secondary">
       <h5 class="offcanvas-title" style="color: #0ff0fc; font-weight: bold; letter-spacing: 2px;">
         <i class="fas fa-shredder me-2"></i>SYSTEM_MENU
       </h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
       <ul class="navbar-nav">
@@ -573,63 +576,79 @@ upgrade-insecure-requests;">
 
     <section id="certificates" class="py-5 bg-dark curtain-reveal" aria-labelledby="certs-heading">
       <div class="container">
-        <h2 id="certs-heading" class="section-title text-center mb-5">Certifications</h2>
-        <div class="row">
-          <div class="col-lg-10 mx-auto">
-            <div class="neon-border p-4 p-md-5">
-              <h2 class="text-neon-green mb-4">50+ Professional Certifications</h2>
-              <p class="mb-4 text-secondary">
-                I have earned over 50+ professional certifications from leading online learning platforms and technology
-                companies:
-              </p>
+        <h2 id="certs-heading" class="section-title text-center mb-4">Certifications</h2>
 
-              <div class="row mt-4 g-4">
-                <div class="col-md-6">
-                  <h3 class="text-neon-blue mb-3"><i class="bi bi-award me-2" aria-hidden="true"></i>Coursera
-                    Certifications</h3>
-                  <ul class="list-unstyled">
-                    <li class="mb-2 d-flex align-items-center"><i class="bi bi-patch-check-fill text-neon-green me-2"
-                        aria-hidden="true"></i>Google - Technical Support Fundamentals</li>
-                    <li class="mb-2 d-flex align-items-center"><i class="bi bi-patch-check-fill text-neon-green me-2"
-                        aria-hidden="true"></i>IBM - Intro to HTML, CSS, & JavaScript</li>
-                    <li class="mb-2 d-flex align-items-center"><i class="bi bi-patch-check-fill text-neon-green me-2"
-                        aria-hidden="true"></i>Meta - Front-End Development</li>
-                    <li class="mb-2 d-flex align-items-center"><i class="bi bi-patch-check-fill text-neon-green me-2"
-                        aria-hidden="true"></i>Amazon - Full Stack Web Development</li>
-                    <li class="mb-2 d-flex align-items-center"><i class="bi bi-patch-check-fill text-neon-green me-2"
-                        aria-hidden="true"></i>DeepLearning - AI For Everyone</li>
-                  </ul>
-                </div>
+        
+        <div class="cert-tabs-wrapper mb-5">
+          <div class="cert-tabs d-flex justify-content-center flex-wrap gap-2">
+            <button class="cert-tab-btn active" data-cat="all" aria-pressed="true">
+              <i class="bi bi-grid-3x3-gap me-1"></i>All <span class="cert-tab-count">21</span>
+            </button>
+            <button class="cert-tab-btn" data-cat="cisco" aria-pressed="false">
+              <i class="bi bi-hdd-network me-1"></i>Cisco <span class="cert-tab-count">8</span>
+            </button>
+            <button class="cert-tab-btn" data-cat="coursera" aria-pressed="false">
+              <i class="bi bi-mortarboard me-1"></i>Coursera <span class="cert-tab-count">4</span>
+            </button>
+            <button class="cert-tab-btn" data-cat="linkedin" aria-pressed="false">
+              <i class="bi bi-linkedin me-1"></i>LinkedIn <span class="cert-tab-count">5</span>
+            </button>
+            <button class="cert-tab-btn" data-cat="simplilearn" aria-pressed="false">
+              <i class="bi bi-lightbulb me-1"></i>Simplilearn <span class="cert-tab-count">4</span>
+            </button>
+          </div>
+        </div>
 
-                <div class="col-md-6">
-                  <h3 class="text-neon-blue mb-3"><i class="bi bi-award me-2" aria-hidden="true"></i>Other Platforms
-                  </h3>
-                  <ul class="list-unstyled">
-                    <li class="mb-2 d-flex align-items-center"><i class="bi bi-patch-check-fill text-neon-green me-2"
-                        aria-hidden="true"></i>LinkedIn Learning Certifications</li>
-                    <li class="mb-2 d-flex align-items-center"><i class="bi bi-patch-check-fill text-neon-green me-2"
-                        aria-hidden="true"></i>Simplilearn Courses</li>
-                    <li class="mb-2 d-flex align-items-center"><i class="bi bi-patch-check-fill text-neon-green me-2"
-                        aria-hidden="true"></i>Cisco Networking Academy</li>
-                  </ul>
-                </div>
-              </div>
+        
+        <div class="cert-book-scene">
+          <div class="cert-book" id="certBook">
 
-              <div class="mt-5 border-top border-secondary pt-4">
-                <h3 class="text-neon-blue mb-3"><i class="bi bi-trophy me-2" aria-hidden="true"></i>Key Focus Areas</h3>
-                <div class="d-flex flex-wrap gap-2">
-                  <span class="badge bg-transparent border border-info text-info p-2 px-3">Front-End Web
-                    Development</span>
-                  <span class="badge bg-transparent border border-info text-info p-2 px-3">Back-End Web
-                    Development</span>
-                  <span class="badge bg-transparent border border-info text-info p-2 px-3">SEO</span>
-                  <span class="badge bg-transparent border border-danger text-danger p-2 px-3">Full Stack Web
-                    Development</span>
-                </div>
-              </div>
+            
+            <div class="book-cover-edge book-cover-left-edge"></div>
 
+            
+            <div class="book-page book-page-left" id="bookPageLeft">
+              <div class="page-lines"></div>
+              <div class="page-inner" id="pageLeftContent"></div>
+            </div>
+
+            
+            <div class="book-spine-divider">
+              <div class="spine-glow"></div>
+            </div>
+
+            
+            <div class="book-page book-page-right" id="bookPageRight">
+              <div class="page-lines"></div>
+              <div class="page-inner" id="pageRightContent"></div>
+            </div>
+
+            
+            <div class="book-cover-edge book-cover-right-edge"></div>
+
+            
+            <div class="book-flip-layer" id="bookFlipLayer">
+              <div class="flip-face flip-face-front" id="flipFaceFront"></div>
+              <div class="flip-face flip-face-back" id="flipFaceBack"></div>
             </div>
           </div>
+
+          
+          <div class="book-shadow"></div>
+        </div>
+
+        
+        <div class="cert-book-nav mt-4 d-flex align-items-center justify-content-center" style="gap:3rem">
+          <button class="cert-nav-btn" id="certPrevBtn" aria-label="Previous certificate">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <div class="d-flex flex-column align-items-center gap-2">
+            <span class="cert-counter font-orbitron" id="certCounter">1 / 21</span>
+            <div class="cert-dot-nav" id="certDotNav" role="tablist" aria-label="Certificate page dots"></div>
+          </div>
+          <button class="cert-nav-btn" id="certNextBtn" aria-label="Next certificate">
+            <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
       </div>
     </section>
@@ -811,36 +830,44 @@ upgrade-insecure-requests;">
                 <input type="hidden" name="_next" value="?submitted=true#contact" aria-hidden="true">
                 <div class="row">
                   <div class="col-md-6">
-                    <label for="contact-name" class="visually-hidden">Your Name</label>
-                    <input type="text" id="contact-name" class="form-control" name="name" placeholder="Your Name"
-                      required minlength="2" maxlength="40" autocomplete="name" aria-required="true"
-                      aria-describedby="name-error" />
+                    <div class="float-label-group">
+                      <input type="text" id="contact-name" class="form-control" name="name" placeholder=" " required
+                        minlength="2" maxlength="40" autocomplete="name" aria-required="true"
+                        aria-describedby="name-error" />
+                      <label for="contact-name">Your Name</label>
+                    </div>
                     <div id="name-error" class="invalid-feedback" role="alert">
                       Please enter a valid name (2-40 characters).
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <label for="contact-email" class="visually-hidden">Your Email</label>
-                    <input type="email" id="contact-email" class="form-control" name="email" placeholder="Your Email"
-                      required autocomplete="email" aria-required="true" aria-describedby="email-error" />
+                    <div class="float-label-group">
+                      <input type="email" id="contact-email" class="form-control" name="email" placeholder=" " required
+                        autocomplete="email" aria-required="true" aria-describedby="email-error" />
+                      <label for="contact-email">Your Email</label>
+                    </div>
                     <div id="email-error" class="invalid-feedback" role="alert">
                       Please enter a valid email address.
                     </div>
                   </div>
                 </div>
 
-                <label for="contact-subject" class="visually-hidden">Subject</label>
-                <input type="text" id="contact-subject" class="form-control" name="subject" placeholder="Subject"
-                  required minlength="5" maxlength="100" autocomplete="off" aria-required="true"
-                  aria-describedby="subject-error" />
+                <div class="float-label-group">
+                  <input type="text" id="contact-subject" class="form-control" name="subject" placeholder=" " required
+                    minlength="5" maxlength="100" autocomplete="off" aria-required="true"
+                    aria-describedby="subject-error" />
+                  <label for="contact-subject">Subject</label>
+                </div>
                 <div id="subject-error" class="invalid-feedback" role="alert">
                   Subject must be 5-100 characters.
                 </div>
 
-                <label for="contact-message" class="visually-hidden">Your Message</label>
-                <textarea id="contact-message" class="form-control" name="message" rows="5" placeholder="Your Message"
-                  required minlength="10" maxlength="700" autocomplete="off" aria-required="true"
-                  aria-describedby="message-error"></textarea>
+                <div class="float-label-group">
+                  <textarea id="contact-message" class="form-control" name="message" rows="5" placeholder=" " required
+                    minlength="10" maxlength="700" autocomplete="off" aria-required="true"
+                    aria-describedby="message-error"></textarea>
+                  <label for="contact-message">Your Message</label>
+                </div>
                 <div id="message-error" class="invalid-feedback" role="alert">
                   Message must be 10-700 characters.
                 </div>
@@ -856,15 +883,16 @@ upgrade-insecure-requests;">
         </div>
       </div>
     </section>
-    <a href="#home" id="backToTop" aria-label="Back to top" role="button" style="cursor: none;">
-      <div class="pistol-container">
-        <i class="fa-solid fa-gun"></i>
-        <div class="muzzle-flash"></div>
-      </div>
-      <span class="bullet"></span>
-    </a>
 
   </main>
+
+  <a href="#home" id="backToTop" aria-label="Back to top" role="button" style="cursor: none;">
+    <div class="pistol-container">
+      <i class="fa-solid fa-gun"></i>
+      <div class="muzzle-flash"></div>
+    </div>
+    <span class="bullet"></span>
+  </a>
 
   <footer class="text-center py-5">
     <div class="container">
@@ -925,6 +953,7 @@ upgrade-insecure-requests;">
   </div>
 
   <script src="assets/js/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/js/cert-book.js" defer></script>
   <script type="module" src="assets/js/script.js" defer></script>
 </body>
 

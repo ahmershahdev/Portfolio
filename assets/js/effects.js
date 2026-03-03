@@ -92,28 +92,90 @@ function initializeCustomCursor() {
   canvas.style.left = "0";
   canvas.style.zIndex = "9999";
 
-  const ctx = canvas.getContext("2d", { alpha: true });
-  const dots = Array.from({ length: 12 }, () => ({ x: 0, y: 0 }));
-  const friction = 0.55;
+  const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
+  const TRAIL_LEN = 16;
+  
+  const dotsX = new Float32Array(TRAIL_LEN).fill(-200);
+  const dotsY = new Float32Array(TRAIL_LEN).fill(-200);
+  const particles = [];
+  const MAX_PARTICLES = 20;
+
   let visible = false;
   let pressed = false;
-  let mouse = { x: 0, y: 0 };
-  let lastBlink = 0;
-  let blinking = false;
+  let mouseX = 0,
+    mouseY = 0;
+  let prevX = 0,
+    prevY = 0;
+  let speed = 0;
+  let lastMoveTime = 0;
+
+  
+  const TRAIL_CYAN = [15, 240, 252];
+  const TRAIL_GREEN = [0, 255, 65];
+  const TRAIL_WHITE = [255, 255, 255];
+
+  function trailColor(t, alpha) {
+    let r, g, b;
+    if (pressed) {
+      [r, g, b] = TRAIL_WHITE;
+    } else if (t < 0.4) {
+      const f = t / 0.4;
+      r = Math.round(TRAIL_CYAN[0] * (1 - f) + TRAIL_GREEN[0] * f);
+      g = Math.round(TRAIL_CYAN[1] * (1 - f) + TRAIL_GREEN[1] * f);
+      b = Math.round(TRAIL_CYAN[2] * (1 - f) + TRAIL_GREEN[2] * f);
+    } else {
+      const f = (t - 0.4) / 0.6;
+      r = 0;
+      g = Math.round(TRAIL_GREEN[1] * (1 - f));
+      b = 0;
+      alpha *= 1 - f;
+    }
+    return `rgba(${r},${g},${b},${alpha.toFixed(2)})`;
+  }
+
+  function spawnParticles(x, y) {
+    const count = Math.min(10, MAX_PARTICLES - particles.length);
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+      const vel = 2 + Math.random() * 4;
+      particles.push({
+        x,
+        y,
+        vx: Math.cos(angle) * vel,
+        vy: Math.sin(angle) * vel,
+        life: 1,
+        decay: 0.04 + Math.random() * 0.03,
+        size: 1.5 + Math.random() * 2.5,
+        col: Math.random() > 0.5 ? "rgba(15,240,252," : "rgba(0,255,65,",
+      });
+    }
+  }
 
   window.addEventListener(
     "mousemove",
     (e) => {
       visible = true;
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      prevX = mouseX;
+      prevY = mouseY;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      const dx = mouseX - prevX,
+        dy = mouseY - prevY;
+      speed = Math.sqrt(dx * dx + dy * dy);
+      lastMoveTime = performance.now();
     },
     { passive: true },
   );
 
-  window.addEventListener("mousedown", () => (pressed = true), {
-    passive: true,
-  });
+  window.addEventListener(
+    "mousedown",
+    () => {
+      pressed = true;
+      spawnParticles(mouseX, mouseY);
+    },
+    { passive: true },
+  );
+
   window.addEventListener("mouseup", () => (pressed = false), {
     passive: true,
   });
@@ -122,7 +184,7 @@ function initializeCustomCursor() {
   function resize() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); 
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       ctx.scale(dpr, dpr);
@@ -134,67 +196,143 @@ function initializeCustomCursor() {
   window.addEventListener("resize", resize, { passive: true });
   resize();
 
+  
+  
+  function drawGlow(x, y, r, col, alpha) {
+    ctx.globalAlpha = alpha * 0.35;
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 2.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawCrosshair(x, y, arm, gap, col) {
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.moveTo(x, y - gap);
+    ctx.lineTo(x, y - arm);
+    ctx.moveTo(x, y + gap);
+    ctx.lineTo(x, y + arm);
+    ctx.moveTo(x - gap, y);
+    ctx.lineTo(x - arm, y);
+    ctx.moveTo(x + gap, y);
+    ctx.lineTo(x + arm, y);
+    ctx.stroke();
+  }
+
+  function drawRing(x, y, r, col, alpha, dash) {
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 1.5;
+    if (dash) ctx.setLineDash(dash);
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.stroke();
+    if (dash) ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+  }
+
   function render(time) {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-    if (time - lastBlink > (blinking ? 120 : 2800)) {
-      blinking = !blinking;
-      lastBlink = time;
+    if (!visible) {
+      requestAnimationFrame(render);
+      return;
     }
 
-    if (visible) {
-      let tx = mouse.x;
-      let ty = mouse.y;
-      const len = dots.length;
+    const idle = time - lastMoveTime > 1800;
+    
+    const friction = idle ? 0.35 : pressed ? 0.72 : 0.78;
 
-      for (let i = 0; i < len; i++) {
-        let d = dots[i];
-        d.x += (tx - d.x) * friction;
-        d.y += (ty - d.y) * friction;
-        tx = d.x;
-        ty = d.y;
-      }
-
-      for (let i = len - 1; i >= 0; i--) {
-        const d = dots[i];
-        const op = (1 - i / len) * 0.6;
-        const s = (len - i) * 1.6;
-
-        let col =
-          i % 2 === 0 ? `rgba(15, 240, 252, ${op})` : `rgba(0, 255, 65, ${op})`;
-        if (pressed) col = `rgba(255, 255, 255, ${op})`;
-
-        ctx.shadowBlur = i === 0 ? 15 : 0;
-        ctx.shadowColor = col;
-        ctx.beginPath();
-        ctx.fillStyle = col;
-        ctx.arc(d.x, d.y, s, 0, Math.PI * 2);
-        ctx.fill();
-
-        if (i === 0) {
-          ctx.shadowBlur = 0;
-          ctx.fillStyle = "black";
-          const es = s * 0.25;
-          const eo = s * 0.35;
-
-          if (!blinking) {
-            ctx.beginPath();
-            ctx.arc(d.x - eo, d.y - s * 0.1, es, 0, Math.PI * 2);
-            ctx.arc(d.x + eo, d.y - s * 0.1, es, 0, Math.PI * 2);
-            ctx.fill();
-          } else {
-            ctx.strokeStyle = "black";
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(d.x - eo - es, d.y - s * 0.1);
-            ctx.lineTo(d.x - eo + es, d.y - s * 0.1);
-            ctx.moveTo(d.x + eo - es, d.y - s * 0.1);
-            ctx.lineTo(d.x + eo + es, d.y - s * 0.1);
-            ctx.stroke();
-          }
-        }
-      }
+    
+    let tx = mouseX,
+      ty = mouseY;
+    for (let i = 0; i < TRAIL_LEN; i++) {
+      dotsX[i] += (tx - dotsX[i]) * friction;
+      dotsY[i] += (ty - dotsY[i]) * friction;
+      tx = dotsX[i];
+      ty = dotsY[i];
     }
+
+    
+    for (let i = TRAIL_LEN - 1; i >= 1; i--) {
+      const t = i / TRAIL_LEN;
+      const alpha = (1 - t) * 0.75;
+      const radius = Math.max(0.5, (TRAIL_LEN - i) * 0.7 * (pressed ? 1.3 : 1));
+      ctx.fillStyle = trailColor(t, alpha);
+      ctx.beginPath();
+      ctx.arc(dotsX[i], dotsY[i], radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.9;
+      p.vy *= 0.9;
+      p.life -= p.decay;
+      if (p.life <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+      ctx.globalAlpha = p.life;
+      ctx.fillStyle = p.col + p.life.toFixed(2) + ")";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    
+    const hx = dotsX[0],
+      hy = dotsY[0];
+    const headCol = pressed ? "#ffffff" : "#0ff0fc";
+
+    
+    drawGlow(hx, hy, 14, headCol, 0.55);
+
+    
+    const idleWave = idle ? Math.sin(time * 0.003) * 3 : 0;
+    const arm = pressed ? 16 : 14 + idleWave;
+    drawCrosshair(hx, hy, arm, 4, headCol);
+
+    
+    ctx.fillStyle = headCol;
+    ctx.beginPath();
+    ctx.arc(hx, hy, pressed ? 3.5 : 2.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    
+    const ringR = pressed
+      ? 6
+      : idle
+        ? 11 + Math.sin(time * 0.004) * 4
+        : 9 + Math.min(speed * 0.3, 8);
+    drawRing(
+      hx,
+      hy,
+      ringR,
+      pressed ? "#ffffff" : "#00ff41",
+      pressed ? 0.9 : 0.55,
+      pressed ? null : [4, 3],
+    );
+
+    
+    if (idle) {
+      drawRing(
+        hx,
+        hy,
+        18 + Math.sin(time * 0.002) * 4,
+        "#0ff0fc",
+        0.15 + Math.sin(time * 0.003) * 0.06,
+        [2, 5],
+      );
+    }
+
     requestAnimationFrame(render);
   }
   requestAnimationFrame(render);
