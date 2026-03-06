@@ -21,7 +21,7 @@ export function initProjectCarousel() {
 
   function triggerAnimation(slide) {
     slide.classList.remove("animate-in");
-    
+
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         slide.classList.add("animate-in");
@@ -37,7 +37,6 @@ export function initProjectCarousel() {
     if (counter) counter.textContent = `${current + 1} / ${total}`;
   }
 
-  
   const carouselObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -57,7 +56,6 @@ export function initProjectCarousel() {
   prevBtn.addEventListener("click", () => showSlide(current - 1));
   nextBtn.addEventListener("click", () => showSlide(current + 1));
 
-  
   document.addEventListener("keydown", (e) => {
     const projectsSection = document.getElementById("projects");
     if (!projectsSection) return;
@@ -68,7 +66,6 @@ export function initProjectCarousel() {
     if (e.key === "ArrowRight") showSlide(current + 1);
   });
 
-  
   if (counter) counter.textContent = `1 / ${total}`;
 }
 
@@ -153,10 +150,12 @@ function typeWriterAnimation() {
 
 function initializeGlitchText() {
   const glowingTextElement = document.querySelector(".glowing-text");
-  const neonBorderElement = document.querySelector(".neon-border");
+  const neonBorderElement =
+    document.querySelector(".hero-orbit-scene") ||
+    document.querySelector(".neon-border");
 
   if (glowingTextElement && neonBorderElement) {
-    const originalText = glowingTextElement.innerText;
+    const originalText = glowingTextElement.textContent;
     const glitchCharacters = "!<>-_\\/[]{}—=+*^?________";
     let glitchAnimationId = null;
 
@@ -166,7 +165,7 @@ function initializeGlitchText() {
 
       function updateGlitch(currentTime) {
         const iteration = (currentTime - animationStart) / 50;
-        glowingTextElement.innerText = originalText
+        glowingTextElement.textContent = originalText
           .split("")
           .map((character, index) => {
             return index < iteration
@@ -180,7 +179,7 @@ function initializeGlitchText() {
         if (iteration < originalText.length) {
           glitchAnimationId = requestAnimationFrame(updateGlitch);
         } else {
-          glowingTextElement.innerText = originalText;
+          glowingTextElement.textContent = originalText;
         }
       }
 

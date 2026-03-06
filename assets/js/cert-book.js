@@ -365,9 +365,12 @@ function renderCert(index) {
 
   leftContent.classList.remove("page-fade-in");
   rightContent.classList.remove("page-fade-in");
-  void leftContent.offsetWidth;
-  leftContent.classList.add("page-fade-in");
-  rightContent.classList.add("page-fade-in");
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      leftContent.classList.add("page-fade-in");
+      rightContent.classList.add("page-fade-in");
+    });
+  });
 
   counter.textContent = `${index + 1} / ${total}`;
 
@@ -438,9 +441,12 @@ function flipTo(dir) {
   }
 
   flipLayer.className = "book-flip-layer";
-  void flipLayer.offsetWidth;
-  flipLayer.classList.add(isFwd ? "flipping-fwd" : "flipping-bck");
   flipLayer.style.display = "block";
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      flipLayer.classList.add(isFwd ? "flipping-fwd" : "flipping-bck");
+    });
+  });
 
   setTimeout(() => {
     current = nextIndex;

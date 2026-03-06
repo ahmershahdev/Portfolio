@@ -79,10 +79,6 @@ upgrade-insecure-requests;">
       overflow-x: hidden !important;
       -webkit-tap-highlight-color: transparent !important;
     }
-
-    .glowing-text {
-      font-display: swap;
-    }
   </style>
 
   <link rel="stylesheet" href="assets/css/global.css" fetchpriority="high">
@@ -98,9 +94,10 @@ upgrade-insecure-requests;">
   <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
     as="style" onload="this.rel='stylesheet'">
-
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap">
+  </noscript>
 
   <script type="importmap">
   {
@@ -290,26 +287,36 @@ upgrade-insecure-requests;">
   <main class="page-enter">
     <section id="home" class="hero-section d-flex align-items-center reveal-visible" aria-label="Introduction">
       <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center gy-5">
+
           <div class="col-lg-6">
+            <div class="hero-sys-chip mb-4">
+              <span class="hero-chip-dot"></span>
+              <span>◈ SYS_ONLINE — FULL STACK DEV</span>
+            </div>
+
             <header>
-              <h1 class="text-neon-green mb-3 mt-3 mt-lg-0 fw-bold">Hello, I'm</h1>
+              <h1 class="text-neon-green mb-2 mt-3 mt-lg-0 fw-bold">Hello, I'm</h1>
               <h2 class="display-3 glowing-text mb-4">Ahmer Shah</h2>
               <h3 class="h3 mb-4 text-light">
                 <span id="typewriter"></span><span class="cursor-blink">|</span>
               </h3>
             </header>
 
-            <p class="mb-5 text-secondary" style="line-height: 1.6;">
-              A passionate software engineering student with a solid academic
-              background and a deep interest in technology, aiming to create
-              meaningful, future-ready solutions.
-            </p>
+            <div class="hero-bio-wrap mb-5">
+              <div class="hero-bio-bar"></div>
+              <p class="text-secondary" style="line-height: 1.6;">
+                A passionate software engineering student with a solid academic
+                background and a deep interest in technology, aiming to create
+                meaningful, future-ready solutions.
+              </p>
+            </div>
 
             <div class="d-flex flex-row flex-wrap gap-2">
-              <a href="#contact" class="btn btn-neon flex-fill" aria-label="Contact Ahmer Shah">Get In Touch</a>
-              <a href="#certificates" class="btn btn-neon flex-fill" aria-label="View certifications">View
-                Certificates</a>
+              <a href="#contact" class="btn btn-neon flex-fill" aria-label="Contact Ahmer Shah"><i
+                  class="bi bi-send-fill me-2" aria-hidden="true"></i>Get In Touch</a>
+              <a href="#certificates" class="btn btn-neon flex-fill" aria-label="View certifications"><i
+                  class="bi bi-patch-check-fill me-2" aria-hidden="true"></i>View Certificates</a>
             </div>
 
             <a href="https://drive.google.com/drive/folders/1xYwejSXki_-rTO2SS7_wnvMzAdJdzRY6"
@@ -318,33 +325,84 @@ upgrade-insecure-requests;">
             </a>
           </div>
 
-          <div class="col-lg-6">
-            <div class="neon-border p-5 mt-5 mt-lg-0" role="region" aria-labelledby="highlights-heading">
-              <h2 id="highlights-heading" class="mb-4">Quick Highlights</h2>
-              <ul class="list-unstyled">
-                <li class="mb-3 d-flex align-items-start">
-                  <i class="bi bi-mortarboard-fill text-neon-green me-3 fs-5" aria-hidden="true"></i>
-                  <span>Dual Degree in Software Engineering</span>
-                </li>
-                <li class="mb-3 d-flex align-items-start">
-                  <i class="bi bi-code-square text-neon-green me-3 fs-5" aria-hidden="true"></i>
-                  <span>Full-Stack Development Focus</span>
-                </li>
-                <li class="mb-3 d-flex align-items-start">
-                  <i class="bi bi-robot text-neon-green me-3 fs-5" aria-hidden="true"></i>
-                  <span>AI-Assisted Development Tools</span>
-                </li>
-                <li class="mb-3 d-flex align-items-start">
-                  <i class="bi bi-patch-check-fill text-neon-green me-3 fs-5" aria-hidden="true"></i>
-                  <span>50+ Professional Certifications</span>
-                </li>
-                <li class="d-flex align-items-start">
-                  <i class="bi bi-controller text-neon-green me-3 fs-5" aria-hidden="true"></i>
-                  <span>Passion for Tech Innovation</span>
-                </li>
-              </ul>
+          <div class="col-lg-6 d-flex justify-content-center">
+            <div class="hero-orbit-wrap">
+              <p class="orbit-sys-label" aria-hidden="true">◈ PROFILE DATA NODE</p>
+              <div class="hero-orbit-scene" role="region" aria-label="Profile highlights">
+                <svg class="orbit-static-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
+                  <circle cx="180" cy="180" r="120" stroke="rgba(0,240,255,0.15)" stroke-width="1"
+                    stroke-dasharray="5 6" fill="none" />
+                  <circle cx="180" cy="180" r="46" stroke="rgba(0,255,65,0.2)" stroke-width="1" fill="none" />
+                  <line x1="180" y1="180" x2="180" y2="60" stroke="rgba(0,240,255,0.2)" stroke-width="1"
+                    stroke-dasharray="3 5" />
+                  <line x1="180" y1="180" x2="294" y2="143" stroke="rgba(0,240,255,0.2)" stroke-width="1"
+                    stroke-dasharray="3 5" />
+                  <line x1="180" y1="180" x2="251" y2="277" stroke="rgba(0,240,255,0.2)" stroke-width="1"
+                    stroke-dasharray="3 5" />
+                  <line x1="180" y1="180" x2="109" y2="277" stroke="rgba(0,240,255,0.2)" stroke-width="1"
+                    stroke-dasharray="3 5" />
+                  <line x1="180" y1="180" x2="66" y2="143" stroke="rgba(0,240,255,0.2)" stroke-width="1"
+                    stroke-dasharray="3 5" />
+                  <circle cx="180" cy="60" r="3" fill="#0ff0fc" opacity="0.7" />
+                  <circle cx="294" cy="143" r="3" fill="#0ff0fc" opacity="0.7" />
+                  <circle cx="251" cy="277" r="3" fill="#0ff0fc" opacity="0.7" />
+                  <circle cx="109" cy="277" r="3" fill="#0ff0fc" opacity="0.7" />
+                  <circle cx="66" cy="143" r="3" fill="#0ff0fc" opacity="0.7" />
+                </svg>
+                <svg class="orbit-spin-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="180" cy="180" r="155" stroke="rgba(0,255,65,0.08)" stroke-width="1"
+                    stroke-dasharray="2 14" fill="none" />
+                  <circle cx="180" cy="25" r="4" fill="#00ff41" opacity="0.6" />
+                </svg>
+                <div class="orbit-center-node">
+                  <div class="orbit-pulse-ring orbit-pulse-1"></div>
+                  <div class="orbit-pulse-ring orbit-pulse-2"></div>
+                  <div class="orbit-center-core">
+                    <i class="bi bi-person-badge-fill" aria-hidden="true"></i>
+                    <span class="orbit-online-text">ONLINE</span>
+                  </div>
+                </div>
+                <div class="orbit-node orbit-node-1" aria-label="Dual Degree in Software Engineering">
+                  <div class="orbit-node-card">
+                    <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
+                    <strong>Dual Degree</strong>
+                    <small>Software Eng.</small>
+                  </div>
+                </div>
+                <div class="orbit-node orbit-node-2" aria-label="Full-Stack Development Focus">
+                  <div class="orbit-node-card">
+                    <i class="bi bi-code-square" aria-hidden="true"></i>
+                    <strong>Full-Stack</strong>
+                    <small>Dev Focus</small>
+                  </div>
+                </div>
+                <div class="orbit-node orbit-node-3" aria-label="50 Plus Professional Certifications">
+                  <div class="orbit-node-card">
+                    <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
+                    <strong>50+ Certs</strong>
+                    <small>Professional</small>
+                  </div>
+                </div>
+                <div class="orbit-node orbit-node-4" aria-label="Passion for Tech Innovation">
+                  <div class="orbit-node-card">
+                    <i class="bi bi-controller" aria-hidden="true"></i>
+                    <strong>Tech Passion</strong>
+                    <small>Innovation</small>
+                  </div>
+                </div>
+                <div class="orbit-node orbit-node-5" aria-label="AI-Assisted Development Tools">
+                  <div class="orbit-node-card">
+                    <i class="bi bi-robot" aria-hidden="true"></i>
+                    <strong>AI-Assisted</strong>
+                    <small>Dev Tools</small>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -823,15 +881,11 @@ upgrade-insecure-requests;">
                 or just talking about technology and gaming!
               </p>
 
+              <div id="form-error" class="form-error-message" role="alert" aria-live="assertive" aria-atomic="true"
+                aria-hidden="true" tabindex="-1" style="display: none;"></div>
+
               <div id="form-success" class="form-success-message" role="alert" aria-live="polite" aria-atomic="true"
                 aria-hidden="true" tabindex="-1" style="display: none;">
-
-                <div id="form-error" class="form-error-message" role="alert" aria-live="assertive" aria-atomic="true"
-                  aria-hidden="true" tabindex="-1" style="display: none;">
-                  <i class="bi bi-x-circle-fill me-2" aria-hidden="true"></i>
-                  <span>There was an error sending your message. Please try again.</span>
-                </div>
-
                 <i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i>
                 <span>Your message has been sent successfully! I'll get back to you soon.</span>
               </div>
@@ -941,29 +995,9 @@ upgrade-insecure-requests;">
           <span class="ahmer-clinical">The work is an enclosure.</span>
         </p>
       </div>
+    </div>
   </footer>
 
-  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-dark border-neon-green shadow-lg">
-        <div class="modal-header border-0">
-          <h5 class="modal-title text-neon-green d-flex align-items-center" id="successModalLabel">
-            <i class="bi bi-check-circle-fill me-2"></i> Message Sent
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center py-4">
-          <p class="fs-5 mb-1">Success, Ahmer Shah!</p>
-          <p class="text-secondary">Your message has been transmitted. I'll get back to you as soon as possible.</p>
-        </div>
-        <div class="modal-footer border-0 justify-content-center pt-0 pb-4">
-          <button type="button" class="btn btn-neon px-4" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Project Preview Modal -->
   <div id="projectModal" class="project-modal-overlay" role="dialog" aria-modal="true"
     aria-labelledby="projectModalTitle">
     <div class="project-modal">
@@ -974,7 +1008,7 @@ upgrade-insecure-requests;">
             <span class="modal-dot modal-dot-yellow"></span>
             <span class="modal-dot modal-dot-green"></span>
           </div>
-          <h4 id="projectModalTitle" class="project-modal-title">Project Preview</h4>
+          <h2 id="projectModalTitle" class="project-modal-title">Project Preview</h2>
         </div>
         <div class="project-modal-actions">
           <div class="project-modal-viewport-btns">
@@ -1015,7 +1049,6 @@ upgrade-insecure-requests;">
     </div>
   </div>
 
-  <!-- Certificate Lightbox -->
   <div class="cert-lightbox" id="certLightbox" role="dialog" aria-label="Certificate preview">
     <div class="cert-lightbox-backdrop"></div>
     <div class="cert-lightbox-content">
@@ -1031,6 +1064,7 @@ upgrade-insecure-requests;">
   <script src="assets/js/cert-book.js" defer></script>
   <script src="assets/js/project-modal.js" defer></script>
   <script type="module" src="assets/js/script.js" defer crossorigin="anonymous"></script>
+
 </body>
 
 </html>
