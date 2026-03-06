@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.documentElement.style.overflowY = "auto";
       document.body.style.overflowY = "auto";
 
-      
       const mainEl = document.querySelector("main");
       if (mainEl) {
         requestAnimationFrame(() => {

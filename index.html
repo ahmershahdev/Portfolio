@@ -12,6 +12,7 @@ font-src 'self' data: https://fonts.gstatic.com;
 img-src 'self' data: blob: https://ahmershah.dev; 
 connect-src 'self' blob: https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://formspree.io https://pub-cf58c39336f64e21807389581d20ec09.r2.dev; 
 worker-src 'self' blob:; 
+frame-src 'self' https://ahmershahdev.github.io https://ahmershah.dev; 
 object-src 'none'; 
 base-uri 'self'; 
 upgrade-insecure-requests;">
@@ -644,10 +645,18 @@ upgrade-insecure-requests;">
           </button>
           <div class="d-flex flex-column align-items-center gap-2">
             <span class="cert-counter font-orbitron" id="certCounter">1 / 21</span>
+            <div class="cert-progress-track">
+              <div class="cert-progress-bar" id="certProgressBar"></div>
+            </div>
             <div class="cert-dot-nav" id="certDotNav" role="tablist" aria-label="Certificate page dots"></div>
           </div>
           <button class="cert-nav-btn" id="certNextBtn" aria-label="Next certificate">
             <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+          <button class="cert-autoplay-btn" id="certAutoPlayBtn" aria-label="Pause auto-play" title="Pause auto-play">
+            <i class="bi bi-pause-circle"></i>
           </button>
         </div>
       </div>
@@ -687,8 +696,9 @@ upgrade-insecure-requests;">
                 <div class="row g-2">
                   <div class="col-6"><a href="https://github.com/ahmershahdev/commerza.git" target="_blank"
                       class="btn btn-sm btn-neon w-100">View Project</a></div>
-                  <div class="col-6"><a href="https://ahmershahdev.github.io/commerza/" target="_blank"
-                      class="btn btn-sm btn-neon w-100">Visit Website</a></div>
+                  <div class="col-6"><button type="button" class="btn btn-sm btn-neon w-100 project-preview-btn"
+                      data-url="https://ahmershahdev.github.io/commerza/"
+                      data-title="Commerza - E-Commerce Store">Preview Site</button></div>
                 </div>
               </div>
             </div>
@@ -719,8 +729,9 @@ upgrade-insecure-requests;">
                 <div class="row g-2">
                   <div class="col-6"><a href="https://github.com/ahmershahdev/auctions-table-onepage-frontend.git"
                       target="_blank" class="btn btn-sm btn-neon w-100">View Project</a></div>
-                  <div class="col-6"><a href="https://ahmershahdev.github.io/auctions-table-onepage-frontend/"
-                      target="_blank" class="btn btn-sm btn-neon w-100">Visit Website</a></div>
+                  <div class="col-6"><button type="button" class="btn btn-sm btn-neon w-100 project-preview-btn"
+                      data-url="https://ahmershahdev.github.io/auctions-table-onepage-frontend/"
+                      data-title="Auctions Table (Frontend)">Preview Site</button></div>
                 </div>
               </div>
             </div>
@@ -778,8 +789,8 @@ upgrade-insecure-requests;">
                       class="btn btn-sm btn-neon w-100">View Project</a>
                   </div>
                   <div class="col-6">
-                    <a href="https://ahmershahdev.github.io/Portfolio/" target="_blank"
-                      class="btn btn-sm btn-neon w-100">Visit Website</a>
+                    <a href="https://ahmershah.dev/" target="_blank" rel="noopener noreferrer"
+                      class="btn btn-sm btn-neon w-100">Visit Live Site</a>
                   </div>
                 </div>
               </div>
@@ -952,8 +963,73 @@ upgrade-insecure-requests;">
     </div>
   </div>
 
+  <!-- Project Preview Modal -->
+  <div id="projectModal" class="project-modal-overlay" role="dialog" aria-modal="true"
+    aria-labelledby="projectModalTitle">
+    <div class="project-modal">
+      <div class="project-modal-header">
+        <div class="project-modal-header-left">
+          <div class="project-modal-dots">
+            <span class="modal-dot modal-dot-red"></span>
+            <span class="modal-dot modal-dot-yellow"></span>
+            <span class="modal-dot modal-dot-green"></span>
+          </div>
+          <h4 id="projectModalTitle" class="project-modal-title">Project Preview</h4>
+        </div>
+        <div class="project-modal-actions">
+          <div class="project-modal-viewport-btns">
+            <button class="viewport-btn active" data-width="100%" aria-label="Desktop view">
+              <i class="bi bi-display"></i>
+            </button>
+            <button class="viewport-btn" data-width="768px" aria-label="Tablet view">
+              <i class="bi bi-tablet"></i>
+            </button>
+            <button class="viewport-btn" data-width="375px" aria-label="Mobile view">
+              <i class="bi bi-phone"></i>
+            </button>
+          </div>
+          <a id="projectModalVisit" href="#" target="_blank" rel="noopener noreferrer" class="project-modal-visit-btn">
+            Explore Live Site <i class="bi bi-box-arrow-up-right"></i>
+          </a>
+          <button id="projectModalClose" class="project-modal-close-btn" aria-label="Close modal">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+      <div class="project-modal-url-bar">
+        <i class="bi bi-lock-fill"></i>
+        <span id="projectModalUrl" class="project-modal-url-text">ahmershah.dev</span>
+      </div>
+      <div class="project-modal-body">
+        <div class="project-modal-loader">
+          <div class="project-modal-spinner">
+            <div class="spinner-ring"></div>
+            <span class="spinner-label">Loading Preview...</span>
+          </div>
+        </div>
+        <div class="project-modal-iframe-wrap" id="projectModalIframeWrap">
+          <iframe id="projectModalIframe" src="about:blank" title="Project preview"
+            sandbox="allow-scripts allow-popups allow-forms"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificate Lightbox -->
+  <div class="cert-lightbox" id="certLightbox" role="dialog" aria-label="Certificate preview">
+    <div class="cert-lightbox-backdrop"></div>
+    <div class="cert-lightbox-content">
+      <button class="cert-lightbox-close" id="certLightboxClose" aria-label="Close preview">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <img class="cert-lightbox-img" id="certLightboxImg" src="" alt="">
+      <span class="cert-lightbox-title" id="certLightboxTitle"></span>
+    </div>
+  </div>
+
   <script src="assets/js/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/cert-book.js" defer></script>
+  <script src="assets/js/project-modal.js" defer></script>
   <script type="module" src="assets/js/script.js" defer crossorigin="anonymous"></script>
 </body>
 

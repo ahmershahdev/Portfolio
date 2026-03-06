@@ -93,8 +93,8 @@ function initializeCustomCursor() {
   canvas.style.zIndex = "9999";
 
   const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
-  const TRAIL_LEN = 16;
-  
+  const TRAIL_LEN = 24;
+
   const dotsX = new Float32Array(TRAIL_LEN).fill(-200);
   const dotsY = new Float32Array(TRAIL_LEN).fill(-200);
   const particles = [];
@@ -109,7 +109,6 @@ function initializeCustomCursor() {
   let speed = 0;
   let lastMoveTime = 0;
 
-  
   const TRAIL_CYAN = [15, 240, 252];
   const TRAIL_GREEN = [0, 255, 65];
   const TRAIL_WHITE = [255, 255, 255];
@@ -184,7 +183,7 @@ function initializeCustomCursor() {
   function resize() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2); 
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       ctx.scale(dpr, dpr);
@@ -196,8 +195,6 @@ function initializeCustomCursor() {
   window.addEventListener("resize", resize, { passive: true });
   resize();
 
-  
-  
   function drawGlow(x, y, r, col, alpha) {
     ctx.globalAlpha = alpha * 0.35;
     ctx.fillStyle = col;
@@ -243,20 +240,19 @@ function initializeCustomCursor() {
     }
 
     const idle = time - lastMoveTime > 1800;
-    
-    const friction = idle ? 0.35 : pressed ? 0.72 : 0.78;
 
-    
+    const baseFriction = idle ? 0.25 : pressed ? 0.6 : 0.65;
+
     let tx = mouseX,
       ty = mouseY;
     for (let i = 0; i < TRAIL_LEN; i++) {
-      dotsX[i] += (tx - dotsX[i]) * friction;
-      dotsY[i] += (ty - dotsY[i]) * friction;
+      const f = baseFriction * (1 - i / (TRAIL_LEN * 1.8));
+      dotsX[i] += (tx - dotsX[i]) * f;
+      dotsY[i] += (ty - dotsY[i]) * f;
       tx = dotsX[i];
       ty = dotsY[i];
     }
 
-    
     for (let i = TRAIL_LEN - 1; i >= 1; i--) {
       const t = i / TRAIL_LEN;
       const alpha = (1 - t) * 0.75;
@@ -267,7 +263,6 @@ function initializeCustomCursor() {
       ctx.fill();
     }
 
-    
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       p.x += p.vx;
@@ -287,26 +282,21 @@ function initializeCustomCursor() {
     }
     ctx.globalAlpha = 1;
 
-    
     const hx = dotsX[0],
       hy = dotsY[0];
     const headCol = pressed ? "#ffffff" : "#0ff0fc";
 
-    
     drawGlow(hx, hy, 14, headCol, 0.55);
 
-    
     const idleWave = idle ? Math.sin(time * 0.003) * 3 : 0;
     const arm = pressed ? 16 : 14 + idleWave;
     drawCrosshair(hx, hy, arm, 4, headCol);
 
-    
     ctx.fillStyle = headCol;
     ctx.beginPath();
     ctx.arc(hx, hy, pressed ? 3.5 : 2.5, 0, Math.PI * 2);
     ctx.fill();
 
-    
     const ringR = pressed
       ? 6
       : idle
@@ -321,7 +311,6 @@ function initializeCustomCursor() {
       pressed ? null : [4, 3],
     );
 
-    
     if (idle) {
       drawRing(
         hx,
