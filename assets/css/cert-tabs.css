@@ -1,0 +1,40 @@
+.cert-tabs-wrapper {
+  text-align: center;
+}
+
+.cert-tab-btn {
+  background: transparent;
+  border: 1.5px solid rgba(0, 240, 252, 0.35);
+  color: rgba(0, 240, 252, 0.65);
+  padding: 0.45rem 1.1rem;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cert-tab-btn:hover {
+  border-color: #0ff0fc;
+  color: #0ff0fc;
+  box-shadow: 0 0 12px rgba(0, 240, 252, 0.3);
+}
+
+.cert-tab-btn.active {
+  background: rgba(0, 240, 252, 0.12);
+  border-color: #0ff0fc;
+  color: #0ff0fc;
+  box-shadow: 0 0 18px rgba(0, 240, 252, 0.4);
+}
+
+.cert-tab-count {
+  font-size: 0.7rem;
+  background: rgba(0, 240, 252, 0.15);
+  border-radius: 50%;
+  padding: 1px 6px;
+  line-height: 1.4;
+}

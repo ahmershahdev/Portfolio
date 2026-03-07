@@ -1,0 +1,186 @@
+.cert-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.cert-page-number {
+  font-size: 0.65rem;
+  font-family: "Orbitron", sans-serif;
+  color: rgba(0, 240, 252, 0.35);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.cert-page-header .cert-page-number {
+  margin-bottom: 0;
+}
+
+.cert-id-stamp {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 2px;
+  color: rgba(0, 255, 65, 0.35);
+  border: 1px solid rgba(0, 255, 65, 0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.cert-issuer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid;
+  margin-bottom: 1rem;
+}
+
+.cert-title-text {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.85rem, 2.5vw, 1.2rem);
+  color: #e2ffe8;
+  line-height: 1.35;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.25);
+}
+
+.cert-issuer-name {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cert-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.4rem;
+}
+
+.cert-skill-tag {
+  font-size: 0.68rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 240, 252, 0.3);
+  color: rgba(0, 240, 252, 0.8);
+  background: rgba(0, 240, 252, 0.06);
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.cert-badge-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(0, 240, 252, 0.5));
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.cert-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.55rem 1.4rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border: 1.5px solid;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.cert-view-btn:hover {
+  box-shadow: 0 0 22px rgba(0, 240, 252, 0.5);
+  transform: translateY(-2px);
+}
+
+.cert-img-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.cert-main-img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 240, 252, 0.2);
+  box-shadow:
+    0 0 30px rgba(0, 240, 252, 0.12),
+    0 8px 32px rgba(0, 0, 0, 0.6);
+  transition:
+    box-shadow 0.3s,
+    transform 0.3s;
+  cursor: zoom-in;
+}
+
+.cert-main-img:hover {
+  box-shadow:
+    0 0 45px rgba(0, 240, 252, 0.3),
+    0 12px 40px rgba(0, 0, 0, 0.7);
+  transform: scale(1.015);
+}
+
+.cert-zoom-hint {
+  position: absolute;
+  bottom: 1.8rem;
+  right: 1.8rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  color: rgba(0, 240, 252, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 240, 252, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cert-img-frame:hover .cert-zoom-hint {
+  opacity: 1;
+}
+
+.page-inner.page-fade-in {
+  animation: pageFadeIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    filter: blur(2px);
+  }
+  50% {
+    opacity: 0.8;
+    filter: blur(0.5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}

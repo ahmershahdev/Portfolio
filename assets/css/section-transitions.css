@@ -1,0 +1,191 @@
+.section-title {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 3rem;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 8vw, 3rem);
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #0ff0fc 0%, #00ff41 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5));
+  letter-spacing: clamp(2px, 1vw, 5px);
+  transform: perspective(500px) rotateX(10deg);
+  max-width: 100%;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(2px, 0.5vw, 3px);
+  background: linear-gradient(to right, #0ff0fc, #00ff41);
+  box-shadow: 0 0 15px #0ff0fc;
+}
+
+@media (max-width: 992px) {
+  .section-title {
+    transform: perspective(500px) rotateX(5deg);
+    margin-bottom: 2rem;
+    text-align: center;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+#education,
+#skills,
+#projects,
+#certificates,
+#contact {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.8s ease-out;
+  perspective: 1500px;
+}
+
+#education::before,
+#skills::before,
+#projects::before,
+#certificates::before,
+#contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 240, 252, 0.05) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.8s ease-out;
+}
+
+#education > *,
+#skills > *,
+#projects > *,
+#certificates > *,
+#contact > * {
+  position: relative;
+  z-index: 2;
+}
+
+#education {
+  transform: perspective(1500px) rotateY(-20deg) translateX(-60px);
+  opacity: 0;
+  filter: blur(6px);
+}
+
+#education.camera-view-left-active {
+  transform: perspective(1500px) rotateY(0deg) translateX(0);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+#education.fog-fade-in::before {
+  opacity: 1;
+}
+#education.fog-fade-out::before {
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+#education .timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+#skills {
+  transform: perspective(1500px) rotateY(20deg) translateX(60px);
+  opacity: 0;
+  filter: blur(6px);
+}
+
+#skills.camera-view-right-active {
+  transform: perspective(1500px) rotateY(0deg) translateX(0);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+#skills.fog-fade-in::before {
+  opacity: 1;
+}
+#skills.fog-fade-out::before {
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+#projects {
+  transform: perspective(1500px) rotateX(-18deg) translateZ(-120px) scale(0.92);
+  opacity: 0;
+  filter: blur(8px);
+  transition:
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.9s ease,
+    filter 0.9s ease;
+}
+
+#projects.camera-view-back-active {
+  transform: perspective(1500px) rotateX(0deg) translateZ(0) scale(1);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+#projects.fog-fade-in::before {
+  opacity: 1;
+}
+#projects.fog-fade-out::before {
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+#certificates {
+  transform: perspective(1500px) rotateY(20deg) translateX(60px);
+  opacity: 0;
+  filter: blur(6px);
+}
+
+#certificates.camera-view-left-active {
+  transform: perspective(1500px) rotateY(0deg) translateX(0);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+#certificates.fog-fade-in::before {
+  opacity: 1;
+}
+#certificates.fog-fade-out::before {
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+#contact {
+  transform: perspective(1500px) rotateX(-20deg) translateZ(-60px);
+  opacity: 0;
+  filter: blur(6px);
+}
+
+#contact.camera-view-back-active {
+  transform: perspective(1500px) rotateX(0deg) translateZ(0px);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+#contact.fog-fade-in::before {
+  opacity: 1;
+}
+#contact.fog-fade-out::before {
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}

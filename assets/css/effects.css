@@ -17,11 +17,6 @@
   will-change: transform;
 }
 
-.tilt-element {
-  transition: transform 0.1s ease-out;
-  transform-style: preserve-3d;
-}
-
 @media (hover: hover) and (pointer: fine) {
   .social-icon:hover {
     transform: translateY(-10px) rotateX(15deg) !important;

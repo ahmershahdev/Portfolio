@@ -8,18 +8,6 @@
   }
 }
 
-@keyframes borderPulse {
-  0% {
-    border-color: rgba(0, 255, 65, 0.2);
-  }
-  50% {
-    border-color: rgba(0, 255, 252, 0.5);
-  }
-  100% {
-    border-color: rgba(0, 255, 65, 0.2);
-  }
-}
-
 @keyframes flash-pop {
   0% {
     transform: translateY(-50%) scale(0);
@@ -32,51 +20,6 @@
   100% {
     transform: translateY(-50%) scale(3);
     opacity: 0;
-  }
-}
-
-@keyframes fog-drift-left {
-  0% {
-    background-position: -20% center;
-    opacity: 0.8;
-  }
-  50% {
-    background-position: 20% center;
-    opacity: 1;
-  }
-  100% {
-    background-position: -20% center;
-    opacity: 0.8;
-  }
-}
-
-@keyframes fog-drift-right {
-  0% {
-    background-position: 120% center;
-    opacity: 0.8;
-  }
-  50% {
-    background-position: 80% center;
-    opacity: 1;
-  }
-  100% {
-    background-position: 120% center;
-    opacity: 0.8;
-  }
-}
-
-@keyframes fog-drift-up {
-  0% {
-    background-position: center 120%;
-    opacity: 0.8;
-  }
-  50% {
-    background-position: center 80%;
-    opacity: 1;
-  }
-  100% {
-    background-position: center 120%;
-    opacity: 0.8;
   }
 }
 
@@ -137,37 +80,10 @@
 }
 
 @keyframes neon-hustle {
-  0% {
+  from {
     background-position: 0% 50%;
   }
-  10% {
-    background-position: 20% 50%;
-  }
-  20% {
-    background-position: 40% 50%;
-  }
-  30% {
-    background-position: 60% 50%;
-  }
-  40% {
-    background-position: 80% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  60% {
-    background-position: 120% 50%;
-  }
-  70% {
-    background-position: 140% 50%;
-  }
-  80% {
-    background-position: 160% 50%;
-  }
-  90% {
-    background-position: 180% 50%;
-  }
-  100% {
+  to {
     background-position: 200% 50%;
   }
 }
@@ -317,7 +233,6 @@
   opacity: 1 !important;
 }
 
-
 @keyframes camera-depth-arrive {
   0% {
     transform: perspective(1100px) translateZ(-1200px) scale(0.25)
@@ -349,7 +264,6 @@ main.page-enter {
 main.page-enter.camera-fly-in {
   animation-play-state: running;
 }
-
 
 .curtain-reveal {
   position: relative;

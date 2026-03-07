@@ -1,0 +1,63 @@
+.neon-border {
+  background: rgba(0, 10, 0, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 255, 65, 0.4) !important;
+  border-radius: 0px;
+  padding: 40px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border-color 0.3s ease;
+  overflow: hidden;
+}
+
+.neon-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 65, 0.05) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.02),
+      rgba(0, 255, 0, 0.01),
+      rgba(0, 0, 255, 0.02)
+    );
+  background-size:
+    100% 2px,
+    3px 100%;
+  pointer-events: none;
+}
+
+.neon-border::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-left: 3px solid #00ff41;
+  border-top: 3px solid #00ff41;
+  width: 30px;
+  height: 30px;
+  transform: translateZ(50px);
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 0 5px #00ff41);
+}
+
+.neon-border:hover {
+  transform: perspective(1000px) rotateX(8deg) rotateY(-8deg) translateZ(20px);
+  border-color: #00fffc !important;
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(0, 255, 65, 0.2);
+}
+
+.neon-border:hover::after {
+  inset: -10px;
+  width: 45px;
+  height: 45px;
+  border-color: #00fffc;
+  filter: drop-shadow(0 0 10px #00fffc);
+}

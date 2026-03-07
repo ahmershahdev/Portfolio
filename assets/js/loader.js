@@ -15,7 +15,6 @@ export function initializeLoader() {
 
   if (!els.wrapper) return;
 
-  
   document.documentElement.style.overflow = "hidden";
   document.documentElement.style.scrollbarWidth = "none";
 
@@ -57,7 +56,6 @@ export function initializeLoader() {
         if (scrollRestored) return;
         scrollRestored = true;
         els.wrapper.style.display = "none";
-        
         document.documentElement.style.overflow = "";
         document.documentElement.style.scrollbarWidth = "";
         window.dispatchEvent(new CustomEvent("loaderComplete"));
@@ -66,7 +64,6 @@ export function initializeLoader() {
       els.wrapper.addEventListener("transitionend", restoreScroll, {
         once: true,
       });
-      
       setTimeout(restoreScroll, 700);
     }, 300);
   };

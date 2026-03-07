@@ -85,9 +85,23 @@ upgrade-insecure-requests;">
   <link rel="stylesheet" href="assets/css/animations.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/navigation.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/loader.css">
-  <link rel="stylesheet" href="assets/css/components.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/buttons.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/badges.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/cards.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/skills.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/timeline.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/modal.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/effects.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="assets/css/sections.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/hero.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/about.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/section-transitions.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/projects.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/cert-tabs.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/cert-book.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/cert-flip.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/cert-content.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/cert-controls.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/cert-responsive.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/form.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/footer.css" fetchpriority="high">
 
@@ -641,19 +655,13 @@ upgrade-insecure-requests;">
         <div class="cert-tabs-wrapper mb-5">
           <div class="cert-tabs d-flex justify-content-center flex-wrap gap-2">
             <button class="cert-tab-btn active" data-cat="all" aria-pressed="true">
-              <i class="bi bi-grid-3x3-gap me-1"></i>All <span class="cert-tab-count">21</span>
-            </button>
-            <button class="cert-tab-btn" data-cat="cisco" aria-pressed="false">
-              <i class="bi bi-hdd-network me-1"></i>Cisco <span class="cert-tab-count">8</span>
+              <i class="bi bi-grid-3x3-gap me-1"></i>All <span class="cert-tab-count">6</span>
             </button>
             <button class="cert-tab-btn" data-cat="coursera" aria-pressed="false">
-              <i class="bi bi-mortarboard me-1"></i>Coursera <span class="cert-tab-count">4</span>
+              <i class="bi bi-mortarboard me-1"></i>Coursera <span class="cert-tab-count">3</span>
             </button>
             <button class="cert-tab-btn" data-cat="linkedin" aria-pressed="false">
-              <i class="bi bi-linkedin me-1"></i>LinkedIn <span class="cert-tab-count">5</span>
-            </button>
-            <button class="cert-tab-btn" data-cat="simplilearn" aria-pressed="false">
-              <i class="bi bi-lightbulb me-1"></i>Simplilearn <span class="cert-tab-count">4</span>
+              <i class="bi bi-linkedin me-1"></i>LinkedIn <span class="cert-tab-count">3</span>
             </button>
           </div>
         </div>
@@ -702,7 +710,7 @@ upgrade-insecure-requests;">
             <i class="bi bi-chevron-left"></i>
           </button>
           <div class="d-flex flex-column align-items-center gap-2">
-            <span class="cert-counter font-orbitron" id="certCounter">1 / 21</span>
+            <span class="cert-counter font-orbitron" id="certCounter">1 / 6</span>
             <div class="cert-progress-track">
               <div class="cert-progress-bar" id="certProgressBar"></div>
             </div>
@@ -1060,11 +1068,11 @@ upgrade-insecure-requests;">
     </div>
   </div>
 
+  <script src="assets/js/console.js" defer></script>
   <script src="assets/js/bootstrap.bundle.min.js" defer></script>
-  <script src="assets/js/cert-book.js" defer></script>
+  <script type="module" src="assets/js/cert-book.js" defer></script>
   <script src="assets/js/project-modal.js" defer></script>
   <script type="module" src="assets/js/script.js" defer crossorigin="anonymous"></script>
-
 </body>
 
 </html>

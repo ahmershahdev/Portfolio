@@ -1,0 +1,287 @@
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  background: rgba(0, 20, 10, 0.4) !important;
+}
+
+.hero-sys-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 240, 255, 0.05);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 6px 16px;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: #0ff0fc;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+
+.hero-chip-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  background: #00ff41;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ff41;
+  animation: chip-blink 1.5s ease-in-out infinite;
+}
+
+@keyframes chip-blink {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 8px #00ff41;
+  }
+  50% {
+    opacity: 0.4;
+    box-shadow: 0 0 2px #00ff41;
+  }
+}
+
+.hero-bio-wrap {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.hero-bio-bar {
+  flex-shrink: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #0ff0fc, transparent);
+  border-radius: 2px;
+}
+
+.hero-orbit-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orbit-sys-label {
+  font-family: "Orbitron", sans-serif;
+  color: rgba(0, 240, 255, 0.45);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hero-orbit-scene {
+  position: relative;
+  width: 360px;
+  height: 360px;
+}
+
+.orbit-static-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.orbit-spin-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform-origin: center center;
+  animation: orbit-hud-spin 50s linear infinite;
+}
+
+@keyframes orbit-hud-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.orbit-center-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.orbit-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.orbit-pulse-1 {
+  width: 96px;
+  height: 96px;
+  animation: orbit-pulse-anim 2.5s ease-out infinite 0s;
+}
+
+.orbit-pulse-2 {
+  width: 96px;
+  height: 96px;
+  animation: orbit-pulse-anim 2.5s ease-out infinite 1.25s;
+}
+
+@keyframes orbit-pulse-anim {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+.orbit-center-core {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(3, 8, 6, 0.97);
+  border: 2px solid #0ff0fc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.3),
+    0 0 60px rgba(0, 240, 255, 0.08),
+    inset 0 0 20px rgba(0, 240, 255, 0.05);
+}
+
+.orbit-center-core i {
+  font-size: 1.5rem;
+  color: #0ff0fc;
+  filter: drop-shadow(0 0 6px #0ff0fc);
+}
+
+.orbit-online-text {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.38rem;
+  color: #00ff41;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.orbit-node {
+  position: absolute;
+  z-index: 2;
+}
+
+.orbit-node-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 110px;
+  padding: 12px 10px;
+  text-align: center;
+  background: rgba(3, 10, 7, 0.93);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.orbit-node-card:hover {
+  border-color: #00ff41;
+  background: rgba(0, 255, 65, 0.05);
+  box-shadow: 0 0 18px rgba(0, 255, 65, 0.2);
+}
+
+.orbit-node-card i {
+  font-size: 1.2rem;
+  color: #0ff0fc;
+  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.5));
+}
+
+.orbit-node-card strong {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.52rem;
+  color: #f0f8ff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+  line-height: 1.3;
+}
+
+.orbit-node-card small {
+  font-size: 0.48rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+.orbit-node-1 {
+  top: 23px;
+  left: 125px;
+  animation: orbit-float 3.5s ease-in-out infinite 0s;
+}
+.orbit-node-2 {
+  top: 106px;
+  left: 239px;
+  animation: orbit-float 3.5s ease-in-out infinite 0.7s;
+}
+.orbit-node-3 {
+  top: 240px;
+  left: 196px;
+  animation: orbit-float 3.5s ease-in-out infinite 1.4s;
+}
+.orbit-node-4 {
+  top: 240px;
+  left: 54px;
+  animation: orbit-float 3.5s ease-in-out infinite 2.1s;
+}
+.orbit-node-5 {
+  top: 106px;
+  left: 11px;
+  animation: orbit-float 3.5s ease-in-out infinite 2.8s;
+}
+
+@keyframes orbit-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .hero-orbit-scene {
+    transform: scale(0.78);
+    transform-origin: center top;
+    margin-bottom: -80px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-orbit-wrap {
+    display: none;
+  }
+}

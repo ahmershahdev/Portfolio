@@ -1,0 +1,220 @@
+.cert-nav-btn {
+  background: transparent;
+  border: 1.5px solid rgba(0, 240, 252, 0.5);
+  color: #0ff0fc;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.cert-nav-btn:hover {
+  background: rgba(0, 240, 252, 0.15);
+  box-shadow: 0 0 20px rgba(0, 240, 252, 0.4);
+  border-color: #0ff0fc;
+}
+
+.cert-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.cert-counter {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.78rem;
+  color: #0ff0fc;
+  letter-spacing: 3px;
+  text-align: center;
+  min-width: 68px;
+}
+
+.cert-dot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  max-width: 280px;
+}
+
+.cert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 240, 252, 0.2);
+  border: 1px solid rgba(0, 240, 252, 0.35);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.cert-dot.active {
+  background: #0ff0fc;
+  box-shadow: 0 0 8px rgba(0, 240, 252, 0.9);
+  transform: scale(1.25);
+}
+
+.cert-dot:hover:not(.active) {
+  background: rgba(0, 240, 252, 0.45);
+}
+
+.cert-autoplay-btn {
+  background: transparent;
+  border: 1.5px solid rgba(0, 240, 252, 0.4);
+  color: #0ff0fc;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.cert-autoplay-btn:hover {
+  background: rgba(0, 240, 252, 0.12);
+  box-shadow: 0 0 14px rgba(0, 240, 252, 0.35);
+  border-color: #0ff0fc;
+}
+
+.cert-autoplay-btn.paused {
+  color: rgba(0, 240, 252, 0.45);
+  border-color: rgba(0, 240, 252, 0.25);
+}
+
+.cert-progress-track {
+  width: 100%;
+  max-width: 280px;
+  height: 3px;
+  background: rgba(0, 240, 252, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.cert-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0ff0fc, #00ff41);
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  box-shadow: 0 0 8px rgba(0, 240, 252, 0.5);
+}
+
+.cert-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+
+.cert-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cert-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cert-lightbox-content {
+  position: relative;
+  z-index: 1;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: lightboxZoomIn 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.cert-lightbox:not(.active) .cert-lightbox-content {
+  animation: lightboxZoomOut 0.25s ease-in both;
+}
+
+@keyframes lightboxZoomIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes lightboxZoomOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
+
+.cert-lightbox-img {
+  max-width: 90vw;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 240, 252, 0.25);
+  box-shadow:
+    0 0 60px rgba(0, 240, 252, 0.15),
+    0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.cert-lightbox-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2ffe8;
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-shadow: 0 0 12px rgba(0, 255, 65, 0.25);
+}
+
+.cert-lightbox-close {
+  position: absolute;
+  top: -2.5rem;
+  right: -0.5rem;
+  background: transparent;
+  border: 1.5px solid rgba(0, 240, 252, 0.5);
+  color: #0ff0fc;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cert-lightbox-close:hover {
+  background: rgba(0, 240, 252, 0.15);
+  box-shadow: 0 0 16px rgba(0, 240, 252, 0.45);
+  transform: rotate(90deg);
+}

@@ -1,5 +1,3 @@
-
-
 footer {
   background-color: #050508;
   border-top: 1px solid rgba(0, 255, 252, 0.2);
@@ -186,19 +184,4 @@ footer {
 
 #backToTop.firing .bullet {
   animation: straight-shot 1s cubic-bezier(0.1, 0, 0.1, 1) forwards;
-}
-
-.modal-content {
-  background-color: #0a0a0f !important;
-  border: 2px solid transparent;
-  border-image: linear-gradient(45deg, #0ff0fc, #00ff41) 1;
-  color: #f0f8ff;
-}
-
-.modal-header {
-  border-bottom: 1px solid rgba(0, 255, 252, 0.2);
-}
-
-.modal-footer {
-  border-top: 1px solid rgba(0, 255, 252, 0.2);
 }

@@ -1,0 +1,29 @@
+.btn-neon {
+  background: transparent !important;
+  border: 1px solid #00f0ff !important;
+  color: #00f0ff !important;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 15px 0 !important;
+  margin-top: 20px;
+  clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.btn-neon:hover {
+  background: #00f0ff !important;
+  color: #000 !important;
+  box-shadow: 0 0 15px #00f0ff;
+}
+
+.btn-sm {
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+}
