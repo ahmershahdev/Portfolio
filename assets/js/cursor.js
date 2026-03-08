@@ -85,14 +85,15 @@ export function initializeCustomCursor() {
     }
 
     const idle = time - lastMoveTime > 1800;
-    const baseFriction = idle ? 0.25 : pressed ? 0.6 : 0.65;
+    const baseFriction = idle ? 0.25 : pressed ? 0.72 : 0.78;
 
     updateTrail(dotsX, dotsY, mouseX, mouseY, baseFriction);
     drawTrail(ctx, dotsX, dotsY, pressed);
     updateAndDrawParticles(ctx, particles);
 
-    const hx = dotsX[0],
-      hy = dotsY[0];
+    // Use raw mouse position for cursor head so it never lags
+    const hx = mouseX;
+    const hy = mouseY;
     const headCol = pressed ? "#ffffff" : "#0ff0fc";
 
     drawGlow(ctx, hx, hy, 14, headCol, 0.55);

@@ -64,33 +64,6 @@
   background: rgba(0, 240, 252, 0.45);
 }
 
-.cert-autoplay-btn {
-  background: transparent;
-  border: 1.5px solid rgba(0, 240, 252, 0.4);
-  color: #0ff0fc;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.cert-autoplay-btn:hover {
-  background: rgba(0, 240, 252, 0.12);
-  box-shadow: 0 0 14px rgba(0, 240, 252, 0.35);
-  border-color: #0ff0fc;
-}
-
-.cert-autoplay-btn.paused {
-  color: rgba(0, 240, 252, 0.45);
-  border-color: rgba(0, 240, 252, 0.25);
-}
-
 .cert-progress-track {
   width: 100%;
   max-width: 280px;

@@ -1,0 +1,39 @@
+@keyframes sh-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes sh-sonar-pink {
+  0% {
+    width: 0;
+    height: 0;
+    border: 2px solid rgba(255, 0, 170, 0.9);
+    opacity: 1;
+  }
+  100% {
+    width: 120px;
+    height: 120px;
+    border: 1px solid rgba(255, 0, 170, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes sh-sonar-cyan {
+  0% {
+    width: 0;
+    height: 0;
+    border: 2px solid rgba(0, 240, 255, 0.9);
+    opacity: 1;
+  }
+  100% {
+    width: 120px;
+    height: 120px;
+    border: 1px solid rgba(0, 240, 255, 0);
+    opacity: 0;
+  }
+}

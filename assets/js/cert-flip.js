@@ -31,13 +31,15 @@ export function flipTo(dir) {
   const SHADE = '<div class="flip-shade"></div>';
 
   if (isFwd) {
+    const currentCert = state.filtered[state.current];
     els.flipFront.innerHTML =
-      buildRightPage(state.filtered[state.current]) + SHADE;
+      (currentCert ? buildRightPage(currentCert) : "") + SHADE;
     els.flipBack.innerHTML = buildRightPage(cert) + SHADE;
   } else {
+    const currentCert = state.filtered[state.current];
     els.flipFront.innerHTML = buildRightPage(cert) + SHADE;
     els.flipBack.innerHTML =
-      buildRightPage(state.filtered[state.current]) + SHADE;
+      (currentCert ? buildRightPage(currentCert) : "") + SHADE;
   }
 
   const castShadow = document.createElement("div");

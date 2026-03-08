@@ -3,6 +3,7 @@ import { initializeNavigation } from "./navigation.js";
 import { initializeAnimations, initProjectCarousel } from "./animations.js";
 import { initializeEffects } from "./effects.js";
 import { initializeForm } from "./form.js";
+import { initSocialHub } from "./social.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeLoader();
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       initializeAnimations();
       initProjectCarousel();
       initializeEffects();
+      initSocialHub();
 
       loadThreeScene();
     },

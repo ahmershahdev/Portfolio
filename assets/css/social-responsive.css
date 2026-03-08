@@ -1,0 +1,50 @@
+@media (hover: none) {
+  .social-username {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.6;
+    font-size: 0.46rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .social-hub-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .social-panel.personal-panel,
+  .social-panel.professional-panel {
+    transform: translateY(50px);
+  }
+
+  .social-panel.panel-active {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 576px) {
+  .social-grid {
+    grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+    gap: 8px;
+  }
+
+  .panel-body {
+    padding: 0.9rem;
+  }
+
+  .social-card {
+    padding: 10px 4px 26px;
+  }
+
+  .social-icon-wrap i {
+    font-size: 1.2rem;
+  }
+
+  .social-text-icon {
+    font-size: 0.65rem;
+  }
+
+  .panel-label {
+    display: none;
+  }
+}

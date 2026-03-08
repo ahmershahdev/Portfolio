@@ -34,6 +34,7 @@ export function initializeAnimations() {
     skills: "camera-view-right-active",
     projects: "camera-view-back-active",
     certificates: "camera-view-left-active",
+    social: "camera-view-split-active",
     contact: "camera-view-back-active",
   };
 

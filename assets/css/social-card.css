@@ -1,0 +1,173 @@
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  gap: 10px;
+}
+
+.social-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 14px 6px 28px;
+  background: rgba(255, 255, 255, 0.022);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  text-decoration: none !important;
+  color: inherit !important;
+  overflow: visible;
+  opacity: 0;
+  transform: translateY(18px) scale(0.88);
+}
+
+.social-card.card-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border-color 0.28s ease,
+    background 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.personal-panel .social-card.card-revealed:hover {
+  background: rgba(255, 0, 170, 0.08);
+  border-color: rgba(255, 0, 170, 0.6);
+  box-shadow:
+    0 8px 24px rgba(255, 0, 170, 0.2),
+    0 0 14px rgba(255, 0, 170, 0.1);
+  transform: translateY(-5px) scale(1.07);
+}
+
+.professional-panel .social-card.card-revealed:hover {
+  background: rgba(0, 240, 255, 0.08);
+  border-color: rgba(0, 240, 255, 0.6);
+  box-shadow:
+    0 8px 24px rgba(0, 240, 255, 0.2),
+    0 0 14px rgba(0, 240, 255, 0.1);
+  transform: translateY(-5px) scale(1.07);
+}
+
+.social-card::before {
+  content: "";
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.personal-panel .social-card.card-revealed:hover::before {
+  animation: sh-sonar-pink 0.8s ease-out forwards;
+}
+
+.professional-panel .social-card.card-revealed:hover::before {
+  animation: sh-sonar-cyan 0.8s ease-out forwards;
+}
+
+.social-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon-wrap i {
+  font-size: 1.45rem;
+  filter: brightness(0.62);
+  transition:
+    transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    filter 0.3s ease;
+}
+
+.social-card:hover .social-icon-wrap i {
+  transform: scale(1.22);
+  filter: brightness(1.35) drop-shadow(0 0 8px currentColor);
+}
+
+.social-text-icon {
+  font-family: "Orbitron", monospace;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  filter: brightness(0.62);
+  transition: filter 0.3s ease;
+  line-height: 1;
+}
+
+.social-card:hover .social-text-icon {
+  filter: brightness(1.45) drop-shadow(0 0 6px currentColor);
+}
+
+.social-card-label {
+  font-size: 0.56rem;
+  font-family: "Orbitron", monospace;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+  position: relative;
+  z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+  transition: color 0.28s ease;
+}
+
+.personal-panel .social-card:hover .social-card-label {
+  color: #ff00aa;
+}
+
+.professional-panel .social-card:hover .social-card-label {
+  color: #00f0ff;
+}
+
+.social-username {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%) translateY(28px);
+  background: rgba(0, 0, 0, 0.93);
+  border-radius: 20px;
+  padding: 3px 9px;
+  font-size: 0.5rem;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.3s ease;
+  max-width: calc(100% + 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.personal-panel .social-username {
+  color: #ff00aa;
+  border: 1px solid rgba(255, 0, 170, 0.35);
+}
+
+.professional-panel .social-username {
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+}
+
+.social-card.card-revealed:hover .social-username {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
