@@ -41,7 +41,9 @@
 }
 
 .project-carousel-img {
+  display: block;
   width: 100%;
+  height: auto;
   border-radius: 10px;
   border: 1px solid rgba(0, 240, 252, 0.3);
   box-shadow: 0 0 35px rgba(0, 240, 252, 0.12);
@@ -53,7 +55,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 280px;
+  aspect-ratio: 16 / 9;
+  width: 100%;
   border: 1px solid rgba(0, 240, 252, 0.3);
   border-radius: 10px;
   background: rgba(0, 240, 252, 0.03);
@@ -106,10 +109,5 @@
   .project-slide.animate-in .project-info-col {
     transform: none;
     opacity: 1;
-  }
-
-  .project-carousel-img,
-  .project-placeholder-icon {
-    height: 220px;
   }
 }
