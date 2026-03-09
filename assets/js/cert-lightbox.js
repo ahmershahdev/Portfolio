@@ -1,33 +1,52 @@
-import { state, els } from "./cert-state.js";
-import { stopAutoPlay, startAutoPlay } from "./cert-autoplay.js";
+const elLightbox = document.getElementById("certLightbox");
+const elLbImg = document.getElementById("certLightboxImg");
+const elLbTitle = document.getElementById("certLightboxTitle");
+const elLbClose = document.getElementById("certLightboxClose");
 
 export function openLightbox(cert) {
-  if (!els.lightbox) return;
-  els.lightboxImg.src = cert.image;
-  els.lightboxImg.alt = cert.name + " certificate";
-  if (els.lightboxTitle) els.lightboxTitle.textContent = cert.name;
-  els.lightbox.classList.add("active");
+  if (!elLightbox) return;
+  elLbImg.src = cert.image;
+  elLbImg.alt = `${cert.name} certificate`;
+  if (elLbTitle) elLbTitle.textContent = cert.name;
+  elLightbox.classList.add("active");
   document.body.style.overflow = "hidden";
-  stopAutoPlay();
 }
 
 export function closeLightbox() {
-  if (!els.lightbox) return;
-  els.lightbox.classList.remove("active");
+  if (!elLightbox) return;
+  elLightbox.classList.remove("active");
   document.body.style.overflow = "";
-  if (state.autoPlayEnabled) startAutoPlay();
 }
 
-if (els.lightboxClose)
-  els.lightboxClose.addEventListener("click", closeLightbox);
-
-if (els.lightbox) {
-  els.lightbox.addEventListener("click", (e) => {
-    if (
-      e.target === els.lightbox ||
-      e.target === els.lightbox.querySelector(".cert-lightbox-backdrop")
-    ) {
-      closeLightbox();
+export function initLightbox(magScene, getFiltered) {
+  if (elLbClose) elLbClose.addEventListener("click", closeLightbox);
+  if (elLightbox) {
+    elLightbox.addEventListener("click", (e) => {
+      if (
+        e.target === elLightbox ||
+        e.target === elLightbox.querySelector(".cert-lightbox-backdrop")
+      ) {
+        closeLightbox();
+      }
+    });
+  }
+  magScene.addEventListener("click", (e) => {
+    const img = e.target.closest(".cert-main-img");
+    if (!img) return;
+    const cert = getFiltered().find(
+      (c) => c.id === parseInt(img.dataset.certId, 10),
+    );
+    if (cert) openLightbox(cert);
+  });
+  magScene.addEventListener("keydown", (e) => {
+    const img = e.target.closest(".cert-main-img");
+    if (!img) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      const cert = getFiltered().find(
+        (c) => c.id === parseInt(img.dataset.certId, 10),
+      );
+      if (cert) openLightbox(cert);
     }
   });
 }

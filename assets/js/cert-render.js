@@ -1,46 +1,99 @@
-import { state, els } from "./cert-state.js";
-import { buildLeftPage, buildRightPage } from "./cert-pages.js";
-import { openLightbox } from "./cert-lightbox.js";
+import { CAT_ICONS } from "./cert-data.js";
 
-export function renderCert(index) {
-  const cert = state.filtered[index];
-  const total = state.filtered.length;
+export function buildBlankPage() {
+  return `<div class="cert-page cert-blank-page"></div>`;
+}
 
-  els.leftContent.innerHTML = buildLeftPage(cert, index, total);
-  els.rightContent.innerHTML = buildRightPage(cert);
+export function buildInfoPage(cert, index, total) {
+  const icon = CAT_ICONS[cert.category] || "bi-award";
+  const skills = cert.skills
+    .map((s) => `<span class="cert-skill-tag">${s}</span>`)
+    .join("");
+  return `<div class="cert-page page-left">
+    <div class="page-lines"></div>
+    <div class="page-inner">
+      <div class="cert-page-header">
+        <p class="cert-page-number">PAGE ${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}</p>
+        <span class="cert-id-stamp">#${String(cert.id).padStart(3, "0")}</span>
+      </div>
+      <span class="cert-issuer-badge" style="color:${cert.color};border-color:${cert.color};background:${cert.color}18">
+        <i class="bi ${icon}"></i> ${cert.category.charAt(0).toUpperCase() + cert.category.slice(1)}
+      </span>
+      <h3 class="cert-title-text">${cert.name}</h3>
+      <p class="cert-issuer-name">
+        <i class="bi bi-building" style="color:${cert.color}"></i> ${cert.issuer}
+      </p>
+      <div class="cert-skills-list">${skills}</div>
+      <a href="${cert.credentialUrl}" target="_blank" rel="noopener noreferrer"
+         class="cert-view-btn"
+         style="color:${cert.color};border-color:${cert.color};background:${cert.color}15"
+         aria-label="View credential for ${cert.name}">
+        <i class="bi bi-arrow-up-right-square"></i> View Credential
+      </a>
+    </div>
+  </div>`;
+}
 
-  els.leftContent.classList.remove("page-fade-in");
-  els.rightContent.classList.remove("page-fade-in");
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      els.leftContent.classList.add("page-fade-in");
-      els.rightContent.classList.add("page-fade-in");
-    });
-  });
+export function buildImagePage(cert) {
+  return `<div class="cert-page page-right">
+    <div class="page-lines"></div>
+    <div class="page-inner">
+      <div class="cert-img-frame">
+        <img src="${cert.image}"
+             alt="${cert.name} certificate"
+             class="cert-main-img"
+             loading="lazy"
+             data-cert-id="${cert.id}"
+             tabindex="0" role="button"
+             aria-label="Zoom ${cert.name}">
+        <span class="cert-zoom-hint"><i class="bi bi-zoom-in"></i> Click to zoom</span>
+      </div>
+    </div>
+  </div>`;
+}
 
-  els.counter.textContent = `${index + 1} / ${total}`;
+export function buildCombinedPage(cert, index, total) {
+  const icon = CAT_ICONS[cert.category] || "bi-award";
+  return `<div class="cert-page page-combined">
+    <div class="page-lines"></div>
+    <div class="page-inner">
+      <div class="cert-page-header">
+        <p class="cert-page-number">PAGE ${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}</p>
+        <span class="cert-id-stamp">#${String(cert.id).padStart(3, "0")}</span>
+      </div>
+      <span class="cert-issuer-badge" style="color:${cert.color};border-color:${cert.color};background:${cert.color}18">
+        <i class="bi ${icon}"></i> ${cert.category.charAt(0).toUpperCase() + cert.category.slice(1)}
+      </span>
+      <h3 class="cert-title-text">${cert.name}</h3>
+      <p class="cert-issuer-name"><i class="bi bi-building" style="color:${cert.color}"></i> ${cert.issuer}</p>
+      <div class="cert-img-frame">
+        <img src="${cert.image}"
+             alt="${cert.name} certificate"
+             class="cert-main-img"
+             loading="lazy"
+             data-cert-id="${cert.id}"
+             tabindex="0" role="button"
+             aria-label="Zoom ${cert.name}">
+        <span class="cert-zoom-hint"><i class="bi bi-zoom-in"></i> Click to zoom</span>
+      </div>
+      <a href="${cert.credentialUrl}" target="_blank" rel="noopener noreferrer"
+         class="cert-view-btn"
+         style="color:${cert.color};border-color:${cert.color};background:${cert.color}15"
+         aria-label="View credential for ${cert.name}">
+        <i class="bi bi-arrow-up-right-square"></i> View Credential
+      </a>
+    </div>
+  </div>`;
+}
 
-  if (els.progressBar) {
-    const pct = total > 1 ? (index / (total - 1)) * 100 : 100;
-    els.progressBar.style.width = pct + "%";
+export function buildMagazineHTML(certs, isSingle) {
+  if (isSingle) {
+    return certs.map((c, i) => buildCombinedPage(c, i, certs.length)).join("");
   }
-
-  document.querySelectorAll(".cert-dot").forEach((dot, i) => {
-    dot.classList.toggle("active", i === index);
-    dot.setAttribute("aria-selected", i === index ? "true" : "false");
+  let html = buildBlankPage();
+  certs.forEach((cert, i) => {
+    html += buildInfoPage(cert, i, certs.length);
+    html += buildImagePage(cert);
   });
-
-  els.prevBtn.disabled = index === 0;
-  els.nextBtn.disabled = index === total - 1;
-
-  const img = els.rightContent.querySelector(".cert-main-img");
-  if (img) {
-    img.addEventListener("click", () => openLightbox(cert));
-    img.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openLightbox(cert);
-      }
-    });
-  }
+  return html;
 }
