@@ -2,6 +2,7 @@
   background-color: rgba(5, 5, 8, 0.95) !important;
   border-bottom: 1px solid rgba(0, 255, 252, 0.2) !important;
   padding: 1rem 0 !important;
+  position: sticky;
 }
 
 .navbar-brand {
