@@ -121,7 +121,7 @@ export function initializeThreeScene() {
     },
     undefined,
     (error) => {
-      modelLoader.load("assets/blender/background_room.glb", (gltf) => {
+      modelLoader.load("assets/blender/background/background_room.glb", (gltf) => {
         roomModel = gltf.scene;
         roomModel.traverse((node) => {
           if (node.isMesh) node.frustumCulled = true;
@@ -169,7 +169,7 @@ export function initializeThreeScene() {
         },
         undefined,
         (error) => {
-          modelLoader.load("assets/blender/iron_man.glb", (gltf) => {
+          modelLoader.load("assets/blender/background/iron_man.glb", (gltf) => {
             modelsLoaded = true;
             ironManModel = gltf.scene;
             ironManModel.traverse((node) => {
