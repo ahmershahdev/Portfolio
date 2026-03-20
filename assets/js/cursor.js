@@ -10,11 +10,13 @@ export function initializeCustomCursor() {
     return;
   }
 
-  canvas.style.pointerEvents = "none";
-  canvas.style.position = "fixed";
-  canvas.style.top = "0";
-  canvas.style.left = "0";
-  canvas.style.zIndex = "9999";
+  Object.assign(canvas.style, {
+    pointerEvents: "none",
+    position: "fixed",
+    top: "0",
+    left: "0",
+    zIndex: "9999",
+  });
 
   const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
 
@@ -24,60 +26,55 @@ export function initializeCustomCursor() {
 
   let visible = false;
   let pressed = false;
-  let mouseX = 0,
-    mouseY = 0;
-  let prevX = 0,
-    prevY = 0;
+  let mouseX = 0, mouseY = 0;
+  let prevX = 0, prevY = 0;
+  let renderX = -200, renderY = -200;
   let speed = 0;
   let lastMoveTime = 0;
+  let dpr = 1, w = 0, h = 0;
 
-  window.addEventListener(
-    "mousemove",
-    (e) => {
-      visible = true;
-      prevX = mouseX;
-      prevY = mouseY;
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      const dx = mouseX - prevX,
-        dy = mouseY - prevY;
-      speed = Math.sqrt(dx * dx + dy * dy);
-      lastMoveTime = performance.now();
-    },
-    { passive: true },
-  );
-
-  window.addEventListener(
-    "mousedown",
-    () => {
-      pressed = true;
-      spawnParticles(particles, mouseX, mouseY);
-    },
-    { passive: true },
-  );
-
-  window.addEventListener("mouseup", () => (pressed = false), {
-    passive: true,
-  });
-
-  let resizeTimeout;
-  function resize() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      ctx.scale(dpr, dpr);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-    }, 100);
+  function setSize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  window.addEventListener("resize", resize, { passive: true });
-  resize();
+  const ro = new ResizeObserver(setSize);
+  ro.observe(document.documentElement);
+  setSize();
+
+  window.addEventListener("mousemove", (e) => {
+    visible = true;
+    prevX = mouseX;
+    prevY = mouseY;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    const dx = mouseX - prevX, dy = mouseY - prevY;
+    speed = Math.sqrt(dx * dx + dy * dy);
+    lastMoveTime = performance.now();
+  }, { passive: true });
+
+  window.addEventListener("mousedown", () => {
+    pressed = true;
+    spawnParticles(particles, mouseX, mouseY);
+  }, { passive: true });
+
+  window.addEventListener("mouseup", () => (pressed = false), { passive: true });
+
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => 1 - Math.pow(1 - t, 3),
+    smoothWheel: true,
+  });
 
   function render(time) {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    lenis.raf(time);
+    ctx.clearRect(0, 0, w, h);
 
     if (!visible) {
       requestAnimationFrame(render);
@@ -85,56 +82,49 @@ export function initializeCustomCursor() {
     }
 
     const idle = time - lastMoveTime > 1800;
+    const lerp = idle ? 0.08 : pressed ? 0.28 : 0.16;
+
+    renderX += (mouseX - renderX) * lerp;
+    renderY += (mouseY - renderY) * lerp;
+
     const baseFriction = idle ? 0.25 : pressed ? 0.72 : 0.78;
 
-    updateTrail(dotsX, dotsY, mouseX, mouseY, baseFriction);
+    updateTrail(dotsX, dotsY, renderX, renderY, baseFriction);
     drawTrail(ctx, dotsX, dotsY, pressed);
     updateAndDrawParticles(ctx, particles);
 
-    // Use raw mouse position for cursor head so it never lags
-    const hx = mouseX;
-    const hy = mouseY;
     const headCol = pressed ? "#ffffff" : "#0ff0fc";
 
-    drawGlow(ctx, hx, hy, 14, headCol, 0.55);
+    drawGlow(ctx, renderX, renderY, 14, headCol, 0.55);
+    drawCrosshair(ctx, renderX, renderY, pressed ? 16 : 14 + (idle ? Math.sin(time * 0.003) * 3 : 0), 4, headCol);
 
-    const idleWave = idle ? Math.sin(time * 0.003) * 3 : 0;
-    const arm = pressed ? 16 : 14 + idleWave;
-    drawCrosshair(ctx, hx, hy, arm, 4, headCol);
-
+    ctx.save();
     ctx.fillStyle = headCol;
     ctx.beginPath();
-    ctx.arc(hx, hy, pressed ? 3.5 : 2.5, 0, Math.PI * 2);
+    ctx.arc(renderX, renderY, pressed ? 3.5 : 2.5, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
 
-    const ringR = pressed
-      ? 6
-      : idle
-        ? 11 + Math.sin(time * 0.004) * 4
-        : 9 + Math.min(speed * 0.3, 8);
     drawRing(
-      ctx,
-      hx,
-      hy,
-      ringR,
+      ctx, renderX, renderY,
+      pressed ? 6 : idle ? 11 + Math.sin(time * 0.004) * 4 : 9 + Math.min(speed * 0.3, 8),
       pressed ? "#ffffff" : "#00ff41",
       pressed ? 0.9 : 0.55,
-      pressed ? null : [4, 3],
+      pressed ? null : [4, 3]
     );
 
     if (idle) {
       drawRing(
-        ctx,
-        hx,
-        hy,
+        ctx, renderX, renderY,
         18 + Math.sin(time * 0.002) * 4,
         "#0ff0fc",
         0.15 + Math.sin(time * 0.003) * 0.06,
-        [2, 5],
+        [2, 5]
       );
     }
 
     requestAnimationFrame(render);
   }
+
   requestAnimationFrame(render);
 }

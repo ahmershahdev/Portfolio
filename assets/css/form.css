@@ -153,3 +153,10 @@
     box-shadow: 0 0 30px rgba(255, 65, 0, 0.6);
   }
 }
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}

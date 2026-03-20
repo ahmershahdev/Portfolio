@@ -114,6 +114,28 @@
   display: inline-block;
 }
 
+#scroll-progress-x {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: your-color;
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 9999;
+  transition: transform 0.05s linear;
+}
+
+#scroll-progress-y {
+  position: fixed;
+  top: 0; right: 0;
+  width: 3px; height: 100%;
+  background: your-color;
+  transform: scaleY(0);
+  transform-origin: top;
+  z-index: 9999;
+  transition: transform 0.05s linear;
+}
+
 @media (max-width: 576px) {
   .spinner-border {
     width: 70px !important;

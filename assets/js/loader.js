@@ -1,77 +1,68 @@
-const philosophicalQuotes = [
+const QUOTES = [
   "A cage went in search of a bird. — Franz Kafka",
   "Man is sometimes extraordinarily, passionately, in love with suffering. — Fyodor Dostoevsky",
   "He who has a why to live can bear almost any how. — Friedrich Nietzsche",
   "It is better to be feared than loved, if one cannot be both. — Niccolò Machiavelli",
 ];
 
+const getEl = (id) => document.getElementById(id);
+
 export function initializeLoader() {
-  const els = {
-    bar: document.getElementById("loading-bar"),
-    percent: document.getElementById("load-percent"),
-    quote: document.getElementById("dynamic-quote"),
-    wrapper: document.getElementById("loader-wrapper"),
-  };
+  const wrapper = getEl("loader-wrapper");
+  if (!wrapper) return;
 
-  if (!els.wrapper) return;
+  const bar     = getEl("loading-bar");
+  const percent = getEl("load-percent");
+  const quote   = getEl("dynamic-quote");
 
-  document.documentElement.style.overflow = "hidden";
+  document.documentElement.style.overflow       = "hidden";
   document.documentElement.style.scrollbarWidth = "none";
 
-  if (els.quote) {
-    els.quote.textContent =
-      philosophicalQuotes[
-        Math.floor(Math.random() * philosophicalQuotes.length)
-      ];
-  }
+  if (quote) quote.textContent = QUOTES[Math.floor(Math.random() * QUOTES.length)];
 
+  const startTime = Date.now();
   let progress = 0;
-  let isFinished = false;
+  let finished = false;
+
+  const setProgress = (val) => {
+    progress = Math.min(val, 100);
+    if (bar)     bar.style.width     = `${progress}%`;
+    if (percent) percent.textContent = `${Math.floor(progress)}%`;
+  };
 
   const interval = setInterval(() => {
-    if (progress >= 90) return clearInterval(interval);
-    progress += Math.random() * 3;
-    updateUI(Math.min(progress, 90));
-  }, 80);
-
-  function updateUI(val) {
-    requestAnimationFrame(() => {
-      if (els.bar) els.bar.style.width = `${val}%`;
-      if (els.percent) els.percent.textContent = `${Math.floor(val)}%`;
-    });
-  }
+    const next = Math.min(progress + Math.random() * 5.5, 90);
+    setProgress(next);
+    if (progress >= 90) clearInterval(interval);
+  }, 150);
 
   const finish = () => {
-    if (isFinished) return;
-    isFinished = true;
+    if (finished) return;
+    finished = true;
     clearInterval(interval);
-
-    updateUI(100);
+    setProgress(100);
 
     setTimeout(() => {
-      els.wrapper.classList.add("loader-hidden");
+      wrapper.classList.add("loader-hidden");
 
-      let scrollRestored = false;
-      const restoreScroll = () => {
-        if (scrollRestored) return;
-        scrollRestored = true;
-        els.wrapper.style.display = "none";
-        document.documentElement.style.overflow = "";
+      const cleanup = () => {
+        wrapper.style.display                         = "none";
+        document.documentElement.style.overflow       = "";
         document.documentElement.style.scrollbarWidth = "";
         window.dispatchEvent(new CustomEvent("loaderComplete"));
       };
 
-      els.wrapper.addEventListener("transitionend", restoreScroll, {
-        once: true,
-      });
-      setTimeout(restoreScroll, 700);
+      wrapper.addEventListener("transitionend", cleanup, { once: true });
+      setTimeout(cleanup, 700);
     }, 300);
   };
 
-  const failsafe = setTimeout(finish, 4000);
+  const failsafe = setTimeout(finish, 7000);
 
   window.addEventListener("load", () => {
     clearTimeout(failsafe);
-    setTimeout(finish, 400);
-  });
+    const elapsed   = Date.now() - startTime;
+    const remaining = Math.max(5500 - elapsed, 400);
+    setTimeout(finish, remaining);
+  }, { once: true });
 }

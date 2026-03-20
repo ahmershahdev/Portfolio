@@ -67,7 +67,7 @@ h2::selection,
   text-shadow: 0 0 10px rgba(15, 240, 252, 1) !important;
 }
 
-html {
+html, body {
   scroll-behavior: smooth !important;
 }
 

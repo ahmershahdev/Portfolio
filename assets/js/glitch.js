@@ -1,39 +1,88 @@
 export function initializeGlitchText() {
-  const glowingTextElement = document.querySelector(".glowing-text");
-  const neonBorderElement =
-    document.querySelector(".hero-orbit-scene") ||
+  const glowingText = document.querySelector(".glowing-text");
+  const trigger =
+    document.querySelector(".hero-orbit-scene") ??
     document.querySelector(".neon-border");
 
-  if (glowingTextElement && neonBorderElement) {
-    const originalText = glowingTextElement.textContent;
-    const glitchCharacters = "!<>-_\\/[]{}—=+*^?________";
-    let glitchAnimationId = null;
+  if (!glowingText || !trigger) return;
 
-    neonBorderElement.addEventListener("mouseenter", () => {
-      if (glitchAnimationId) cancelAnimationFrame(glitchAnimationId);
-      const animationStart = performance.now();
+  const original = glowingText.textContent;
+  const CHARS = "█▓▒░⣿⢿⡿01<>[]{}—=+*#@$%";
+  const DURATION = 40;
+  const PASSES = 3;
 
-      function updateGlitch(currentTime) {
-        const iteration = (currentTime - animationStart) / 50;
-        glowingTextElement.textContent = originalText
-          .split("")
-          .map((character, index) => {
-            return index < iteration
-              ? character
-              : glitchCharacters[
-                  Math.floor(Math.random() * glitchCharacters.length)
-                ];
-          })
-          .join("");
+  let rafId = null;
+  let active = false;
+  let t0 = null;
+  let charFilter = null;
 
-        if (iteration < originalText.length) {
-          glitchAnimationId = requestAnimationFrame(updateGlitch);
-        } else {
-          glowingTextElement.textContent = originalText;
-        }
-      }
+  const rand = () => CHARS[Math.floor(Math.random() * CHARS.length)];
 
-      glitchAnimationId = requestAnimationFrame(updateGlitch);
+  const isInAtoR = (c) => {
+    const l = c.toLowerCase();
+    return l >= "a" && l <= "r";
+  };
+
+  function animate(timestamp) {
+    const elapsed = timestamp - t0;
+    const progress = Math.min(elapsed / DURATION, original.length + PASSES);
+
+    glowingText.textContent = original
+      .split("")
+      .map((c, i) => {
+        if (c === " ") return " ";
+        if (charFilter && !charFilter(c)) return c;
+        return progress >= i + PASSES ? c : rand();
+      })
+      .join("");
+
+    if (progress < original.length + PASSES) {
+      rafId = requestAnimationFrame(animate);
+    } else {
+      glowingText.textContent = original;
+      active = false;
+      charFilter = null;
+    }
+  }
+
+  function start(force = false, filter = null) {
+    if (active && !force) return;
+    cancelAnimationFrame(rafId);
+    charFilter = filter;
+    active = true;
+    rafId = requestAnimationFrame((timestamp) => {
+      t0 = timestamp;
+      animate(timestamp);
     });
   }
+
+  function stop() {
+    if (!active) return;
+    cancelAnimationFrame(rafId);
+    glowingText.textContent = original;
+    active = false;
+    charFilter = null;
+  }
+
+  const onEnter = () => start();
+  const onLeave = stop;
+  const onClick = () => start(true);
+  const onKeyDown = (e) => {
+    if (e.target !== document.body) return;
+    start(true, isInAtoR);
+  };
+
+  trigger.addEventListener("mouseenter", onEnter);
+  trigger.addEventListener("mouseleave", onLeave);
+  trigger.addEventListener("click", onClick);
+  window.addEventListener("keydown", onKeyDown);
+
+  return function destroy() {
+    cancelAnimationFrame(rafId);
+    trigger.removeEventListener("mouseenter", onEnter);
+    trigger.removeEventListener("mouseleave", onLeave);
+    trigger.removeEventListener("click", onClick);
+    window.removeEventListener("keydown", onKeyDown);
+    glowingText.textContent = original;
+  };
 }

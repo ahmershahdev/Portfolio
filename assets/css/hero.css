@@ -18,6 +18,9 @@
   letter-spacing: 2px;
   color: #0ff0fc;
   clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  user-select: none;
+  pointer-events: none;
+  touch-action: none;
 }
 
 .hero-chip-dot {

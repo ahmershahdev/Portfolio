@@ -1,7 +1,7 @@
 import { initializeLoader } from "./loader.js";
+import { initializeEffects } from "./effects.js";
 import { initializeNavigation } from "./navigation.js";
 import { initializeAnimations, initProjectCarousel } from "./animations.js";
-import { initializeEffects } from "./effects.js";
 import { initializeForm } from "./form.js";
 import { initSocialHub } from "./social.js";
 
@@ -16,17 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.style.overflowY = "auto";
 
       const mainEl = document.querySelector("main");
-      if (mainEl) {
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => mainEl.classList.add("camera-fly-in"));
-        });
-      }
+      if (mainEl) setTimeout(() => mainEl.classList.add("camera-fly-in"), 0);
 
       initializeNavigation();
-      initializeAnimations();
-      initProjectCarousel();
       initializeEffects();
-      initSocialHub();
+
+      requestAnimationFrame(() => {
+        initializeAnimations();
+        initProjectCarousel();
+        initSocialHub();
+      });
 
       loadThreeScene();
     },
@@ -38,7 +37,7 @@ function loadThreeScene() {
   if ("requestIdleCallback" in window) {
     requestIdleCallback(() => importThreeJS());
   } else {
-    setTimeout(importThreeJS, 1000);
+    setTimeout(importThreeJS, 200);
   }
 }
 
