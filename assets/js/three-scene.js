@@ -142,7 +142,7 @@ export function initializeThreeScene() {
   requestIdleCallback(
     () => {
       modelLoader.load(
-        "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/iron_man.glb",
+        "",
         (gltf) => {
           modelsLoaded = true;
           ironManModel = gltf.scene;
@@ -169,7 +169,7 @@ export function initializeThreeScene() {
         },
         undefined,
         (error) => {
-          modelLoader.load("assets/blender/background/iron_man.glb", (gltf) => {
+          modelLoader.load("assets/blender/character/iron_man.glb", (gltf) => {
             modelsLoaded = true;
             ironManModel = gltf.scene;
             ironManModel.traverse((node) => {

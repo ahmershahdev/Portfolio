@@ -141,6 +141,12 @@ html, body {
     text-decoration: none !important;
     box-shadow: none !important;
   }
+
+  .project-nav-btn:hover {
+  background: transparent;
+  border: 1.5px solid #0ff0fc;
+  box-shadow: none;
+}
 }
 
 @media (prefers-reduced-motion: reduce) {

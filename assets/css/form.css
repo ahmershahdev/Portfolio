@@ -1,49 +1,57 @@
 .contact-form .form-control {
-  background: rgba(255, 255, 255, 0.03) !important;
-  border: none !important;
+  background: rgba(10, 15, 20, 0.7) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 240, 255, 0.15) !important;
   border-left: 3px solid #00f0ff !important;
   border-radius: 0 !important;
-  clip-path: polygon(0% 0%, 96% 0%, 100% 25%, 100% 100%, 4% 100%, 0% 75%);
+  clip-path: polygon(0% 0%, calc(100% - 15px) 0%, 100% 15px, 100% 100%, 15px 100%, 0% calc(100% - 15px));
   color: #00f0ff !important;
   font-family: "Orbitron", sans-serif;
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   padding: 1.2rem;
   margin-bottom: 5px;
-  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .contact-form .form-control::placeholder {
-  color: rgba(0, 240, 255, 0.4);
+  color: rgba(0, 240, 255, 0.3);
   font-size: 0.8rem;
 }
-
 
 .contact-form .float-label-group .form-control::placeholder {
   color: transparent;
 }
 
-.contact-form .form-control:focus {
-  background: rgba(0, 255, 65, 0.08) !important;
-  border-left: 4px solid #00ff41 !important;
-  box-shadow: -10px 0 20px rgba(0, 255, 65, 0.2) !important;
-  transform: scale(1.02);
-  color: #fff !important;
+.contact-form .form-control:hover {
+  background: rgba(0, 240, 255, 0.08) !important;
+  border-color: rgba(0, 240, 255, 0.4) !important;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1) !important;
 }
 
+.contact-form .form-control:focus {
+  background: rgba(0, 255, 65, 0.08) !important;
+  border-color: rgba(0, 255, 65, 0.6) !important;
+  border-left: 4px solid #00ff41 !important;
+  box-shadow: 0 0 25px rgba(0, 255, 65, 0.25), inset 0 0 15px rgba(0, 255, 65, 0.15) !important;
+  color: #fff !important;
+  outline: none !important;
+}
 
 .contact-form .float-label-group {
   position: relative;
-  margin-top: 1.4rem;
-  margin-bottom: 5px;
+  margin-top: 1.6rem;
+  margin-bottom: 10px;
 }
-
 
 .contact-form .float-label-group label {
   position: absolute;
-  top: 1.2rem;
-  left: 1.25rem;
+  top: 0;
+  left: 0;
+  transform: translate(1.25rem, 1.2rem);
+  transform-origin: top left;
   font-family: "Orbitron", sans-serif;
   font-size: 0.78rem;
   font-weight: 900;
@@ -53,110 +61,89 @@
   pointer-events: none;
   margin: 0;
   z-index: 2;
-  transition:
-    top 0.25s ease,
-    font-size 0.25s ease,
-    color 0.25s ease,
-    letter-spacing 0.25s ease;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease, text-shadow 0.3s ease;
 }
-
 
 .contact-form .float-label-group .form-control:focus ~ label,
 .contact-form .float-label-group .form-control:not(:placeholder-shown) ~ label {
-  top: -1.1rem;
-  font-size: 0.62rem;
-  color: #00f0ff;
-  letter-spacing: 3px;
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
+  transform: translate(0, -1.6rem) scale(0.85);
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
 }
 
 .invalid-feedback {
   font-family: "Rajdhani", sans-serif;
-  font-weight: bold;
-  color: #ff4d4d;
+  font-weight: 700;
+  color: #ff0f41;
   margin-bottom: 15px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(255, 15, 65, 0.3);
 }
 
-.form-success-message {
-  background-color: rgba(10, 15, 20, 0.95);
+.form-message-box {
   position: relative;
   padding: 1.5rem 2rem;
   margin-bottom: 2rem;
-  border-radius: 12px;
+  border-radius: 4px;
   text-align: center;
   font-size: 1.1rem;
-  font-weight: 500;
-  border: 2px solid transparent;
-  background-image:
-    linear-gradient(rgba(10, 15, 20, 1), rgba(10, 15, 20, 1)),
-    linear-gradient(45deg, #0ff0fc, #00ff41);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-  animation: success-glow 2s ease-in-out infinite alternate;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  border: 1px solid transparent;
+  clip-path: polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+}
+
+.form-success-message {
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, rgba(10, 15, 20, 0.9) 100%);
+  border-color: rgba(0, 255, 65, 0.3);
+  border-left: 3px solid #00ff41;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+  animation: success-glow 2.5s ease-in-out infinite alternate;
 }
 
 .form-success-message i {
   color: #00ff41;
   font-size: 1.5rem;
-  text-shadow:
-    0 0 10px #00ff41,
-    0 0 20px #00ff41;
-  animation: icon-pulse 1.5s ease-in-out infinite;
-}
-
-.form-success-message span {
-  color: #ffffff !important;
-  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+  margin-right: 10px;
+  text-shadow: 0 0 15px #00ff41;
 }
 
 .form-error-message {
-  background-color: rgba(20, 10, 10, 0.95);
-  position: relative;
-  padding: 1.5rem 2rem;
-  margin-bottom: 2rem;
-  border-radius: 12px;
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 500;
-  border: 2px solid transparent;
-  background-image:
-    linear-gradient(rgba(20, 10, 10, 1), rgba(20, 10, 10, 1)),
-    linear-gradient(45deg, #ff0f41, #ff4100);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 0 0 20px rgba(255, 65, 0, 0.3);
-  animation: error-glow 2s ease-in-out infinite alternate;
+  background: linear-gradient(135deg, rgba(255, 15, 65, 0.05) 0%, rgba(20, 10, 10, 0.9) 100%);
+  border-color: rgba(255, 15, 65, 0.3);
+  border-left: 3px solid #ff0f41;
+  box-shadow: 0 0 20px rgba(255, 15, 65, 0.1);
+  animation: error-glow 2.5s ease-in-out infinite alternate;
 }
 
 .form-error-message i {
   color: #ff0f41;
   font-size: 1.5rem;
-  text-shadow:
-    0 0 10px #ff0f41,
-    0 0 20px #ff0f41;
-  animation: icon-pulse 1.5s ease-in-out infinite;
+  margin-right: 10px;
+  text-shadow: 0 0 15px #ff0f41;
 }
 
-.form-error-message span {
-  color: #ffffff !important;
-  text-shadow: 0 0 5px rgba(255, 65, 0, 0.5);
+.form-message-box span {
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+@keyframes success-glow {
+  from { box-shadow: 0 0 10px rgba(0, 255, 65, 0.1); }
+  to { box-shadow: 0 0 25px rgba(0, 255, 65, 0.3); }
 }
 
 @keyframes error-glow {
-  from {
-    box-shadow: 0 0 10px rgba(255, 65, 0, 0.2);
-  }
-  to {
-    box-shadow: 0 0 30px rgba(255, 65, 0, 0.6);
-  }
+  from { box-shadow: 0 0 10px rgba(255, 15, 65, 0.1); }
+  to { box-shadow: 0 0 25px rgba(255, 15, 65, 0.3); }
 }
 
 @keyframes fadeOut {
-  to { opacity: 0; }
+  to { opacity: 0; visibility: hidden; transform: translateY(-10px); }
 }
+
 .fade-out {
-  animation: fadeOut 0.3s ease forwards;
+  animation: fadeOut 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }

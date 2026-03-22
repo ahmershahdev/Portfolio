@@ -42,6 +42,21 @@
   margin-bottom: 1rem;
 }
 
+.cert-award-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid;
+  margin: -0.4rem 0 0.9rem;
+  width: fit-content;
+}
+
 .cert-title-text {
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
