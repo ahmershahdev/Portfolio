@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="Content-Security-Policy" content="
 default-src 'self'; 
-script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://unpkg.com https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com; 
+script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://unpkg.com https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com https://va.vercel-scripts.com; 
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
 font-src 'self' data: https://fonts.gstatic.com; 
 img-src 'self' data: blob: https://ahmershah.dev; 
-connect-src 'self' blob: https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://formspree.io https://pub-cf58c39336f64e21807389581d20ec09.r2.dev; 
+connect-src 'self' blob: https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://formspree.io https://pub-cf58c39336f64e21807389581d20ec09.r2.dev https://vitals.vercel-insights.com; 
 worker-src 'self' blob:; 
 frame-src 'self' https://ahmershahdev.github.io https://ahmershah.dev; 
 object-src 'none'; 
@@ -1372,6 +1372,7 @@ upgrade-insecure-requests;">
   <script src="assets/js/turn.min.js" defer></script>
   <script type="module" src="assets/js/cert-book.js" defer></script>
   <script src="assets/js/project-modal.js" defer></script>
+  <script type="module" src="assets/js/speed-insights.js" defer></script>
   <script type="module" src="assets/js/script.js" defer crossorigin="anonymous"></script>
 </body>
 
