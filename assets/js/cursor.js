@@ -16,6 +16,7 @@ export function initializeCustomCursor() {
     top: "0",
     left: "0",
     zIndex: "9999",
+    transition: "opacity 0.15s ease-out"
   });
 
   const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
@@ -32,6 +33,7 @@ export function initializeCustomCursor() {
   let speed = 0;
   let lastMoveTime = 0;
   let dpr = 1, w = 0, h = 0;
+  let isOverScrollbar = false;
 
   function setSize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -49,7 +51,18 @@ export function initializeCustomCursor() {
   setSize();
 
   window.addEventListener("mousemove", (e) => {
-    visible = true;
+    isOverScrollbar = e.clientX >= document.documentElement.clientWidth || e.clientY >= document.documentElement.clientHeight;
+
+    if (isOverScrollbar) {
+      canvas.style.opacity = "0";
+      document.body.style.cursor = pressed ? "grabbing" : "grab";
+      visible = false;
+    } else {
+      canvas.style.opacity = "1";
+      document.body.style.cursor = "none";
+      visible = true;
+    }
+
     prevX = mouseX;
     prevY = mouseY;
     mouseX = e.clientX;
@@ -61,10 +74,19 @@ export function initializeCustomCursor() {
 
   window.addEventListener("mousedown", () => {
     pressed = true;
+    if (isOverScrollbar) {
+      document.body.style.cursor = "grabbing";
+      return;
+    }
     spawnParticles(particles, mouseX, mouseY);
   }, { passive: true });
 
-  window.addEventListener("mouseup", () => (pressed = false), { passive: true });
+  window.addEventListener("mouseup", () => {
+    pressed = false;
+    if (isOverScrollbar) {
+      document.body.style.cursor = "grab";
+    }
+  }, { passive: true });
 
   const lenis = new Lenis({
     duration: 1.2,

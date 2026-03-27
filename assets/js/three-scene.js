@@ -142,7 +142,7 @@ export function initializeThreeScene() {
   requestIdleCallback(
     () => {
       modelLoader.load(
-        "",
+        "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/iron_man.glb",
         (gltf) => {
           modelsLoaded = true;
           ironManModel = gltf.scene;

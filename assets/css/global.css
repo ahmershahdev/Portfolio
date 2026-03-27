@@ -43,6 +43,7 @@
   background: linear-gradient(to bottom, #0ff0fc, #00ff41);
   border-radius: 6px;
   border: 2px solid #050508;
+  cursor: grab;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -242,4 +243,8 @@ html, body {
 
 .transition-fast {
   transition: width 0.4s ease-out !important;
+}
+
+section + section {
+  margin-top: 6rem;
 }
