@@ -1,0 +1,93 @@
+# Ahmer Shah — Software Engineer & Full-Stack Developer
+
+## About
+
+Ahmer Shah is a Software Engineering student pursuing a dual academic path — a 4-year Bachelor's in Software Engineering at HITMS (Nov 2024 – Dec 2028) and a 3-year Advanced Diploma in Software Engineering (ADSE) from Aptech Pakistan (Aug 2025 – Sep 2028). His goal is to become a Full-Stack Developer building high-performance, future-ready web and app solutions. He leverages AI-assisted tools (GitHub Copilot, Cursor AI, ChatGPT, Claude) to streamline development workflows.
+
+## Site
+
+https://ahmershah.dev
+
+## Sections
+
+- [Home](https://ahmershah.dev/#home)
+- [About](https://ahmershah.dev/#about)
+- [Education](https://ahmershah.dev/#education)
+- [Skills](https://ahmershah.dev/#skills)
+- [Certificates](https://ahmershah.dev/#certificates)
+- [Projects](https://ahmershah.dev/#projects)
+- [Signal Hub](https://ahmershah.dev/#social)
+- [Contact](https://ahmershah.dev/#contact)
+
+## Education
+
+- HITMS — Bachelor's in Software Engineering | Nov 2024 – Dec 2028
+- Aptech Pakistan — ADSE | Aug 2025 – Sep 2028
+- Superior College of Science — HSC Pre-Engineering | Jul 2022 – Jul 2024 | Grade: A (70.45%)
+- St. Bonaventure High School — SSC Computer Science | Apr 2012 – Jul 2022 | Grade: A-1 (83.90%)
+
+## Skills
+
+- Frontend Development: HTML5, CSS3, JavaScript, Bootstrap, Tailwind CSS, jQuery
+- Backend Development: PHP, Laravel, WordPress
+- Databases: MySQL
+- Programming Languages: JavaScript
+- Development Tools: Git, GitHub, VS Code, Vercel, Supabase, Firebase, WordPress
+- AI-Assisted Tools: GitHub Copilot, Cursor AI, ChatGPT, Claude
+- SEO: Advanced Search Engine Optimization
+- Microsoft Office: Word, PowerPoint, Excel
+- Web Technologies: JSON, XML
+
+## Projects
+
+### Commerza — E-Commerce Store
+Full-stack e-commerce web application with storefront and admin dashboard. Includes product and order management, authentication, cart, order tracking, dynamic UI, and SEO optimization.
+- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery, PHP, Laravel, MySQL, SEO
+- GitHub: https://github.com/ahmershahdev/commerza.git
+- Live: https://commerza.ahmershah.dev/
+
+### Novio — Online Tech Courses Platform
+Frontend showcase with 30+ custom HTML pages simulating a premium online tech courses platform. Responsive layouts, interactive UI, and localStorage-based features.
+- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery, SEO
+- GitHub: https://github.com/ahmershahdev/novio.git
+- Live: https://novio.ahmershah.dev/
+
+### Auctions Table
+Single-page auction platform with live auction UI, real-time bidding simulation, smooth animations, and fully responsive design.
+- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery, SEO
+- GitHub: https://github.com/ahmershahdev/auctions-table-onepage-frontend.git
+- Live: https://auctionstable.ahmershah.dev/
+
+### WordPress Travel Website
+Travel agency system with booking system, destination guides, and travel packages.
+- Stack: WordPress, PHP, CSS, SEO
+
+### Personal 3D Portfolio
+Portfolio featuring a real-time 3D background powered by Three.js with Blender GLTF models, interactive particle cursor, typewriter effect, animated orbit UI, Turn.js certificate flipbook, and advanced technical SEO.
+- Stack: HTML5, CSS3, Bootstrap, JavaScript, Three.js, jQuery, Lenis.js, SEO
+- GitHub: https://github.com/ahmershahdev/Portfolio.git
+- Live: https://ahmershah.dev/
+
+## Contact & Social
+
+- Email: support@ahmershah.dev
+- Portfolio: https://ahmershah.dev
+- GitHub: https://github.com/ahmershahdev
+- LinkedIn: https://linkedin.com/in/syedahmershah
+- Twitter/X: https://twitter.com/ahmershah29
+- Google Business: https://g.page/r/CS9yn4Q_UhZ4EBM
+- YouTube: https://youtube.com/@ahmershahdev
+- Medium: https://medium.com/@syedahmershah
+- Dev.to: https://dev.to/syedahmershah
+- Hashnode: https://hashnode.com/@syedahmershah
+- LeetCode: https://leetcode.com/syedahmershah
+- HackerRank: https://hackerrank.com/profile/syedahmershah
+- Linktree: https://linktr.ee/syedahmershah
+
+## Resume
+
+https://drive.google.com/file/d/1hkqKbb8kCnF2taKcAHZs5hW1Cz89HDOZ/view?usp=drive_link
+
+## Quote
+
+"And I can fight only for something that I love, love only what I respect, and respect only what I at least know." — Ahmer Shah

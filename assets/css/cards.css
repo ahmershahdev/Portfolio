@@ -47,7 +47,6 @@
 }
 
 .neon-border:hover {
-  transform: perspective(1000px) rotateX(8deg) rotateY(-8deg) translateZ(20px);
   border-color: #00fffc !important;
   box-shadow:
     10px 10px 20px rgba(0, 0, 0, 0.5),
