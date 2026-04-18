@@ -183,6 +183,14 @@
   transition-delay: 0.4s;
 }
 
+.offcanvas.show .nav-item:nth-child(8) .nav-link {
+  transition-delay: 0.45s;
+}
+
+.offcanvas.show .nav-item:nth-child(9) .nav-link {
+  transition-delay: 0.5s;
+}
+
 .dropdown-menu.custom-glow-menu {
   background: rgba(0, 5, 10, 0.9) !important;
   border: none !important;

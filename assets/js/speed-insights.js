@@ -2,12 +2,33 @@
  * Vercel Speed Insights Integration
  * Initializes Speed Insights for performance monitoring
  */
-import { injectSpeedInsights } from '../../node_modules/@vercel/speed-insights/dist/index.mjs';
+const PROD_HOSTS = new Set(["ahmershah.dev", "www.ahmershah.dev"]);
 
-// Initialize Speed Insights
-injectSpeedInsights({
-  debug: false, // Set to true for debugging in development
-  sampleRate: 1, // Send 100% of events (adjust to reduce volume if needed)
-});
+function schedule(callback) {
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(callback, { timeout: 8000 });
+  } else {
+    setTimeout(callback, 4000);
+  }
+}
 
-console.log('[Speed Insights] Initialized successfully');
+window.addEventListener(
+  "load",
+  () => {
+    if (!PROD_HOSTS.has(window.location.hostname)) return;
+
+    schedule(async () => {
+      try {
+        const { injectSpeedInsights } =
+          await import("https://cdn.jsdelivr.net/npm/@vercel/speed-insights/+esm");
+        injectSpeedInsights({
+          debug: false,
+          sampleRate: 1,
+        });
+      } catch (error) {
+        console.warn("[Speed Insights] failed to initialize", error);
+      }
+    });
+  },
+  { once: true },
+);

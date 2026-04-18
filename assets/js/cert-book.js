@@ -126,4 +126,3 @@ function waitForDeps(cb) {
   }
 }
 waitForDeps(() => initBook(filtered));
-waitForDeps(() => initBook(filtered));

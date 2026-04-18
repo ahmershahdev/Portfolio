@@ -7,13 +7,13 @@
   "scope": "/",
   "icons": [
     {
-      "src": "assets/images/favicon/web-app-manifest-192x192.png",
+      "src": "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_default_t/v1776536509/portfolio/favicon/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/images/favicon/web-app-manifest-512x512.png",
+      "src": "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_default_t/v1776536511/portfolio/favicon/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -44,3 +44,5 @@
     "progressive web app"
   ]
 }
+
+

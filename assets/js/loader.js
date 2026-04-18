@@ -11,14 +11,15 @@ export function initializeLoader() {
   const wrapper = getEl("loader-wrapper");
   if (!wrapper) return;
 
-  const bar     = getEl("loading-bar");
+  const bar = getEl("loading-bar");
   const percent = getEl("load-percent");
-  const quote   = getEl("dynamic-quote");
+  const quote = getEl("dynamic-quote");
 
-  document.documentElement.style.overflow       = "hidden";
+  document.documentElement.style.overflow = "hidden";
   document.documentElement.style.scrollbarWidth = "none";
 
-  if (quote) quote.textContent = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+  if (quote)
+    quote.textContent = QUOTES[Math.floor(Math.random() * QUOTES.length)];
 
   const startTime = Date.now();
   let progress = 0;
@@ -26,15 +27,15 @@ export function initializeLoader() {
 
   const setProgress = (val) => {
     progress = Math.min(val, 100);
-    if (bar)     bar.style.width     = `${progress}%`;
+    if (bar) bar.style.width = `${progress}%`;
     if (percent) percent.textContent = `${Math.floor(progress)}%`;
   };
 
   const interval = setInterval(() => {
-    const next = Math.min(progress + Math.random() * 5.5, 90);
+    const next = Math.min(progress + Math.random() * 12, 96);
     setProgress(next);
-    if (progress >= 90) clearInterval(interval);
-  }, 150);
+    if (progress >= 96) clearInterval(interval);
+  }, 90);
 
   const finish = () => {
     if (finished) return;
@@ -46,23 +47,27 @@ export function initializeLoader() {
       wrapper.classList.add("loader-hidden");
 
       const cleanup = () => {
-        wrapper.style.display                         = "none";
-        document.documentElement.style.overflow       = "";
+        wrapper.style.display = "none";
+        document.documentElement.style.overflow = "";
         document.documentElement.style.scrollbarWidth = "";
         window.dispatchEvent(new CustomEvent("loaderComplete"));
       };
 
       wrapper.addEventListener("transitionend", cleanup, { once: true });
-      setTimeout(cleanup, 700);
+      setTimeout(cleanup, 450);
     }, 300);
   };
 
-  const failsafe = setTimeout(finish, 7000);
+  const failsafe = setTimeout(finish, 3000);
 
-  window.addEventListener("load", () => {
-    clearTimeout(failsafe);
-    const elapsed   = Date.now() - startTime;
-    const remaining = Math.max(5500 - elapsed, 400);
-    setTimeout(finish, remaining);
-  }, { once: true });
+  window.addEventListener(
+    "load",
+    () => {
+      clearTimeout(failsafe);
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(900 - elapsed, 120);
+      setTimeout(finish, remaining);
+    },
+    { once: true },
+  );
 }

@@ -171,13 +171,15 @@
 }
 
 #contact {
-  transform: perspective(1500px) rotateX(-20deg) translateZ(-60px);
+  transform: perspective(1500px) translateZ(-60px);
+  perspective: none;
   opacity: 0;
   filter: blur(6px);
+  overflow: clip;
 }
 
 #contact.camera-view-back-active {
-  transform: perspective(1500px) rotateX(0deg) translateZ(0px);
+  transform: perspective(1500px) translateZ(0px);
   opacity: 1;
   filter: blur(0px);
 }
@@ -188,4 +190,17 @@
 #contact.fog-fade-out::before {
   opacity: 0;
   transition: opacity 0.6s ease-out;
+}
+
+@media (max-width: 768px) {
+  #education,
+  #skills,
+  #projects,
+  #certificates,
+  #contact {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1;
+    perspective: none;
+  }
 }

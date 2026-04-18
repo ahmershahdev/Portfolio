@@ -10,7 +10,7 @@ export const CERTIFICATES = [
       background: "#FFF5E6",
     },
     image:
-      "assets/images/certifcates/coursera/amazon/Amazon Junior Software Developer - Amazon ( Coursera ).webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536468/portfolio/certifcates/coursera/amazon/amazon-junior-software-developer-amazon-coursera.webp",
     badge: "Specialization",
     skills: [
       "Software Engineering Principles",
@@ -33,7 +33,7 @@ export const CERTIFICATES = [
       background: "#FFF5E6",
     },
     image:
-      "assets/images/certifcates/coursera/amazon/Full Stack Web Development - Amazon Coursera.webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536471/portfolio/certifcates/coursera/amazon/full-stack-web-development-amazon-coursera.webp",
     badge: "Course Certificate",
     skills: [
       "HTML5 & CSS3",
@@ -56,7 +56,7 @@ export const CERTIFICATES = [
       background: "#EAF0FA",
     },
     image:
-      "assets/images/certifcates/coursera/board_infinity/Full-Stack Web Development PHP, HTML, CSS & JavaScript - BoardInfinity ( Coursera ).webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536579/portfolio/certifcates/coursera/board_infinity/full-stack-web-development-php-html-css-javascript-boardinfinity-coursera.webp",
     badge: "Specialization",
     skills: [
       "PHP Server-Side Scripting",
@@ -79,7 +79,7 @@ export const CERTIFICATES = [
       background: "#E6F0FA",
     },
     image:
-      "assets/images/certifcates/coursera/ibm/IBM DevOps and Software Engineering - IBM ( Coursera ).webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536474/portfolio/certifcates/coursera/ibm/ibm-devops-and-software-engineering-ibm-coursera.webp",
     badge: "Specialization",
     skills: [
       "Git & GitHub Workflow",
@@ -102,7 +102,7 @@ export const CERTIFICATES = [
       background: "#E7F0FF",
     },
     image:
-      "assets/images/certifcates/coursera/meta/Meta Full Stack Developer Front-End & Back-End from Scratch - Meta ( Coursera ).webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536478/portfolio/certifcates/coursera/meta/meta-full-stack-developer-front-end-back-end-from-scratch-meta-coursera.webp",
     badge: "Specialization",
     skills: [
       "Advanced CSS & Bootstrap",
@@ -125,7 +125,7 @@ export const CERTIFICATES = [
       background: "#FEF0ED",
     },
     image:
-      "assets/images/certifcates/coursera/microsoft/Microsoft Full-Stack Developer - Microsoft ( Coursera ).webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536481/portfolio/certifcates/coursera/microsoft/microsoft-full-stack-developer-microsoft-coursera.webp",
     badge: "Specialization",
     skills: [
       "SQL Server Management",
@@ -148,7 +148,7 @@ export const CERTIFICATES = [
       background: "#EAF2FE",
     },
     image:
-      "assets/images/certifcates/coursera/scrimba/Fullstack Development - Scrimba ( Coursera ).webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536485/portfolio/certifcates/coursera/scrimba/fullstack-development-scrimba-coursera.webp",
     badge: "Specialization",
     skills: [
       "HTML, CSS & Bootstrap",
@@ -171,7 +171,7 @@ export const CERTIFICATES = [
       background: "#E6F0F8",
     },
     image:
-      "assets/images/certifcates/linkedln/Become a Software Developer - Linkedln Learning.webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536494/portfolio/certifcates/linkedln/become-a-software-developer-linkedln-learning.webp",
     badge: "Learning Path",
     skills: [
       "Software Development Life Cycle",
@@ -195,7 +195,7 @@ export const CERTIFICATES = [
       background: "#E6F0F8",
     },
     image:
-      "assets/images/certifcates/linkedln/Learning SQL Programming - Linkedln Learning.webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536496/portfolio/certifcates/linkedln/learning-sql-programming-linkedln-learning.webp",
     badge: "Course Certificate",
     skills: [
       "SQL Syntax & Execution",
@@ -219,7 +219,7 @@ export const CERTIFICATES = [
       background: "#E6F0F8",
     },
     image:
-      "assets/images/certifcates/linkedln/Succeeding in Web Development Full Stack and Front End - Linkedln Learning.webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536498/portfolio/certifcates/linkedln/succeeding-in-web-development-full-stack-and-front-end-linkedln-learning.webp",
     badge: "Course Certificate",
     skills: [
       "Full-Stack Architecture",
@@ -243,7 +243,7 @@ export const CERTIFICATES = [
       background: "#E6FAED",
     },
     image:
-      "assets/images/certifcates/hacker_rank/JavaScript (Intermediate) Certificate - HackerRank.webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536488/portfolio/certifcates/hacker_rank/javascript-intermediate-certificate-hackerrank.webp",
     badge: "Skill Certificate",
     skills: [
       "JavaScript (ES6+)",
@@ -266,7 +266,7 @@ export const CERTIFICATES = [
       background: "#E6FAED",
     },
     image:
-      "assets/images/certifcates/hacker_rank/SQL (Advanced) Certificate - HackerRank.webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536492/portfolio/certifcates/hacker_rank/sql-advanced-certificate-hackerrank.webp",
     badge: "Skill Certificate",
     skills: [
       "Advanced SQL Queries",
@@ -289,7 +289,7 @@ export const CERTIFICATES = [
       background: "#E6FAED",
     },
     image:
-      "assets/images/certifcates/hacker_rank/Software Engineer Intern Certificate - HackerRank.webp",
+      "https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_cert_t/v1776536490/portfolio/certifcates/hacker_rank/software-engineer-intern-certificate-hackerrank.webp",
     badge: "Role Certificate",
     skills: [
       "Problem Solving",
@@ -308,3 +308,5 @@ export const CAT_ICONS = {
   linkedin: "bi-linkedin",
   hackerrank: "bi-code-slash",
 };
+
+

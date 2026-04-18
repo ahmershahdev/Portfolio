@@ -7,7 +7,10 @@ const elNextBtn = document.getElementById("certNextBtn");
 export function getBookDimensions() {
   const containerW = Math.min(document.documentElement.clientWidth - 32, 1200);
   if (containerW < 620) {
-    return { width: Math.min(containerW, 380), height: 480, display: "single" };
+    const width = Math.min(containerW, 380);
+    const scale = width / 380;
+    const height = Math.round(Math.max(360, Math.min(480, 480 * scale)));
+    return { width: Math.round(width), height, display: "single" };
   }
   const maxW = Math.min(containerW - 24, 840);
   const scale = maxW / 840;

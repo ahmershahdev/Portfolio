@@ -10,18 +10,45 @@
   }
 
   .cert-magazine-scene {
-    padding: 16px 0 0;
+    padding: 10px 0 0;
+    overflow: hidden;
+  }
+
+  #certMagazine {
+    margin-inline: auto;
   }
 
   .cert-main-img {
-    max-height: 300px;
+    max-height: 270px;
   }
 
   .page-inner {
-    padding: 1.2rem 1rem;
+    padding: 1rem 0.9rem;
   }
 
   .cert-title-text {
     font-size: 0.85rem;
+  }
+
+  .cert-page.page-combined .page-inner {
+    padding: 0.95rem 0.85rem;
+  }
+
+  .cert-page.page-combined .cert-title-text {
+    font-size: 0.8rem;
+  }
+
+  .cert-page.page-combined .cert-issuer-name {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .cert-main-img {
+    max-height: 240px;
+  }
+
+  .page-inner {
+    padding: 0.9rem 0.75rem;
   }
 }

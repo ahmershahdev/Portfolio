@@ -11,6 +11,13 @@
   outline: none !important;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
 ::-moz-selection {
   background-color: #00ff41 !important;
   color: #000000 !important;
@@ -50,6 +57,19 @@
   background: linear-gradient(to bottom, #00ff41, #0ff0fc);
 }
 
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(to bottom, #00ff41, #0ff0fc);
+  cursor: grabbing;
+}
+
+html.scrollbar-hover::-webkit-scrollbar-thumb {
+  cursor: grab;
+}
+
+html.scrollbar-dragging::-webkit-scrollbar-thumb {
+  cursor: grabbing;
+}
+
 h1,
 h2,
 h3,
@@ -68,8 +88,27 @@ h2::selection,
   text-shadow: 0 0 10px rgba(15, 240, 252, 1) !important;
 }
 
-html, body {
-  scroll-behavior: smooth !important;
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+html.scrollbar-hover,
+html.scrollbar-hover body {
+  cursor: grab !important;
+}
+
+html.scrollbar-dragging,
+html.scrollbar-dragging body {
+  cursor: grabbing !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -144,10 +183,10 @@ html, body {
   }
 
   .project-nav-btn:hover {
-  background: transparent;
-  border: 1.5px solid #0ff0fc;
-  box-shadow: none;
-}
+    background: transparent;
+    border: 1.5px solid #0ff0fc;
+    box-shadow: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
