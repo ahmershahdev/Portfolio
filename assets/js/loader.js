@@ -20,9 +20,10 @@ export function initializeLoader() {
   if (quote)
     quote.textContent = QUOTES[Math.floor(Math.random() * QUOTES.length)];
 
-  const startTime = Date.now();
+  const startTime = performance.now();
   let progress = 0;
   let finished = false;
+  let rafId = 0;
 
   const setProgress = (val) => {
     progress = Math.min(val, 100);
@@ -32,39 +33,56 @@ export function initializeLoader() {
     if (bar) bar.setAttribute("aria-valuenow", String(Math.floor(progress)));
   };
 
-  const interval = setInterval(() => {
-    if (progress >= 96) {
-      clearInterval(interval);
-      return;
-    }
-    setProgress(progress + 1);
-  }, 35);
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  const runRamp = (duration, cap) => {
+    const start = performance.now();
+    const tick = (now) => {
+      if (finished) return;
+      const t = Math.min((now - start) / duration, 1);
+      const target = cap * easeOutCubic(t);
+      if (target > progress) setProgress(target);
+      if (t < 1) rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+  };
 
   const finalizeToHundred = () => {
-    const finalInterval = setInterval(() => {
-      if (progress >= 100) {
-        clearInterval(finalInterval);
-        wrapper.classList.add("loader-hidden");
+    const start = performance.now();
+    const from = progress;
+    const duration = 900;
 
-        const cleanup = () => {
-          wrapper.style.display = "none";
-          document.documentElement.style.overflow = "";
-          document.documentElement.style.scrollbarWidth = "";
-          window.dispatchEvent(new CustomEvent("loaderComplete"));
-        };
-
-        wrapper.addEventListener("transitionend", cleanup, { once: true });
-        setTimeout(cleanup, 450);
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const target = from + (100 - from) * easeOutCubic(t);
+      setProgress(target);
+      if (t < 1) {
+        requestAnimationFrame(tick);
         return;
       }
-      setProgress(progress + 1);
-    }, 18);
+
+      wrapper.classList.add("loader-hidden");
+
+      const cleanup = () => {
+        wrapper.style.display = "none";
+        document.documentElement.style.overflow = "";
+        document.documentElement.style.scrollbarWidth = "";
+        window.dispatchEvent(new CustomEvent("loaderComplete"));
+      };
+
+      wrapper.addEventListener("transitionend", cleanup, { once: true });
+      setTimeout(cleanup, 450);
+    };
+
+    requestAnimationFrame(tick);
   };
+
+  runRamp(2600, 92);
 
   const finish = () => {
     if (finished) return;
     finished = true;
-    clearInterval(interval);
+    cancelAnimationFrame(rafId);
     finalizeToHundred();
   };
 
@@ -74,7 +92,7 @@ export function initializeLoader() {
     "load",
     () => {
       clearTimeout(failsafe);
-      const elapsed = Date.now() - startTime;
+      const elapsed = performance.now() - startTime;
       const remaining = Math.max(900 - elapsed, 120);
       setTimeout(finish, remaining);
     },
