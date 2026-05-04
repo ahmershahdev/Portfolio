@@ -93,6 +93,19 @@ export function initializeThreeScene() {
   const modelLoader = new GLTFLoader();
   modelLoader.setDRACOLoader(dracoLoader);
 
+  const roomUrl =
+    container.dataset.roomGlb ||
+    "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/background_room.glb";
+  const roomFallbackUrl =
+    container.dataset.roomGlbFallback ||
+    "assets/blender/background/background_room.glb";
+  const ironUrl =
+    container.dataset.ironGlb ||
+    "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/iron_man.glb";
+  const ironFallbackUrl =
+    container.dataset.ironGlbFallback ||
+    "assets/blender/character/iron_man.glb";
+
   let ironManModel = null;
   let roomModel = null;
   let targetX = 0;
@@ -103,7 +116,7 @@ export function initializeThreeScene() {
   const metalMaterialProps = { metalness: 1, roughness: 0.2 };
 
   modelLoader.load(
-    "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/background_room.glb",
+    roomUrl,
     (gltf) => {
       roomModel = gltf.scene;
       roomModel.traverse((node) => {
@@ -121,7 +134,7 @@ export function initializeThreeScene() {
     },
     undefined,
     (error) => {
-      modelLoader.load("assets/blender/background/background_room.glb", (gltf) => {
+      modelLoader.load(roomFallbackUrl, (gltf) => {
         roomModel = gltf.scene;
         roomModel.traverse((node) => {
           if (node.isMesh) node.frustumCulled = true;
@@ -142,7 +155,7 @@ export function initializeThreeScene() {
   requestIdleCallback(
     () => {
       modelLoader.load(
-        "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/iron_man.glb",
+        ironUrl,
         (gltf) => {
           modelsLoaded = true;
           ironManModel = gltf.scene;
@@ -169,7 +182,7 @@ export function initializeThreeScene() {
         },
         undefined,
         (error) => {
-          modelLoader.load("assets/blender/character/iron_man.glb", (gltf) => {
+          modelLoader.load(ironFallbackUrl, (gltf) => {
             modelsLoaded = true;
             ironManModel = gltf.scene;
             ironManModel.traverse((node) => {

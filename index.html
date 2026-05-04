@@ -20,7 +20,7 @@
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
   font-src 'self' data: https://fonts.gstatic.com; 
   img-src 'self' data: blob: https://ahmershah.dev https://www.googletagmanager.com https://res.cloudinary.com; 
-  connect-src 'self' blob: https://ahmershah.dev https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://cdn.jsdelivr.net https://formspree.io https://pub-cf58c39336f64e21807389581d20ec09.r2.dev https://vitals.vercel-insights.com; 
+  connect-src 'self' blob: https://ahmershah.dev https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://cdn.jsdelivr.net https://formspree.io https://res.cloudinary.com https://pub-cf58c39336f64e21807389581d20ec09.r2.dev https://vitals.vercel-insights.com; 
   worker-src 'self' blob:; 
   frame-src 'self' https://*.ahmershah.dev https://ahmershahdev.github.io https://www.googletagmanager.com;
   object-src 'none'; 
@@ -196,7 +196,6 @@
     "https://beacons.ai/syedahmershah",
     "https://leetcode.com/syedahmershah",
     "https://hackerrank.com/profile/syedahmershah",
-    "https://www.datacamp.com/portfolio/syedahmershah",
     "https://coursera.org/learner/syedahmershah"
   ],
   "knowsAbout": [
@@ -310,27 +309,42 @@
   <!-- End Google Tag Manager (noscript) -->
   <div id="loader-wrapper" style="user-select: none;">
     <div class="scanlines"></div>
-    <div class="container h-100 d-flex flex-column justify-content-center align-items-center">
-      <div class="cyber-spinner mb-4">
-        <div class="spinner-border text-info" role="status" style="width: 100px; height: 100px; border-width: 3px;">
-          <span class="visually-hidden">Loading...</span>
+    <div class="loader-panel">
+      <div class="loader-top">
+        <div class="loader-mini">
+          <span class="loader-mini-label">BOOTING</span>
+          <span class="loader-mini-spinner" aria-hidden="true"></span>
         </div>
-        <div class="spinner-text">INIT</div>
+        <div class="loader-orbit" aria-hidden="true">
+          <span class="orbit-ball"></span>
+        </div>
       </div>
 
-      <div class="w-75 w-md-50">
-        <div class="d-flex justify-content-between mb-2">
-          <span class="text-info small fw-bold tracking-widest uppercase">System_Boot</span>
-          <span id="load-percent" class="text-info small fw-bold">0%</span>
+      <div class="loader-core">
+        <span class="loader-label">SYSTEM BOOT</span>
+        <div id="load-percent" class="loader-percent" aria-live="polite">0%</div>
+        <span class="loader-subline">Calibrating neural stacks</span>
+      </div>
+
+      <div class="loader-progress">
+        <div class="loader-progress-meta">
+          <span class="loader-track-label">SYNC STREAM</span>
+          <span id="load-percent-mini" class="loader-track-percent">0%</span>
         </div>
-        <div class="progress bg-dark-cyan border-info-subtle" style="height: 8px;">
+        <div class="progress loader-progress-bar">
           <div id="loading-bar" class="progress-bar bg-info shadow-glow transition-fast" role="progressbar"
-            aria-label="Page Loading" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+            aria-label="Page Loading" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
         </div>
       </div>
 
-      <div class="quote-box mt-5 px-3 text-center">
-        <p id="dynamic-quote" class="hacky-text small-mobile"></p>
+      <div class="loader-quote">
+        <span class="loader-quote-label">QUOTE STREAM</span>
+        <p id="dynamic-quote" class="loader-quote-text"></p>
+      </div>
+
+      <div class="loader-signal">
+        <span class="signal-dot" aria-hidden="true"></span>
+        <span>Signal locked. Preparing viewport.</span>
       </div>
     </div>
   </div>
@@ -927,7 +941,8 @@
                 <h3 class="h4 mb-3">Commerza - E-Commerce Store</h3>
                 <p class="text-secondary mb-4">
                   Commerza is a full-stack e-commerce web application with a modern user storefront and an admin
-                  dashboard. It includes product & order management, authentication, cart, tracking, email routing, automation, and SMTP failover,
+                  dashboard. It includes product & order management, authentication, cart, tracking, email routing,
+                  automation, and SMTP failover,
                   dynamic UI interactions, and SEO optimization. Built for real-world use.
                 </p>
                 <div class="mb-4">
@@ -1177,7 +1192,7 @@
             </div>
 
             <div class="panel-body">
-              <p class="panel-section-label">// 16 platforms connected</p>
+              <p class="panel-section-label">// 15 platforms connected</p>
               <div class="social-grid">
 
                 <a href="https://github.com/ahmershahdev" target="_blank" rel="noopener noreferrer" class="social-card"
@@ -1277,13 +1292,6 @@
                   <span class="social-username">syedahmershah</span>
                 </a>
 
-                <a href="https://www.datacamp.com/portfolio/syedahmershah" target="_blank" rel="noopener noreferrer"
-                  class="social-card" aria-label="DataCamp — syedahmershah">
-                  <div class="social-icon-wrap"><span class="social-text-icon" style="color:#03ef62;">DC</span></div>
-                  <span class="social-card-label">DataCamp</span>
-                  <span class="social-username">syedahmershah</span>
-                </a>
-
               </div>
             </div>
           </div>
@@ -1297,7 +1305,7 @@
         <h2 class="section-title">Contact Me</h2>
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <div class="neon-border p-4 p-md-5">
+            <div class="neon-border p-4 p-md-5 contact-form-theme">
               <p class="text-center mb-5">
                 I'm always open to discussing new opportunities, collaborations,
                 or just talking about technology and gaming!

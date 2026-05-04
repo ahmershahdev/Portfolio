@@ -17,62 +17,134 @@ export function initializeForm(config = {}) {
   let isSubmitting = false;
   let lastSubmitTime = 0;
   const fieldErrorMap = new Map();
+  const fieldStatusMap = new Map();
 
-  const getOrCreateFieldError = (field) => {
+  const getFieldErrorElement = (field) => {
     if (fieldErrorMap.has(field)) return fieldErrorMap.get(field);
+
+    const describedId = field.getAttribute("aria-describedby");
+    if (describedId) {
+      const existing = document.getElementById(describedId);
+      if (existing) {
+        if (!existing.dataset.defaultText)
+          existing.dataset.defaultText = existing.textContent;
+        fieldErrorMap.set(field, existing);
+        return existing;
+      }
+    }
+
+    const group = field.closest(".float-label-group");
+    const sibling = group?.nextElementSibling;
+    if (sibling?.classList.contains("invalid-feedback")) {
+      if (!sibling.dataset.defaultText)
+        sibling.dataset.defaultText = sibling.textContent;
+      fieldErrorMap.set(field, sibling);
+      return sibling;
+    }
+
     const el = document.createElement("span");
     el.id = `err-${field.name || Math.random().toString(36).slice(2)}`;
-    el.className = "field-error";
+    el.className = "invalid-feedback";
     el.setAttribute("role", "alert");
+    el.dataset.dynamic = "true";
     field.insertAdjacentElement("afterend", el);
     fieldErrorMap.set(field, el);
     return el;
   };
 
+  const getOrCreateFieldStatus = (field) => {
+    if (fieldStatusMap.has(field)) return fieldStatusMap.get(field);
+    const group = field.closest(".float-label-group");
+    if (!group) return null;
+    let statusEl = group.querySelector(".field-status");
+    if (!statusEl) {
+      statusEl = document.createElement("span");
+      statusEl.className = "field-status";
+      statusEl.setAttribute("aria-hidden", "true");
+      group.appendChild(statusEl);
+    }
+    fieldStatusMap.set(field, statusEl);
+    return statusEl;
+  };
+
+  const setFieldState = (field, state) => {
+    const group = field.closest(".float-label-group");
+    if (group) {
+      group.classList.toggle("is-valid", state === "valid");
+      group.classList.toggle("is-invalid", state === "invalid");
+    }
+    const statusEl = getOrCreateFieldStatus(field);
+    if (!statusEl) return;
+    if (state === "valid") {
+      statusEl.textContent = "OK";
+      statusEl.dataset.state = "valid";
+    } else if (state === "invalid") {
+      statusEl.textContent = "ERR";
+      statusEl.dataset.state = "invalid";
+    } else {
+      statusEl.textContent = "";
+      statusEl.dataset.state = "neutral";
+    }
+  };
+
   const clearFieldError = (field) => {
-    const el = fieldErrorMap.get(field);
+    const el = getFieldErrorElement(field);
     if (el) {
-      el.textContent = "";
+      if (el.dataset.defaultText) el.textContent = el.dataset.defaultText;
       el.style.display = "none";
+      el.setAttribute("aria-hidden", "true");
     }
     field.removeAttribute("aria-invalid");
-    field.removeAttribute("aria-describedby");
+    if (el?.dataset.dynamic === "true")
+      field.removeAttribute("aria-describedby");
   };
 
   const setFieldError = (field, msg) => {
-    const el = getOrCreateFieldError(field);
-    el.textContent = msg;
-    el.style.display = "block";
+    const el = getFieldErrorElement(field);
+    if (el) {
+      el.textContent = msg || el.dataset.defaultText || "Invalid value.";
+      el.style.display = "block";
+      el.setAttribute("aria-hidden", "false");
+    }
     field.setAttribute("aria-invalid", "true");
-    field.setAttribute("aria-describedby", el.id);
+    if (el?.id) field.setAttribute("aria-describedby", el.id);
   };
 
-  const validateField = (field) => {
+  const validateField = (field, mode = "input") => {
+    const isEmpty = field.value.trim().length === 0;
     if (!field.checkValidity()) {
+      if (mode === "input" && isEmpty) {
+        clearFieldError(field);
+        setFieldState(field, "neutral");
+        return false;
+      }
       const label =
         form.querySelector(`label[for="${field.id}"]`)?.textContent?.trim() ||
         field.name ||
         "This field";
       setFieldError(field, field.validationMessage || `${label} is invalid.`);
+      setFieldState(field, "invalid");
       return false;
     }
     clearFieldError(field);
+    setFieldState(field, "valid");
     return true;
   };
 
   form.querySelectorAll("[required]").forEach((field) => {
     field.addEventListener(
       "input",
-      debounce(() => validateField(field), 400),
+      debounce(() => validateField(field, "input"), 240),
     );
-    field.addEventListener("blur", () => validateField(field));
+    field.addEventListener("blur", () => validateField(field, "blur"));
   });
 
   const validateAll = () => {
     const fields = [...form.querySelectorAll("[required]")];
     let firstInvalid = null;
     for (const field of fields) {
-      if (!validateField(field) && !firstInvalid) firstInvalid = field;
+      if (!validateField(field, "submit") && !firstInvalid)
+        firstInvalid = field;
     }
     firstInvalid?.focus();
     return !firstInvalid;
@@ -139,6 +211,7 @@ export function initializeForm(config = {}) {
     if (errorMsg) {
       errorMsg.style.display = "none";
       errorMsg.textContent = "";
+      errorMsg.setAttribute("aria-hidden", "true");
     }
 
     try {
@@ -153,7 +226,10 @@ export function initializeForm(config = {}) {
         },
         { once: true },
       );
-      if (successMsg) successMsg.style.display = "block";
+      if (successMsg) {
+        successMsg.style.display = "block";
+        successMsg.setAttribute("aria-hidden", "false");
+      }
     } catch (err) {
       console.error("Submission error:", err);
       showGlobalError(err.message);
@@ -166,6 +242,8 @@ export function initializeForm(config = {}) {
     if (errorMsg) {
       errorMsg.textContent = msg;
       errorMsg.style.display = "block";
+      errorMsg.setAttribute("aria-hidden", "false");
+      errorMsg.focus?.({ preventScroll: true });
     } else console.error(msg);
   }
 }

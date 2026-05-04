@@ -1,58 +1,21 @@
-Copyright (c) 2026 – Present Syed Ahmer Shah.
-This file is part of proprietary software and may not be used,
-copied, modified, or distributed without express permission.
-See LICENSE for details.
+Custom MIT License
 
-1. Definitions
-   - "Software" refers to all files, code, documentation, and resources in this repository
-   - "Author" refers to Syed Ahmer Shah
-   - "License" refers to this document and its terms
+Copyright (c) 2026 Syed Ahmer Shah
 
-2. License Grant
-   This software is proprietary and confidential. No part of this software may be:
-   - Copied or duplicated in any form
-   - Modified or altered
-   - Distributed or shared
-   - Used for commercial or non-commercial purposes
-   - Incorporated into other software or projects
-   without express written permission from the Author.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-3. Intellectual Property
-   All intellectual property rights, including but not limited to:
-   - Source code
-   - Design elements
-   - Graphics and images
-   - Documentation
-   are owned exclusively by the Author and are protected by copyright laws.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-4. Restrictions
-   You may NOT:
-   - Reverse engineer, decompile, or disassemble the Software
-   - Create derivative works based on the Software
-   - Remove or modify any copyright notices
-   - Use any part of the code in other projects
-   - Share or distribute any part of the Software
-
-5. Limited Viewing Rights
-   You may:
-   - View the source code solely for educational and reference purposes
-   - Fork the repository only to enable viewing on GitHub, without modifying, compiling, executing, or using the Software
-   - Submit issues or bug reports
-
-   Forking does not grant any rights to copy, modify, execute, distribute, or create derivative works from the Software.
-
-6. Warranty Disclaimer
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
-
-7. Contact Information
-   For permissions and inquiries:
-   - Email: support@ahmershah.dev
-   - GitHub: @ahmershahdev
-
-8. Termination
-   This License is effective until terminated. Your rights under this License will terminate automatically without notice if you fail to comply with any of its terms.
-
-9. Governing Law
-   This License shall be governed by and construed in accordance with the laws of Pakistan.
-
-By accessing or using any part of this Software, you acknowledge that you have read, understood, and agree to be bound by the terms of this License. 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

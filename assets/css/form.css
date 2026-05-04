@@ -4,16 +4,64 @@
   border: 1px solid rgba(0, 240, 255, 0.15) !important;
   border-left: 3px solid #00f0ff !important;
   border-radius: 0 !important;
-  clip-path: polygon(0% 0%, calc(100% - 15px) 0%, 100% 15px, 100% 100%, 15px 100%, 0% calc(100% - 15px));
+  clip-path: polygon(
+    0% 0%,
+    calc(100% - 15px) 0%,
+    100% 15px,
+    100% 100%,
+    15px 100%,
+    0% calc(100% - 15px)
+  );
   color: #00f0ff !important;
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  padding: 1.2rem;
+  padding: 1.2rem 3rem 1.2rem 1.2rem;
   margin-bottom: 5px;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contact-form-theme {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      1200px circle at 10% 0%,
+      rgba(0, 240, 255, 0.08),
+      transparent 55%
+    ),
+    linear-gradient(160deg, rgba(5, 12, 18, 0.96) 0%, rgba(2, 6, 12, 0.96) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.25) !important;
+  box-shadow:
+    0 0 45px rgba(0, 240, 255, 0.12),
+    inset 0 0 25px rgba(0, 240, 255, 0.05);
+}
+
+.contact-form-theme::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 240, 255, 0.08);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 240, 255, 0.04) 0,
+      rgba(0, 240, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 100px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 65, 0.035) 0,
+      rgba(0, 255, 65, 0.035) 1px,
+      transparent 1px,
+      transparent 100px
+    );
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .contact-form .form-control::placeholder {
@@ -28,14 +76,18 @@
 .contact-form .form-control:hover {
   background: rgba(0, 240, 255, 0.08) !important;
   border-color: rgba(0, 240, 255, 0.4) !important;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1) !important;
+  box-shadow:
+    0 0 15px rgba(0, 240, 255, 0.2),
+    inset 0 0 10px rgba(0, 240, 255, 0.1) !important;
 }
 
 .contact-form .form-control:focus {
   background: rgba(0, 255, 65, 0.08) !important;
   border-color: rgba(0, 255, 65, 0.6) !important;
   border-left: 4px solid #00ff41 !important;
-  box-shadow: 0 0 25px rgba(0, 255, 65, 0.25), inset 0 0 15px rgba(0, 255, 65, 0.15) !important;
+  box-shadow:
+    0 0 25px rgba(0, 255, 65, 0.25),
+    inset 0 0 15px rgba(0, 255, 65, 0.15) !important;
   color: #fff !important;
   outline: none !important;
 }
@@ -44,6 +96,67 @@
   position: relative;
   margin-top: 1.6rem;
   margin-bottom: 10px;
+}
+
+.contact-form .float-label-group.is-valid .form-control {
+  border-color: rgba(0, 255, 65, 0.6) !important;
+  border-left: 4px solid #00ff41 !important;
+  box-shadow:
+    0 0 18px rgba(0, 255, 65, 0.25),
+    inset 0 0 12px rgba(0, 255, 65, 0.1) !important;
+  color: #eafff1 !important;
+}
+
+.contact-form .float-label-group.is-invalid .form-control {
+  border-color: rgba(255, 15, 65, 0.6) !important;
+  border-left: 4px solid #ff0f41 !important;
+  box-shadow:
+    0 0 18px rgba(255, 15, 65, 0.22),
+    inset 0 0 12px rgba(255, 15, 65, 0.1) !important;
+  color: #ffeef2 !important;
+}
+
+.contact-form .float-label-group.is-valid label {
+  color: rgba(0, 255, 65, 0.85);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.6);
+}
+
+.contact-form .float-label-group.is-invalid label {
+  color: rgba(255, 15, 65, 0.85);
+  text-shadow: 0 0 10px rgba(255, 15, 65, 0.6);
+}
+
+.field-status {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(0, 240, 255, 0.5);
+  padding: 4px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  background: rgba(0, 10, 20, 0.65);
+  transition: all 0.3s ease;
+}
+
+.field-status[data-state="neutral"] {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.field-status[data-state="valid"] {
+  color: #00ff41;
+  border-color: rgba(0, 255, 65, 0.6);
+  box-shadow: 0 0 12px rgba(0, 255, 65, 0.3);
+}
+
+.field-status[data-state="invalid"] {
+  color: #ff0f41;
+  border-color: rgba(255, 15, 65, 0.6);
+  box-shadow: 0 0 12px rgba(255, 15, 65, 0.3);
 }
 
 .contact-form .float-label-group label {
@@ -61,7 +174,10 @@
   pointer-events: none;
   margin: 0;
   z-index: 2;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease, text-shadow 0.3s ease;
+  transition:
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    color 0.3s ease,
+    text-shadow 0.3s ease;
 }
 
 .contact-form .float-label-group .form-control:focus ~ label,
@@ -92,11 +208,22 @@
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
   border: 1px solid transparent;
-  clip-path: polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+  clip-path: polygon(
+    0 15px,
+    15px 0,
+    100% 0,
+    100% calc(100% - 15px),
+    calc(100% - 15px) 100%,
+    0 100%
+  );
 }
 
 .form-success-message {
-  background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, rgba(10, 15, 20, 0.9) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 65, 0.05) 0%,
+    rgba(10, 15, 20, 0.9) 100%
+  );
   border-color: rgba(0, 255, 65, 0.3);
   border-left: 3px solid #00ff41;
   box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
@@ -111,7 +238,11 @@
 }
 
 .form-error-message {
-  background: linear-gradient(135deg, rgba(255, 15, 65, 0.05) 0%, rgba(20, 10, 10, 0.9) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 15, 65, 0.05) 0%,
+    rgba(20, 10, 10, 0.9) 100%
+  );
   border-color: rgba(255, 15, 65, 0.3);
   border-left: 3px solid #ff0f41;
   box-shadow: 0 0 20px rgba(255, 15, 65, 0.1);
@@ -131,17 +262,29 @@
 }
 
 @keyframes success-glow {
-  from { box-shadow: 0 0 10px rgba(0, 255, 65, 0.1); }
-  to { box-shadow: 0 0 25px rgba(0, 255, 65, 0.3); }
+  from {
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.3);
+  }
 }
 
 @keyframes error-glow {
-  from { box-shadow: 0 0 10px rgba(255, 15, 65, 0.1); }
-  to { box-shadow: 0 0 25px rgba(255, 15, 65, 0.3); }
+  from {
+    box-shadow: 0 0 10px rgba(255, 15, 65, 0.1);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(255, 15, 65, 0.3);
+  }
 }
 
 @keyframes fadeOut {
-  to { opacity: 0; visibility: hidden; transform: translateY(-10px); }
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+  }
 }
 
 .fade-out {
