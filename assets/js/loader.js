@@ -35,22 +35,38 @@ export function initializeLoader() {
 
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
-  const runRamp = (duration, cap) => {
-    const start = performance.now();
-    const tick = (now) => {
-      if (finished) return;
-      const t = Math.min((now - start) / duration, 1);
-      const target = cap * easeOutCubic(t);
-      if (target > progress) setProgress(target);
-      if (t < 1) rafId = requestAnimationFrame(tick);
-    };
+  const maxBeforeLoad = 97;
+  const smoothStep = (current, target) => {
+    const delta = target - current;
+    if (delta <= 0) return current;
+    return Math.min(current + Math.max(delta * 0.08, 0.03), target);
+  };
+
+  const tick = (now) => {
+    if (finished) return;
+    const elapsed = now - startTime;
+    let target = 0;
+
+    if (elapsed < 900) {
+      target = (elapsed / 900) * 55;
+    } else if (elapsed < 2000) {
+      target = 55 + ((elapsed - 900) / 1100) * 25;
+    } else if (elapsed < 3800) {
+      target = 80 + ((elapsed - 2000) / 1800) * 15;
+    } else {
+      target = maxBeforeLoad;
+    }
+
+    target = Math.min(target, maxBeforeLoad);
+    progress = smoothStep(progress, target);
+    setProgress(progress);
     rafId = requestAnimationFrame(tick);
   };
 
   const finalizeToHundred = () => {
     const start = performance.now();
     const from = progress;
-    const duration = 900;
+    const duration = 700;
 
     const tick = (now) => {
       const t = Math.min((now - start) / duration, 1);
@@ -77,7 +93,7 @@ export function initializeLoader() {
     requestAnimationFrame(tick);
   };
 
-  runRamp(2600, 92);
+  rafId = requestAnimationFrame(tick);
 
   const finish = () => {
     if (finished) return;
@@ -86,15 +102,13 @@ export function initializeLoader() {
     finalizeToHundred();
   };
 
-  const failsafe = setTimeout(finish, 3000);
+  const failsafe = setTimeout(finish, 5000);
 
   window.addEventListener(
     "load",
     () => {
       clearTimeout(failsafe);
-      const elapsed = performance.now() - startTime;
-      const remaining = Math.max(900 - elapsed, 120);
-      setTimeout(finish, remaining);
+      setTimeout(finish, 120);
     },
     { once: true },
   );
