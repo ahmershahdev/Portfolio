@@ -6,7 +6,7 @@ export const CERTIFICATES = [
     category: "coursera",
     colors: {
       primary: "#FF9900",
-      secondary: "#232F3E",
+      secondary: "#ff0000",
       background: "#FFF5E6",
     },
     image:
@@ -52,7 +52,7 @@ export const CERTIFICATES = [
     category: "coursera",
     colors: {
       primary: "#2B59C3",
-      secondary: "#1A3673",
+      secondary: "#ff0000",
       background: "#EAF0FA",
     },
     image:

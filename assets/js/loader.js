@@ -1,6 +1,18 @@
 const QUOTES = [
   "And I can fight only for something that I love, love only what I respect, and respect only what I at least know. — Ahmer Shah",
-  "The work is an enclosure. — Ahmer Shah",
+  "Anyone can deal with victory. Only the mighty can bear defeat.  ― Adolf Hitler",
+  "Think Thousand times before taking a decision But - After taking decison never turn back even if you get Thousand difficulties! ― Adolf Hitler",
+  "The victor will never be asked if he told the truth. -- Adolf Hitler",
+  "Believing in progress does not mean believing that any progress has yet been made. -- Franz Kafka",
+  "Everything you love is very likely to be lost, but in the end, love will return in a different way. — Franz Kafka",
+  "I am free and that is why I am lost. — Franz Kafka",
+  "Sleep is the most innocent creature and a sleepless man the most guilty. — Franz Kafka",
+  "Youth is happy because it has the capacity to see beauty. Anyone who keeps the ability to see beauty never grows old. — Franz Kafka",
+  "The cleverest of all, in my opinion, is the man who calls himself a fool at least once a month. — Fyodor Dostoevsky",
+  "I say let the world go to hell, but I should always have my tea. — Fyodor Dostoevsky",
+  "Happiness does not lie in happiness, but in the achievement of it. — Fyodor Dostoevsky",
+  "Nothing in this world is harder than speaking the truth, nothing easier than flattery. — Fyodor Dostoevsky",
+  "What is hell? I maintain that it is the suffering of being unable to love. — Fyodor Dostoevsky",
 ];
 
 const getEl = (id) => document.getElementById(id);
