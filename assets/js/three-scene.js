@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { getFxSettings } from "./settings.js";
 
 export function initializeThreeScene() {
   const container = document.getElementById("three-bg-container");
@@ -58,32 +59,61 @@ export function initializeThreeScene() {
   groundMesh.position.y = -8;
   scrollGroup.add(groundMesh);
 
+  const fxSettings = getFxSettings();
+  let modelsEnabled = !fxSettings.disable3dModels;
+  let animationsEnabled = !fxSettings.disable3dAnimations;
+
   const RAIN_COUNT = 300;
-  const rainGeometry = new THREE.BufferGeometry();
-  const rainPositions = new Float32Array(RAIN_COUNT * 3);
-  const rainVelocities = new Float32Array(RAIN_COUNT);
+  let rain = null;
+  let rainGeometry = null;
+  let rainMaterial = null;
+  let rainPositions = null;
+  let rainVelocities = null;
 
-  for (let i = 0; i < RAIN_COUNT * 3; i += 3) {
-    rainPositions[i] = (Math.random() - 0.5) * 60;
-    rainPositions[i + 1] = (Math.random() - 0.5) * 40 + 10;
-    rainPositions[i + 2] = (Math.random() - 0.5) * 60;
-    rainVelocities[i / 3] = 0.22 + Math.random() * 0.1;
-  }
+  const createRain = () => {
+    if (rain) return;
+    rainGeometry = new THREE.BufferGeometry();
+    rainPositions = new Float32Array(RAIN_COUNT * 3);
+    rainVelocities = new Float32Array(RAIN_COUNT);
 
-  rainGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(rainPositions, 3),
-  );
-  const rainMaterial = new THREE.PointsMaterial({
-    color: 0x00f0ff,
-    size: 0.06,
-    transparent: true,
-    opacity: 0.6,
-  });
-  const rain = new THREE.Points(rainGeometry, rainMaterial);
-  scrollGroup.add(rain);
+    for (let i = 0; i < RAIN_COUNT * 3; i += 3) {
+      rainPositions[i] = (Math.random() - 0.5) * 60;
+      rainPositions[i + 1] = (Math.random() - 0.5) * 40 + 10;
+      rainPositions[i + 2] = (Math.random() - 0.5) * 60;
+      rainVelocities[i / 3] = 0.22 + Math.random() * 0.1;
+    }
+
+    rainGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(rainPositions, 3),
+    );
+    rainMaterial = new THREE.PointsMaterial({
+      color: 0x00f0ff,
+      size: 0.06,
+      transparent: true,
+      opacity: 0.6,
+    });
+    rain = new THREE.Points(rainGeometry, rainMaterial);
+    scrollGroup.add(rain);
+  };
+
+  const destroyRain = () => {
+    if (!rain) return;
+    scrollGroup.remove(rain);
+    rainGeometry?.dispose();
+    rainMaterial?.dispose();
+    rain = null;
+    rainGeometry = null;
+    rainMaterial = null;
+    rainPositions = null;
+    rainVelocities = null;
+  };
+
+  if (animationsEnabled) createRain();
 
   let modelsLoaded = false;
+  let roomLoading = false;
+  let ironLoading = false;
 
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath(
@@ -115,26 +145,39 @@ export function initializeThreeScene() {
   const boundingBox = new THREE.Box3();
   const metalMaterialProps = { metalness: 1, roughness: 0.2 };
 
-  modelLoader.load(
-    roomUrl,
-    (gltf) => {
-      roomModel = gltf.scene;
-      roomModel.traverse((node) => {
-        if (node.isMesh) node.frustumCulled = true;
-      });
+  const disposeModel = (model) => {
+    if (!model) return;
+    model.traverse((node) => {
+      if (node.isMesh) {
+        node.geometry?.dispose();
+        if (node.material) {
+          if (Array.isArray(node.material))
+            node.material.forEach((m) => m.dispose());
+          else node.material.dispose();
+        }
+      }
+    });
+  };
 
-      boundingBox.setFromObject(roomModel);
-      boundingBox.getSize(sizeVector);
-      const maxDimension = Math.max(sizeVector.x, sizeVector.y, sizeVector.z);
-      const scaleFactor = 30 / maxDimension;
+  const scheduleIdle = (fn, timeout = 4000) => {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(fn, { timeout });
+    } else {
+      setTimeout(fn, 1200);
+    }
+  };
 
-      roomModel.scale.setScalar(scaleFactor);
-      roomModel.position.y = -4;
-      homeGroup.add(roomModel);
-    },
-    undefined,
-    (error) => {
-      modelLoader.load(roomFallbackUrl, (gltf) => {
+  const loadRoomModel = (url, fallbackUrl) => {
+    if (!modelsEnabled || roomLoading || roomModel) return;
+    roomLoading = true;
+    modelLoader.load(
+      url,
+      (gltf) => {
+        roomLoading = false;
+        if (!modelsEnabled) {
+          disposeModel(gltf.scene);
+          return;
+        }
         roomModel = gltf.scene;
         roomModel.traverse((node) => {
           if (node.isMesh) node.frustumCulled = true;
@@ -148,69 +191,97 @@ export function initializeThreeScene() {
         roomModel.scale.setScalar(scaleFactor);
         roomModel.position.y = -4;
         homeGroup.add(roomModel);
-      });
-    },
-  );
+      },
+      undefined,
+      () => {
+        roomLoading = false;
+        if (fallbackUrl) loadRoomModel(fallbackUrl, null);
+      },
+    );
+  };
 
-  requestIdleCallback(
-    () => {
-      modelLoader.load(
-        ironUrl,
-        (gltf) => {
-          modelsLoaded = true;
-          ironManModel = gltf.scene;
-          ironManModel.traverse((node) => {
-            if (node.isMesh && node.material) {
-              Object.assign(node.material, metalMaterialProps);
-              node.material.needsUpdate = true;
-            }
-          });
+  const loadIronModel = (url, fallbackUrl) => {
+    if (!modelsEnabled || ironLoading || ironManModel) return;
+    ironLoading = true;
+    modelLoader.load(
+      url,
+      (gltf) => {
+        ironLoading = false;
+        if (!modelsEnabled) {
+          disposeModel(gltf.scene);
+          return;
+        }
+        modelsLoaded = true;
+        ironManModel = gltf.scene;
+        ironManModel.traverse((node) => {
+          if (node.isMesh && node.material) {
+            Object.assign(node.material, metalMaterialProps);
+            node.material.needsUpdate = true;
+          }
+        });
 
-          boundingBox.setFromObject(ironManModel);
-          boundingBox.getSize(sizeVector);
-          const maxDimension = Math.max(
-            sizeVector.x,
-            sizeVector.y,
-            sizeVector.z,
-          );
-          const scaleFactor = 12 / maxDimension;
+        boundingBox.setFromObject(ironManModel);
+        boundingBox.getSize(sizeVector);
+        const maxDimension = Math.max(sizeVector.x, sizeVector.y, sizeVector.z);
+        const scaleFactor = 12 / maxDimension;
 
-          ironManModel.scale.setScalar(scaleFactor);
-          ironManModel.position.set(0, -6, 0);
-          chestLight.position.set(0, -5, 1.5);
-          scrollGroup.add(ironManModel);
-        },
-        undefined,
-        (error) => {
-          modelLoader.load(ironFallbackUrl, (gltf) => {
-            modelsLoaded = true;
-            ironManModel = gltf.scene;
-            ironManModel.traverse((node) => {
-              if (node.isMesh && node.material) {
-                Object.assign(node.material, metalMaterialProps);
-                node.material.needsUpdate = true;
-              }
-            });
+        ironManModel.scale.setScalar(scaleFactor);
+        ironManModel.position.set(0, -6, 0);
+        chestLight.position.set(0, -5, 1.5);
+        scrollGroup.add(ironManModel);
+      },
+      undefined,
+      () => {
+        ironLoading = false;
+        if (fallbackUrl) loadIronModel(fallbackUrl, null);
+      },
+    );
+  };
 
-            boundingBox.setFromObject(ironManModel);
-            boundingBox.getSize(sizeVector);
-            const maxDimension = Math.max(
-              sizeVector.x,
-              sizeVector.y,
-              sizeVector.z,
-            );
-            const scaleFactor = 12 / maxDimension;
+  const startModelLoads = () => {
+    loadRoomModel(roomUrl, roomFallbackUrl);
+    scheduleIdle(() => loadIronModel(ironUrl, ironFallbackUrl));
+  };
 
-            ironManModel.scale.setScalar(scaleFactor);
-            ironManModel.position.set(0, -6, 0);
-            chestLight.position.set(0, -5, 1.5);
-            scrollGroup.add(ironManModel);
-          });
-        },
-      );
-    },
-    { timeout: 4000 },
-  );
+  const setModelsEnabled = (enabled) => {
+    if (modelsEnabled === enabled) return;
+    modelsEnabled = enabled;
+
+    if (!modelsEnabled) {
+      if (roomModel) {
+        homeGroup.remove(roomModel);
+        disposeModel(roomModel);
+        roomModel = null;
+      }
+      if (ironManModel) {
+        scrollGroup.remove(ironManModel);
+        disposeModel(ironManModel);
+        ironManModel = null;
+      }
+      modelsLoaded = false;
+      return;
+    }
+
+    startModelLoads();
+  };
+
+  const setAnimationsEnabled = (enabled) => {
+    if (animationsEnabled === enabled) return;
+    animationsEnabled = enabled;
+    if (!animationsEnabled) {
+      destroyRain();
+      return;
+    }
+    createRain();
+  };
+
+  if (modelsEnabled) startModelLoads();
+
+  window.addEventListener("fxSettingsChange", (event) => {
+    const next = event.detail || getFxSettings();
+    setModelsEnabled(!next.disable3dModels);
+    setAnimationsEnabled(!next.disable3dAnimations);
+  });
 
   function updateInputPosition(x, y) {
     targetY = (x / window.innerWidth - 0.5) * 1.5;
@@ -242,6 +313,8 @@ export function initializeThreeScene() {
   let transitionFactor = 0;
   let contactFactor = 0;
   const animationClock = new THREE.Clock();
+  let animationFrameId = 0;
+  let isPaused = document.visibilityState === "hidden";
   let currentScrollY = window.pageYOffset;
   let totalDocumentHeight = document.documentElement.scrollHeight;
   let windowHeight = window.innerHeight;
@@ -276,7 +349,11 @@ export function initializeThreeScene() {
   );
 
   function animate() {
-    requestAnimationFrame(animate);
+    if (isPaused) {
+      animationFrameId = 0;
+      return;
+    }
+    animationFrameId = requestAnimationFrame(animate);
 
     const elapsedTime = animationClock.getElapsedTime();
     const targetTransition = Math.min(currentScrollY / (windowHeight * 0.8), 1);
@@ -305,19 +382,21 @@ export function initializeThreeScene() {
     if (scrollGroup.visible) {
       groundMesh.position.z = Math.sin(elapsedTime * 0.5) * 2;
 
-      const posAttr = rain.geometry.attributes.position;
-      const rainPositionArray = posAttr.array;
+      if (rain && rainGeometry && rainVelocities) {
+        const posAttr = rain.geometry.attributes.position;
+        const rainPositionArray = posAttr.array;
 
-      for (let i = 0; i < RAIN_COUNT; i++) {
-        const yIndex = i * 3 + 1;
-        rainPositionArray[yIndex] -= rainVelocities[i];
-        if (rainPositionArray[yIndex] < -20) {
-          rainPositionArray[yIndex] = 30;
-          rainPositionArray[yIndex - 1] = (Math.random() - 0.5) * 60;
-          rainPositionArray[yIndex + 1] = (Math.random() - 0.5) * 60;
+        for (let i = 0; i < RAIN_COUNT; i++) {
+          const yIndex = i * 3 + 1;
+          rainPositionArray[yIndex] -= rainVelocities[i];
+          if (rainPositionArray[yIndex] < -20) {
+            rainPositionArray[yIndex] = 30;
+            rainPositionArray[yIndex - 1] = (Math.random() - 0.5) * 60;
+            rainPositionArray[yIndex + 1] = (Math.random() - 0.5) * 60;
+          }
         }
+        posAttr.needsUpdate = true;
       }
-      posAttr.needsUpdate = true;
 
       if (ironManModel) {
         const hoverHeight = Math.sin(elapsedTime * 2.5) * 0.3;
@@ -337,25 +416,36 @@ export function initializeThreeScene() {
     renderer.render(scene, camera);
   }
 
-  animate();
+  const startAnimationLoop = () => {
+    if (animationFrameId || isPaused) return;
+    animationFrameId = requestAnimationFrame(animate);
+  };
+
+  const stopAnimationLoop = () => {
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    animationFrameId = 0;
+  };
+
+  const handleVisibilityChange = () => {
+    isPaused = document.visibilityState === "hidden";
+    if (isPaused) {
+      animationClock.stop();
+      stopAnimationLoop();
+      return;
+    }
+    animationClock.start();
+    startAnimationLoop();
+  };
+
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+  if (!isPaused) startAnimationLoop();
 
   window.cleanupThreeScene = function () {
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+    stopAnimationLoop();
     [groundGeometry, rainGeometry].forEach((geo) => geo?.dispose());
     [groundMaterial, rainMaterial].forEach((mat) => mat?.dispose());
-    [ironManModel, roomModel].forEach((model) => {
-      if (model) {
-        model.traverse((node) => {
-          if (node.isMesh) {
-            node.geometry?.dispose();
-            if (node.material) {
-              if (Array.isArray(node.material))
-                node.material.forEach((m) => m.dispose());
-              else node.material.dispose();
-            }
-          }
-        });
-      }
-    });
+    [ironManModel, roomModel].forEach((model) => disposeModel(model));
     renderer.dispose();
     renderer.domElement.remove();
   };

@@ -1,6 +1,11 @@
+import { getFxSettings } from "./settings.js";
+
 export function initSocialHub() {
   const panels = document.querySelectorAll(".social-panel");
   if (!panels.length) return;
+
+  const fxSettings = getFxSettings();
+  let meshEnabled = !fxSettings.disable3dAnimations;
 
   const cleanups = [];
 
@@ -21,6 +26,23 @@ export function initSocialHub() {
   const onResize = () => rectInvalidators.forEach((fn) => fn());
   window.addEventListener("resize", onResize, { passive: true });
 
+  const resetPanelMesh = (panel) => {
+    const mesh = panel.querySelector(".panel-mesh");
+    if (!mesh) return;
+    mesh.style.background = "";
+    mesh.style.willChange = "auto";
+  };
+
+  const setMeshEnabled = (enabled) => {
+    meshEnabled = enabled;
+    if (!meshEnabled) panels.forEach((panel) => resetPanelMesh(panel));
+  };
+
+  window.addEventListener("fxSettingsChange", (event) => {
+    const next = event.detail || getFxSettings();
+    setMeshEnabled(!next.disable3dAnimations);
+  });
+
   panels.forEach((panel) => {
     panelObserver.observe(panel);
 
@@ -32,12 +54,16 @@ export function initSocialHub() {
 
     let rect = null;
     let rafId = null;
-    let mx = 0, my = 0;
+    let mx = 0,
+      my = 0;
 
     const updateRect = () => (rect = panel.getBoundingClientRect());
-    rectInvalidators.push(() => { rect = null; });
+    rectInvalidators.push(() => {
+      rect = null;
+    });
 
     const onMove = (e) => {
+      if (!meshEnabled) return;
       if (!rect) updateRect();
       mx = e.clientX;
       my = e.clientY;
@@ -50,9 +76,13 @@ export function initSocialHub() {
       });
     };
 
-    const onEnter = () => { mesh.style.willChange = "background"; };
+    const onEnter = () => {
+      if (!meshEnabled) return;
+      mesh.style.willChange = "background";
+    };
 
     const onLeave = () => {
+      if (!meshEnabled) return;
       mesh.style.background = "";
       mesh.style.willChange = "auto";
       rect = null;

@@ -40,6 +40,8 @@ export function initializeCustomCursor() {
     h = 0;
   let isOverScrollbar = false;
   let isDraggingScrollbar = false;
+  let animationFrameId = 0;
+  let isPaused = document.visibilityState === "hidden";
   const rootEl = document.documentElement;
 
   function hasVerticalScrollbar() {
@@ -161,6 +163,10 @@ export function initializeCustomCursor() {
   );
 
   function render(time) {
+    if (isPaused) {
+      animationFrameId = 0;
+      return;
+    }
     ctx.clearRect(0, 0, w, h);
 
     if (!visible) {
@@ -225,8 +231,30 @@ export function initializeCustomCursor() {
       );
     }
 
-    requestAnimationFrame(render);
+    animationFrameId = requestAnimationFrame(render);
   }
 
-  requestAnimationFrame(render);
+  const startRenderLoop = () => {
+    if (animationFrameId || isPaused) return;
+    animationFrameId = requestAnimationFrame(render);
+  };
+
+  const stopRenderLoop = () => {
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    animationFrameId = 0;
+  };
+
+  const handleVisibilityChange = () => {
+    isPaused = document.visibilityState === "hidden";
+    if (isPaused) {
+      stopRenderLoop();
+      return;
+    }
+    lastMoveTime = performance.now();
+    startRenderLoop();
+  };
+
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  if (!isPaused) startRenderLoop();
 }

@@ -287,3 +287,65 @@ html.scrollbar-dragging body {
 section + section {
   margin-top: 6rem;
 }
+
+.settings-modal .modal-content {
+  background:
+    radial-gradient(circle at top, rgba(0, 255, 200, 0.12), transparent 60%),
+    linear-gradient(145deg, rgba(2, 6, 10, 0.98), rgba(4, 12, 14, 0.94));
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  box-shadow:
+    0 0 35px rgba(0, 240, 255, 0.18),
+    inset 0 0 22px rgba(0, 255, 65, 0.08);
+  color: #f8fbff;
+}
+
+.settings-modal .modal-header {
+  border-bottom: 1px solid rgba(0, 240, 255, 0.35);
+}
+
+.settings-modal .modal-title {
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(15, 240, 252, 0.6);
+}
+
+.settings-modal .settings-modal-lead {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1rem;
+}
+
+.settings-modal .settings-toggle {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.settings-modal .settings-toggle:last-child {
+  border-bottom: none;
+}
+
+.settings-modal .form-check-input {
+  background-color: rgba(0, 240, 255, 0.2);
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+.settings-modal .form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 204, 0.25);
+}
+
+.settings-modal .form-check-input:checked {
+  background-color: #00ff41;
+  border-color: #00ff41;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.6);
+}
+
+.settings-modal .form-check-label {
+  font-weight: 600;
+  color: #f8fbff;
+}
+
+.settings-modal .form-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+}

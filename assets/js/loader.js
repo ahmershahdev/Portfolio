@@ -46,32 +46,35 @@ export function initializeLoader() {
   };
 
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  const minDuration = 7000;
+  const maxDuration = 12000;
+  let loadReady = false;
 
-  const maxBeforeLoad = 97;
   const smoothStep = (current, target) => {
     const delta = target - current;
     if (delta <= 0) return current;
-    return Math.min(current + Math.max(delta * 0.08, 0.03), target);
+    return Math.min(current + Math.max(delta * 0.06, 0.04), target);
+  };
+
+  const progressTargetForElapsed = (elapsed) => {
+    const t = Math.min(elapsed / minDuration, 1);
+    const eased = easeOutCubic(t) * 100;
+    const cap = loadReady && elapsed >= minDuration ? 100 : 96;
+    return Math.min(eased, cap);
   };
 
   const tick = (now) => {
     if (finished) return;
     const elapsed = now - startTime;
-    let target = 0;
-
-    if (elapsed < 900) {
-      target = (elapsed / 900) * 55;
-    } else if (elapsed < 2000) {
-      target = 55 + ((elapsed - 900) / 1100) * 25;
-    } else if (elapsed < 3800) {
-      target = 80 + ((elapsed - 2000) / 1800) * 15;
-    } else {
-      target = maxBeforeLoad;
-    }
-
-    target = Math.min(target, maxBeforeLoad);
+    const target = progressTargetForElapsed(elapsed);
     progress = smoothStep(progress, target);
     setProgress(progress);
+
+    if (loadReady && elapsed >= minDuration && progress >= 99.5) {
+      finish();
+      return;
+    }
+
     rafId = requestAnimationFrame(tick);
   };
 
@@ -114,13 +117,23 @@ export function initializeLoader() {
     finalizeToHundred();
   };
 
-  const failsafe = setTimeout(finish, 5000);
+  const finishIfReady = () => {
+    const elapsed = performance.now() - startTime;
+    if (!loadReady || elapsed < minDuration) return;
+    finish();
+  };
+
+  const failsafe = setTimeout(() => {
+    loadReady = true;
+    finishIfReady();
+  }, maxDuration);
 
   window.addEventListener(
     "load",
     () => {
+      loadReady = true;
       clearTimeout(failsafe);
-      setTimeout(finish, 120);
+      finishIfReady();
     },
     { once: true },
   );

@@ -56,6 +56,32 @@
   box-shadow: 0 10px 15px -5px rgba(15, 240, 252, 0.3);
 }
 
+#desktopNav .nav-link.nav-settings-btn {
+  color: #ffffff !important;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 204, 0.2),
+    rgba(0, 255, 65, 0.08)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 0 18px rgba(0, 255, 204, 0.15),
+    inset 0 0 12px rgba(0, 255, 65, 0.08);
+}
+
+#desktopNav .nav-link.nav-settings-btn:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 12px rgba(15, 240, 252, 0.8);
+  box-shadow:
+    0 10px 18px -6px rgba(0, 255, 204, 0.45),
+    inset 0 0 16px rgba(0, 255, 65, 0.12);
+}
+
+.nav-settings-btn {
+  border: none;
+  color: #ffffff;
+}
+
 #desktopNav .nav-link::before {
   content: "";
   position: absolute;
@@ -189,6 +215,17 @@
 
 .offcanvas.show .nav-item:nth-child(9) .nav-link {
   transition-delay: 0.5s;
+}
+
+.offcanvas.show .nav-item:nth-child(10) .nav-link {
+  transition-delay: 0.55s;
+}
+
+.offcanvas-body .nav-link.nav-settings-btn {
+  text-align: left;
+  width: 100%;
+  background: transparent !important;
+  color: #ffffff !important;
 }
 
 .dropdown-menu.custom-glow-menu {
