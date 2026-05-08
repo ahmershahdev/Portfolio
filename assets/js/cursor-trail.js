@@ -28,9 +28,12 @@ export function updateTrail(dotsX, dotsY, mouseX, mouseY, baseFriction) {
   let tx = mouseX,
     ty = mouseY;
   for (let i = 0; i < TRAIL_LEN; i++) {
-    const f = baseFriction * (1 - i / (TRAIL_LEN * 1.8));
-    dotsX[i] += (tx - dotsX[i]) * f;
-    dotsY[i] += (ty - dotsY[i]) * f;
+    const speedFactor = 1 - i / (TRAIL_LEN * 2.2);
+    const f = baseFriction * speedFactor * 1.1;
+    const dx = tx - dotsX[i];
+    const dy = ty - dotsY[i];
+    dotsX[i] += dx * f;
+    dotsY[i] += dy * f;
     tx = dotsX[i];
     ty = dotsY[i];
   }

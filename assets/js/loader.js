@@ -46,8 +46,8 @@ export function initializeLoader() {
   };
 
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-  const minDuration = 7000;
-  const maxDuration = 12000;
+  const minDuration = 5500;
+  const maxDuration = 10000;
   let loadReady = false;
 
   const smoothStep = (current, target) => {
@@ -81,7 +81,7 @@ export function initializeLoader() {
   const finalizeToHundred = () => {
     const start = performance.now();
     const from = progress;
-    const duration = 700;
+    const duration = 500;
 
     const tick = (now) => {
       const t = Math.min((now - start) / duration, 1);
@@ -102,7 +102,7 @@ export function initializeLoader() {
       };
 
       wrapper.addEventListener("transitionend", cleanup, { once: true });
-      setTimeout(cleanup, 450);
+      setTimeout(cleanup, 350);
     };
 
     requestAnimationFrame(tick);

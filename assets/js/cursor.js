@@ -175,12 +175,12 @@ export function initializeCustomCursor() {
     }
 
     const idle = time - lastMoveTime > 1800;
-    const lerp = idle ? 0.08 : pressed ? 0.28 : 0.16;
+    const lerp = idle ? 0.06 : pressed ? 0.32 : 0.22;
 
     renderX += (mouseX - renderX) * lerp;
     renderY += (mouseY - renderY) * lerp;
 
-    const baseFriction = idle ? 0.25 : pressed ? 0.72 : 0.78;
+    const baseFriction = idle ? 0.22 : pressed ? 0.75 : 0.82;
 
     updateTrail(dotsX, dotsY, renderX, renderY, baseFriction);
     drawTrail(ctx, dotsX, dotsY, pressed);

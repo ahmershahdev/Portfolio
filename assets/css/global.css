@@ -9,6 +9,8 @@
 * {
   -webkit-tap-highlight-color: transparent !important;
   outline: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html,
