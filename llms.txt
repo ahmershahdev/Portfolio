@@ -83,6 +83,7 @@ Portfolio featuring a real-time 3D background powered by Three.js with Blender G
 - LeetCode: https://leetcode.com/syedahmershah
 - HackerRank: https://hackerrank.com/profile/syedahmershah
 - Linktree: https://linktr.ee/syedahmershah
+- Beacons: https://beacons.ai/syedahmershah
 
 ## Resume
 
