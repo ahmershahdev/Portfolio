@@ -98,7 +98,7 @@
     0 0 100px rgba(0, 255, 65, 0.08),
     inset 0 0 20px rgba(0, 240, 255, 0.05);
   display: grid;
-  gap: clamp(18px, 3vw, 28px);
+  gap: clamp(14px, 2.5vw, 22px);
   text-align: center;
   transition:
     opacity 0.5s ease,
@@ -121,8 +121,8 @@
 .loader-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: center;
+  gap: 12px;
 }
 
 .loader-mini {

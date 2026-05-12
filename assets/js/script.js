@@ -31,18 +31,20 @@ function initAsciiPortraitInteraction(portrait) {
   if (!rawText || !rawText.trim()) return;
 
   const lines = rawText.split("\n");
-  const charNodes = [];
+  const grid = [];
   const frag = document.createDocumentFragment();
 
   lines.forEach((line, row) => {
+    const rowNodes = [];
     for (let col = 0; col < line.length; col++) {
       const span = document.createElement("span");
       const ch = line[col];
       span.className = "ascii-char";
       span.textContent = ch === " " ? "\u00A0" : ch;
       frag.appendChild(span);
-      charNodes.push({ node: span, row, col });
+      rowNodes.push(span);
     }
+    grid.push(rowNodes);
     if (row < lines.length - 1) frag.appendChild(document.createElement("br"));
   });
 
@@ -52,10 +54,18 @@ function initAsciiPortraitInteraction(portrait) {
   let charWidth = 6;
   let charHeight = 10;
 
+  const findSampleNode = () => {
+    for (const rowNodes of grid) {
+      const node = rowNodes.find((item) => item.textContent.trim());
+      if (node) return node;
+    }
+    return null;
+  };
+
   const measureChars = () => {
-    const sample = charNodes.find((item) => item.node.textContent.trim());
+    const sample = findSampleNode();
     if (!sample) return;
-    const rect = sample.node.getBoundingClientRect();
+    const rect = sample.getBoundingClientRect();
     if (rect.width) charWidth = rect.width;
     if (rect.height) charHeight = rect.height;
   };
@@ -69,12 +79,16 @@ function initAsciiPortraitInteraction(portrait) {
   let pointerX = 0;
   let pointerY = 0;
   let lastActive = new Set();
+  let lastPointerRow = null;
+  let lastPointerCol = null;
 
   const clearTransforms = () => {
-    lastActive.forEach((item) => {
-      item.node.style.transform = "";
+    lastActive.forEach((node) => {
+      node.style.transform = "";
     });
     lastActive.clear();
+    lastPointerRow = null;
+    lastPointerCol = null;
   };
 
   const update = () => {
@@ -97,28 +111,42 @@ function initAsciiPortraitInteraction(portrait) {
 
     const pointerCol = Math.floor(localX / charWidth);
     const pointerRow = Math.floor(localY / charHeight);
-    const radius = 6;
-    const maxOffset = 8;
+    if (pointerCol === lastPointerCol && pointerRow === lastPointerRow) return;
+    lastPointerCol = pointerCol;
+    lastPointerRow = pointerRow;
+
+    const radius = 5;
+    const maxOffset = 7;
+    const radiusSq = radius * radius;
     const nextActive = new Set();
 
-    charNodes.forEach((item) => {
-      const dx = item.col - pointerCol;
-      const dy = item.row - pointerRow;
-      if (Math.abs(dx) > radius || Math.abs(dy) > radius) return;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist > radius) return;
+    const rowStart = Math.max(0, pointerRow - radius);
+    const rowEnd = Math.min(grid.length - 1, pointerRow + radius);
 
-      const strength = (radius - dist) / radius;
-      const denom = dist || 1;
-      const offsetX = (dx / denom) * strength * maxOffset;
-      const offsetY = (dy / denom) * strength * maxOffset;
+    for (let row = rowStart; row <= rowEnd; row++) {
+      const rowNodes = grid[row];
+      if (!rowNodes || !rowNodes.length) continue;
+      const colStart = Math.max(0, pointerCol - radius);
+      const colEnd = Math.min(rowNodes.length - 1, pointerCol + radius);
 
-      item.node.style.transform = `translate(${offsetX.toFixed(2)}px, ${offsetY.toFixed(2)}px)`;
-      nextActive.add(item);
-    });
+      for (let col = colStart; col <= colEnd; col++) {
+        const node = rowNodes[col];
+        if (!node) continue;
+        const dx = col - pointerCol;
+        const dy = row - pointerRow;
+        const distSq = dx * dx + dy * dy;
+        if (distSq > radiusSq) continue;
+        const dist = Math.sqrt(distSq) || 1;
+        const strength = (radius - dist) / radius;
+        const offsetX = (dx / dist) * strength * maxOffset;
+        const offsetY = (dy / dist) * strength * maxOffset;
+        node.style.transform = `translate3d(${offsetX.toFixed(2)}px, ${offsetY.toFixed(2)}px, 0)`;
+        nextActive.add(node);
+      }
+    }
 
-    lastActive.forEach((item) => {
-      if (!nextActive.has(item)) item.node.style.transform = "";
+    lastActive.forEach((node) => {
+      if (!nextActive.has(node)) node.style.transform = "";
     });
     lastActive = nextActive;
   };

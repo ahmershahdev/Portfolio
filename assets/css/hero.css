@@ -328,11 +328,13 @@
   user-select: none;
   touch-action: manipulation;
   display: inline-block;
+  contain: layout paint;
   will-change: transform;
 }
 
 .ascii-portrait.is-interacting .ascii-char {
-  transition-duration: 80ms;
+  transition-duration: 0ms;
+  will-change: transform;
 }
 
 .ascii-portrait.is-interacting {
@@ -343,8 +345,9 @@
 
 .ascii-portrait .ascii-char {
   display: inline-block;
-  transition: transform 120ms ease;
-  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 140ms ease;
+  pointer-events: none;
 }
 
 .ascii-portrait:hover,
