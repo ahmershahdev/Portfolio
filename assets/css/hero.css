@@ -289,94 +289,85 @@
   }
 }
 
-.ascii-portrait-wrap {
+.hero-portrait-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.8rem;
   max-width: 100%;
 }
 
-.ascii-portrait-label {
+.hero-portrait-label {
   font-family: "Orbitron", sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(0, 240, 255, 0.65);
+  color: rgba(0, 240, 255, 0.75);
 }
 
-.ascii-portrait {
-  margin: 0;
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 240, 255, 0.25);
-  background: rgba(3, 8, 6, 0.7);
-  font-family: "Share Tech Mono", monospace;
-  font-size: clamp(0.32rem, 0.8vw, 0.55rem);
-  line-height: 1;
-  color: #0ff0fc;
-  text-shadow:
-    0 0 6px rgba(0, 240, 255, 0.7),
-    0 0 14px rgba(0, 255, 65, 0.7);
+.hero-portrait-frame {
+  position: relative;
+  width: min(320px, 74vw);
+  aspect-ratio: 1 / 1;
+  padding: 12px;
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 252, 0.28),
+    rgba(0, 255, 65, 0.18)
+  );
   box-shadow:
-    0 0 18px rgba(0, 240, 255, 0.15),
-    inset 0 0 20px rgba(0, 255, 65, 0.06);
-  white-space: pre;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  user-select: none;
-  touch-action: manipulation;
-  display: inline-block;
-  contain: layout paint;
-  will-change: transform;
+    0 22px 60px rgba(0, 0, 0, 0.55),
+    0 0 36px rgba(0, 240, 252, 0.18);
+  animation: hero-portrait-float 6s ease-in-out infinite;
 }
 
-.ascii-portrait.is-interacting .ascii-char {
-  transition-duration: 0ms;
-  will-change: transform;
+.hero-portrait-frame::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255, 255, 255, 0.18),
+    transparent 55%
+  );
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.45);
 }
 
-.ascii-portrait.is-interacting {
-  text-shadow:
-    0 0 10px rgba(0, 240, 255, 0.9),
-    0 0 18px rgba(0, 255, 65, 0.9);
+.hero-portrait-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.05) contrast(1.02);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
+  transform: translateZ(0);
 }
 
-.ascii-portrait .ascii-char {
-  display: inline-block;
-  transform: translate3d(0, 0, 0);
-  transition: transform 140ms ease;
-  pointer-events: none;
-}
-
-.ascii-portrait:hover,
-.ascii-portrait:active,
-.ascii-portrait:focus-visible {
-  animation: ascii-jelly 0.7s ease both;
-}
-
-@keyframes ascii-jelly {
-  0% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(1.05, 0.95);
-  }
-  45% {
-    transform: scale(0.98, 1.03);
-  }
-  60% {
-    transform: scale(1.02, 0.98);
-  }
+@keyframes hero-portrait-float {
+  0%,
   100% {
-    transform: scale(1);
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 
 @media (max-width: 575.98px) {
-  .ascii-portrait {
-    font-size: 0.26rem;
-    padding: 0.6rem 0.8rem;
+  .hero-portrait-frame {
+    width: min(260px, 78vw);
+    padding: 10px;
+    border-radius: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait-frame {
+    animation: none;
   }
 }

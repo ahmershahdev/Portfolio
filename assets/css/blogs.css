@@ -6,12 +6,16 @@
 #blog::before {
   content: "";
   position: absolute;
-  inset: -20% -10% auto;
-  height: 65%;
+  inset: -25% -10% auto;
+  height: 70%;
   background:
-    radial-gradient(circle at 15% 15%, rgba(0, 240, 252, 0.2), transparent 55%),
-    radial-gradient(circle at 85% 40%, rgba(0, 255, 65, 0.15), transparent 48%),
-    linear-gradient(180deg, rgba(0, 240, 252, 0.04), transparent 80%);
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(0, 240, 252, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(circle at 80% 35%, rgba(0, 255, 65, 0.1), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 70%);
   pointer-events: none;
 }
 
@@ -24,37 +28,37 @@
   max-width: 760px;
   margin: 0 auto;
   text-align: center;
-  color: #a6b8c2;
+  color: #b2c2cc;
+  font-size: 1rem;
+  line-height: 1.7;
   letter-spacing: 0.4px;
 }
 
 .blog-stack-stage {
   position: relative;
-  min-height: 640px;
+  min-height: 620px;
   margin-top: 2rem;
-  perspective: 1800px;
+  perspective: 1600px;
   transform-style: preserve-3d;
   overflow: visible;
   cursor: pointer;
+  isolation: isolate;
 }
 
 .blog-stack-stage::after {
   content: "";
   position: absolute;
-  inset: 12% 10% 10%;
-  border-radius: 18px;
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(0, 240, 252, 0.07),
-      rgba(0, 240, 252, 0.07) 1px,
-      transparent 1px,
-      transparent 20px
-    ),
-    linear-gradient(120deg, rgba(0, 240, 252, 0.06), rgba(0, 255, 65, 0.04));
-  opacity: 0.6;
+  inset: 14% 12% 10%;
+  border-radius: 20px;
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(0, 240, 252, 0.05),
+    rgba(0, 255, 65, 0.04)
+  );
+  opacity: 0.55;
   pointer-events: none;
-  filter: blur(0.2px);
+  filter: blur(0.4px);
   z-index: 1;
 }
 
@@ -67,12 +71,12 @@
   margin-top: -64px;
   margin-left: -64px;
   border-radius: 50%;
-  border: 1px dashed rgba(255, 255, 255, 0.16);
-  animation: blog-pen-orbit 4.8s linear infinite;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  animation: blog-pen-orbit 6.8s linear infinite;
   transform-style: preserve-3d;
-  transform: translateZ(220px);
+  transform: translateZ(200px);
   z-index: 80;
-  filter: drop-shadow(0 0 24px rgba(0, 240, 252, 0.45));
+  filter: drop-shadow(0 0 16px rgba(0, 240, 252, 0.35));
   pointer-events: none;
 }
 
@@ -81,7 +85,7 @@
   position: absolute;
   inset: 13px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 240, 252, 0.3);
+  border: 1px solid rgba(0, 240, 252, 0.24);
 }
 
 .blog-pen-orbit i {
@@ -97,9 +101,9 @@
   color: #050508;
   background: linear-gradient(135deg, #0ff0fc, #00ff41);
   box-shadow:
-    0 0 18px rgba(0, 240, 252, 0.8),
-    0 0 30px rgba(0, 255, 65, 0.35);
-  animation: blog-pen-self-spin 1.8s linear infinite;
+    0 0 16px rgba(0, 240, 252, 0.65),
+    0 0 26px rgba(0, 255, 65, 0.3);
+  animation: blog-pen-self-spin 2.4s linear infinite;
 }
 
 .blog-stack-card {
@@ -107,19 +111,19 @@
   left: 50%;
   top: 50%;
   width: min(92%, 690px);
-  border-radius: 16px;
-  border: 1px solid rgba(0, 240, 252, 0.35);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background:
-    linear-gradient(150deg, rgba(3, 20, 28, 0.95), rgba(8, 16, 10, 0.88)),
+    linear-gradient(160deg, rgba(8, 14, 18, 0.95), rgba(5, 10, 12, 0.9)),
     radial-gradient(
       circle at top right,
-      rgba(0, 255, 65, 0.16),
+      rgba(0, 255, 65, 0.12),
       transparent 45%
     );
   box-shadow:
-    0 18px 60px rgba(0, 0, 0, 0.65),
-    0 0 26px rgba(0, 240, 252, 0.13);
-  padding: 1.25rem 1.35rem;
+    0 24px 70px rgba(0, 0, 0, 0.65),
+    0 0 32px rgba(0, 240, 252, 0.12);
+  padding: 1.4rem 1.5rem;
   transition:
     transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
     box-shadow 0.4s ease,
@@ -127,6 +131,7 @@
   transform-style: preserve-3d;
   animation: blog-card-rise 0.7s ease both;
   z-index: 10;
+  backdrop-filter: blur(12px);
 }
 
 .blog-stack-stage:not(.is-open) .blog-stack-card:not(.blog-card-l1) {
@@ -135,10 +140,10 @@
 
 .blog-stack-card:hover,
 .blog-stack-card:focus-within {
-  border-color: rgba(0, 240, 252, 0.65);
+  border-color: rgba(0, 240, 252, 0.55);
   box-shadow:
-    0 24px 65px rgba(0, 0, 0, 0.75),
-    0 0 34px rgba(0, 240, 252, 0.24);
+    0 28px 80px rgba(0, 0, 0, 0.75),
+    0 0 38px rgba(0, 240, 252, 0.2);
 }
 
 .blog-card-l1 {
@@ -197,8 +202,8 @@
   gap: 0.45rem;
   font-family: "Orbitron", sans-serif;
   color: #0ff0fc;
-  font-size: 0.72rem;
-  letter-spacing: 1.8px;
+  font-size: 0.7rem;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
   margin-bottom: 0.7rem;
 }
@@ -220,7 +225,7 @@
 
 .blog-author {
   margin: -0.2rem 0 0.7rem;
-  color: rgba(233, 246, 255, 0.75);
+  color: rgba(233, 246, 255, 0.7);
   font-size: 0.78rem;
   letter-spacing: 0.4px;
 }
@@ -231,21 +236,22 @@
   height: 8px;
   border-radius: 50%;
   background: #00ff41;
-  box-shadow: 0 0 12px rgba(0, 255, 65, 0.9);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
 }
 
 .blog-title {
   margin: 0;
-  font-size: 1.16rem;
-  color: #f2fffa;
+  font-size: 1.2rem;
+  color: #f8fbff;
   letter-spacing: 0.2px;
+  line-height: 1.4;
 }
 
 .blog-description {
   margin: 0.6rem 0 1rem;
-  color: #a8b7c0;
+  color: #b0c0ca;
   font-size: 0.94rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .blog-meta-row {
@@ -257,9 +263,9 @@
 }
 
 .blog-meta {
-  color: #7b909b;
+  color: #8a9ca8;
   font-size: 0.78rem;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.6px;
 }
 
 .blog-read-link {
@@ -267,14 +273,14 @@
   align-items: center;
   gap: 0.45rem;
   text-decoration: none;
-  color: #0ff0fc;
+  color: #d9f7ff;
   font-family: "Orbitron", sans-serif;
   font-size: 0.78rem;
   letter-spacing: 1px;
   padding: 0.45rem 0.75rem;
-  border: 1px solid rgba(0, 240, 252, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
-  background: rgba(0, 240, 252, 0.07);
+  background: rgba(255, 255, 255, 0.06);
   transition: all 0.25s ease;
 }
 
