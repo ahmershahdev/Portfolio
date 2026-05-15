@@ -88,8 +88,8 @@
         url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2300f0ff' stroke-width='1.5'><line x1='16' y1='6' x2='16' y2='12'/><line x1='16' y1='20' x2='16' y2='26'/><line x1='6' y1='16' x2='12' y2='16'/><line x1='20' y1='16' x2='26' y2='16'/><circle cx='16' cy='16' r='1.5' fill='%2300f0ff' stroke='none'/></g></svg>") 16 16,
         auto;
       font-family: "Exo 2", sans-serif !important;
-      background-color: #0a0a0f !important;
-      color: #f0f8ff !important;
+      background-color: var(--ink-900) !important;
+      color: var(--text-primary) !important;
       overflow-x: hidden !important;
       -webkit-tap-highlight-color: transparent !important;
     }
@@ -681,7 +681,7 @@
 
             <header>
               <h1 class="text-neon-green mb-2 mt-3 mt-lg-0 fw-bold">Hello, I'm</h1>
-              <h2 class="display-3 glowing-text mb-4">Ahmer Shah</h2>
+              <h2 class="display-3 glowing-text mb-4">Ahmer</h2>
               <h3 class="h3 mb-4 text-light">
                 <span id="typewriter"></span><span class="cursor-blink">|</span>
               </h3>
@@ -735,7 +735,8 @@
                   <div class="orbit-pulse-ring orbit-pulse-1"></div>
                   <div class="orbit-pulse-ring orbit-pulse-2"></div>
                   <div class="orbit-center-core">
-                    <i class="bi bi-person-badge-fill" aria-hidden="true"></i>
+                    <img src="assets/images/logo/logo.webp" class="orbit-center-avatar" alt="Ahmer Shah portrait"
+                      width="56" height="56" loading="eager" decoding="async">
                     <span class="orbit-online-text">ONLINE</span>
                   </div>
                 </div>
@@ -777,13 +778,7 @@
 
               </div>
             </div>
-            <div class="hero-portrait-wrap mt-4" role="region" aria-label="Portrait">
-              <p class="hero-portrait-label">AHMER_SHAH</p>
-              <div class="hero-portrait-frame">
-                <img src="assets/images/logo/logo.webp" class="hero-portrait-img" alt="Ahmer Shah portrait" width="360"
-                  height="360" loading="eager" decoding="async" fetchpriority="high">
-              </div>
-            </div>
+
           </div>
 
         </div>
@@ -1081,7 +1076,11 @@
           <article class="blog-stack-card blog-card-l1">
             <span class="blog-platform"><span class="blog-platform-glyph">DEV</span> Dev.to</span>
             <p class="blog-author">@syedahmershah</p>
-            <h3 class="blog-title">The Enemy in Your Terminal: Why OpenClaw was the Perfect Trojan Horse</h3>
+            <h3 class="blog-title">
+              <a href="https://dev.to/syedahmershah/the-enemy-in-your-terminal-why-openclaw-was-the-perfect-trojan-horse-4efc"
+                target="_blank" rel="noopener noreferrer" aria-label="Read on Dev.to: The Enemy in Your Terminal">The
+                Enemy in Your Terminal: Why OpenClaw was the Perfect Trojan Horse</a>
+            </h3>
             <p class="blog-description">
               A deep dive into why developer trust and terminal workflows were the perfect social-engineering surface
               for one of the most dangerous modern attack narratives.
@@ -1097,7 +1096,11 @@
           <article class="blog-stack-card blog-card-l2">
             <span class="blog-platform"><i class="bi bi-medium"></i> Medium</span>
             <p class="blog-author">@syedahmershah</p>
-            <h3 class="blog-title">PHP vs Node.js 2026: The Real Tradeoffs</h3>
+            <h3 class="blog-title">
+              <a href="https://medium.com/@syedahmershah/php-vs-node-js-2026-aff36c14e5d1" target="_blank"
+                rel="noopener noreferrer" aria-label="Read on Medium: PHP vs Node.js 2026">PHP vs Node.js 2026: The Real
+                Tradeoffs</a>
+            </h3>
             <p class="blog-description">
               A 2026-era comparison of PHP and Node.js across performance, DX, hosting, and long-term
               maintainability.
@@ -1112,7 +1115,11 @@
           <article class="blog-stack-card blog-card-l3">
             <span class="blog-platform"><span class="blog-platform-glyph">HN</span> Hashnode</span>
             <p class="blog-author">@syedahmershah</p>
-            <h3 class="blog-title">Beyond the Prompt: The Rise of the Sovereign Developer</h3>
+            <h3 class="blog-title">
+              <a href="https://blog.ahmershah.dev/beyond-the-prompt-the-rise-of-the-sovereign-developer?utm_source=hashnode&utm_medium=feed"
+                target="_blank" rel="noopener noreferrer" aria-label="Read on Hashnode: Beyond the Prompt">Beyond the
+                Prompt: The Rise of the Sovereign Developer</a>
+            </h3>
             <p class="blog-description">
               Why modern builders need architectural judgment, systems thinking, and product ownership beyond just
               prompting tools.
@@ -1128,7 +1135,12 @@
           <article class="blog-stack-card blog-card-l4">
             <span class="blog-platform"><span class="blog-platform-glyph">DEV</span> Dev.to</span>
             <p class="blog-author">@syedahmershah</p>
-            <h3 class="blog-title">Your Best Employee is Your Biggest Security Risk (And They Use ChatGPT)</h3>
+            <h3 class="blog-title">
+              <a href="https://dev.to/syedahmershah/your-best-employee-is-your-biggest-security-risk-and-they-use-chatgpt-3nm6"
+                target="_blank" rel="noopener noreferrer"
+                aria-label="Read on Dev.to: Your Best Employee is Your Biggest Security Risk">Your Best Employee is Your
+                Biggest Security Risk (And They Use ChatGPT)</a>
+            </h3>
             <p class="blog-description">
               A practical security briefing on human trust boundaries, AI-assisted workflows, and why insider behavior
               can quietly become your largest vulnerability.
@@ -1144,7 +1156,12 @@
           <article class="blog-stack-card blog-card-l5">
             <span class="blog-platform"><i class="bi bi-medium"></i> Medium</span>
             <p class="blog-author">@syedahmershah</p>
-            <h3 class="blog-title">Stop Letting AI Write Your Database Migrations</h3>
+            <h3 class="blog-title">
+              <a href="https://medium.com/@syedahmershah/stop-letting-ai-write-your-database-migrations-22d5a4ff9cad"
+                target="_blank" rel="noopener noreferrer"
+                aria-label="Read on Medium: Stop Letting AI Write Your Database Migrations">Stop Letting AI Write Your
+                Database Migrations</a>
+            </h3>
             <p class="blog-description">
               Why migration safety, review discipline, and deterministic schema changes matter more than speed.
             </p>

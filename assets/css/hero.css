@@ -3,20 +3,25 @@
   display: flex;
   align-items: center;
   padding-top: 80px;
-  background: rgba(0, 20, 10, 0.4) !important;
+  background: linear-gradient(
+    120deg,
+    rgba(9, 12, 18, 0.92),
+    rgba(9, 14, 20, 0.75) 45%,
+    rgba(7, 10, 14, 0.85)
+  ) !important;
 }
 
 .hero-sys-chip {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(0, 240, 255, 0.05);
-  border: 1px solid rgba(0, 240, 255, 0.3);
+  background: rgba(125, 233, 255, 0.08);
+  border: 1px solid rgba(125, 233, 255, 0.4);
   padding: 6px 16px;
   font-family: "Orbitron", sans-serif;
   font-size: 0.6rem;
   letter-spacing: 2px;
-  color: #0ff0fc;
+  color: var(--brand-cyan);
   clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
   user-select: none;
   pointer-events: none;
@@ -27,9 +32,9 @@
   flex-shrink: 0;
   width: 6px;
   height: 6px;
-  background: #00ff41;
+  background: var(--brand-mint);
   border-radius: 50%;
-  box-shadow: 0 0 8px #00ff41;
+  box-shadow: 0 0 10px rgba(107, 255, 184, 0.8);
   animation: chip-blink 1.5s ease-in-out infinite;
 }
 
@@ -54,7 +59,7 @@
 .hero-bio-bar {
   flex-shrink: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #0ff0fc, transparent);
+  background: linear-gradient(to bottom, var(--brand-cyan), transparent);
   border-radius: 2px;
 }
 
@@ -62,6 +67,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 18px;
 }
 
 .orbit-sys-label {
@@ -149,32 +155,40 @@
 
 .orbit-center-core {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
-  background: rgba(3, 8, 6, 0.97);
-  border: 2px solid #0ff0fc;
+  background:
+    radial-gradient(circle at top, rgba(125, 233, 255, 0.12), transparent 55%),
+    rgba(5, 9, 12, 0.96);
+  border: 2px solid var(--brand-cyan);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 4px;
   box-shadow:
-    0 0 20px rgba(0, 240, 255, 0.3),
-    0 0 60px rgba(0, 240, 255, 0.08),
-    inset 0 0 20px rgba(0, 240, 255, 0.05);
+    0 0 22px rgba(125, 233, 255, 0.28),
+    0 0 60px rgba(125, 233, 255, 0.08),
+    inset 0 0 18px rgba(125, 233, 255, 0.08);
+  overflow: hidden;
 }
 
-.orbit-center-core i {
-  font-size: 1.5rem;
-  color: #0ff0fc;
-  filter: drop-shadow(0 0 6px #0ff0fc);
+.orbit-center-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.45),
+    0 0 16px rgba(125, 233, 255, 0.25);
 }
 
 .orbit-online-text {
   font-family: "Orbitron", sans-serif;
   font-size: 0.38rem;
-  color: #00ff41;
+  color: var(--brand-mint);
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -285,89 +299,13 @@
 
 @media (max-width: 575.98px) {
   .hero-orbit-wrap {
-    display: none;
+    display: flex;
+    margin-top: 10px;
   }
-}
 
-.hero-portrait-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;
-  max-width: 100%;
-}
-
-.hero-portrait-label {
-  font-family: "Orbitron", sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(0, 240, 255, 0.75);
-}
-
-.hero-portrait-frame {
-  position: relative;
-  width: min(320px, 74vw);
-  aspect-ratio: 1 / 1;
-  padding: 12px;
-  border-radius: 28px;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 240, 252, 0.28),
-    rgba(0, 255, 65, 0.18)
-  );
-  box-shadow:
-    0 22px 60px rgba(0, 0, 0, 0.55),
-    0 0 36px rgba(0, 240, 252, 0.18);
-  animation: hero-portrait-float 6s ease-in-out infinite;
-}
-
-.hero-portrait-frame::before {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: radial-gradient(
-    circle at 30% 20%,
-    rgba(255, 255, 255, 0.18),
-    transparent 55%
-  );
-  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.45);
-}
-
-.hero-portrait-img {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 18px;
-  object-fit: cover;
-  display: block;
-  filter: saturate(1.05) contrast(1.02);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
-  transform: translateZ(0);
-}
-
-@keyframes hero-portrait-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-@media (max-width: 575.98px) {
-  .hero-portrait-frame {
-    width: min(260px, 78vw);
-    padding: 10px;
-    border-radius: 24px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-portrait-frame {
-    animation: none;
+  .hero-orbit-scene {
+    transform: scale(0.68);
+    transform-origin: center top;
+    margin-bottom: -40px;
   }
 }

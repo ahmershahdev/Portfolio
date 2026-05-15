@@ -1,18 +1,18 @@
 import { MAX_PARTICLES } from "./cursor-config.js";
 
 export function spawnParticles(particles, x, y) {
-  const count = Math.min(10, MAX_PARTICLES - particles.length);
+  const count = Math.min(6, MAX_PARTICLES - particles.length);
   for (let i = 0; i < count; i++) {
     const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
-    const vel = 2 + Math.random() * 4;
+    const vel = 1.5 + Math.random() * 3;
     particles.push({
       x,
       y,
       vx: Math.cos(angle) * vel,
       vy: Math.sin(angle) * vel,
       life: 1,
-      decay: 0.04 + Math.random() * 0.03,
-      size: 1.5 + Math.random() * 2.5,
+      decay: 0.06 + Math.random() * 0.04,
+      size: 1.2 + Math.random() * 2,
       col: Math.random() > 0.5 ? "rgba(15,240,252," : "rgba(0,255,65,",
     });
   }

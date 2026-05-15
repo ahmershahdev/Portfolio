@@ -6,6 +6,18 @@
   font-display: swap !important;
 }
 
+:root {
+  --ink-900: #050508;
+  --ink-800: #0b0f16;
+  --ink-700: #121a24;
+  --text-primary: #e7f4ff;
+  --text-muted: #a9b5c4;
+  --brand-cyan: #7de9ff;
+  --brand-mint: #6bffb8;
+  --brand-gold: #f7d27c;
+  --brand-rose: #ff7ab6;
+}
+
 * {
   -webkit-tap-highlight-color: transparent !important;
   outline: none !important;
@@ -257,7 +269,7 @@ html.scrollbar-dragging body {
 }
 
 .text-secondary {
-  color: #b0b0b0 !important;
+  color: var(--text-muted) !important;
 }
 
 .text-neon-blue {

@@ -111,8 +111,6 @@ export function initializeThreeScene() {
 
   if (animationsEnabled) createRain();
 
-  let modelsLoaded = false;
-  let roomLoading = false;
   let ironLoading = false;
 
   const dracoLoader = new DRACOLoader();
@@ -123,12 +121,6 @@ export function initializeThreeScene() {
   const modelLoader = new GLTFLoader();
   modelLoader.setDRACOLoader(dracoLoader);
 
-  const roomUrl =
-    container.dataset.roomGlb ||
-    "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/background_room.glb";
-  const roomFallbackUrl =
-    container.dataset.roomGlbFallback ||
-    "assets/blender/background/background_room.glb";
   const ironUrl =
     container.dataset.ironGlb ||
     "https://pub-cf58c39336f64e21807389581d20ec09.r2.dev/iron_man.glb";
@@ -137,7 +129,6 @@ export function initializeThreeScene() {
     "assets/blender/character/iron_man.glb";
 
   let ironManModel = null;
-  let roomModel = null;
   let targetX = 0;
   let targetY = 0;
 
@@ -167,39 +158,6 @@ export function initializeThreeScene() {
     }
   };
 
-  const loadRoomModel = (url, fallbackUrl) => {
-    if (!modelsEnabled || roomLoading || roomModel) return;
-    roomLoading = true;
-    modelLoader.load(
-      url,
-      (gltf) => {
-        roomLoading = false;
-        if (!modelsEnabled) {
-          disposeModel(gltf.scene);
-          return;
-        }
-        roomModel = gltf.scene;
-        roomModel.traverse((node) => {
-          if (node.isMesh) node.frustumCulled = true;
-        });
-
-        boundingBox.setFromObject(roomModel);
-        boundingBox.getSize(sizeVector);
-        const maxDimension = Math.max(sizeVector.x, sizeVector.y, sizeVector.z);
-        const scaleFactor = 30 / maxDimension;
-
-        roomModel.scale.setScalar(scaleFactor);
-        roomModel.position.y = -4;
-        homeGroup.add(roomModel);
-      },
-      undefined,
-      () => {
-        roomLoading = false;
-        if (fallbackUrl) loadRoomModel(fallbackUrl, null);
-      },
-    );
-  };
-
   const loadIronModel = (url, fallbackUrl) => {
     if (!modelsEnabled || ironLoading || ironManModel) return;
     ironLoading = true;
@@ -211,7 +169,6 @@ export function initializeThreeScene() {
           disposeModel(gltf.scene);
           return;
         }
-        modelsLoaded = true;
         ironManModel = gltf.scene;
         ironManModel.traverse((node) => {
           if (node.isMesh && node.material) {
@@ -239,7 +196,6 @@ export function initializeThreeScene() {
   };
 
   const startModelLoads = () => {
-    loadRoomModel(roomUrl, roomFallbackUrl);
     scheduleIdle(() => loadIronModel(ironUrl, ironFallbackUrl));
   };
 
@@ -248,17 +204,11 @@ export function initializeThreeScene() {
     modelsEnabled = enabled;
 
     if (!modelsEnabled) {
-      if (roomModel) {
-        homeGroup.remove(roomModel);
-        disposeModel(roomModel);
-        roomModel = null;
-      }
       if (ironManModel) {
         scrollGroup.remove(ironManModel);
         disposeModel(ironManModel);
         ironManModel = null;
       }
-      modelsLoaded = false;
       return;
     }
 
@@ -374,11 +324,6 @@ export function initializeThreeScene() {
     scrollGroup.scale.setScalar(1 - contactFactor);
     scrollGroup.visible = transitionFactor > 0.02 && contactFactor < 0.98;
 
-    if (homeGroup.visible && roomModel) {
-      roomModel.rotation.y += (targetY * 0.5 - roomModel.rotation.y) * 0.1;
-      roomModel.rotation.x += (targetX * 0.2 - roomModel.rotation.x) * 0.1;
-    }
-
     if (scrollGroup.visible) {
       groundMesh.position.z = Math.sin(elapsedTime * 0.5) * 2;
 
@@ -445,7 +390,7 @@ export function initializeThreeScene() {
     stopAnimationLoop();
     [groundGeometry, rainGeometry].forEach((geo) => geo?.dispose());
     [groundMaterial, rainMaterial].forEach((mat) => mat?.dispose());
-    [ironManModel, roomModel].forEach((model) => disposeModel(model));
+    [ironManModel].forEach((model) => disposeModel(model));
     renderer.dispose();
     renderer.domElement.remove();
   };

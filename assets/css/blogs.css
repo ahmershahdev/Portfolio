@@ -247,6 +247,20 @@
   line-height: 1.4;
 }
 
+.blog-title a {
+  color: inherit;
+  text-decoration: none;
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.blog-title a:hover,
+.blog-title a:focus-visible {
+  color: var(--brand-cyan);
+  text-shadow: 0 0 18px rgba(125, 233, 255, 0.35);
+}
+
 .blog-description {
   margin: 0.6rem 0 1rem;
   color: #b0c0ca;

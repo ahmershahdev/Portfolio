@@ -26,15 +26,15 @@
 @keyframes glow-pulse {
   0% {
     text-shadow:
-      0 0 5px #0ff0fc,
-      0 0 10px #0ff0fc,
-      0 0 20px #0ff0fc;
+      0 0 5px var(--brand-cyan),
+      0 0 10px var(--brand-cyan),
+      0 0 20px var(--brand-cyan);
   }
   100% {
     text-shadow:
-      0 0 10px #00ff41,
-      0 0 20px #00ff41,
-      0 0 30px #00ff41;
+      0 0 10px var(--brand-mint),
+      0 0 20px var(--brand-mint),
+      0 0 30px var(--brand-mint);
   }
 }
 
@@ -155,11 +155,11 @@
 }
 
 .glowing-text {
-  color: #f0f8ff;
+  color: var(--text-primary);
   text-shadow:
-    0 0 5px #0ff0fc,
-    0 0 10px #0ff0fc,
-    0 0 20px #0ff0fc;
+    0 0 5px var(--brand-cyan),
+    0 0 10px var(--brand-cyan),
+    0 0 20px var(--brand-cyan);
   animation: glow-pulse 2s infinite alternate;
   user-select: none;
 }
