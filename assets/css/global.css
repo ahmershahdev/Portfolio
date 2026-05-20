@@ -16,6 +16,9 @@
   --brand-mint: #6bffb8;
   --brand-gold: #f7d27c;
   --brand-rose: #ff7ab6;
+  --cursor-cyan: 15 240 252;
+  --cursor-green: 0 255 65;
+  --cursor-white: 255 255 255;
 }
 
 * {

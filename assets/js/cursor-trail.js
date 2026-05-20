@@ -16,9 +16,9 @@ export function trailColor(t, alpha, pressed) {
     b = Math.round(TRAIL_CYAN[2] * (1 - f) + TRAIL_GREEN[2] * f);
   } else {
     const f = (t - 0.4) / 0.6;
-    r = 0;
-    g = Math.round(TRAIL_GREEN[1] * (1 - f));
-    b = 0;
+    r = TRAIL_GREEN[0];
+    g = TRAIL_GREEN[1];
+    b = TRAIL_GREEN[2];
     alpha *= 1 - f;
   }
   return `rgba(${r},${g},${b},${alpha.toFixed(2)})`;

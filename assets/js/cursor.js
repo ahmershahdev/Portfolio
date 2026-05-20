@@ -1,4 +1,8 @@
-﻿import { TRAIL_LEN } from "./cursor-config.js";
+﻿import {
+  TRAIL_LEN,
+  refreshCursorColors,
+  getCursorColors,
+} from "./cursor-config.js";
 import { updateTrail, drawTrail } from "./cursor-trail.js";
 import { spawnParticles, updateAndDrawParticles } from "./cursor-particles.js";
 import { drawGlow, drawCrosshair, drawRing } from "./cursor-draw.js";
@@ -20,6 +24,9 @@ export function initializeCustomCursor() {
   });
 
   const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
+
+  refreshCursorColors();
+  let cursorColors = getCursorColors();
 
   const dotsX = new Float32Array(TRAIL_LEN).fill(-200);
   const dotsY = new Float32Array(TRAIL_LEN).fill(-200);
@@ -43,6 +50,11 @@ export function initializeCustomCursor() {
   let animationFrameId = 0;
   let isPaused = document.visibilityState === "hidden";
   const rootEl = document.documentElement;
+
+  window.addEventListener("themeChange", () => {
+    refreshCursorColors();
+    cursorColors = getCursorColors();
+  });
 
   function hasVerticalScrollbar() {
     return window.innerWidth > rootEl.clientWidth;
@@ -186,7 +198,7 @@ export function initializeCustomCursor() {
     drawTrail(ctx, dotsX, dotsY, pressed);
     updateAndDrawParticles(ctx, particles);
 
-    const headCol = pressed ? "#ffffff" : "#0ff0fc";
+    const headCol = pressed ? cursorColors.pressed : cursorColors.head;
 
     drawGlow(ctx, renderX, renderY, 14, headCol, 0.55);
     drawCrosshair(
@@ -214,7 +226,7 @@ export function initializeCustomCursor() {
         : idle
           ? 11 + Math.sin(time * 0.004) * 4
           : 9 + Math.min(speed * 0.3, 8),
-      pressed ? "#ffffff" : "#00ff41",
+      pressed ? cursorColors.pressed : cursorColors.ring,
       pressed ? 0.9 : 0.55,
       pressed ? null : [4, 3],
     );
@@ -225,7 +237,7 @@ export function initializeCustomCursor() {
         renderX,
         renderY,
         18 + Math.sin(time * 0.002) * 4,
-        "#0ff0fc",
+        cursorColors.pulse,
         0.15 + Math.sin(time * 0.003) * 0.06,
         [2, 5],
       );

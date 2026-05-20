@@ -10,6 +10,33 @@ export function initializeForm(config = {}) {
   const btn = document.getElementById("submit-btn");
   const successMsg = document.getElementById("form-success");
   const errorMsg = document.getElementById("form-error");
+  const honeypot = form.querySelector('input[name="_gotcha"]');
+  const emailField = form.querySelector("#contact-email");
+  const emailConfirmField = form.querySelector("#contact-email-confirm");
+
+  const allowedEmailDomains = new Set([
+    "gmail.com",
+    "outlook.com",
+    "hotmail.com",
+    "live.com",
+    "icloud.com",
+  ]);
+
+  const disposableEmailDomains = new Set([
+    "10minutemail.com",
+    "10minutemail.net",
+    "dispostable.com",
+    "getnada.com",
+    "guerrillamail.com",
+    "maildrop.cc",
+    "mailinator.com",
+    "moakt.com",
+    "sharklasers.com",
+    "temp-mail.org",
+    "tempmail.com",
+    "trashmail.com",
+    "yopmail.com",
+  ]);
 
   if (errorMsg) errorMsg.setAttribute("role", "alert");
   if (successMsg) successMsg.setAttribute("role", "status");
@@ -110,6 +137,15 @@ export function initializeForm(config = {}) {
     if (el?.id) field.setAttribute("aria-describedby", el.id);
   };
 
+  const getEmailDomain = (value) => {
+    const at = value.lastIndexOf("@");
+    if (at === -1) return "";
+    return value
+      .slice(at + 1)
+      .trim()
+      .toLowerCase();
+  };
+
   const validateField = (field, mode = "input") => {
     const isEmpty = field.value.trim().length === 0;
     if (!field.checkValidity()) {
@@ -126,6 +162,32 @@ export function initializeForm(config = {}) {
       setFieldState(field, "invalid");
       return false;
     }
+
+    if (field.type === "email") {
+      const domain = getEmailDomain(field.value);
+      if (disposableEmailDomains.has(domain)) {
+        setFieldError(field, "Disposable email domains are not allowed.");
+        setFieldState(field, "invalid");
+        return false;
+      }
+      if (!allowedEmailDomains.has(domain)) {
+        setFieldError(
+          field,
+          "Use a professional email (gmail/outlook/hotmail/live/icloud).",
+        );
+        setFieldState(field, "invalid");
+        return false;
+      }
+    }
+
+    if (field.id === "contact-email-confirm" && emailField) {
+      if (field.value.trim() !== emailField.value.trim()) {
+        setFieldError(field, "Email addresses must match.");
+        setFieldState(field, "invalid");
+        return false;
+      }
+    }
+
     clearFieldError(field);
     setFieldState(field, "valid");
     return true;
@@ -138,6 +200,16 @@ export function initializeForm(config = {}) {
     );
     field.addEventListener("blur", () => validateField(field, "blur"));
   });
+
+  if (emailField && emailConfirmField) {
+    emailField.addEventListener(
+      "input",
+      debounce(() => validateField(emailConfirmField, "input"), 240),
+    );
+    emailField.addEventListener("blur", () =>
+      validateField(emailConfirmField, "blur"),
+    );
+  }
 
   const validateAll = () => {
     const fields = [...form.querySelectorAll("[required]")];
@@ -194,6 +266,7 @@ export function initializeForm(config = {}) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
+    if (honeypot && honeypot.value.trim().length > 0) return;
 
     const now = Date.now();
     const remaining = Math.ceil((rateLimitMs - (now - lastSubmitTime)) / 1000);

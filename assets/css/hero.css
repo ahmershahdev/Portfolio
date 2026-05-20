@@ -28,6 +28,26 @@
   touch-action: none;
 }
 
+.hero-greeting {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.hero-greeting-accent {
+  color: var(--brand-cyan);
+  text-shadow: 0 0 12px rgba(125, 233, 255, 0.4);
+}
+
+.hero-surname {
+  color: var(--brand-mint);
+  text-shadow: 0 0 14px rgba(107, 255, 184, 0.35);
+}
+
 .hero-chip-dot {
   flex-shrink: 0;
   width: 6px;

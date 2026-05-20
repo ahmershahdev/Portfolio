@@ -37,7 +37,8 @@ export function initializeThreeScene() {
   renderer.toneMappingExposure = 2.0;
   container.appendChild(renderer.domElement);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+  scene.add(ambientLight);
 
   const mainLight = new THREE.DirectionalLight(0xffffff, 4);
   mainLight.position.set(5, 10, 7.5);
@@ -110,6 +111,30 @@ export function initializeThreeScene() {
   };
 
   if (animationsEnabled) createRain();
+
+  let chestLightBoost = 1;
+
+  const getTheme = () =>
+    document.documentElement.dataset.theme === "light" ? "light" : "dark";
+
+  const setThemeLighting = (theme) => {
+    const isLight = theme === "light";
+    chestLightBoost = isLight ? 1.35 : 1;
+    ambientLight.intensity = isLight ? 2.6 : 1.5;
+    mainLight.intensity = isLight ? 6.2 : 4;
+    chestLight.intensity = 20 * chestLightBoost;
+    renderer.toneMappingExposure = isLight ? 2.55 : 2.0;
+    scene.fog = isLight
+      ? new THREE.Fog(0xf3f5fa, 6, 75)
+      : new THREE.Fog(0x000000, 5, 60);
+    groundMaterial.color.set(isLight ? 0x0b1b4d : 0x00f0ff);
+    groundMaterial.opacity = isLight ? 0.16 : 0.1;
+  };
+
+  setThemeLighting(getTheme());
+  window.addEventListener("themeChange", (event) => {
+    setThemeLighting(event.detail?.theme || getTheme());
+  });
 
   let ironLoading = false;
 
@@ -349,7 +374,8 @@ export function initializeThreeScene() {
         chestLight.position.set(0, -5 + hoverHeight, 1.5);
         ironManModel.rotation.y += (targetY - ironManModel.rotation.y) * 0.15;
         ironManModel.rotation.x += (targetX - ironManModel.rotation.x) * 0.15;
-        const baseIntensity = 25 + Math.sin(elapsedTime * 5) * 10;
+        const baseIntensity =
+          (25 + Math.sin(elapsedTime * 5) * 10) * chestLightBoost;
         chestLight.intensity =
           baseIntensity * transitionFactor * (1 - contactFactor);
       }

@@ -1,7 +1,9 @@
-import { MAX_PARTICLES } from "./cursor-config.js";
+import { MAX_PARTICLES, TRAIL_CYAN, TRAIL_GREEN } from "./cursor-config.js";
 
 export function spawnParticles(particles, x, y) {
   const count = Math.min(6, MAX_PARTICLES - particles.length);
+  const cyanPrefix = `rgba(${TRAIL_CYAN[0]},${TRAIL_CYAN[1]},${TRAIL_CYAN[2]},`;
+  const greenPrefix = `rgba(${TRAIL_GREEN[0]},${TRAIL_GREEN[1]},${TRAIL_GREEN[2]},`;
   for (let i = 0; i < count; i++) {
     const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
     const vel = 1.5 + Math.random() * 3;
@@ -13,7 +15,7 @@ export function spawnParticles(particles, x, y) {
       life: 1,
       decay: 0.06 + Math.random() * 0.04,
       size: 1.2 + Math.random() * 2,
-      col: Math.random() > 0.5 ? "rgba(15,240,252," : "rgba(0,255,65,",
+      col: Math.random() > 0.5 ? cyanPrefix : greenPrefix,
     });
   }
 }

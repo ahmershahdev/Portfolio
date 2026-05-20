@@ -6,9 +6,11 @@ import { initializeForm } from "./form.js";
 import { initSocialHub } from "./social.js";
 import { initBlogStack } from "./blog-stack.js";
 import { initFxSettingsUI, getFxSettings } from "./settings.js";
+import { initThemeToggle } from "./theme.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initFxSettingsUI();
+  initThemeToggle();
   initializeLoader();
   initializeForm();
 

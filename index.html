@@ -96,6 +96,7 @@
   </style>
 
   <link rel="stylesheet" href="assets/css/global.css" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/light-mode.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/animations.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/navigation.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/loader.css">
@@ -668,6 +669,10 @@
     </div>
   </div>
 
+  <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+    <i class="bi bi-sun-fill" aria-hidden="true"></i>
+  </button>
+
   <main class="page-enter">
     <section id="home" class="hero-section d-flex align-items-center reveal-visible" aria-label="Introduction">
       <div class="container">
@@ -680,8 +685,13 @@
             </div>
 
             <header>
-              <h1 class="text-neon-green mb-2 mt-3 mt-lg-0 fw-bold">Hello, I'm</h1>
-              <h2 class="display-3 glowing-text mb-4">Ahmer</h2>
+              <h1 class="hero-greeting mb-2 mt-3 mt-lg-0 fw-bold">
+                <span>Hello,</span>
+                <span class="hero-greeting-accent">I'm</span>
+              </h1>
+              <h2 class="display-3 glowing-text mb-4">
+                Ahmer <span class="hero-surname">Shah</span>
+              </h2>
               <h3 class="h3 mb-4 text-light">
                 <span id="typewriter"></span><span class="cursor-blink">|</span>
               </h3>
@@ -690,9 +700,8 @@
             <div class="hero-bio-wrap mb-5">
               <div class="hero-bio-bar"></div>
               <p class="text-secondary" style="line-height: 1.6;">
-                A passionate software engineering student with a solid academic
-                background and a deep interest in technology, aiming to create
-                meaningful, future-ready solutions.
+                A software engineering student crafting high-performance web experiences
+                with Laravel, JavaScript, and AI—focused on clean code, speed, and impact.
               </p>
             </div>
 
@@ -1614,6 +1623,10 @@
               <form id="contact-form" class="contact-form" action="https://formspree.io/f/xgooljlk" method="POST"
                 aria-label="Contact form">
                 <input type="hidden" name="_next" value="?submitted=true#contact" aria-hidden="true">
+                <div class="form-honeypot" aria-hidden="true">
+                  <label for="contact-company">Company</label>
+                  <input type="text" id="contact-company" name="_gotcha" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="float-label-group">
@@ -1633,7 +1646,39 @@
                       <label for="contact-email">Your Email</label>
                     </div>
                     <div id="email-error" class="invalid-feedback" role="alert">
-                      Please enter a valid email address.
+                      Please use a valid email (gmail/outlook/hotmail/live/icloud).
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="float-label-group float-label-static">
+                      <select id="contact-reason" class="form-control" name="reason" required aria-required="true"
+                        aria-describedby="reason-error">
+                        <option value="" disabled selected>Select a reason</option>
+                        <option value="Project Inquiry">Project Inquiry</option>
+                        <option value="Collaboration">Collaboration</option>
+                        <option value="Speaking">Speaking / Workshop</option>
+                        <option value="Freelance">Freelance / Contract</option>
+                        <option value="Feedback">Feedback</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <label for="contact-reason">Reason for Contact</label>
+                    </div>
+                    <div id="reason-error" class="invalid-feedback" role="alert">
+                      Please select a reason.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="float-label-group">
+                      <input type="email" id="contact-email-confirm" class="form-control" name="email_confirm"
+                        placeholder=" " required autocomplete="email" aria-required="true"
+                        aria-describedby="email-confirm-error" />
+                      <label for="contact-email-confirm">Confirm Email</label>
+                    </div>
+                    <div id="email-confirm-error" class="invalid-feedback" role="alert">
+                      Email addresses must match.
                     </div>
                   </div>
                 </div>
