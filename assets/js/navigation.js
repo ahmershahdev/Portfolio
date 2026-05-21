@@ -10,13 +10,15 @@ export function initializeNavigation() {
 
   document
     .querySelectorAll(".project-img img, #three-bg-container")
-    .forEach((img) => img.addEventListener("contextmenu", (e) => e.preventDefault()));
+    .forEach((img) =>
+      img.addEventListener("contextmenu", (e) => e.preventDefault()),
+    );
 
   const handleBackToTop = (e) => {
     if (e.cancelable) e.preventDefault();
     if (backToTopButton.classList.contains("firing")) return;
     backToTopButton.classList.add("firing");
-    if (lenis) lenis.scrollTo(0);
+    if (lenis) lenis.scrollTo(0, { duration: 1.15 });
     else window.scrollTo({ top: 0, behavior: "smooth" });
     setTimeout(() => backToTopButton.classList.remove("firing"), 1000);
   };
@@ -27,14 +29,20 @@ export function initializeNavigation() {
     const scrollY = scroll ?? window.scrollY;
     backToTopButton?.classList.toggle("show", scrollY > 400);
     if (scrollProgressBar) {
-      const docHeight = limit ?? (document.documentElement.scrollHeight - window.innerHeight);
+      const docHeight =
+        limit ?? document.documentElement.scrollHeight - window.innerHeight;
       const percent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
       scrollProgressBar.style.width = `${percent}%`;
     }
   };
 
   if (lenis) lenis.on("scroll", onScroll);
-  else window.addEventListener("scroll", () => requestAnimationFrame(() => onScroll()), { passive: true });
+  else
+    window.addEventListener(
+      "scroll",
+      () => requestAnimationFrame(() => onScroll()),
+      { passive: true },
+    );
 
   navLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
@@ -49,9 +57,16 @@ export function initializeNavigation() {
       updateActiveLink(this, navLinks);
 
       if (lenis) {
-        lenis.scrollTo(targetElement, { offset: -NAVBAR_HEIGHT });
+        lenis.scrollTo(targetElement, {
+          offset: -NAVBAR_HEIGHT,
+          duration: 1.05,
+        });
       } else {
-        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT + 1;
+        const targetPosition =
+          targetElement.getBoundingClientRect().top +
+          window.scrollY -
+          NAVBAR_HEIGHT +
+          1;
         window.scrollTo({ top: targetPosition, behavior: "smooth" });
       }
 
@@ -60,7 +75,9 @@ export function initializeNavigation() {
         if (bsOffcanvas) bsOffcanvas.hide();
       }
 
-      setTimeout(() => { isManualScrolling = false; }, 1000);
+      setTimeout(() => {
+        isManualScrolling = false;
+      }, 1000);
     });
   });
 
@@ -77,7 +94,10 @@ function updateActiveLink(activeEl, navLinks) {
   activeEl.setAttribute("aria-current", "page");
 
   if (activeEl.classList.contains("dropdown-item")) {
-    activeEl.closest(".dropdown")?.querySelector(".nav-link")?.classList.add("active");
+    activeEl
+      .closest(".dropdown")
+      ?.querySelector(".nav-link")
+      ?.classList.add("active");
   }
 }
 
@@ -88,7 +108,9 @@ function initializeNavigationObserver(navLinks) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = `#${entry.target.id}`;
-          const match = Array.from(navLinks).find((link) => link.getAttribute("href") === id);
+          const match = Array.from(navLinks).find(
+            (link) => link.getAttribute("href") === id,
+          );
           if (match) updateActiveLink(match, navLinks);
         }
       });
@@ -96,5 +118,7 @@ function initializeNavigationObserver(navLinks) {
     { rootMargin: `-${NAVBAR_HEIGHT}px 0px -45% 0px`, threshold: 0 },
   );
 
-  document.querySelectorAll("section[id]").forEach((section) => sectionObserver.observe(section));
+  document
+    .querySelectorAll("section[id]")
+    .forEach((section) => sectionObserver.observe(section));
 }

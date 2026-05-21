@@ -75,7 +75,7 @@ function bindKeyboardLenisScroll() {
       ? lenis.limit
       : document.documentElement.scrollHeight - window.innerHeight;
     const clamped = Math.max(0, Math.min(maxScroll, target));
-    lenis.scrollTo(clamped, { duration: 0.9, force: true });
+    lenis.scrollTo(clamped, { duration: 0.95, force: true });
   });
 
   keyboardScrollBound = true;
@@ -89,9 +89,9 @@ function getOrCreateLenis() {
     lenis = new window.Lenis({
       smoothWheel: true,
       gestureOrientation: "vertical",
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1,
-      lerp: 0.1,
+      wheelMultiplier: 0.85,
+      touchMultiplier: 1.1,
+      lerp: 0.08,
       prevent: shouldPreventLenis,
     });
     window.__lenis = lenis;

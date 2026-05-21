@@ -353,3 +353,23 @@
     display: block !important;
   }
 }
+
+@media (max-width: 575px) {
+  .navbar > .container {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem !important;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .menu-btn-text {
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    padding: 4px 6px !important;
+    white-space: nowrap;
+  }
+}

@@ -83,6 +83,13 @@
   margin-bottom: 1.4rem;
 }
 
+.cert-page.page-left .cert-skills-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 4px;
+}
+
 .cert-skill-tag {
   font-size: 0.68rem;
   padding: 3px 10px;
@@ -118,6 +125,7 @@
   cursor: pointer;
   margin-top: auto;
   align-self: flex-start;
+  flex-shrink: 0;
 }
 
 .cert-view-btn:hover {

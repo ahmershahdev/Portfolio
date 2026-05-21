@@ -1,8 +1,8 @@
 const STORAGE_KEY = "themePreference";
 const THEME_LIGHT = "light";
 const THEME_DARK = "dark";
-const COOLDOWN_MS = 3000;
-const TRANSITION_MS = 1200;
+const COOLDOWN_MS = 1500;
+const TRANSITION_MS = 950;
 const TRANSITION_CLASS = "theme-transition";
 
 const root = document.documentElement;

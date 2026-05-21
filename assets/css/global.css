@@ -165,9 +165,19 @@ html.scrollbar-dragging body {
 }
 
 @media (hover: none) {
-  html {
+  html[data-theme="dark"] {
     scrollbar-width: thin !important;
     scrollbar-color: #0ff0fc #050508 !important;
+  }
+
+  @media (hover: none) {
+    html[data-theme="light"] {
+      scrollbar-width: thin !important;
+      scrollbar-color: orangered white;
+      background-color: orangered !important;
+      color: #ffffff !important;
+      text-shadow: none !important;
+    }
   }
 
   body,
