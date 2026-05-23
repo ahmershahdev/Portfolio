@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-05-22";
+const CACHE_VERSION = "2026-05-23";
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
