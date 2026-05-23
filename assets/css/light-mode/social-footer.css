@@ -1,0 +1,227 @@
+html[data-theme="light"] #social::before {
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 90, 31, 0.12) 0%,
+    rgba(244, 246, 251, 1) 68%
+  );
+}
+
+html[data-theme="light"] .social-subtitle {
+  color: rgba(11, 27, 77, 0.6);
+}
+
+html[data-theme="light"] .social-panel {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(11, 27, 77, 0.18);
+  box-shadow: 0 18px 38px rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .social-panel.personal-panel {
+  border-color: rgba(155, 18, 39, 0.22);
+  box-shadow:
+    0 0 40px rgba(155, 18, 39, 0.08),
+    inset 0 0 50px rgba(155, 18, 39, 0.04);
+}
+
+html[data-theme="light"] .social-panel.professional-panel {
+  border-color: rgba(11, 27, 77, 0.2);
+  box-shadow:
+    0 0 40px rgba(11, 27, 77, 0.08),
+    inset 0 0 50px rgba(11, 27, 77, 0.04);
+}
+
+html[data-theme="light"] .panel-terminal-bar {
+  background: rgba(11, 27, 77, 0.04);
+  border-bottom-color: rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .panel-section-label {
+  color: rgba(11, 27, 77, 0.55);
+}
+
+html[data-theme="light"] .panel-section-label::after {
+  background: rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .panel-label {
+  color: rgba(11, 27, 77, 0.7);
+}
+
+html[data-theme="light"] .personal-panel .panel-label {
+  color: var(--brand-gold);
+}
+
+html[data-theme="light"] .professional-panel .panel-label {
+  color: var(--brand-mint);
+}
+
+html[data-theme="light"] .panel-status {
+  color: rgba(11, 27, 77, 0.6);
+}
+
+html[data-theme="light"] .personal-panel .panel-status-dot {
+  background: var(--brand-gold);
+}
+
+html[data-theme="light"] .professional-panel .panel-status-dot {
+  background: var(--brand-cyan);
+}
+
+html[data-theme="light"] .social-card {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .social-card.card-revealed {
+  box-shadow: 0 12px 28px rgba(11, 27, 77, 0.08);
+}
+
+html[data-theme="light"] .personal-panel .social-card.card-revealed:hover {
+  background: rgba(155, 18, 39, 0.1);
+  border-color: rgba(155, 18, 39, 0.5);
+  box-shadow:
+    0 10px 26px rgba(155, 18, 39, 0.2),
+    0 0 18px rgba(155, 18, 39, 0.12);
+}
+
+html[data-theme="light"] .professional-panel .social-card.card-revealed:hover {
+  background: rgba(11, 27, 77, 0.08);
+  border-color: rgba(11, 27, 77, 0.5);
+  box-shadow:
+    0 10px 26px rgba(11, 27, 77, 0.18),
+    0 0 18px rgba(11, 27, 77, 0.1);
+}
+
+html[data-theme="light"] .social-card-label {
+  color: rgba(11, 27, 77, 0.6);
+}
+
+html[data-theme="light"] .personal-panel .social-card:hover .social-card-label {
+  color: var(--brand-gold);
+}
+
+html[data-theme="light"]
+  .professional-panel
+  .social-card:hover
+  .social-card-label {
+  color: var(--brand-cyan);
+}
+
+html[data-theme="light"] .social-username {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+html[data-theme="light"] .personal-panel .social-username {
+  color: var(--brand-gold);
+  border-color: rgba(155, 18, 39, 0.35);
+}
+
+html[data-theme="light"] .professional-panel .social-username {
+  color: var(--brand-mint);
+  border-color: rgba(11, 27, 77, 0.35);
+}
+
+html[data-theme="light"] #backToTop {
+  width: 56px;
+  height: 56px;
+  opacity: 0.98;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-theme="light"] .pistol-container {
+  color: #0b1b4d;
+  font-size: 2.05rem;
+  filter: drop-shadow(0 0 12px rgba(11, 27, 77, 0.35));
+}
+
+html[data-theme="light"] .bullet {
+  width: 6px;
+  height: 30px;
+  bottom: 28px;
+  background: linear-gradient(to top, #9b1227, #ff5a1f);
+  box-shadow: 0 0 22px rgba(155, 18, 39, 0.45);
+}
+
+html[data-theme="light"] .muzzle-flash {
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 90, 31, 0.95) 0%,
+    rgba(155, 18, 39, 0.7) 45%,
+    transparent 70%
+  );
+}
+
+html[data-theme="light"] #backToTop:hover .pistol-container {
+  color: var(--brand-cyan);
+  filter: drop-shadow(0 0 16px rgba(255, 90, 31, 0.45));
+}
+
+html[data-theme="light"] #backToTop.firing .pistol-container {
+  color: var(--brand-gold) !important;
+  filter: drop-shadow(0 0 20px rgba(155, 18, 39, 0.45));
+}
+
+html[data-theme="light"] footer {
+  background-color: #f7f6f2;
+  border-top: 1px solid rgba(11, 27, 77, 0.15);
+}
+
+html[data-theme="light"] .quote-container {
+  border-top: 1px solid rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .quote-text {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0b1b4d;
+  border-color: rgba(11, 27, 77, 0.2);
+  box-shadow: 0 18px 35px rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .quote-text::before {
+  background: linear-gradient(to bottom, #ff5a1f, #0b1b4d);
+  box-shadow: 0 0 12px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .quote-author {
+  background: none;
+  color: #0b1b4d;
+  -webkit-text-fill-color: #0b1b4d;
+  text-shadow: none;
+  animation: none;
+}
+
+html[data-theme="light"] .ahmer-clinical {
+  color: #9b1227;
+}
+
+html[data-theme="light"] footer .social-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 90, 31, 0.12),
+    rgba(11, 27, 77, 0.08)
+  );
+  border-color: rgba(11, 27, 77, 0.25);
+  box-shadow: 0 10px 22px rgba(11, 27, 77, 0.18);
+}
+
+html[data-theme="light"] footer .social-icon i {
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] footer .social-icon:hover {
+  background: linear-gradient(135deg, #ff5a1f, #9b1227) !important;
+  border-color: var(--brand-cyan) !important;
+  box-shadow: 0 16px 30px rgba(255, 90, 31, 0.35) !important;
+}
+
+html[data-theme="light"] footer .social-icon:hover i {
+  color: #ffffff;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+}

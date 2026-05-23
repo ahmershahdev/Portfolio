@@ -9,6 +9,7 @@ const SECTION_CAMERA_CLASSES = {
   projects: "camera-view-back-active",
   certificates: "camera-view-left-active",
   social: "camera-view-split-active",
+  talk: "camera-view-back-active",
   contact: "camera-view-back-active",
 };
 

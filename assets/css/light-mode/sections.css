@@ -1,0 +1,228 @@
+html[data-theme="light"] .bg-dark {
+  background-color: #f1f3f8 !important;
+}
+
+html[data-theme="light"] .section-title {
+  background: linear-gradient(
+    135deg,
+    var(--brand-cyan) 0%,
+    var(--brand-gold) 100%
+  );
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px rgba(255, 90, 31, 0.25));
+}
+
+html[data-theme="light"] .section-title::after {
+  background: linear-gradient(to right, var(--brand-cyan), var(--brand-mint));
+  box-shadow: 0 0 12px rgba(11, 27, 77, 0.25);
+}
+
+html[data-theme="light"] #education::before,
+html[data-theme="light"] #skills::before,
+html[data-theme="light"] #projects::before,
+html[data-theme="light"] #certificates::before,
+html[data-theme="light"] #contact::before,
+html[data-theme="light"] #talk::before {
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 90, 31, 0.08) 0%,
+    rgba(244, 246, 251, 1) 65%
+  );
+}
+
+html[data-theme="light"] .timeline-content {
+  background: linear-gradient(160deg, #ffffff 0%, #eef1f7 100%);
+  border-color: rgba(11, 27, 77, 0.18);
+  box-shadow: 0 18px 36px rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .timeline-icon {
+  background: #ffffff;
+  border-color: var(--brand-cyan);
+  color: var(--brand-cyan);
+  box-shadow: 0 0 18px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .timeline-item h3 {
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] .timeline-item p {
+  color: rgba(11, 27, 77, 0.7);
+}
+
+html[data-theme="light"] .neon-border {
+  background: #ffffff !important;
+  border: 1px solid rgba(11, 27, 77, 0.2) !important;
+  box-shadow: 0 12px 30px rgba(11, 27, 77, 0.1);
+}
+
+html[data-theme="light"] .neon-border::before {
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 90, 31, 0.05) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 90, 31, 0.03),
+      rgba(11, 27, 77, 0.02),
+      rgba(155, 18, 39, 0.03)
+    );
+}
+
+html[data-theme="light"] .neon-border::after {
+  border-left: 3px solid var(--brand-cyan);
+  border-top: 3px solid var(--brand-cyan);
+  filter: drop-shadow(0 0 6px rgba(255, 90, 31, 0.4));
+}
+
+html[data-theme="light"] .neon-border:hover {
+  border-color: var(--brand-cyan) !important;
+  box-shadow: 0 14px 32px rgba(11, 27, 77, 0.15);
+}
+
+html[data-theme="light"] .neon-border:hover::after {
+  border-color: var(--brand-cyan);
+}
+
+html[data-theme="light"] .btn-neon {
+  border: 1px solid var(--brand-cyan) !important;
+  color: var(--brand-cyan) !important;
+  background: transparent !important;
+}
+
+html[data-theme="light"] .btn-neon:hover {
+  background: var(--brand-cyan) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .skill-item {
+  background: linear-gradient(160deg, #ffffff 0%, #eef1f7 100%) !important;
+  border: 1px solid rgba(11, 27, 77, 0.2);
+  box-shadow: 0 16px 32px rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .skill-item:hover {
+  background: rgba(255, 90, 31, 0.06);
+  border-color: var(--brand-cyan);
+}
+
+html[data-theme="light"] .skill-item .progress {
+  background-color: rgba(11, 27, 77, 0.18) !important;
+  border-color: rgba(11, 27, 77, 0.2);
+  box-shadow: inset 0 0 10px rgba(11, 27, 77, 0.2);
+}
+
+html[data-theme="light"] .skill-item .progress-bar {
+  background: linear-gradient(90deg, #ff5a1f, #9b1227) !important;
+  box-shadow: 0 0 16px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .skill-item .progress-bar::after {
+  opacity: 0.25;
+}
+
+html[data-theme="light"] .skill-item h3 {
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] .skill-item p {
+  color: rgba(11, 27, 77, 0.72) !important;
+}
+
+html[data-theme="light"] .curtain-reveal::before,
+html[data-theme="light"] .curtain-reveal::after {
+  background: #f7f6f2;
+}
+
+html[data-theme="light"] .curtain-reveal::before {
+  box-shadow:
+    inset -3px 0 24px rgba(11, 27, 77, 0.12),
+    inset -1px 0 0 rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .curtain-reveal::after {
+  box-shadow:
+    inset 3px 0 24px rgba(11, 27, 77, 0.12),
+    inset 1px 0 0 rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .talk-subtitle {
+  color: rgba(11, 27, 77, 0.65);
+}
+
+html[data-theme="light"] .talk-card {
+  background: linear-gradient(160deg, #ffffff 0%, #eef1f7 100%);
+  border-color: rgba(11, 27, 77, 0.18);
+  box-shadow: 0 18px 40px rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .talk-card::before {
+  background: radial-gradient(
+    1200px circle at 10% 0%,
+    rgba(255, 90, 31, 0.12),
+    transparent 55%
+  );
+  opacity: 0.7;
+}
+
+html[data-theme="light"] .talk-name {
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] .talk-role {
+  color: rgba(11, 27, 77, 0.65);
+}
+
+html[data-theme="light"] .talk-chip {
+  background: rgba(11, 27, 77, 0.08);
+  border-color: rgba(11, 27, 77, 0.2);
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] .talk-messages {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .talk-message.from-ahmer .talk-bubble {
+  background: rgba(11, 27, 77, 0.08);
+  color: #0b1b4d;
+  border-color: rgba(11, 27, 77, 0.2);
+}
+
+html[data-theme="light"] .talk-message.from-user .talk-bubble {
+  background: linear-gradient(135deg, #ff5a1f, #9b1227);
+  color: #ffffff;
+  border-color: rgba(255, 90, 31, 0.45);
+}
+
+html[data-theme="light"] .talk-time {
+  color: rgba(11, 27, 77, 0.6);
+}
+
+html[data-theme="light"] .talk-input input {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(11, 27, 77, 0.2);
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] .talk-input input::placeholder {
+  color: rgba(11, 27, 77, 0.5);
+}
+
+html[data-theme="light"] .talk-send {
+  background: linear-gradient(135deg, #ff5a1f, #9b1227);
+  border-color: rgba(255, 90, 31, 0.5);
+  color: #ffffff;
+}
+
+html[data-theme="light"] .talk-send:hover {
+  box-shadow: 0 0 18px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .talk-disclaimer {
+  color: rgba(11, 27, 77, 0.6);
+}

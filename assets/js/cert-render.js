@@ -52,6 +52,7 @@ export function buildImagePage(cert) {
              class="cert-main-img"
              loading="lazy"
              data-cert-id="${cert.id}"
+             data-cert-category="${cert.category}"
              tabindex="0" role="button"
              aria-label="Zoom ${cert.name}">
         <span class="cert-zoom-hint"><i class="bi bi-zoom-in"></i> Click to zoom</span>
@@ -88,6 +89,7 @@ export function buildCombinedPage(cert, index, total) {
              class="cert-main-img"
              loading="lazy"
              data-cert-id="${cert.id}"
+             data-cert-category="${cert.category}"
              tabindex="0" role="button"
              aria-label="Zoom ${cert.name}">
         <span class="cert-zoom-hint"><i class="bi bi-zoom-in"></i> Click to zoom</span>

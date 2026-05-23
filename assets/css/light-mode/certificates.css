@@ -1,0 +1,183 @@
+html[data-theme="light"] .cert-page {
+  background: linear-gradient(160deg, #ffffff 0%, #eef1f7 100%);
+}
+
+html[data-theme="light"] .cert-page.page-left,
+html[data-theme="light"] .cert-page.page-right,
+html[data-theme="light"] .cert-page.page-combined {
+  border-top-color: rgba(11, 27, 77, 0.18);
+  border-bottom-color: rgba(11, 27, 77, 0.18);
+}
+
+html[data-theme="light"] .cert-page.page-left {
+  border-right-color: rgba(11, 27, 77, 0.12);
+  box-shadow:
+    inset -16px 0 22px rgba(11, 27, 77, 0.08),
+    inset 2px 0 6px rgba(11, 27, 77, 0.06);
+}
+
+html[data-theme="light"] .cert-page.page-right {
+  border-left-color: rgba(11, 27, 77, 0.12);
+  box-shadow:
+    inset 16px 0 22px rgba(11, 27, 77, 0.08),
+    inset -2px 0 6px rgba(11, 27, 77, 0.06);
+}
+
+html[data-theme="light"] .cert-blank-page {
+  background: #eef1f7;
+}
+
+html[data-theme="light"] .page-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(11, 27, 77, 0.06) 28px
+  );
+}
+
+html[data-theme="light"] .cert-page-number {
+  color: rgba(11, 27, 77, 0.55);
+}
+
+html[data-theme="light"] .cert-id-stamp {
+  color: rgba(11, 27, 77, 0.7);
+  border-color: rgba(11, 27, 77, 0.2);
+}
+
+html[data-theme="light"] .cert-title-text {
+  color: #0b1b4d;
+  text-shadow: none;
+}
+
+html[data-theme="light"] .cert-issuer-name {
+  color: rgba(11, 27, 77, 0.7);
+}
+
+html[data-theme="light"] .cert-skill-tag {
+  color: var(--brand-mint);
+  background: rgba(11, 27, 77, 0.08);
+  border-color: rgba(11, 27, 77, 0.2);
+}
+
+html[data-theme="light"] .cert-view-btn {
+  color: var(--brand-cyan);
+  border-color: var(--brand-cyan);
+}
+
+html[data-theme="light"] .cert-view-btn:hover {
+  box-shadow: 0 0 18px rgba(255, 90, 31, 0.3);
+  background: rgba(255, 90, 31, 0.08);
+}
+
+html[data-theme="light"] .cert-main-img {
+  border-color: rgba(11, 27, 77, 0.2);
+  box-shadow: 0 12px 28px rgba(11, 27, 77, 0.16);
+}
+
+html[data-theme="light"] .cert-zoom-hint {
+  color: rgba(11, 27, 77, 0.65);
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(11, 27, 77, 0.2);
+}
+
+html[data-theme="light"] .book-ground-shadow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(11, 27, 77, 0.18) 0%,
+    rgba(11, 27, 77, 0.08) 40%,
+    transparent 72%
+  );
+}
+
+html[data-theme="light"] .cert-tab-btn {
+  background: rgba(11, 27, 77, 0.05);
+  border-color: rgba(11, 27, 77, 0.35);
+  color: #0b1b4d;
+  box-shadow: 0 10px 20px rgba(11, 27, 77, 0.08);
+}
+
+html[data-theme="light"] .cert-tab-btn:hover {
+  border-color: var(--brand-cyan);
+  color: var(--brand-cyan);
+  background: rgba(255, 90, 31, 0.14);
+  box-shadow: 0 0 16px rgba(255, 90, 31, 0.3);
+}
+
+html[data-theme="light"] .cert-tab-btn.active {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 90, 31, 0.22),
+    rgba(155, 18, 39, 0.16)
+  );
+  border-color: var(--brand-cyan);
+  color: #9b1227;
+  box-shadow: 0 0 22px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .cert-tab-count {
+  background: rgba(11, 27, 77, 0.12);
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] .cert-nav-btn {
+  border-color: rgba(11, 27, 77, 0.35);
+  color: #0b1b4d;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 22px rgba(11, 27, 77, 0.15);
+}
+
+html[data-theme="light"] .cert-nav-btn:hover {
+  background: linear-gradient(135deg, #ff5a1f, #9b1227);
+  border-color: var(--brand-cyan);
+  color: #ffffff;
+  box-shadow: 0 0 22px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .cert-counter {
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] .cert-dot::before {
+  background: rgba(11, 27, 77, 0.25);
+  border-color: rgba(11, 27, 77, 0.45);
+}
+
+html[data-theme="light"] .cert-dot.active::before {
+  background: var(--brand-cyan);
+  box-shadow: 0 0 12px rgba(255, 90, 31, 0.55);
+}
+
+html[data-theme="light"] .cert-dot:hover:not(.active)::before {
+  background: rgba(255, 90, 31, 0.5);
+  border-color: rgba(255, 90, 31, 0.6);
+}
+
+html[data-theme="light"] .cert-dot:focus-visible::before {
+  outline: 2px solid rgba(255, 90, 31, 0.85);
+  outline-offset: 2px;
+}
+
+html[data-theme="light"] .cert-progress-track {
+  background: rgba(11, 27, 77, 0.15);
+}
+
+html[data-theme="light"] .cert-progress-bar {
+  background: linear-gradient(90deg, var(--brand-cyan), var(--brand-mint));
+  box-shadow: 0 0 8px rgba(255, 90, 31, 0.3);
+}
+
+html[data-theme="light"] .cert-lightbox-backdrop {
+  background: rgba(8, 12, 20, 0.75);
+}
+
+html[data-theme="light"] .cert-lightbox-img {
+  border-color: rgba(255, 90, 31, 0.35);
+  box-shadow:
+    0 0 50px rgba(255, 90, 31, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.65);
+}
+
+html[data-theme="light"] .cert-lightbox-title {
+  color: #f7f8fb;
+}

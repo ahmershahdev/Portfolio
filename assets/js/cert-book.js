@@ -66,19 +66,22 @@ function initBook(certs) {
     if ($book) $book.turn("page", isSingleMode ? i + 1 : 2 + i * 2);
   });
 
-  let swipeStartX = 0;
-  mag.addEventListener(
-    "touchstart",
-    (e) => {
-      swipeStartX = e.touches[0].clientX;
-    },
-    { passive: true },
-  );
-  mag.addEventListener("touchend", (e) => {
-    const dx = e.changedTouches[0].clientX - swipeStartX;
-    if (Math.abs(dx) < 40) return;
-    dx < 0 ? $book.turn("next") : $book.turn("previous");
-  });
+  const allowSwipe = !window.matchMedia("(hover: none)").matches;
+  if (allowSwipe) {
+    let swipeStartX = 0;
+    mag.addEventListener(
+      "touchstart",
+      (e) => {
+        swipeStartX = e.touches[0].clientX;
+      },
+      { passive: true },
+    );
+    mag.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - swipeStartX;
+      if (Math.abs(dx) < 40) return;
+      dx < 0 ? $book.turn("next") : $book.turn("previous");
+    });
+  }
 }
 
 elPrevBtn.addEventListener("click", () => {

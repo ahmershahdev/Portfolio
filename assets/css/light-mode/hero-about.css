@@ -1,0 +1,143 @@
+html[data-theme="light"] .hero-section {
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(240, 243, 248, 0.92) 45%,
+    rgba(230, 234, 242, 0.98)
+  ) !important;
+}
+
+html[data-theme="light"] .hero-sys-chip {
+  background: rgba(255, 90, 31, 0.08);
+  border: 1px solid rgba(255, 90, 31, 0.35);
+  color: var(--brand-cyan);
+}
+
+html[data-theme="light"] .hero-chip-dot {
+  background: var(--brand-gold);
+  box-shadow: 0 0 10px rgba(155, 18, 39, 0.35);
+}
+
+html[data-theme="light"] .hero-greeting {
+  color: #0b1b4d;
+  text-shadow: none;
+}
+
+html[data-theme="light"] .hero-greeting-accent {
+  color: var(--brand-cyan);
+  text-shadow: 0 0 10px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .hero-surname {
+  color: #9b1227;
+  text-shadow: 0 0 10px rgba(155, 18, 39, 0.25);
+}
+
+html[data-theme="light"] .glowing-text {
+  background: linear-gradient(120deg, #0b1b4d 0%, #ff5a1f 45%, #9b1227 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 24px rgba(11, 27, 77, 0.18);
+}
+
+html[data-theme="light"] #about p {
+  color: #273042;
+}
+
+html[data-theme="light"] #about .terminal-header {
+  color: #0b1b4d;
+  text-shadow: none;
+  border-bottom-color: rgba(11, 27, 77, 0.18) !important;
+}
+
+html[data-theme="light"] #about .lead-custom {
+  color: #1f2837;
+}
+
+html[data-theme="light"] #about strong,
+html[data-theme="light"] #about .text-neon-green {
+  color: var(--brand-cyan) !important;
+}
+
+html[data-theme="light"] #about .text-info {
+  color: var(--brand-mint) !important;
+}
+
+html[data-theme="light"] #about .text-warning {
+  color: #b85a00 !important;
+}
+
+html[data-theme="light"] #about .text-danger {
+  color: var(--brand-gold) !important;
+}
+
+html[data-theme="light"] .hero-orbit-scene {
+  filter: drop-shadow(0 18px 30px rgba(11, 27, 77, 0.12));
+}
+
+html[data-theme="light"] .orbit-static-svg circle,
+html[data-theme="light"] .orbit-static-svg line,
+html[data-theme="light"] .orbit-spin-svg circle {
+  stroke: rgba(11, 27, 77, 0.28);
+}
+
+html[data-theme="light"] .orbit-static-svg circle[fill="none"],
+html[data-theme="light"] .orbit-spin-svg circle[fill="none"] {
+  fill: none;
+}
+
+html[data-theme="light"] .orbit-static-svg circle[fill]:not([fill="none"]),
+html[data-theme="light"] .orbit-spin-svg circle[fill]:not([fill="none"]) {
+  fill: var(--brand-cyan);
+  opacity: 0.75;
+}
+
+html[data-theme="light"] .orbit-pulse-ring {
+  border-color: rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .orbit-center-core {
+  background:
+    radial-gradient(circle at top, rgba(255, 90, 31, 0.12), transparent 55%),
+    rgba(255, 255, 255, 0.98);
+  border-color: var(--brand-mint);
+  box-shadow:
+    0 0 24px rgba(11, 27, 77, 0.18),
+    0 0 50px rgba(255, 90, 31, 0.12),
+    inset 0 0 18px rgba(11, 27, 77, 0.08);
+}
+
+html[data-theme="light"] .orbit-center-avatar {
+  border-color: rgba(11, 27, 77, 0.25);
+  box-shadow: 0 10px 20px rgba(11, 27, 77, 0.2);
+}
+
+html[data-theme="light"] .orbit-online-text {
+  color: var(--brand-cyan);
+}
+
+html[data-theme="light"] .orbit-node-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(11, 27, 77, 0.18);
+  box-shadow: 0 12px 28px rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .orbit-node-card:hover {
+  border-color: var(--brand-cyan);
+  background: rgba(255, 90, 31, 0.08);
+  box-shadow: 0 0 18px rgba(255, 90, 31, 0.2);
+}
+
+html[data-theme="light"] .orbit-node-card i {
+  color: var(--brand-mint);
+  filter: drop-shadow(0 0 6px rgba(11, 27, 77, 0.25));
+}
+
+html[data-theme="light"] .orbit-node-card strong {
+  color: #0b1b4d;
+}
+
+html[data-theme="light"] .orbit-node-card small {
+  color: rgba(11, 27, 77, 0.6);
+}

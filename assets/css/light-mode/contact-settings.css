@@ -1,0 +1,208 @@
+html[data-theme="light"] .contact-form-theme {
+  background:
+    radial-gradient(
+      1200px circle at 10% 0%,
+      rgba(255, 90, 31, 0.08),
+      transparent 55%
+    ),
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(238, 241, 247, 0.98) 100%
+    );
+  border: 1px solid rgba(11, 27, 77, 0.2) !important;
+  box-shadow: 0 18px 40px rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .contact-form-theme::before {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(11, 27, 77, 0.05) 0,
+      rgba(11, 27, 77, 0.05) 1px,
+      transparent 1px,
+      transparent 100px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 90, 31, 0.04) 0,
+      rgba(255, 90, 31, 0.04) 1px,
+      transparent 1px,
+      transparent 100px
+    );
+  opacity: 0.25;
+}
+
+html[data-theme="light"] .contact-form .form-control {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(11, 27, 77, 0.2) !important;
+  border-left-color: var(--brand-cyan) !important;
+  color: #10141b !important;
+}
+
+html[data-theme="light"] .contact-form .form-control::placeholder {
+  color: rgba(16, 20, 27, 0.35);
+}
+
+html[data-theme="light"] .contact-form .form-control:hover {
+  background: #ffffff !important;
+  border-color: rgba(255, 90, 31, 0.35) !important;
+  box-shadow: 0 0 12px rgba(255, 90, 31, 0.15);
+}
+
+html[data-theme="light"] .contact-form .form-control:focus {
+  background: #ffffff !important;
+  border-color: rgba(255, 90, 31, 0.55) !important;
+  border-left-color: var(--brand-cyan) !important;
+  color: #0f141b !important;
+  box-shadow: 0 0 18px rgba(255, 90, 31, 0.2);
+}
+
+html[data-theme="light"]
+  .contact-form
+  .float-label-group.is-valid
+  .form-control,
+html[data-theme="light"]
+  .contact-form
+  .float-label-group.is-invalid
+  .form-control {
+  color: #10141b !important;
+}
+
+html[data-theme="light"] .contact-form .form-control:-webkit-autofill,
+html[data-theme="light"] .contact-form .form-control:-webkit-autofill:hover,
+html[data-theme="light"] .contact-form .form-control:-webkit-autofill:focus,
+html[data-theme="light"] .contact-form .form-control:-webkit-autofill:active {
+  -webkit-text-fill-color: #10141b !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  border-left-color: var(--brand-cyan) !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+html[data-theme="light"] .contact-form .float-label-group label {
+  color: rgba(11, 27, 77, 0.55);
+}
+
+html[data-theme="light"]
+  .contact-form
+  .float-label-group.float-label-static
+  label {
+  color: var(--brand-mint);
+  text-shadow: none;
+}
+
+html[data-theme="light"]
+  .contact-form
+  .float-label-group
+  .form-control:focus
+  ~ label,
+html[data-theme="light"]
+  .contact-form
+  .float-label-group
+  .form-control:not(:placeholder-shown)
+  ~ label {
+  color: var(--brand-cyan);
+  text-shadow: 0 0 6px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .field-status {
+  color: rgba(11, 27, 77, 0.6);
+  border-color: rgba(11, 27, 77, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+html[data-theme="light"] .field-status[data-state="valid"] {
+  color: var(--brand-cyan);
+  border-color: rgba(255, 90, 31, 0.45);
+  box-shadow: 0 0 10px rgba(255, 90, 31, 0.2);
+}
+
+html[data-theme="light"] .field-status[data-state="invalid"] {
+  color: var(--brand-gold);
+  border-color: rgba(155, 18, 39, 0.5);
+  box-shadow: 0 0 10px rgba(155, 18, 39, 0.2);
+}
+
+html[data-theme="light"] .invalid-feedback {
+  color: var(--brand-gold);
+  text-shadow: 0 0 6px rgba(155, 18, 39, 0.2);
+}
+
+html[data-theme="light"] .form-success-message {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 90, 31, 0.08) 0%,
+    rgba(255, 255, 255, 0.96) 100%
+  );
+  border-color: rgba(255, 90, 31, 0.35);
+  border-left: 3px solid var(--brand-cyan);
+  box-shadow: 0 0 20px rgba(255, 90, 31, 0.15);
+}
+
+html[data-theme="light"] .form-success-message i {
+  color: var(--brand-cyan);
+  text-shadow: 0 0 12px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"] .form-error-message {
+  background: linear-gradient(
+    135deg,
+    rgba(155, 18, 39, 0.08) 0%,
+    rgba(255, 255, 255, 0.96) 100%
+  );
+  border-color: rgba(155, 18, 39, 0.4);
+  border-left: 3px solid var(--brand-gold);
+  box-shadow: 0 0 20px rgba(155, 18, 39, 0.15);
+}
+
+html[data-theme="light"] .form-error-message i {
+  color: var(--brand-gold);
+  text-shadow: 0 0 12px rgba(155, 18, 39, 0.35);
+}
+
+html[data-theme="light"] .form-message-box span {
+  color: #10141b;
+}
+
+html[data-theme="light"] .settings-modal .modal-content {
+  background: #ffffff;
+  border: 1px solid rgba(11, 27, 77, 0.2);
+  box-shadow: 0 18px 40px rgba(11, 27, 77, 0.12);
+  color: #10141b;
+}
+
+html[data-theme="light"] .settings-modal .modal-title {
+  color: #0b1b4d;
+  text-shadow: none;
+}
+
+html[data-theme="light"] .settings-modal .settings-modal-lead {
+  color: rgba(11, 27, 77, 0.7);
+}
+
+html[data-theme="light"] .settings-modal .settings-toggle {
+  border-bottom-color: rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .settings-modal .form-check-input {
+  background-color: rgba(11, 27, 77, 0.1);
+  border-color: rgba(11, 27, 77, 0.25);
+}
+
+html[data-theme="light"] .settings-modal .form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 90, 31, 0.25);
+}
+
+html[data-theme="light"] .settings-modal .form-check-label {
+  color: #10141b;
+}
+
+html[data-theme="light"] .settings-modal .form-text {
+  color: rgba(11, 27, 77, 0.6);
+}
+
+html[data-theme="light"] .settings-modal .form-check-input:checked {
+  background-color: var(--brand-cyan);
+  border-color: var(--brand-cyan);
+  box-shadow: 0 0 10px rgba(255, 90, 31, 0.35);
+}

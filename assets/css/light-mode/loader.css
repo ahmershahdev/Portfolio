@@ -1,0 +1,117 @@
+html[data-theme="light"] #loader-wrapper {
+  background:
+    radial-gradient(
+      1200px circle at 15% 20%,
+      rgba(255, 90, 31, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px circle at 80% 75%,
+      rgba(11, 27, 77, 0.14),
+      transparent 60%
+    ),
+    linear-gradient(160deg, #f7f6f2 0%, #eef1f7 45%, #f9fafc 100%);
+  background-size: 180% 180%;
+  background-position: 0% 0%;
+  animation: loader-light-pan 10s ease-in-out infinite;
+}
+
+html[data-theme="light"] #loader-wrapper::after {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 90, 31, 0.2),
+    transparent 60%
+  );
+  opacity: 0.5;
+  animation: loader-light-pulse 6s ease-in-out infinite;
+}
+
+html[data-theme="light"] .loader-panel {
+  background: linear-gradient(180deg, #ffffff 0%, #eef1f7 100%);
+  border-color: rgba(11, 27, 77, 0.2);
+  box-shadow:
+    0 18px 45px rgba(11, 27, 77, 0.12),
+    inset 0 0 20px rgba(255, 90, 31, 0.08);
+}
+
+html[data-theme="light"] .loader-mini {
+  background: rgba(11, 27, 77, 0.08);
+  border-color: rgba(11, 27, 77, 0.2);
+  color: rgba(11, 27, 77, 0.85);
+}
+
+html[data-theme="light"] .loader-mini-spinner {
+  border-color: rgba(11, 27, 77, 0.2);
+  border-top-color: #ff5a1f;
+  border-right-color: #9b1227;
+  box-shadow: 0 0 12px rgba(255, 90, 31, 0.45);
+}
+
+html[data-theme="light"] .loader-percent {
+  background: linear-gradient(180deg, #0b1b4d 0%, #ff5a1f 55%, #9b1227 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 18px rgba(11, 27, 77, 0.25);
+}
+
+html[data-theme="light"] .loader-subline {
+  color: rgba(11, 27, 77, 0.7);
+}
+
+html[data-theme="light"] .loader-progress-meta {
+  color: rgba(11, 27, 77, 0.75);
+}
+
+html[data-theme="light"] .loader-track-percent {
+  color: #9b1227;
+}
+
+html[data-theme="light"] .loader-progress-bar {
+  background: rgba(11, 27, 77, 0.12);
+  border-color: rgba(11, 27, 77, 0.22);
+}
+
+html[data-theme="light"] #loading-bar {
+  background: linear-gradient(90deg, #ff5a1f 0%, #9b1227 55%, #0b1b4d 100%);
+  box-shadow: 0 0 16px rgba(255, 90, 31, 0.4);
+}
+
+html[data-theme="light"] .loader-quote {
+  border-color: rgba(11, 27, 77, 0.2);
+  background: linear-gradient(180deg, #ffffff 0%, #eef1f7 100%);
+  box-shadow: 0 14px 30px rgba(11, 27, 77, 0.12);
+}
+
+html[data-theme="light"] .loader-quote-label {
+  color: rgba(11, 27, 77, 0.6);
+  text-shadow: none;
+}
+
+html[data-theme="light"] .loader-quote-text {
+  color: rgba(11, 27, 77, 0.75);
+  text-shadow: none;
+}
+
+@keyframes loader-light-pan {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes loader-light-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.7;
+  }
+}

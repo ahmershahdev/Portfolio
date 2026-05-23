@@ -32,31 +32,37 @@
   <meta name="google-site-verification" content="uoOGBFxYr8VvgPVjFVX5ETvoTDnXkzDsUMIidCoA2Q4" />
   <meta name="msvalidate.01" content="DBE8A4FC14B77DA2C6490D2C6A1EA2E7" />
   <meta name="description"
-    content="Hey! I'm Ahmer Shah, a Software Engineering student & Full-Stack Developer crafting high-performance web & app solutions with Laravel, JavaScript, and AI.">
+    content="Ahmer Shah is a software engineering student and full-stack developer focused on Laravel, JavaScript, and efficient web apps.">
+  <meta name="keywords"
+    content="Ahmer Shah, software engineering student, full-stack developer, Laravel, JavaScript, PHP, web developer, Hyderabad, Pakistan">
   <meta name="author" content="Ahmer Shah">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
   <meta property="og:title" content="Ahmer Shah | Software Engineer & Full-Stack Developer">
   <meta property="og:description"
-    content="Hey! I'm Ahmer Shah, a Software Engineering student & Full-Stack Developer crafting high-performance web & app solutions with Laravel, JavaScript, and AI.">
+    content="Ahmer Shah is a software engineering student and full-stack developer focused on Laravel, JavaScript, and efficient web apps.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ahmershah.dev/">
+  <meta property="og:locale" content="en_US">
   <meta property="og:image"
     content="https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_logo_t/v1776536513/portfolio/logo/logo.webp">
+  <meta property="og:image:alt" content="Ahmer Shah portfolio logo">
   <meta property="og:site_name" content="Ahmer Shah">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ahmer Shah | Software Engineer & Full-Stack Developer">
   <meta name="twitter:description"
-    content="Hey! I'm Ahmer Shah, a Software Engineering student & Full-Stack Developer crafting high-performance web & app solutions with Laravel, JavaScript, and AI.">
+    content="Ahmer Shah is a software engineering student and full-stack developer focused on Laravel, JavaScript, and efficient web apps.">
   <meta name="twitter:image"
     content="https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_logo_t/v1776536513/portfolio/logo/logo.webp">
+  <meta name="twitter:image:alt" content="Ahmer Shah portfolio logo">
   <meta name="twitter:site" content="@ahmershah29">
   <meta name="twitter:creator" content="@ahmershah29">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 
   <link rel="preload" href="assets/css/global.css" as="style">
   <link rel="preload" href="assets/css/loader.css" as="style">
@@ -96,7 +102,15 @@
   </style>
 
   <link rel="stylesheet" href="assets/css/global.css" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/light-mode.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/base.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/navigation.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/hero-about.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/sections.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/projects-blog.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/certificates.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/contact-settings.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/social-footer.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/light-mode/loader.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/animations.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/navigation.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/loader.css">
@@ -111,6 +125,7 @@
   <link rel="stylesheet" href="assets/css/section-transitions.css?v=20260418" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/projects.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/blogs.css?v=20260418" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/css/talk.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/social-animations.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/social-section.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/social-panel.css" media="print" onload="this.media='all'">
@@ -145,6 +160,30 @@
 {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://ahmershah.dev/#website",
+      "name": "Ahmer Shah",
+      "url": "https://ahmershah.dev/",
+      "description": "Portfolio and project showcase of Ahmer Shah, software engineering student and full-stack developer focused on Laravel and JavaScript.",
+      "publisher": {
+        "@id": "https://ahmershah.dev/#person"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://ahmershah.dev/",
+      "url": "https://ahmershah.dev/",
+      "name": "Ahmer Shah | Software Engineer & Full-Stack Developer",
+      "isPartOf": {
+        "@id": "https://ahmershah.dev/#website"
+      },
+      "about": {
+        "@id": "https://ahmershah.dev/#person"
+      },
+      "keywords": "Ahmer Shah, software engineering student, full-stack developer, Laravel, JavaScript, PHP"
+    },
     {
       "@type": "Person",
       "@id": "https://ahmershah.dev/#person",
@@ -1600,6 +1639,58 @@
       </div>
     </section>
 
+    <section id="talk" class="py-5 curtain-reveal" aria-labelledby="talk-heading">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 id="talk-heading" class="section-title">Talk with Ahmer</h2>
+          <p class="talk-subtitle">// AI persona ready to chat and answer questions.</p>
+        </div>
+
+        <div class="talk-shell">
+          <div class="talk-card">
+            <div class="talk-header">
+              <div class="talk-avatar">
+                <img src="assets/images/logo/logo.webp" alt="Ahmer Shah logo">
+                <span class="talk-status-dot" aria-hidden="true"></span>
+              </div>
+              <div class="talk-meta">
+                <span class="talk-name">Ahmer AI</span>
+                <span class="talk-role">Conversational twin (beta)</span>
+              </div>
+              <div class="talk-chip">Secure API-ready</div>
+            </div>
+
+            <div class="talk-messages" id="talkMessages" role="log" aria-live="polite" aria-relevant="additions">
+              <div class="talk-message from-ahmer">
+                <div class="talk-bubble">
+                  Hey, I am Ahmer's AI twin. Ask about projects, skills, or availability.
+                </div>
+                <span class="talk-time">online now</span>
+              </div>
+            </div>
+
+            <div class="talk-typing" id="talkTyping" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <form class="talk-input" id="talkForm" autocomplete="off" aria-label="Chat with Ahmer">
+              <label class="visually-hidden" for="talkInput">Type your message</label>
+              <input id="talkInput" name="message" type="text" placeholder="Ask a question or say hello" maxlength="240"
+                required>
+              <button type="submit" class="talk-send" aria-label="Send message">
+                <i class="bi bi-send-fill" aria-hidden="true"></i>
+                <span class="talk-send-text">Send</span>
+              </button>
+            </form>
+
+            <p class="talk-disclaimer">Frontend demo only. Connect your AI endpoint when ready.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="py-5 bg-dark curtain-reveal">
       <div class="container">
         <h2 class="section-title">Contact Me</h2>
@@ -1811,6 +1902,7 @@
   <script src="assets/js/turn.min.js" defer></script>
   <script type="module" src="assets/js/cert-book.js" defer></script>
   <script type="module" src="assets/js/speed-insights.js" defer></script>
+  <script type="module" src="assets/js/talk.js" defer></script>
   <script type="module" src="assets/js/script.js" defer crossorigin="anonymous"></script>
 </body>
 

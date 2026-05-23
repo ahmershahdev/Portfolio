@@ -33,7 +33,7 @@ export function initProjectCarousel() {
       ([entry]) => {
         if (entry.isIntersecting) triggerAnimation(slides[current]);
       },
-      { threshold: 0.25 }
+      { threshold: 0.25 },
     ).observe(section);
   }
 
@@ -48,15 +48,26 @@ export function initProjectCarousel() {
     if (e.key === "ArrowRight") showSlide(current + 1);
   });
 
-  let touchStartX = 0;
-  section?.addEventListener("touchstart", (e) => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
+  const allowSwipe = !window.matchMedia("(hover: none)").matches;
+  if (allowSwipe) {
+    let touchStartX = 0;
+    section?.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+      },
+      { passive: true },
+    );
 
-  section?.addEventListener("touchend", (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) showSlide(current + (dx < 0 ? 1 : -1));
-  }, { passive: true });
+    section?.addEventListener(
+      "touchend",
+      (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) showSlide(current + (dx < 0 ? 1 : -1));
+      },
+      { passive: true },
+    );
+  }
 
   if (counter) counter.textContent = `1 / ${total}`;
 }
