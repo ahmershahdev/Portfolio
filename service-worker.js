@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-05-23";
+const CACHE_VERSION = "2026-05-25";
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
@@ -11,7 +11,6 @@ const CORE_ASSETS = [
   "./assets/css/navigation.css",
   "./assets/css/hero.css",
   "./assets/css/skills.css",
-  "./assets/css/talk.css",
   "./assets/css/light-mode/base.css",
   "./assets/css/light-mode/navigation.css",
   "./assets/css/light-mode/hero-about.css",
@@ -23,7 +22,6 @@ const CORE_ASSETS = [
   "./assets/css/light-mode/loader.css",
   "./assets/js/script.js",
   "./assets/js/animations.js",
-  "./assets/js/talk.js",
 ];
 
 const ASSET_EXTENSIONS = [

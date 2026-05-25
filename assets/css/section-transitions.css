@@ -42,7 +42,6 @@
 #skills,
 #projects,
 #certificates,
-#talk,
 #contact {
   position: relative;
   overflow: hidden;
@@ -54,7 +53,6 @@
 #skills::before,
 #projects::before,
 #certificates::before,
-#talk::before,
 #contact::before {
   content: "";
   position: absolute;
@@ -74,7 +72,6 @@
 #skills > *,
 #projects > *,
 #certificates > *,
-#talk > *,
 #contact > * {
   position: relative;
   z-index: 2;
@@ -82,8 +79,6 @@
 
 #education {
   transform: perspective(1500px) rotateY(-20deg) translateX(-60px);
-
-#talk {
   opacity: 0;
   filter: blur(6px);
 }
@@ -189,24 +184,10 @@
   filter: blur(0px);
 }
 
-#talk.camera-view-back-active {
-  transform: perspective(1500px) translateZ(0px);
-  opacity: 1;
-  filter: blur(0px);
-}
-
 #contact.fog-fade-in::before {
   opacity: 1;
 }
 #contact.fog-fade-out::before {
-  opacity: 0;
-  transition: opacity 0.6s ease-out;
-}
-
-#talk.fog-fade-in::before {
-  opacity: 1;
-}
-#talk.fog-fade-out::before {
   opacity: 0;
   transition: opacity 0.6s ease-out;
 }
@@ -216,7 +197,6 @@
   #skills,
   #projects,
   #certificates,
-  #talk,
   #contact {
     transform: none !important;
     filter: none !important;

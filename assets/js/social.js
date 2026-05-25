@@ -5,7 +5,14 @@ export function initSocialHub() {
   if (!panels.length) return;
 
   const fxSettings = getFxSettings();
-  let meshEnabled = !fxSettings.disable3dAnimations;
+  const canHover = window.matchMedia(
+    "(hover: hover) and (pointer: fine)",
+  ).matches;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  let meshEnabled =
+    !fxSettings.disable3dAnimations && canHover && !prefersReducedMotion;
 
   const cleanups = [];
 
@@ -15,7 +22,7 @@ export function initSocialHub() {
         if (!entry.isIntersecting) return;
         const panel = entry.target;
         panel.classList.add("panel-active");
-        _staggerCards(panel);
+        _staggerCards(panel, prefersReducedMotion);
         panelObserver.unobserve(panel);
       });
     },
@@ -34,7 +41,7 @@ export function initSocialHub() {
   };
 
   const setMeshEnabled = (enabled) => {
-    meshEnabled = enabled;
+    meshEnabled = enabled && canHover && !prefersReducedMotion;
     if (!meshEnabled) panels.forEach((panel) => resetPanelMesh(panel));
   };
 
@@ -47,7 +54,7 @@ export function initSocialHub() {
     panelObserver.observe(panel);
 
     const mesh = panel.querySelector(".panel-mesh");
-    if (!mesh) return;
+    if (!mesh || !canHover) return;
 
     const isPro = panel.classList.contains("professional-panel");
     const rgb = isPro ? "0, 240, 255" : "255, 0, 170";
@@ -107,8 +114,13 @@ export function initSocialHub() {
   };
 }
 
-function _staggerCards(panel) {
-  panel.querySelectorAll(".social-card").forEach((card, i) => {
+function _staggerCards(panel, reduceMotion = false) {
+  const cards = panel.querySelectorAll(".social-card");
+  if (reduceMotion) {
+    cards.forEach((card) => card.classList.add("card-revealed"));
+    return;
+  }
+  cards.forEach((card, i) => {
     setTimeout(() => card.classList.add("card-revealed"), i * 45);
   });
 }

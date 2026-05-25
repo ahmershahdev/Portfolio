@@ -4,6 +4,8 @@
   transform: perspective(1500px) rotateX(-18deg) translateZ(-80px) scale(0.94);
   opacity: 0;
   filter: blur(6px);
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
   transition:
     transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     opacity 0.9s ease,
