@@ -250,12 +250,12 @@
   justify-items: center;
 }
 
-.loader-label {
+html[data-theme="dark"] .loader-label {
   font-family: "Orbitron", sans-serif;
   font-size: 0.7rem;
   letter-spacing: 6px;
   text-transform: uppercase;
-  color: rgba(0, 240, 255, 0.55);
+  color: rgba(0, 240, 255, 0.55) !important;
 }
 
 .loader-percent {
@@ -684,10 +684,11 @@
   .load-percent-mini {
     font-size: 0.65rem;
   }
-}
-  }
-
+  
   .loader-progress-meta {
     font-size: 0.5rem;
   }
 }
+  
+
+  

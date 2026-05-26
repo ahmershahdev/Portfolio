@@ -34,6 +34,14 @@ html[data-theme="light"] .loader-panel {
     inset 0 0 20px rgba(255, 90, 31, 0.08);
 }
 
+html[data-theme="light"] .loader-label {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: rgba(255, 0, 0, 0.55) !important;
+}
+
 html[data-theme="light"] .loader-mini {
   background: rgba(11, 27, 77, 0.08);
   border-color: rgba(11, 27, 77, 0.2);

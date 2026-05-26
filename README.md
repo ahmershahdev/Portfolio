@@ -1,4 +1,4 @@
-# Ahmer Shah Portfolio
+# Ahmer Shah
 
 Hey, I'm Ahmer—a full-stack developer obsessed with clean code, performance, and building things that actually work. This is my latest portfolio site, and I maintain it actively because, let's be honest, a dead portfolio is worse than no portfolio.
 
@@ -99,11 +99,11 @@ Then visit `http://localhost:8000`
 
 ## Contact
 
-- Email: ahmershahdev@gmail.com
+- Email: support@ahmershah.dev
 - Website: https://ahmershah.dev
 - LinkedIn: https://linkedin.com/in/syedahmershah
 - GitHub: https://github.com/ahmershahdev
-- Twitter: https://twitter.com/ahmershahdev
+- Twitter: https://twitter.com/ahmershah29
 
 ## License
 

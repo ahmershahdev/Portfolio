@@ -28,7 +28,7 @@ One of these gets fixed. Guess which one.
 
 ## Suggestions & Feedback
 
-If you think something could be better (design, layout, content, whatever), I want to hear it. Open an issue or email me at ahmershahdev@gmail.com with:
+If you think something could be better (design, layout, content, whatever), I want to hear it. Open an issue or email me at support@ahmershah.dev with:
 
 - What you're suggesting
 - Why you think it's better
@@ -112,8 +112,8 @@ This portfolio is proprietary and confidential. If you contribute code, you're c
 Be respectful. This is a solo project, so I'm doing code review in my free time. If I don't respond immediately, I'm not ignoring you—I might just be busy shipping features or fixing production bugs.
 
 - GitHub Issues: I check these regularly (usually within 48 hours)
-- Email: ahmershahdev@gmail.com for more sensitive stuff
-- Twitter: @ahmershahdev if you want to chat
+- Email: support@ahmershah.dev for more sensitive stuff
+- Twitter: @ahmershah29 if you want to chat
 
 ## Questions?
 
