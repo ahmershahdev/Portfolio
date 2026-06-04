@@ -1,7 +1,11 @@
 .navbar {
-  background-color: rgba(6, 8, 12, 0.96) !important;
+  background-color: rgba(4, 7, 12, 0.98) !important;
   border-bottom: 1px solid rgba(125, 233, 255, 0.25) !important;
   padding: 1rem 0 !important;
+  color: #f1f7ff;
+  --bs-navbar-color: rgba(241, 247, 255, 0.92);
+  --bs-navbar-hover-color: rgba(241, 247, 255, 1);
+  --bs-navbar-active-color: #f1f7ff;
 }
 
 .navbar-brand {
@@ -35,7 +39,7 @@
 }
 
 #desktopNav .nav-link {
-  color: #a0a0c0 !important;
+  color: #c9d5e6 !important;
   margin: 0 0.5rem;
   font-weight: 500;
   font-family: "Orbitron", sans-serif !important;
@@ -134,13 +138,20 @@
 }
 
 .menu-btn-text {
-  color: #0ff0fc;
+  color: rgba(15, 240, 252, 0.6);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 3px;
   text-transform: uppercase;
   padding: 5px 10px !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 0 12px rgba(15, 240, 252, 0.4);
+}
+
+.navbar-toggler {
+  border: 1px solid rgba(15, 240, 252, 0.4);
+  border-radius: 10px;
+  padding: 0.35rem 0.85rem;
 }
 
 .offcanvas {
@@ -177,7 +188,7 @@
   opacity: 0;
   transform: translateX(-20px);
   font-family: "Orbitron", sans-serif;
-  color: #a0a0c0 !important;
+  color: #c9d5e6 !important;
   clip-path: none !important;
   background: transparent !important;
 }

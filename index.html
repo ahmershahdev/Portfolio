@@ -16,13 +16,13 @@
   <!-- End Google Tag Manager -->
   <meta http-equiv="Content-Security-Policy" content="
   default-src 'self'; 
-  script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://unpkg.com https://ahmershah.dev https://www.gstatic.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com https://va.vercel-scripts.com https://cdn.vercel-insights.com; 
+  script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://unpkg.com https://ahmershah.dev https://www.gstatic.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://cdn.jsdelivr.net https://static.cloudflareinsights.com https://va.vercel-scripts.com https://cdn.vercel-insights.com; 
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
   font-src 'self' data: https://fonts.gstatic.com; 
   img-src 'self' data: blob: https://ahmershah.dev https://www.googletagmanager.com https://res.cloudinary.com; 
-  connect-src 'self' blob: https://ahmershah.dev https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://cdn.jsdelivr.net https://formspree.io https://res.cloudinary.com https://pub-cf58c39336f64e21807389581d20ec09.r2.dev https://vitals.vercel-insights.com; 
+  connect-src 'self' blob: https://ahmershah.dev https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://cdn.jsdelivr.net https://api.emailjs.com https://res.cloudinary.com https://pub-cf58c39336f64e21807389581d20ec09.r2.dev https://vitals.vercel-insights.com; 
   worker-src 'self' blob:; 
-  frame-src 'self' https://*.ahmershah.dev https://ahmershahdev.github.io https://www.googletagmanager.com;
+  frame-src 'self' https://*.ahmershah.dev https://ahmershahdev.github.io https://www.googletagmanager.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/;
   object-src 'none'; 
   base-uri 'self'; 
   upgrade-insecure-requests;">
@@ -31,7 +31,8 @@
   <link rel="canonical" href="https://ahmershah.dev/">
   <meta name="google-site-verification" content="uoOGBFxYr8VvgPVjFVX5ETvoTDnXkzDsUMIidCoA2Q4" />
   <meta name="msvalidate.01" content="DBE8A4FC14B77DA2C6490D2C6A1EA2E7" />
-  <meta name="description" content="Ahmer Shah is a software engineering student and full-stack developer focused on Laravel, JavaScript, and efficient web apps.">
+  <meta name="description"
+    content="Ahmer Shah is a software engineering student and full-stack developer in Hyderabad, Pakistan, building fast, secure, and SEO-ready web experiences with Laravel, PHP, JavaScript, Bootstrap, and modern UI systems. Explore projects, certifications, and writing on architecture, security, developer tooling, and performance-driven design.">
   <meta name="keywords"
     content="Ahmer Shah, software engineering student, full-stack developer, Laravel, JavaScript, PHP, web developer, Hyderabad, Pakistan">
   <meta name="author" content="Ahmer Shah">
@@ -39,7 +40,7 @@
 
   <meta property="og:title" content="Ahmer Shah | Software Engineer & Full-Stack Developer">
   <meta property="og:description"
-    content="Ahmer Shah is a software engineering student and full-stack developer focused on Laravel, JavaScript, and efficient web apps.">
+    content="Ahmer Shah is a software engineering student and full-stack developer in Hyderabad, Pakistan, building fast, secure, and SEO-ready web experiences with Laravel, PHP, JavaScript, Bootstrap, and modern UI systems. Explore projects, certifications, and writing on architecture, security, developer tooling, and performance-driven design.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ahmershah.dev/">
   <meta property="og:locale" content="en_US">
@@ -51,7 +52,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ahmer Shah | Software Engineer & Full-Stack Developer">
   <meta name="twitter:description"
-    content="Ahmer Shah is a software engineering student and full-stack developer focused on Laravel, JavaScript, and efficient web apps.">
+    content="Ahmer Shah is a software engineering student and full-stack developer in Hyderabad, Pakistan, building fast, secure, and SEO-ready web experiences with Laravel, PHP, JavaScript, Bootstrap, and modern UI systems. Explore projects, certifications, and writing on architecture, security, developer tooling, and performance-driven design.">
   <meta name="twitter:image"
     content="https://res.cloudinary.com/syedahmershah/image/upload/t_portfolio_logo_t/v1776536513/portfolio/logo/logo.webp">
   <meta name="twitter:image:alt" content="Ahmer Shah portfolio logo">
@@ -1109,10 +1110,6 @@
     <section id="blog" class="py-5 curtain-reveal" aria-labelledby="blog-heading">
       <div class="container">
         <h2 id="blog-heading" class="section-title text-center mb-3">Blog Lab</h2>
-        <p class="blog-subtitle">
-          Curated signal from my writing vault. Tap the stack to fan it open, tap again to close, and jump into my
-          Medium, Hashnode,HackerNoon, Substack, Linkedln Articles or Dev.to anytime.
-        </p>
 
         <div class="blog-stack-stage" aria-label="Interactive blog card stack">
           <div class="blog-pen-orbit" aria-hidden="true">
@@ -1657,9 +1654,9 @@
                 <span>Your message has been sent successfully! I'll get back to you soon.</span>
               </div>
 
-              <form id="contact-form" class="contact-form" action="https://formspree.io/f/xgooljlk" method="POST"
-                aria-label="Contact form">
-                <input type="hidden" name="_next" value="?submitted=true#contact" aria-hidden="true">
+              <form id="contact-form" class="contact-form" method="POST" aria-label="Contact form"
+                data-emailjs-service-id="syedahmershah" data-emailjs-template-id="template_q8pkpa7"
+                data-emailjs-confirm-template-id="template_c00ov5r" data-emailjs-public-key="NGvXgWOpZ1t928s9h">
                 <div class="form-honeypot" aria-hidden="true">
                   <label for="contact-company">Company</label>
                   <input type="text" id="contact-company" name="_gotcha" tabindex="-1" autocomplete="off">
@@ -1738,6 +1735,10 @@
                 </div>
                 <div id="message-error" class="invalid-feedback" role="alert">
                   Message must be 10-700 characters.
+                </div>
+
+                <div class="recaptcha-wrap">
+                  <div id="recaptcha-container" data-sitekey="6Ldc4QwtAAAAACSSoipLt6E1js01jBdKMh5RER7V"></div>
                 </div>
 
                 <div class="text-center">
@@ -1841,6 +1842,8 @@
     </div>
   </div>
 
+  <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <script src="assets/js/console.js" defer></script>
   <script src="assets/js/bootstrap.bundle.min.js" defer></script>
   <script src="assets/js/jquery.min.js" defer></script>

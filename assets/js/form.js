@@ -1,5 +1,4 @@
 export function initializeForm(config = {}) {
-  const endpoint = config.endpoint || "https://formspree.io/f/xgooljlk";
   const timeout = config.timeout || 10000;
   const maxRetries = config.maxRetries ?? 2;
   const rateLimitMs = config.rateLimitMs ?? 30000;
@@ -7,12 +6,31 @@ export function initializeForm(config = {}) {
   const form = document.getElementById("contact-form");
   if (!form) return;
 
+  const emailjsConfig = {
+    serviceId: config.serviceId || form.dataset.emailjsServiceId || "",
+    templateId: config.templateId || form.dataset.emailjsTemplateId || "",
+    confirmTemplateId:
+      config.confirmTemplateId || form.dataset.emailjsConfirmTemplateId || "",
+    publicKey: config.publicKey || form.dataset.emailjsPublicKey || "",
+  };
+
+  const hasPrimaryConfig =
+    Boolean(emailjsConfig.serviceId) &&
+    Boolean(emailjsConfig.templateId) &&
+    Boolean(emailjsConfig.publicKey);
+
+  let emailjsInitialized = false;
+
   const btn = document.getElementById("submit-btn");
   const successMsg = document.getElementById("form-success");
   const errorMsg = document.getElementById("form-error");
   const honeypot = form.querySelector('input[name="_gotcha"]');
   const emailField = form.querySelector("#contact-email");
   const emailConfirmField = form.querySelector("#contact-email-confirm");
+  const recaptchaContainer = form.querySelector("#recaptcha-container");
+  const recaptchaSiteKey = recaptchaContainer?.dataset.sitekey || "";
+  const recaptchaRequired = Boolean(recaptchaContainer);
+  let recaptchaWidgetId = null;
 
   const allowedEmailDomains = new Set([
     "gmail.com",
@@ -40,6 +58,44 @@ export function initializeForm(config = {}) {
 
   if (errorMsg) errorMsg.setAttribute("role", "alert");
   if (successMsg) successMsg.setAttribute("role", "status");
+
+  const getRecaptchaTheme = () =>
+    document.documentElement.dataset.theme === "light" ? "light" : "dark";
+
+  const renderRecaptcha = () => {
+    if (!recaptchaContainer || !recaptchaSiteKey) return;
+    if (!window.grecaptcha?.render) return;
+    recaptchaContainer.innerHTML = "";
+    recaptchaWidgetId = window.grecaptcha.render(recaptchaContainer, {
+      sitekey: recaptchaSiteKey,
+      theme: getRecaptchaTheme(),
+    });
+  };
+
+  const initRecaptcha = () => {
+    if (!recaptchaRequired) return;
+    const existingOnload = window.onRecaptchaLoad;
+    window.onRecaptchaLoad = () => {
+      if (typeof existingOnload === "function") existingOnload();
+      renderRecaptcha();
+    };
+    if (window.grecaptcha?.render) renderRecaptcha();
+    window.addEventListener("themeChange", () => {
+      if (window.grecaptcha?.render) renderRecaptcha();
+    });
+  };
+
+  const getRecaptchaResponse = () => {
+    if (!window.grecaptcha?.getResponse) return "";
+    if (recaptchaWidgetId === null) return "";
+    return window.grecaptcha.getResponse(recaptchaWidgetId);
+  };
+
+  const resetRecaptcha = () => {
+    if (!window.grecaptcha?.reset) return;
+    if (recaptchaWidgetId === null) return;
+    window.grecaptcha.reset(recaptchaWidgetId);
+  };
 
   let isSubmitting = false;
   let lastSubmitTime = 0;
@@ -211,6 +267,8 @@ export function initializeForm(config = {}) {
     );
   }
 
+  initRecaptcha();
+
   const validateAll = () => {
     const fields = [...form.querySelectorAll("[required]")];
     let firstInvalid = null;
@@ -230,36 +288,74 @@ export function initializeForm(config = {}) {
       : btn.dataset.originalText || "SEND";
   };
 
-  const submitWithRetry = async (retries) => {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeout);
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
-        signal: controller.signal,
-      });
-      clearTimeout(timer);
-      const data = await response.json();
-      if (response.ok && !data.errors) return;
-      if (response.status >= 500 && retries > 0)
-        return submitWithRetry(retries - 1);
+  const ensureEmailjsReady = (templateId) => {
+    if (!window.emailjs?.sendForm) {
       throw new Error(
-        data.errors?.[0]?.message ||
-          `Server rejected the request (${response.status}).`,
+        "Email service failed to load. Refresh the page and try again.",
       );
+    }
+    if (!emailjsConfig.serviceId || !emailjsConfig.publicKey || !templateId) {
+      throw new Error(
+        "Email service is not configured. Add EmailJS service ID, template ID, and public key.",
+      );
+    }
+    if (!emailjsInitialized && typeof window.emailjs.init === "function") {
+      window.emailjs.init({ publicKey: emailjsConfig.publicKey });
+      emailjsInitialized = true;
+    }
+  };
+
+  const sendTemplate = async (templateId) => {
+    ensureEmailjsReady(templateId);
+    const sendPromise = window.emailjs.sendForm(
+      emailjsConfig.serviceId,
+      templateId,
+      form,
+      {
+        publicKey: emailjsConfig.publicKey,
+      },
+    );
+
+    if (!timeout) return sendPromise;
+
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(
+        () =>
+          reject(
+            new Error(
+              "Request timed out. Check your connection and try again.",
+            ),
+          ),
+        timeout,
+      );
+    });
+
+    return Promise.race([sendPromise, timeoutPromise]);
+  };
+
+  const sendPrimaryEmail = async () => {
+    if (!hasPrimaryConfig) {
+      throw new Error(
+        "Email service is not configured. Add EmailJS service ID, template ID, and public key.",
+      );
+    }
+    return sendTemplate(emailjsConfig.templateId);
+  };
+
+  const sendConfirmationEmail = async () => {
+    if (!emailjsConfig.confirmTemplateId) return;
+    return sendTemplate(emailjsConfig.confirmTemplateId);
+  };
+
+  const submitWithRetry = async (retries) => {
+    try {
+      await sendPrimaryEmail();
+      return;
     } catch (err) {
-      clearTimeout(timer);
-      if (err.name === "AbortError")
-        throw new Error(
-          "Request timed out. Check your connection and try again.",
-        );
-      if (err.name === "TypeError") {
-        if (retries > 0) return submitWithRetry(retries - 1);
-        throw new Error("Network error. You may be offline.");
-      }
-      throw err;
+      if (retries > 0) return submitWithRetry(retries - 1);
+      const fallbackMessage =
+        err?.text || err?.message || "Email delivery failed. Try again soon.";
+      throw new Error(fallbackMessage);
     }
   };
 
@@ -277,6 +373,21 @@ export function initializeForm(config = {}) {
 
     if (!validateAll()) return;
 
+    if (recaptchaRequired) {
+      if (!recaptchaSiteKey) {
+        showGlobalError("Captcha site key is missing. Contact support.");
+        return;
+      }
+      if (!window.grecaptcha?.getResponse || recaptchaWidgetId === null) {
+        showGlobalError("Captcha is still loading. Please wait and try again.");
+        return;
+      }
+      if (!getRecaptchaResponse()) {
+        showGlobalError("Please complete the captcha to continue.");
+        return;
+      }
+    }
+
     isSubmitting = true;
     lastSubmitTime = now;
     btn.dataset.originalText = btn.textContent;
@@ -289,6 +400,12 @@ export function initializeForm(config = {}) {
 
     try {
       await submitWithRetry(maxRetries);
+      try {
+        await sendConfirmationEmail();
+      } catch (err) {
+        console.warn("Confirmation email failed:", err);
+      }
+      resetRecaptcha();
       setLoading(false);
       form.classList.add("fade-out");
       form.addEventListener(
@@ -306,6 +423,7 @@ export function initializeForm(config = {}) {
     } catch (err) {
       console.error("Submission error:", err);
       showGlobalError(err.message);
+      resetRecaptcha();
       setLoading(false);
       isSubmitting = false;
     }

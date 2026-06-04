@@ -24,7 +24,11 @@
 
   .cert-main-img[data-cert-category="linkedin"],
   .cert-main-img[data-cert-category="hackerrank"] {
-    max-height: 220px;
+    max-height: 180px;
+  }
+
+  .cert-page.page-combined .cert-img-frame {
+    max-height: 48%;
   }
 
   .page-inner {
@@ -55,7 +59,11 @@
 
   .cert-main-img[data-cert-category="linkedin"],
   .cert-main-img[data-cert-category="hackerrank"] {
-    max-height: 200px;
+    max-height: 150px;
+  }
+
+  .cert-page.page-combined .cert-img-frame {
+    max-height: 44%;
   }
 
   .page-inner {

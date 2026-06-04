@@ -1,8 +1,9 @@
 footer {
-  background-color: #050508;
+  background-color: #040509;
   border-top: 1px solid rgba(0, 255, 252, 0.2);
   padding: 2rem 0;
   margin-top: 4rem;
+  color: #f1f7ff;
 }
 
 .quote-container {
@@ -14,17 +15,17 @@ footer {
 
 .quote-text {
   position: relative;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(6, 10, 15, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: #0ff0fc;
+  color: #f1f7ff;
   font-family: "Inter", sans-serif;
   font-style: italic;
   font-size: 1rem;
   line-height: 1.6;
   padding: 2rem;
   max-width: 650px;
-  border: 1px solid rgba(0, 255, 65, 0.2);
+  border: 1px solid rgba(0, 255, 65, 0.32);
   box-shadow:
     0 0 20px rgba(0, 0, 0, 0.9),
     inset 0 0 15px rgba(0, 240, 252, 0.05);
@@ -59,26 +60,8 @@ footer {
   letter-spacing: 5px;
   text-transform: uppercase;
   text-align: right;
-  background: linear-gradient(
-    90deg,
-    #0ff0fc 0%,
-    #00ff41 10%,
-    #0ff0fc 20%,
-    #00ff41 30%,
-    #0ff0fc 40%,
-    #00ff41 50%,
-    #0ff0fc 60%,
-    #00ff41 70%,
-    #0ff0fc 80%,
-    #00ff41 90%,
-    #0ff0fc 100%
-  );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(0, 240, 252, 0.2);
-  animation: hacker-glide 10s linear infinite;
+  color: #e7fff5;
+  text-shadow: 0 0 12px rgba(15, 240, 252, 0.35);
   user-select: none;
 }
 

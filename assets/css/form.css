@@ -279,6 +279,31 @@
   letter-spacing: 1px;
 }
 
+.recaptcha-wrap {
+  margin: 1.4rem 0 0.6rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  background: rgba(5, 10, 15, 0.65);
+  box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.06);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.recaptcha-wrap > div {
+  transform: scale(0.98);
+  transform-origin: center;
+}
+
+@media (max-width: 360px) {
+  .recaptcha-wrap > div {
+    transform: scale(0.88);
+    transform-origin: top center;
+  }
+}
+
 @keyframes success-glow {
   from {
     box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);

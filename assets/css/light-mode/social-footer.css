@@ -171,6 +171,7 @@ html[data-theme="light"] #backToTop.firing .pistol-container {
 html[data-theme="light"] footer {
   background-color: #f7f6f2;
   border-top: 1px solid rgba(11, 27, 77, 0.15);
+  color: #10141b;
 }
 
 html[data-theme="light"] .quote-container {

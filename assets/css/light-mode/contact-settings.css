@@ -164,6 +164,12 @@ html[data-theme="light"] .form-message-box span {
   color: #10141b;
 }
 
+html[data-theme="light"] .recaptcha-wrap {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(11, 27, 77, 0.2);
+  box-shadow: 0 12px 24px rgba(11, 27, 77, 0.12);
+}
+
 html[data-theme="light"] .settings-modal .modal-content {
   background: #ffffff;
   border: 1px solid rgba(11, 27, 77, 0.2);

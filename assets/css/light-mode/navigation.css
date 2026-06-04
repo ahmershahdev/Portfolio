@@ -2,6 +2,10 @@ html[data-theme="light"] .navbar {
   background-color: rgba(250, 250, 252, 0.96) !important;
   border-bottom: 1px solid rgba(11, 27, 77, 0.12) !important;
   box-shadow: 0 8px 22px rgba(11, 27, 77, 0.08);
+  color: #10141b;
+  --bs-navbar-color: rgba(16, 20, 27, 0.92);
+  --bs-navbar-hover-color: rgba(16, 20, 27, 1);
+  --bs-navbar-active-color: #10141b;
 }
 
 html[data-theme="light"] .navbar-brand {
@@ -55,7 +59,12 @@ html[data-theme="light"] .navbar-nav .nav-link.active::after {
 }
 
 html[data-theme="light"] .menu-btn-text {
-  color: var(--brand-cyan);
+  color: #0b1b4d !important;
+  text-shadow: none;
+}
+
+html[data-theme="light"] .navbar-toggler {
+  border: 1px solid rgba(11, 27, 77, 0.2);
 }
 
 html[data-theme="light"] .offcanvas {

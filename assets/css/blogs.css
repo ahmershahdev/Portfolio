@@ -24,16 +24,6 @@
   z-index: 1;
 }
 
-.blog-subtitle {
-  max-width: 760px;
-  margin: 0 auto;
-  text-align: center;
-  color: #b2c2cc;
-  font-size: 1rem;
-  line-height: 1.7;
-  letter-spacing: 0.4px;
-}
-
 .blog-stack-stage {
   position: relative;
   min-height: 620px;
@@ -357,6 +347,16 @@
     width: 100%;
     transform: none !important;
     z-index: auto;
+  }
+
+  .blog-stack-stage .blog-stack-card,
+  .blog-stack-stage:not(.is-open) .blog-stack-card:not(.blog-card-l1) {
+    pointer-events: auto;
+  }
+
+  .blog-stack-card a {
+    pointer-events: auto;
+    touch-action: manipulation;
   }
 }
 
