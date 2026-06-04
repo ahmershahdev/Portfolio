@@ -25,8 +25,12 @@ export function initializeForm(config = {}) {
   const successMsg = document.getElementById("form-success");
   const errorMsg = document.getElementById("form-error");
   const honeypot = form.querySelector('input[name="_gotcha"]');
+  const nameField = form.querySelector("#contact-name");
   const emailField = form.querySelector("#contact-email");
   const emailConfirmField = form.querySelector("#contact-email-confirm");
+  const reasonField = form.querySelector("#contact-reason");
+  const subjectField = form.querySelector("#contact-subject");
+  const messageField = form.querySelector("#contact-message");
   const recaptchaContainer = form.querySelector("#recaptcha-container");
   const recaptchaSiteKey = recaptchaContainer?.dataset.sitekey || "";
   const recaptchaRequired = Boolean(recaptchaContainer);
@@ -62,11 +66,22 @@ export function initializeForm(config = {}) {
   const getRecaptchaTheme = () =>
     document.documentElement.dataset.theme === "light" ? "light" : "dark";
 
-  const renderRecaptcha = () => {
+  const renderRecaptcha = (forceNew = false) => {
     if (!recaptchaContainer || !recaptchaSiteKey) return;
     if (!window.grecaptcha?.render) return;
+    if (recaptchaWidgetId !== null && !forceNew) return;
+    if (recaptchaWidgetId !== null && window.grecaptcha?.reset) {
+      try {
+        window.grecaptcha.reset(recaptchaWidgetId);
+      } catch (err) {
+        console.warn("Failed to reset reCAPTCHA widget:", err);
+      }
+    }
     recaptchaContainer.innerHTML = "";
-    recaptchaWidgetId = window.grecaptcha.render(recaptchaContainer, {
+    const mount = document.createElement("div");
+    mount.className = "recaptcha-widget";
+    recaptchaContainer.appendChild(mount);
+    recaptchaWidgetId = window.grecaptcha.render(mount, {
       sitekey: recaptchaSiteKey,
       theme: getRecaptchaTheme(),
     });
@@ -81,7 +96,7 @@ export function initializeForm(config = {}) {
     };
     if (window.grecaptcha?.render) renderRecaptcha();
     window.addEventListener("themeChange", () => {
-      if (window.grecaptcha?.render) renderRecaptcha();
+      if (window.grecaptcha?.render) renderRecaptcha(true);
     });
   };
 
@@ -269,6 +284,37 @@ export function initializeForm(config = {}) {
 
   initRecaptcha();
 
+  const templateAliases = new Map([
+    ["from_name", () => nameField?.value || ""],
+    ["from_email", () => emailField?.value || ""],
+    ["reply_to", () => emailField?.value || ""],
+    ["user_name", () => nameField?.value || ""],
+    ["user_email", () => emailField?.value || ""],
+    ["contact_reason", () => reasonField?.value || ""],
+    ["contact_subject", () => subjectField?.value || ""],
+    ["contact_message", () => messageField?.value || ""],
+    ["confirm_email", () => emailConfirmField?.value || ""],
+  ]);
+
+  const ensureHiddenField = (name) => {
+    let field = form.querySelector(`input[type="hidden"][name="${name}"]`);
+    if (!field) {
+      field = document.createElement("input");
+      field.type = "hidden";
+      field.name = name;
+      form.appendChild(field);
+    }
+    return field;
+  };
+
+  const syncTemplateFields = () => {
+    templateAliases.forEach((getValue, name) => {
+      if (form.querySelector(`[name="${name}"]:not([type="hidden"])`)) return;
+      const hidden = ensureHiddenField(name);
+      hidden.value = getValue?.() ?? "";
+    });
+  };
+
   const validateAll = () => {
     const fields = [...form.querySelectorAll("[required]")];
     let firstInvalid = null;
@@ -387,6 +433,8 @@ export function initializeForm(config = {}) {
         return;
       }
     }
+
+    syncTemplateFields();
 
     isSubmitting = true;
     lastSubmitTime = now;

@@ -46,7 +46,7 @@ export function buildImagePage(cert) {
   return `<div class="cert-page page-right">
     <div class="page-lines"></div>
     <div class="page-inner">
-      <div class="cert-img-frame">
+      <div class="cert-img-frame" data-cert-category="${cert.category}">
         <img src="${cert.image}"
              alt="${cert.name} certificate"
              class="cert-main-img"
@@ -83,7 +83,7 @@ export function buildCombinedPage(cert, index, total) {
       ${badge}
       <h3 class="cert-title-text">${cert.name}</h3>
       <p class="cert-issuer-name"><i class="bi bi-building" style="color:${primary}"></i> ${cert.issuer}</p>
-      <div class="cert-img-frame">
+      <div class="cert-img-frame" data-cert-category="${cert.category}">
         <img src="${cert.image}"
              alt="${cert.name} certificate"
              class="cert-main-img"

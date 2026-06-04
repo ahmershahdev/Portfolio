@@ -27,6 +27,15 @@
   appearance: none;
 }
 
+.contact-form select.form-control option {
+  background-color: #050b10;
+  color: #00f0ff;
+}
+
+.contact-form select.form-control option:disabled {
+  color: rgba(0, 240, 255, 0.5);
+}
+
 .form-honeypot {
   position: absolute;
   left: -9999px;
@@ -201,6 +210,12 @@
 .contact-form .float-label-group .form-control:focus ~ label,
 .contact-form .float-label-group .form-control:not(:placeholder-shown) ~ label {
   transform: translate(0, -1.6rem) scale(0.85);
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+}
+
+.contact-form .float-label-group select.form-control:focus ~ label,
+.contact-form .float-label-group select.form-control:valid ~ label {
   color: #00ff41;
   text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
 }

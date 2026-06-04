@@ -31,6 +31,18 @@
     max-height: 48%;
   }
 
+  .cert-img-frame[data-cert-category="linkedin"],
+  .cert-img-frame[data-cert-category="hackerrank"] {
+    max-height: 40%;
+  }
+
+  .cert-main-img[data-cert-category="linkedin"],
+  .cert-main-img[data-cert-category="hackerrank"] {
+    max-height: 100%;
+    width: 100%;
+    height: auto;
+  }
+
   .page-inner {
     padding: 1rem 0.9rem;
   }
@@ -64,6 +76,18 @@
 
   .cert-page.page-combined .cert-img-frame {
     max-height: 44%;
+  }
+
+  .cert-img-frame[data-cert-category="linkedin"],
+  .cert-img-frame[data-cert-category="hackerrank"] {
+    max-height: 36%;
+  }
+
+  .cert-main-img[data-cert-category="linkedin"],
+  .cert-main-img[data-cert-category="hackerrank"] {
+    max-height: 100%;
+    width: 100%;
+    height: auto;
   }
 
   .page-inner {

@@ -40,6 +40,20 @@ html[data-theme="light"] .contact-form .form-control {
   color: #10141b !important;
 }
 
+html[data-theme="light"] .contact-form select.form-control {
+  background: #ffffff !important;
+  color: #10141b !important;
+}
+
+html[data-theme="light"] .contact-form select.form-control option {
+  background-color: #ffffff;
+  color: #10141b;
+}
+
+html[data-theme="light"] .contact-form select.form-control option:disabled {
+  color: rgba(11, 27, 77, 0.55);
+}
+
 html[data-theme="light"] .contact-form .form-control::placeholder {
   color: rgba(16, 20, 27, 0.35);
 }
@@ -100,6 +114,20 @@ html[data-theme="light"]
   .contact-form
   .float-label-group
   .form-control:not(:placeholder-shown)
+  ~ label {
+  color: var(--brand-cyan);
+  text-shadow: 0 0 6px rgba(255, 90, 31, 0.35);
+}
+
+html[data-theme="light"]
+  .contact-form
+  .float-label-group
+  select.form-control:focus
+  ~ label,
+html[data-theme="light"]
+  .contact-form
+  .float-label-group
+  select.form-control:valid
   ~ label {
   color: var(--brand-cyan);
   text-shadow: 0 0 6px rgba(255, 90, 31, 0.35);
