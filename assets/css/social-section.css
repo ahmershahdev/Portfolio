@@ -58,6 +58,23 @@
 
 .social-hub-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 1.5rem;
+}
+
+.blogging-panel,
+.personal-panel {
+  grid-column: span 6;
+}
+
+.professional-panel {
+  grid-column: span 8;
+}
+
+.links-panel {
+  grid-column: span 4;
+}
+
+.courses-panel {
+  grid-column: span 12;
 }

@@ -44,27 +44,15 @@ html[data-theme="light"] .panel-section-label::after {
 }
 
 html[data-theme="light"] .panel-label {
-  color: rgba(11, 27, 77, 0.7);
-}
-
-html[data-theme="light"] .personal-panel .panel-label {
-  color: var(--brand-gold);
-}
-
-html[data-theme="light"] .professional-panel .panel-label {
-  color: var(--brand-mint);
+  color: rgb(var(--panel-accent));
 }
 
 html[data-theme="light"] .panel-status {
   color: rgba(11, 27, 77, 0.6);
 }
 
-html[data-theme="light"] .personal-panel .panel-status-dot {
-  background: var(--brand-gold);
-}
-
-html[data-theme="light"] .professional-panel .panel-status-dot {
-  background: var(--brand-cyan);
+html[data-theme="light"] .social-panel .panel-status-dot {
+  background: rgb(var(--panel-accent));
 }
 
 html[data-theme="light"] .social-card {
@@ -76,49 +64,29 @@ html[data-theme="light"] .social-card.card-revealed {
   box-shadow: 0 12px 28px rgba(11, 27, 77, 0.08);
 }
 
-html[data-theme="light"] .personal-panel .social-card.card-revealed:hover {
-  background: rgba(155, 18, 39, 0.1);
-  border-color: rgba(155, 18, 39, 0.5);
+html[data-theme="light"] .social-panel .social-card.card-revealed:hover {
+  background: rgba(var(--panel-accent), 0.1);
+  border-color: rgba(var(--panel-accent), 0.5);
   box-shadow:
-    0 10px 26px rgba(155, 18, 39, 0.2),
-    0 0 18px rgba(155, 18, 39, 0.12);
-}
-
-html[data-theme="light"] .professional-panel .social-card.card-revealed:hover {
-  background: rgba(11, 27, 77, 0.08);
-  border-color: rgba(11, 27, 77, 0.5);
-  box-shadow:
-    0 10px 26px rgba(11, 27, 77, 0.18),
-    0 0 18px rgba(11, 27, 77, 0.1);
+    0 10px 26px rgba(var(--panel-accent), 0.18),
+    0 0 18px rgba(var(--panel-accent), 0.1);
 }
 
 html[data-theme="light"] .social-card-label {
   color: rgba(11, 27, 77, 0.6);
 }
 
-html[data-theme="light"] .personal-panel .social-card:hover .social-card-label {
-  color: var(--brand-gold);
-}
-
-html[data-theme="light"]
-  .professional-panel
-  .social-card:hover
-  .social-card-label {
-  color: var(--brand-cyan);
+html[data-theme="light"] .social-panel .social-card:hover .social-card-label {
+  color: rgb(var(--panel-accent));
 }
 
 html[data-theme="light"] .social-username {
   background: rgba(255, 255, 255, 0.95);
 }
 
-html[data-theme="light"] .personal-panel .social-username {
-  color: var(--brand-gold);
-  border-color: rgba(155, 18, 39, 0.35);
-}
-
-html[data-theme="light"] .professional-panel .social-username {
-  color: var(--brand-mint);
-  border-color: rgba(11, 27, 77, 0.35);
+html[data-theme="light"] .social-panel .social-username {
+  color: rgb(var(--panel-accent));
+  border-color: rgba(var(--panel-accent), 0.35);
 }
 
 html[data-theme="light"] #backToTop {

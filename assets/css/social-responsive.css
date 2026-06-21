@@ -12,8 +12,15 @@
     gap: 1.5rem;
   }
 
-  .social-panel.personal-panel,
-  .social-panel.professional-panel {
+  .blogging-panel,
+  .personal-panel,
+  .professional-panel,
+  .links-panel,
+  .courses-panel {
+    grid-column: 1;
+  }
+
+  .social-panel {
     transform: translateY(50px);
   }
 

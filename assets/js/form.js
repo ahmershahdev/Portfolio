@@ -244,7 +244,7 @@ export function initializeForm(config = {}) {
       if (!allowedEmailDomains.has(domain)) {
         setFieldError(
           field,
-          "Use a professional email (gmail/outlook/hotmail/live/icloud).",
+          "Only these email domains are allowed (gmail/outlook/hotmail/live/icloud).",
         );
         setFieldState(field, "invalid");
         return false;

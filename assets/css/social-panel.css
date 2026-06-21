@@ -1,10 +1,16 @@
 .social-panel {
+  --panel-accent: 0, 240, 255;
   position: relative;
   border-radius: 4px;
   overflow: hidden;
   background: rgba(4, 4, 14, 0.92);
   backdrop-filter: blur(20px);
+  border: 1px solid rgba(var(--panel-accent), 0.28);
   opacity: 0;
+  transform: translateY(45px);
+  box-shadow:
+    0 0 40px rgba(var(--panel-accent), 0.05),
+    inset 0 0 60px rgba(var(--panel-accent), 0.02);
   transition:
     opacity 0.8s ease,
     transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -12,39 +18,38 @@
     border-color 0.4s ease;
 }
 
+.blogging-panel {
+  --panel-accent: 255, 103, 25;
+}
+
 .social-panel.personal-panel {
-  border: 1px solid rgba(255, 0, 170, 0.28);
+  --panel-accent: 255, 0, 170;
   transform: translateX(-70px);
-  box-shadow:
-    0 0 40px rgba(255, 0, 170, 0.05),
-    inset 0 0 60px rgba(255, 0, 170, 0.02);
 }
 
 .social-panel.professional-panel {
-  border: 1px solid rgba(0, 240, 255, 0.28);
+  --panel-accent: 0, 240, 255;
   transform: translateX(70px);
-  box-shadow:
-    0 0 40px rgba(0, 240, 255, 0.05),
-    inset 0 0 60px rgba(0, 240, 255, 0.02);
+}
+
+.links-panel {
+  --panel-accent: 57, 224, 155;
+}
+
+.courses-panel {
+  --panel-accent: 255, 176, 0;
 }
 
 .social-panel.panel-active {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate(0, 0);
 }
 
-.social-panel.personal-panel.panel-active:hover {
-  border-color: rgba(255, 0, 170, 0.55);
+.social-panel.panel-active:hover {
+  border-color: rgba(var(--panel-accent), 0.55);
   box-shadow:
-    0 0 55px rgba(255, 0, 170, 0.14),
-    inset 0 0 40px rgba(255, 0, 170, 0.04);
-}
-
-.social-panel.professional-panel.panel-active:hover {
-  border-color: rgba(0, 240, 255, 0.55);
-  box-shadow:
-    0 0 55px rgba(0, 240, 255, 0.14),
-    inset 0 0 40px rgba(0, 240, 255, 0.04);
+    0 0 55px rgba(var(--panel-accent), 0.14),
+    inset 0 0 40px rgba(var(--panel-accent), 0.04);
 }
 
 .panel-mesh {
@@ -112,12 +117,8 @@
   text-overflow: ellipsis;
 }
 
-.personal-panel .panel-label {
-  color: #ff00aa;
-}
-
-.professional-panel .panel-label {
-  color: #00f0ff;
+.social-panel .panel-label {
+  color: rgb(var(--panel-accent));
 }
 
 .panel-status {
@@ -139,12 +140,8 @@
   animation: sh-blink 1.5s ease-in-out infinite;
 }
 
-.personal-panel .panel-status-dot {
-  background: #ff00aa;
-}
-
-.professional-panel .panel-status-dot {
-  background: #00f0ff;
+.social-panel .panel-status-dot {
+  background: rgb(var(--panel-accent));
 }
 
 .panel-body {

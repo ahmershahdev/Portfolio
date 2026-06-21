@@ -33,21 +33,12 @@
     box-shadow 0.28s ease;
 }
 
-.personal-panel .social-card.card-revealed:hover {
-  background: rgba(255, 0, 170, 0.08);
-  border-color: rgba(255, 0, 170, 0.6);
+.social-panel .social-card.card-revealed:hover {
+  background: rgba(var(--panel-accent), 0.08);
+  border-color: rgba(var(--panel-accent), 0.6);
   box-shadow:
-    0 8px 24px rgba(255, 0, 170, 0.2),
-    0 0 14px rgba(255, 0, 170, 0.1);
-  transform: translateY(-5px) scale(1.07);
-}
-
-.professional-panel .social-card.card-revealed:hover {
-  background: rgba(0, 240, 255, 0.08);
-  border-color: rgba(0, 240, 255, 0.6);
-  box-shadow:
-    0 8px 24px rgba(0, 240, 255, 0.2),
-    0 0 14px rgba(0, 240, 255, 0.1);
+    0 8px 24px rgba(var(--panel-accent), 0.2),
+    0 0 14px rgba(var(--panel-accent), 0.1);
   transform: translateY(-5px) scale(1.07);
 }
 
@@ -65,11 +56,7 @@
   z-index: 0;
 }
 
-.personal-panel .social-card.card-revealed:hover::before {
-  animation: sh-sonar-pink 0.8s ease-out forwards;
-}
-
-.professional-panel .social-card.card-revealed:hover::before {
+.social-panel .social-card.card-revealed:hover::before {
   animation: sh-sonar-cyan 0.8s ease-out forwards;
 }
 
@@ -126,12 +113,8 @@
   transition: color 0.28s ease;
 }
 
-.personal-panel .social-card:hover .social-card-label {
-  color: #ff00aa;
-}
-
-.professional-panel .social-card:hover .social-card-label {
-  color: #00f0ff;
+.social-panel .social-card:hover .social-card-label {
+  color: rgb(var(--panel-accent));
 }
 
 .social-username {
@@ -157,14 +140,9 @@
   text-overflow: ellipsis;
 }
 
-.personal-panel .social-username {
-  color: #ff00aa;
-  border: 1px solid rgba(255, 0, 170, 0.35);
-}
-
-.professional-panel .social-username {
-  color: #00f0ff;
-  border: 1px solid rgba(0, 240, 255, 0.35);
+.social-panel .social-username {
+  color: rgb(var(--panel-accent));
+  border: 1px solid rgba(var(--panel-accent), 0.35);
 }
 
 .social-card.card-revealed:hover .social-username {

@@ -56,8 +56,7 @@ export function initSocialHub() {
     const mesh = panel.querySelector(".panel-mesh");
     if (!mesh || !canHover) return;
 
-    const isPro = panel.classList.contains("professional-panel");
-    const rgb = isPro ? "0, 240, 255" : "255, 0, 170";
+    const rgb = panel.dataset.panelAccent || "0, 240, 255";
 
     let rect = null;
     let rafId = null;
