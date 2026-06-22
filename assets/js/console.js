@@ -22,7 +22,7 @@
   console.log("%c" + NAME_ART, nameStyle);
 
   console.log(
-    "%cHey! 👋 I'm Ahmer Shah.\n\n" +
+    "%cHey! 👋 I'm Syed Ahmer Shah.\n\n" +
       "I'm a Full-Stack Developer and Software Engineering student passionate\n" +
       "about building clean, meaningful, and future-ready software.\n\n" +
       "This is my latest portfolio — go ahead and explore. Click around,\n" +
@@ -37,13 +37,12 @@
       "💼  https://linkedin.com/in/syedahmershah\n" +
       "🐙  https://github.com/ahmershahdev\n" +
       "🐦  https://twitter.com/ahmershah29\n" +
-      "💬  https://wa.me/923263186750\n" +
       "📧  support@ahmershah.dev",
     linkStyle,
   );
 
   console.log(
-    "%c© 2026 – Present  Ahmer Shah. All rights reserved.",
+    "%c© 2026 – Present Syed Ahmer Shah. All rights reserved.",
     copyStyle,
   );
 })();

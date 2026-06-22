@@ -1,8 +1,8 @@
 const QUOTES = [
-  "And I can fight only for something that I love, love only what I respect, and respect only what I at least know. — Ahmer Shah",
-  "Anyone can deal with victory. Only the mighty can bear defeat.  ― Adolf Hitler",
-  "Think Thousand times before taking a decision But - After taking decison never turn back even if you get Thousand difficulties! ― Adolf Hitler",
-  "The victor will never be asked if he told the truth. -- Adolf Hitler",
+  "And I can fight only for something that I love, love only what I respect, and respect only what I at least know. — Syed Ahmer Shah",
+  "Anyone can deal with victory. Only the mighty can bear defeat.",
+  "Think Thousand times before taking a decision But - After taking decison never turn back even if you get Thousand difficulties!",
+  "The victor will never be asked if he told the truth.",
   "Believing in progress does not mean believing that any progress has yet been made. -- Franz Kafka",
   "Everything you love is very likely to be lost, but in the end, love will return in a different way. — Franz Kafka",
   "I am free and that is why I am lost. — Franz Kafka",

@@ -1,8 +1,8 @@
-# Ahmer Shah — Software Engineer & Full-Stack Developer
+# Syed Ahmer Shah — Software Engineer & Full-Stack Developer
 
 ## About
 
-Ahmer Shah is a Software Engineering student pursuing a dual academic path — a 4-year Bachelor's in Software Engineering at HITMS (Nov 2024 – Dec 2028) and a 3-year Advanced Diploma in Software Engineering (ADSE) from Aptech Pakistan (Aug 2025 – Sep 2028). His goal is to become a Full-Stack Developer building high-performance, future-ready web and app solutions. He leverages AI-assisted tools (GitHub Copilot, Cursor AI, ChatGPT, Claude) to streamline development workflows.
+Syed Ahmer Shah is a Software Engineering student pursuing a dual academic path — a 4-year Bachelor's in Software Engineering at HITMS (Nov 2024 – Dec 2028) and a 3-year Advanced Diploma in Software Engineering (ADSE) from Aptech Pakistan (Aug 2025 – Sep 2028). His goal is to become a Full-Stack Developer building high-performance, future-ready web and app solutions. He leverages AI-assisted tools (GitHub Copilot, Cursor AI, ChatGPT, Claude) to streamline development workflows.
 
 ## Site
 
@@ -44,7 +44,6 @@ https://ahmershah.dev
 Full-stack e-commerce web application with storefront and admin dashboard. Includes product and order management, authentication, cart, order tracking, dynamic UI, and SEO optimization.
 - Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery, PHP, Laravel, MySQL, SEO
 - GitHub: https://github.com/ahmershahdev/commerza.git
-- Live: https://commerza.ahmershah.dev/
 
 ### Novio — Online Tech Courses Platform
 Frontend showcase with 30+ custom HTML pages simulating a premium online tech courses platform. Responsive layouts, interactive UI, and localStorage-based features.
@@ -77,9 +76,13 @@ Portfolio featuring a real-time 3D background powered by Three.js with Blender G
 - Twitter/X: https://twitter.com/ahmershah29
 - Google Business: https://g.page/r/CS9yn4Q_UhZ4EBM
 - YouTube: https://youtube.com/@ahmershahdev
+- Instagram: https://instagram.com/ahmershahdev
+- TikTok: https://tiktok.com/@ahmershahdev
 - Medium: https://medium.com/@syedahmershah
 - Dev.to: https://dev.to/syedahmershah
 - Hashnode: https://hashnode.com/@syedahmershah
+- Sessionize: https://sessionize.com/syedahmershah
+- Substack: https://substack.com/@syedahmershah
 - LeetCode: https://leetcode.com/syedahmershah
 - HackerRank: https://hackerrank.com/profile/syedahmershah
 - Linktree: https://linktr.ee/syedahmershah
@@ -91,4 +94,4 @@ https://drive.google.com/file/d/1hkqKbb8kCnF2taKcAHZs5hW1Cz89HDOZ/view?usp=drive
 
 ## Quote
 
-"And I can fight only for something that I love, love only what I respect, and respect only what I at least know." — Ahmer Shah
+"And I can fight only for something that I love, love only what I respect, and respect only what I at least know." — Syed Ahmer Shah

@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "Ahmer Shah's Portfolio - Software Engineer & Full-Stack Developer",
+  "description": "Syed Ahmer Shah's Portfolio - Software Engineer & Full-Stack Developer",
   "private": true,
   "scripts": {
     "dev": "npm run serve",
@@ -14,7 +14,7 @@
     "software-engineer",
     "full-stack-developer"
   ],
-  "author": "Ahmer Shah",
+  "author": "Syed Ahmer Shah",
   "license": "SEE LICENSE IN LICENSE.txt",
   "dependencies": {
     "@vercel/speed-insights": "^1.0.12"
