@@ -64,10 +64,6 @@ html[data-theme="light"] .loader-percent {
   text-shadow: 0 0 18px rgba(11, 27, 77, 0.25);
 }
 
-html[data-theme="light"] .loader-subline {
-  color: rgba(11, 27, 77, 0.7);
-}
-
 html[data-theme="light"] .loader-progress-meta {
   color: rgba(11, 27, 77, 0.75);
 }

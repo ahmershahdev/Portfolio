@@ -278,14 +278,6 @@ html[data-theme="dark"] .loader-label {
     0 0 40px rgba(0, 240, 255, 0.2);
 }
 
-.loader-subline {
-  font-family: "Exo 2", sans-serif;
-  font-size: 0.9rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-}
-
 .loader-progress {
   width: min(520px, 100%);
   margin: 0 auto;
