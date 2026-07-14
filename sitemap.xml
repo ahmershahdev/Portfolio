@@ -7,19 +7,31 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ahmershah.dev/about.html</loc>
+    <loc>https://ahmershah.dev/about/</loc>
     <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ahmershah.dev/services/</loc>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ahmershah.dev/privacy-policy.html</loc>
+    <loc>https://ahmershah.dev/testimonials/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmershah.dev/privacy-policy/</loc>
     <lastmod>2026-07-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://ahmershah.dev/terms-of-service.html</loc>
+    <loc>https://ahmershah.dev/terms-of-service/</loc>
     <lastmod>2026-07-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
