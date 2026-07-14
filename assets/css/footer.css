@@ -18,7 +18,7 @@ footer {
   background: rgba(6, 10, 15, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: #f1f7ff;
+  color: #0ff0fc;
   font-family: "Inter", sans-serif;
   font-style: italic;
   font-size: 1rem;
@@ -60,7 +60,7 @@ footer {
   letter-spacing: 5px;
   text-transform: uppercase;
   text-align: right;
-  color: #e7fff5;
+  color: #00ff41;
   text-shadow: 0 0 12px rgba(15, 240, 252, 0.35);
   user-select: none;
 }

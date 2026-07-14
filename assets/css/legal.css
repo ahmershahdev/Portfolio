@@ -1,0 +1,456 @@
+/* ==========================================================================
+   Legal Pages (Privacy Policy / Terms of Service)
+   Matches global.css design tokens + neon-border/terminal-header language
+   ========================================================================== */
+
+.legal-hero {
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.legal-hero .legal-eyebrow {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--brand-cyan);
+  opacity: 0.85;
+}
+
+.legal-hero .legal-meta {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.legal-hero .legal-meta span strong {
+  color: var(--text-primary);
+}
+
+.legal-lead {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 880px;
+}
+
+/* ---- Table of contents ---- */
+.legal-toc {
+  background: rgba(0, 10, 0, 0.55);
+  border: 1px solid rgba(0, 255, 65, 0.25);
+  padding: 1.75rem;
+  margin-bottom: 3rem;
+}
+
+.legal-toc-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #00ff41;
+  margin-bottom: 1rem;
+}
+
+.legal-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 1;
+  column-gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .legal-toc-list {
+    columns: 2;
+  }
+}
+
+.legal-toc-list li {
+  break-inside: avoid;
+  margin-bottom: 0.6rem;
+}
+
+.legal-toc-list a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.legal-toc-list a .toc-num {
+  color: var(--brand-cyan);
+  font-family: "Share Tech Mono", monospace;
+  min-width: 1.6em;
+}
+
+.legal-toc-list a:hover {
+  color: var(--brand-cyan);
+}
+
+/* ---- Clause blocks ---- */
+.legal-clause {
+  padding: 2.25rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  scroll-margin-top: 100px;
+}
+
+.legal-clause:last-of-type {
+  border-bottom: none;
+}
+
+.legal-clause-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.legal-clause-heading .clause-index {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.95rem;
+  color: #00ff41;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.35);
+}
+
+.legal-clause p,
+.legal-clause li {
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-size: 0.98rem;
+}
+
+.legal-clause ul,
+.legal-clause ol {
+  padding-left: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.legal-clause li {
+  margin-bottom: 0.5rem;
+}
+
+.legal-clause strong {
+  color: var(--text-primary);
+}
+
+.legal-clause a {
+  color: var(--brand-cyan);
+  text-decoration: underline;
+  text-decoration-color: rgba(125, 233, 255, 0.35);
+  text-underline-offset: 3px;
+}
+
+.legal-clause a:hover {
+  color: #00ff41;
+}
+
+/* ---- Callout / notice box ---- */
+.legal-callout {
+  border-left: 3px solid var(--brand-gold);
+  background: rgba(247, 210, 124, 0.06);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.legal-callout.callout-danger {
+  border-left-color: #ff7ab6;
+  background: rgba(255, 122, 182, 0.06);
+}
+
+.legal-callout strong {
+  color: var(--text-primary);
+}
+
+/* ---- Ownership summary strip ---- */
+.legal-ownership-strip {
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  background: rgba(0, 10, 15, 0.6);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.legal-ownership-strip i {
+  color: #00ff41;
+  font-size: 1.4rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.legal-ownership-strip p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ---- Platform / property grid (proprietary content across platforms) ---- */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.platform-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.platform-chip i {
+  font-size: 1rem;
+  color: var(--brand-cyan);
+  flex-shrink: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .platform-chip:hover {
+    border-color: rgba(0, 255, 65, 0.4);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+  }
+}
+
+/* ---- Data table (what we collect / why) ---- */
+.legal-table-wrap {
+  overflow-x: auto;
+  margin: 1.25rem 0 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+table.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  min-width: 620px;
+}
+
+table.legal-table th {
+  background: rgba(0, 255, 65, 0.06);
+  color: var(--brand-cyan);
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.25);
+}
+
+table.legal-table td {
+  padding: 0.85rem 1rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+table.legal-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---- Contact / summary card at page end ---- */
+.legal-contact-card {
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+
+.legal-contact-card h2 {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.legal-contact-card p {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+}
+
+/* ---- Cross-link between the two legal pages ---- */
+.legal-crosslink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--brand-cyan);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed rgba(125, 233, 255, 0.4);
+  padding-bottom: 2px;
+}
+
+.legal-crosslink:hover {
+  color: #00ff41;
+}
+
+/* ---- Footer legal links row ---- */
+.footer-legal-links {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footer-legal-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-links a:hover {
+  color: var(--brand-cyan);
+}
+
+/* ---- Breadcrumb navigation ---- */
+.breadcrumb-nav {
+  padding-top: 140px;
+  margin-bottom: 0.5rem;
+}
+
+/* Add the border and pill shape directly to the <ol> */
+.breadcrumb-nav ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.82rem;
+  
+  /* Compact container styles */
+  width: fit-content;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Dark Mode Theme */
+html[data-theme="dark"] .breadcrumb-nav ol {
+  border: 1px solid aqua;
+  background: rgba(0, 10, 0, 0.55);
+}
+
+html[data-theme="dark"] .breadcrumb-nav a {
+  color: aqua;
+}
+
+/* Light Mode Theme */
+html[data-theme="light"] .breadcrumb-nav ol {
+  border: 1px solid #a62c0a;
+  background: rgba(252, 252, 252, 0.55);
+}
+
+html[data-theme="light"] .breadcrumb-nav a,
+html[data-theme="light"] .breadcrumb-nav li[aria-current="page"] {
+  color: #a62c0a;
+}
+
+/* Items & Separator Styling */
+.breadcrumb-nav li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.breadcrumb-nav li:not(:last-child)::after {
+  content: "/";
+  opacity: 0.5;
+  margin-left: 0.4rem;
+}
+
+html[data-theme="dark"] .breadcrumb-nav li:not(:last-child)::after {
+  color: aqua;
+}
+
+html[data-theme="light"] .breadcrumb-nav li:not(:last-child)::after {
+  color: #a62c0a;
+}
+
+.breadcrumb-nav a {
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.breadcrumb-nav a:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+html[data-theme="dark"] .breadcrumb-nav li[aria-current="page"] {
+  color: #00ff41; /* Kept your dark active green glow */
+}
+
+/* ---- Light mode overrides ---- */
+html[data-theme="light"] .legal-toc {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 128, 60, 0.25);
+}
+
+html[data-theme="light"] .legal-clause {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .legal-ownership-strip {
+  background: rgba(0, 128, 200, 0.05);
+  border-color: rgba(0, 128, 200, 0.25);
+}
+
+html[data-theme="light"] .platform-chip {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] table.legal-table th {
+  background: rgba(0, 128, 60, 0.08);
+}
+
+html[data-theme="light"] table.legal-table td,
+html[data-theme="light"] table.legal-table th {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="dark"] .privacypolicy-link {
+  color:aqua;
+  text-decoration: none;
+  background: rgba(0, 10, 0, 0.55);
+  border-color: rgba(0, 255, 65, 0.25);
+}
+
+html[data-theme="dark"] .privacypolicy-link:hover,
+html[data-theme="light"] .privacypolicy-link:hover {
+  text-decoration: underline;
+  transition: all 0.3s ease-in-out;
+}
+
+html[data-theme="light"] .privacypolicy-link {
+  color: #a62c0a !important;
+  text-decoration: none;
+  background: rgba(252, 252, 252, 0.55);
+  border-color: rgba(255, 255, 255, 0.25);
+}

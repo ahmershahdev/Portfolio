@@ -1,0 +1,595 @@
+/* ==========================================================================
+   About Page (about.html) — hero typing, coverflow carousel,
+   mission/vision carousel, chart wrapper, certified-by grid
+   Not to be confused with about.css, which styles the #about section
+   inside index.html.
+
+   Structure:
+     1. Hero
+     2. Sub-section headings
+     3. Best-of-Best coverflow carousel
+     4. Mission / Vision carousel
+     5. Certified By grid
+
+   Each component's dark (default) rules are immediately followed by
+   their html[data-theme="light"] counterparts, so every themed value
+   lives next to its pair instead of being split across the file.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. Hero
+   ========================================================================== */
+.about-hero {
+  padding-block: 20px;
+}
+
+.about-hero .legal-eyebrow {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--brand-cyan);
+  opacity: 0.85;
+}
+
+/* ---- Typing line ---- */
+.about-typing-line {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-family: "Share Tech Mono", monospace;
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  color: #00ff41;
+  min-height: 1.8em;
+  margin-top: 0.5rem;
+}
+
+.about-typing-line .caret {
+  display: inline-block;
+  width: 0.55ch;
+  background: #00ff41;
+  margin-left: 2px;
+  animation: about-caret-blink 0.9s steps(1) infinite;
+}
+
+@keyframes about-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+html[data-theme="light"] .about-typing-line {
+  color: #9b1227;
+}
+
+html[data-theme="light"] .about-typing-line .caret {
+  background: #9b1227;
+}
+
+/* ---- Portrait frame ---- */
+.about-portrait-frame {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  aspect-ratio: 1;
+  border: 1px solid rgba(0, 255, 65, 0.35);
+  padding: 10px;
+}
+
+.about-portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(15%) contrast(1.05);
+}
+
+.about-portrait-frame::before,
+.about-portrait-frame::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: #00ff41;
+  filter: drop-shadow(0 0 6px #00ff41);
+}
+
+.about-portrait-frame::before {
+  top: -1px;
+  left: -1px;
+  border-top: 3px solid #00ff41;
+  border-left: 3px solid #00ff41;
+}
+
+.about-portrait-frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 3px solid #00ff41;
+  border-right: 3px solid #00ff41;
+}
+
+html[data-theme="light"] .about-portrait-frame {
+  border-color: rgba(255, 0, 0, 0.35);
+}
+
+html[data-theme="light"] .about-portrait-frame::before,
+html[data-theme="light"] .about-portrait-frame::after {
+  border-color: #9b1227;
+  filter: drop-shadow(0 0 6px rgba(155, 18, 39, 0.55));
+}
+
+html[data-theme="light"] .about-portrait-frame::before {
+  border-top-color: #9b1227;
+  border-left-color: #9b1227;
+}
+
+html[data-theme="light"] .about-portrait-frame::after {
+  border-bottom-color: #9b1227;
+  border-right-color: #9b1227;
+}
+
+
+/* ==========================================================================
+   2. Sub-section headings
+   ========================================================================== */
+.about-subheading {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  color: var(--brand-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.about-subheading i {
+  color: #00ff41;
+}
+
+html[data-theme="light"] .about-subheading i {
+  color: #9b1227;
+}
+
+
+/* ==========================================================================
+   3. Best-of-Best coverflow carousel
+   ========================================================================== */
+
+/* ---- Stage / track ---- */
+.bob-carousel {
+  position: relative;
+  padding: 1.5rem 0 1rem;
+}
+
+.bob-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(260px, 40vw, 380px);
+  perspective: 1400px;
+}
+
+.bob-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Slides ---- */
+.bob-slide {
+  position: absolute;
+  /* True 1:1 frame. Previously width clamp(150–240px) was paired with a
+     taller height clamp(190–300px), so slides were a portrait rectangle,
+     not a square — and mismatched further against whatever aspect ratio
+     each source image actually was. aspect-ratio locks it to a real square
+     at every viewport size. */
+  width: clamp(190px, 26vw, 260px);
+  aspect-ratio: 1 / 1;
+  padding: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #050508;
+  cursor: pointer;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 0.68, 0.32, 1),
+    filter 0.55s ease,
+    opacity 0.55s ease,
+    box-shadow 0.55s ease;
+  transform: translateX(0) scale(0.55) rotateY(0deg);
+  filter: brightness(0.35) blur(3px) grayscale(40%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bob-slide img {
+  width: 100%;
+  height: 100%;
+  /* contain, not cover: BOB_ITEMS mixes wide project screenshots,
+     landscape Coursera/LinkedIn Learning certificate exports, and square
+     badge art. cover forced every source into the same crop window and
+     sliced off certificate text/logos unpredictably depending on each
+     image's native ratio. contain shows every image in full; the slide's
+     own dark background (plus the padding above) fills the letterbox
+     space, so every card still reads as one uniform square regardless of
+     what the underlying asset's real dimensions are. */
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.bob-slide.is-active {
+  transform: translateX(0) scale(1) rotateY(0deg);
+  filter: brightness(1) blur(0) grayscale(0%);
+  opacity: 1;
+  z-index: 5;
+  pointer-events: auto;
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 65, 0.5),
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(0, 255, 65, 0.25);
+}
+
+.bob-slide.is-prev1 {
+  transform: translateX(-58%) scale(0.8) rotateY(20deg);
+  filter: brightness(0.55) blur(1.5px) grayscale(25%);
+  opacity: 1;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.bob-slide.is-next1 {
+  transform: translateX(58%) scale(0.8) rotateY(-20deg);
+  filter: brightness(0.55) blur(1.5px) grayscale(25%);
+  opacity: 1;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.bob-slide.is-prev2 {
+  transform: translateX(-105%) scale(0.62) rotateY(28deg);
+  filter: brightness(0.3) blur(3px) grayscale(50%);
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.bob-slide.is-next2 {
+  transform: translateX(105%) scale(0.62) rotateY(-28deg);
+  filter: brightness(0.3) blur(3px) grayscale(50%);
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+@media (max-width: 767px) {
+  .bob-slide.is-prev2,
+  .bob-slide.is-next2 {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+html[data-theme="light"] .bob-slide {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Added: is-active glow had no light counterpart — mirrors the green
+   dark-mode glow using the light theme's brand red. */
+html[data-theme="light"] .bob-slide.is-active {
+  box-shadow:
+    0 0 0 1px rgba(155, 18, 39, 0.5),
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(155, 18, 39, 0.25);
+}
+
+/* ---- Caption ---- */
+.bob-caption {
+  text-align: center;
+  margin-top: 1.75rem;
+  min-height: 3.2em;
+}
+
+.bob-caption-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  color: aqua;
+  font-weight: 900;
+  display: inline-flex;
+}
+
+.bob-caption-title .caret {
+  display: inline-block;
+  width: 0.5ch;
+  background: aqua;
+  margin-left: 2px;
+  animation: about-caret-blink 0.9s steps(1) infinite;
+}
+
+.bob-caption-tag {
+  display: block;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.78rem;
+  color: aqua;
+  margin-top: 0.35rem;
+  letter-spacing: 1px;
+}
+
+/* Added: caption title/caret/tag were unthemed (hardcoded orangered/red
+   in both modes) — light variants brought in line with the rest of the
+   light theme's brand-red accent. */
+html[data-theme="light"] .bob-caption-title {
+  color: #9b1227;
+}
+
+html[data-theme="light"] .bob-caption-title .caret {
+  background: #9b1227;
+}
+
+html[data-theme="light"] .bob-caption-tag {
+  color: #9b1227;
+}
+
+/* ---- Controls (arrows + dots) ---- */
+.bob-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.bob-arrow {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(0, 255, 65, 0.35);
+  background: rgba(0, 10, 0, 0.4);
+  color: #00ff41;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.bob-arrow:hover {
+  background: rgba(0, 255, 65, 0.12);
+  border-color: #00ff41;
+  box-shadow: 0 0 12px rgba(0, 255, 65, 0.3);
+}
+
+.bob-dots {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.bob-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.bob-dot.is-active {
+  background: #00ff41;
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+  transform: scale(1.3);
+}
+
+/* Note: .bob-arrow previously had two separate light-mode blocks in the
+   original file (one setting border-color/background/color, a second
+   redundant one re-setting the same background). Merged into one block. */
+html[data-theme="light"] .bob-arrow {
+  border-color: rgba(155, 18, 39, 0.35);
+  background: rgba(255, 255, 255, 0.6);
+  color: #9b1227;
+}
+
+html[data-theme="light"] .bob-arrow:hover {
+  background: rgba(155, 18, 39, 0.12);
+  border-color: #9b1227;
+  box-shadow: 0 0 12px rgba(155, 18, 39, 0.3);
+}
+
+html[data-theme="light"] .bob-dot {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="light"] .bob-dot.is-active {
+  background: #9b1227;
+  box-shadow: 0 0 8px rgba(155, 18, 39, 0.6);
+}
+
+
+/* ==========================================================================
+   4. Mission / Vision carousel
+   ========================================================================== */
+.mv-carousel {
+  position: relative;
+  min-height: 260px;
+}
+
+.mv-slide {
+  display: none;
+  animation: mv-fade-in 0.5s ease;
+}
+
+.mv-slide.is-active {
+  display: block;
+}
+
+@keyframes mv-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mv-icon {
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(0, 255, 65, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #00ff41;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+html[data-theme="light"] .mv-icon {
+  border-color: rgba(155, 18, 39, 0.4);
+  color: #9b1227;
+}
+
+.mv-tabs {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.mv-tab {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.6rem 1.1rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mv-tab.is-active {
+  color: #00ff41;
+  border-color: rgba(0, 255, 65, 0.5);
+  background: rgba(0, 255, 65, 0.06);
+}
+
+html[data-theme="light"] .mv-tab {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="light"] .mv-tab.is-active {
+  color: #9b1227;
+  border-color: rgba(155, 18, 39, 0.5);
+  background: rgba(155, 18, 39, 0.06);
+}
+
+
+/* ==========================================================================
+   5. Certified By grid
+   ========================================================================== */
+/* Outer viewport: clips the track and fades its edges. Hovering
+   anywhere inside pauses the scroll on the track below. */
+.certified-scroll {
+  overflow: hidden;
+  margin-top: 1.5rem;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* Track: holds two back-to-back copies of the cards and scrolls
+   exactly -50% (the width of one copy) before looping seamlessly. */
+.certified-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  width: max-content;
+  animation: certified-scroll-x 32s linear infinite;
+}
+
+.certified-scroll:hover .certified-grid {
+  animation-play-state: paused;
+}
+
+@keyframes certified-scroll-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certified-grid {
+    animation: none;
+  }
+}
+
+.certified-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 1.25rem 1rem;
+  flex: 0 0 150px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.certified-card:hover {
+  border-color: rgba(0, 255, 65, 0.4);
+}
+
+.certified-card .certified-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 255, 65, 0.08);
+  color: #00ff41;
+  font-size: 1.3rem;
+}
+
+.certified-card span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.certified-note {
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: "Share Tech Mono", monospace;
+}
+
+html[data-theme="light"] .certified-card {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Added: hover state and icon badge had no light counterpart. */
+html[data-theme="light"] .certified-card:hover {
+  border-color: rgba(155, 18, 39, 0.4);
+}
+
+html[data-theme="light"] .certified-card .certified-icon {
+  background: rgba(155, 18, 39, 0.08);
+  color: #9b1227;
+}

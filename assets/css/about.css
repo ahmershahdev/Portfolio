@@ -25,3 +25,87 @@
   display: inline-block;
   color: #00ff41;
 }
+
+.btn-outline-info {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.btn-outline-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+  animation: shineSweep 4s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes shineSweep {
+  0% {
+    transform: translateX(200%) skewX(-25deg);
+  }
+  50% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-25deg);
+  }
+}
+
+html[data-theme="dark"] .btn-outline-info {
+  background: rgba(0, 255, 65, 0.12) !important;
+  color: #00f0ff !important;
+  box-shadow: 0 0 12px rgba(0, 204, 255, 0.3) !important;
+  border: 2px solid #00f0ff !important;
+}
+
+html[data-theme="dark"] .btn-outline-info:hover {
+  background: rgba(0, 255, 65, 0.25) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.7) !important;
+  transform: translateY(-2px);
+}
+
+html[data-theme="dark"] .btn-outline-info:active {
+  background: rgba(0, 255, 65, 0.4) !important;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.5) !important;
+  transform: translateY(1px);
+}
+
+html[data-theme="dark"] .btn-outline-info:focus-visible {
+  outline: 2px dashed #00f0ff;
+  outline-offset: 4px;
+}
+
+html[data-theme="light"] .btn-outline-info {
+  background: rgba(255, 162, 0, 0.12) !important;
+  color: #9b1227 !important;
+  box-shadow: 0 0 12px rgba(255, 162, 0, 0.3) !important;
+  border: 2px solid #9b122f !important;
+}
+
+html[data-theme="light"] .btn-outline-info:hover {
+  background: rgba(255, 162, 0, 0.25) !important;
+  color: #720b1b !important;
+  box-shadow: 0 0 20px rgba(255, 162, 0, 0.6) !important;
+  transform: translateY(-2px);
+}
+
+html[data-theme="light"] .btn-outline-info:active {
+  background: rgba(255, 162, 0, 0.4) !important;
+  box-shadow: 0 0 8px rgba(255, 162, 0, 0.4) !important;
+  transform: translateY(1px);
+}
+
+html[data-theme="light"] .btn-outline-info:focus-visible {
+  outline: 2px dashed #9b122f;
+  outline-offset: 4px;
+}
