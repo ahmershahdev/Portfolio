@@ -1,96 +1,157 @@
 # Syed Ahmer Shah — Software Engineer & Full-Stack Developer
+# https://ahmershah.dev
+# Format: LLMs.txt v1 (https://llmstxt.org)
+
+> Syed Ahmer Shah is a software engineering student and full-stack developer from Hyderabad, Pakistan.
+> He builds fast, secure, and SEO-ready web applications using Laravel, PHP, JavaScript, Bootstrap,
+> and modern UI systems. He has 20+ professional certificates and 30+ published technical articles.
+
+---
+
+## Site Structure
+
+- Homepage: https://ahmershah.dev/
+- About: https://ahmershah.dev/about/
+- Services: https://ahmershah.dev/services/
+- Testimonials: https://ahmershah.dev/testimonials/
+- Privacy Policy: https://ahmershah.dev/privacy-policy/
+- Terms of Service: https://ahmershah.dev/terms-of-service/
+
+---
 
 ## About
 
-Syed Ahmer Shah is a Software Engineering student pursuing a dual academic path — a 4-year Bachelor's in Software Engineering at HITMS (Nov 2024 – Dec 2028) and a 3-year Advanced Diploma in Software Engineering (ADSE) from Aptech Pakistan (Aug 2025 – Sep 2028). His goal is to become a Full-Stack Developer building high-performance, future-ready web and app solutions. He leverages AI-assisted tools (GitHub Copilot, Cursor AI, ChatGPT, Claude) to streamline development workflows.
+Syed Ahmer Shah is pursuing a dual academic path:
+- Bachelor's in Software Engineering — HITMS (Nov 2024 – Dec 2028)
+- Advanced Diploma in Software Engineering (ADSE) — Aptech Pakistan (Aug 2025 – Sep 2028)
 
-## Site
+His focus is on building maintainable, scalable web software with clean backend architecture and
+performance-conscious frontend code. He uses AI-assisted tooling (GitHub Copilot, Cursor AI,
+ChatGPT, Claude) to streamline development workflows while maintaining strong software engineering fundamentals.
 
-https://ahmershah.dev
-
-## Sections
-
-- [Home](https://ahmershah.dev/#home)
-- [About](https://ahmershah.dev/#about)
-- [Education](https://ahmershah.dev/#education)
-- [Skills](https://ahmershah.dev/#skills)
-- [Certificates](https://ahmershah.dev/#certificates)
-- [Projects](https://ahmershah.dev/#projects)
-- [Signal Hub](https://ahmershah.dev/#social)
-- [Contact](https://ahmershah.dev/#contact)
-
-## Education
-
-- HITMS — Bachelor's in Software Engineering | Nov 2024 – Dec 2028
-- Aptech Pakistan — ADSE | Aug 2025 – Sep 2028
-- Superior College of Science — HSC Pre-Engineering | Jul 2022 – Jul 2024 | Grade: A (70.45%)
-- St. Bonaventure High School — SSC Computer Science | Apr 2012 – Jul 2022 | Grade: A-1 (83.90%)
+---
 
 ## Skills
 
-- Frontend Development: HTML5, CSS3, JavaScript, Bootstrap, Tailwind CSS, jQuery
-- Backend Development: PHP, Laravel, WordPress
-- Databases: MySQL
-- Programming Languages: JavaScript
-- Development Tools: Git, GitHub, VS Code, Vercel, Supabase, Firebase, WordPress
-- AI-Assisted Tools: GitHub Copilot, Cursor AI, ChatGPT, Claude
-- SEO: Advanced Search Engine Optimization
-- Microsoft Office: Word, PowerPoint, Excel
-- Web Technologies: JSON, XML
+### Frontend
+HTML5, CSS3, JavaScript (ES6+), Bootstrap 5, Tailwind CSS, jQuery
+
+### Backend
+PHP, Laravel, WordPress, MySQL, RESTful APIs
+
+### Tools & DevOps
+Git, GitHub, VS Code, Vercel, Supabase, Firebase
+
+### AI-Assisted
+GitHub Copilot, Cursor AI, ChatGPT, Claude
+
+### Other
+SEO (technical & on-page), JSON-LD structured data, Web Accessibility, JSON, XML, Microsoft Office
+
+---
+
+## Services
+
+1. **Frontend Web Development** — Responsive, accessible interfaces with HTML5, CSS3, Bootstrap, Tailwind CSS, JavaScript
+2. **Backend Web Development** — Server-side logic, REST APIs, authentication, database design in PHP & Laravel
+3. **Full-Stack Web Application Development** — End-to-end ownership from schema to deployment
+4. **WordPress Website Development** — Theme customization, plugin config, performance & SEO optimization
+5. **Search Engine Optimization (SEO)** — Technical SEO audits, structured data, Core Web Vitals, Search Console setup
+6. **Content Writing & Copywriting** — Technical blogging, SEO articles, landing-page copy, editorial editing
+7. **Graphic Design** — Logo design, social media banners, thumbnails, posters
+
+---
 
 ## Projects
 
-### Commerza — E-Commerce Store
-Full-stack e-commerce web application with storefront and admin dashboard. Includes product and order management, authentication, cart, order tracking, dynamic UI, and SEO optimization.
-- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery, PHP, Laravel, MySQL, SEO
+### Commerza — E-Commerce Platform
+Full-stack e-commerce web application. Includes storefront, admin dashboard, product & order management, cart, authentication, and SEO optimization.
+- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery, PHP, Laravel, MySQL
 - GitHub: https://github.com/ahmershahdev/commerza.git
 
 ### Novio — Online Tech Courses Platform
-Frontend showcase with 30+ custom HTML pages simulating a premium online tech courses platform. Responsive layouts, interactive UI, and localStorage-based features.
-- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery, SEO
+Frontend showcase with 30+ custom HTML pages simulating a premium online courses platform.
+- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery
 - GitHub: https://github.com/ahmershahdev/novio.git
 - Live: https://novio.ahmershah.dev/
 
-### Auctions Table
-Single-page auction platform with live auction UI, real-time bidding simulation, smooth animations, and fully responsive design.
-- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery, SEO
+### Auctions Table — Live Auction UI
+Single-page auction platform with live bidding simulation, real-time animations, and fully responsive design.
+- Stack: HTML5, CSS3, Bootstrap, JavaScript, jQuery
 - GitHub: https://github.com/ahmershahdev/auctions-table-onepage-frontend.git
 - Live: https://auctionstable.ahmershah.dev/
 
-### WordPress Travel Website
-Travel agency system with booking system, destination guides, and travel packages.
-- Stack: WordPress, PHP, CSS, SEO
-
 ### Personal 3D Portfolio
-Portfolio featuring a real-time 3D background powered by Three.js with Blender GLTF models, interactive particle cursor, typewriter effect, animated orbit UI, Turn.js certificate flipbook, and advanced technical SEO.
-- Stack: HTML5, CSS3, Bootstrap, JavaScript, Three.js, jQuery, Lenis.js, SEO
-- GitHub: https://github.com/ahmershahdev/Portfolio.git
+Portfolio with real-time Three.js 3D background, Blender GLTF models, particle cursor, Turn.js certificate flipbook, and advanced SEO.
+- Stack: HTML5, CSS3, Bootstrap, JavaScript, Three.js, Lenis.js
 - Live: https://ahmershah.dev/
 
-## Contact & Social
+### WordPress Travel Website
+Travel agency site with booking system, destination guides, and travel packages.
+- Stack: WordPress, PHP, CSS, SEO
+
+---
+
+## Certifications (20+)
+
+- Amazon Junior Software Developer — Amazon / Coursera
+- Full Stack Web Development — Amazon / Coursera
+- Full-Stack Web Development (PHP, HTML, CSS & JS) — Board Infinity / Coursera
+- IBM DevOps and Software Engineering — IBM / Coursera
+- Meta Full Stack Developer (Front-End & Back-End) — Meta / Coursera
+- Microsoft Full-Stack Developer — Microsoft / Coursera
+- Fullstack Development — Scrimba / Coursera
+- Become a Software Developer — LinkedIn Learning
+- Learning SQL Programming — LinkedIn Learning
+- Succeeding in Web Development: Full Stack & Front End — LinkedIn Learning
+- JavaScript (Intermediate) Certificate — HackerRank
+- SQL (Advanced) Certificate — HackerRank
+- Software Engineer Intern Certificate — HackerRank
+
+---
+
+## Education
+
+| Institution | Degree / Diploma | Period | Grade |
+|---|---|---|---|
+| HITMS | Bachelor's in Software Engineering | Nov 2024 – Dec 2028 | In Progress |
+| Aptech Pakistan | ADSE (Advanced Diploma in Software Engineering) | Aug 2025 – Sep 2028 | In Progress |
+| Superior College of Science | HSC — Pre-Engineering | Jul 2022 – Jul 2024 | A (70.45%) |
+| St. Bonaventure High School | SSC — Computer Science | Apr 2012 – Jul 2022 | A-1 (83.90%) |
+
+---
+
+## Contact & Profiles
 
 - Email: support@ahmershah.dev
 - Portfolio: https://ahmershah.dev
 - GitHub: https://github.com/ahmershahdev
 - LinkedIn: https://linkedin.com/in/syedahmershah
-- Twitter/X: https://twitter.com/ahmershah29
+- X (Twitter): https://x.com/ahmershah29
 - Google Business: https://g.page/r/CS9yn4Q_UhZ4EBM
 - YouTube: https://youtube.com/@ahmershahdev
-- Instagram: https://instagram.com/ahmershahdev
-- TikTok: https://tiktok.com/@ahmershahdev
+- Instagram (Dev): https://instagram.com/ahmershahdev
+- TikTok (Dev): https://tiktok.com/@ahmershahdev
 - Medium: https://medium.com/@syedahmershah
 - Dev.to: https://dev.to/syedahmershah
 - Hashnode: https://hashnode.com/@syedahmershah
-- Sessionize: https://sessionize.com/syedahmershah
 - Substack: https://substack.com/@syedahmershah
+- HackerNoon: https://hackernoon.com/u/syedahmershah
+- Sessionize: https://sessionize.com/syedahmershah
 - LeetCode: https://leetcode.com/syedahmershah
 - HackerRank: https://hackerrank.com/profile/syedahmershah
+- Coursera: https://coursera.org/learner/syedahmershah
+- Credly: https://www.credly.com/users/syedahmershah/
 - Linktree: https://linktr.ee/syedahmershah
 - Beacons: https://beacons.ai/syedahmershah
+
+---
 
 ## Resume
 
 https://drive.google.com/file/d/1hkqKbb8kCnF2taKcAHZs5hW1Cz89HDOZ/view?usp=drive_link
+
+---
 
 ## Quote
 

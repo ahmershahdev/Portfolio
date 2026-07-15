@@ -1,4 +1,57 @@
+# ═══════════════════════════════════════════════════════════════
+# robots.txt — ahmershah.dev
+# Owner : Syed Ahmer Shah <support@ahmershah.dev>
+# ═══════════════════════════════════════════════════════════════
+
 User-agent: *
 Allow: /
 
+# Block non-content noise
+Disallow: /assets/js/
+Disallow: /.github/
+Disallow: /BingSiteAuth.xml
+Disallow: /googlefd88f5d13cd71b69.html
+
+# Allow critical CSS and media explicitly
+Allow: /assets/css/
+Allow: /assets/images/
+
+# Crawl-delay hint (advisory, ignored by major crawlers)
+Crawl-delay: 1
+
+# ── AI / LLM crawlers ──────────────────────────────────────────
+# Welcome — a structured LLMs.txt file is provided at /llms.txt
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# ── Block junk / aggressive scrapers ──────────────────────────
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+# ── Sitemap ───────────────────────────────────────────────────
 Sitemap: https://ahmershah.dev/sitemap.xml
+
+# ── LLMs.txt ─────────────────────────────────────────────────
+# https://ahmershah.dev/llms.txt

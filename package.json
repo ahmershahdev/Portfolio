@@ -1,22 +1,37 @@
 {
   "name": "portfolio",
-  "version": "1.0.0",
-  "description": "Syed Ahmer Shah's Portfolio - Software Engineer & Full-Stack Developer",
+  "version": "2.0.0",
+  "description": "Syed Ahmer Shah — Software Engineer & Full-Stack Developer. A static portfolio featuring 3D Three.js visuals, Turn.js certificate flipbook, advanced SEO, and a PWA service worker.",
   "private": true,
-  "scripts": {
-    "dev": "npm run serve",
-    "serve": "npx serve .",
-    "build": "echo 'Static site - no build needed'",
-    "lint": "echo 'No linter configured for static HTML'"
+  "homepage": "https://ahmershah.dev",
+  "author": {
+    "name": "Syed Ahmer Shah",
+    "email": "support@ahmershah.dev",
+    "url": "https://ahmershah.dev"
   },
+  "license": "SEE LICENSE IN LICENSE.txt",
   "keywords": [
     "portfolio",
     "software-engineer",
-    "full-stack-developer"
+    "full-stack-developer",
+    "laravel",
+    "javascript",
+    "three-js",
+    "pwa",
+    "seo"
   ],
-  "author": "Syed Ahmer Shah",
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "npx serve . --listen 3000",
+    "serve": "npx serve .",
+    "build": "echo 'Static site — no build step required'",
+    "validate:html": "npx html-validate index.html about/index.html services/index.html testimonials/index.html",
+    "validate:links": "echo 'Run: npx broken-link-checker https://ahmershah.dev -ro'",
+    "lint": "echo 'No JS linter configured for this static site'"
+  },
   "dependencies": {
-    "@vercel/speed-insights": "^1.0.12"
+    "@vercel/speed-insights": "1.3.1"
   }
 }

@@ -1,48 +1,87 @@
 {
-  "name": "Syed Ahmer Shah | SWE & Full-Stack Developer",
-  "short_name": "Syed Ahmer Shah",
-  "description": "Hey! I'm Syed Ahmer Shah, a Software Engineering student & Full-Stack Developer crafting high-performance web & app solutions with Laravel, JavaScript, and AI.",
-  "lang": "en",
+  "name": "Syed Ahmer Shah | Software Engineer & Full-Stack Developer",
+  "short_name": "Ahmer Shah",
+  "description": "Portfolio of Syed Ahmer Shah — full-stack developer & software engineering student building fast, secure web apps with Laravel, PHP, JavaScript, and modern UI systems.",
+  "lang": "en-US",
+  "dir": "ltr",
   "start_url": "/",
   "scope": "/",
-  "icons": [
-    {
-      "src": "assets/images/favicon/web-app-manifest-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/images/favicon/web-app-manifest-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
+  "id": "https://ahmershah.dev/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "orientation": "portrait-primary",
   "theme_color": "#000000",
   "background_color": "#000000",
-  "display": "standalone",
-  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/assets/images/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/favicon/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/images/logo/logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Syed Ahmer Shah — Portfolio Homepage"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "About",
+      "short_name": "About",
+      "description": "Learn about Syed Ahmer Shah",
+      "url": "/about/",
+      "icons": [{ "src": "/assets/images/favicon/favicon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Services",
+      "short_name": "Services",
+      "description": "View services offered by Syed Ahmer Shah",
+      "url": "/services/",
+      "icons": [{ "src": "/assets/images/favicon/favicon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch with Syed Ahmer Shah",
+      "url": "/#contact",
+      "icons": [{ "src": "/assets/images/favicon/favicon-96x96.png", "sizes": "96x96" }]
+    }
+  ],
   "categories": [
     "portfolio",
-    "software engineer",
-    "full-stack developer",
-    "dark theme",
-    "neon green",
-    "neon blue",
     "technology",
-    "AI",
-    "web development",
-    "modern ui",
-    "immersive",
-    "creative",
-    "interactive",
-    "next-gen",
-    "personal brand",
-    "3d",
-    "animation",
-    "progressive web app"
-  ]
+    "developer",
+    "web-development",
+    "software-engineering"
+  ],
+  "prefer_related_applications": false
 }
-
-
