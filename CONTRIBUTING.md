@@ -113,7 +113,7 @@ Be respectful. This is a solo project, so I'm doing code review in my free time.
 
 - GitHub Issues: I check these regularly (usually within 48 hours)
 - Email: support@ahmershah.dev for more sensitive stuff
-- Twitter: @ahmershah29 if you want to chat
+- Twitter: @ahmershahdev if you want to chat
 
 ## Questions?
 

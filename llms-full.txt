@@ -1,0 +1,197 @@
+# Syed Ahmer Shah — Full LLM Reference
+
+> Syed Ahmer Shah is a full-stack web developer and software engineering student
+> from Hyderabad, Pakistan. He builds modern web applications, scalable backend
+> systems, and maintainable software solutions with a strong emphasis on security,
+> clean code, and efficient database design.
+
+---
+
+## Identity
+
+- Full Name: Syed Ahmer Shah
+- Date of Birth: 29 October 2006
+- Location: Hyderabad, Pakistan
+- Tagline: "Designing order within the digital wilderness."
+- Dev Handle: @ahmershahdev
+- Personal Handle: @ahmershah29
+
+---
+
+## About
+
+Syed Ahmer Shah is a full-stack web developer and software engineering student
+from Pakistan focused on building modern web applications, scalable backend
+systems, and maintainable software solutions. He is currently pursuing a
+Bachelor's degree in Software Engineering at HITMS while simultaneously
+completing a three-year Advanced Diploma in Software Engineering (ADSE) at
+Aptech Pakistan, both expected to be completed in 2028.
+
+His primary areas of work include PHP, Laravel, MySQL, WordPress, HTML, CSS,
+JavaScript, Tailwind CSS, Bootstrap, Git, and SEO. He develops responsive
+websites and backend-driven applications with an emphasis on clean code,
+efficient database design, security, and long-term maintainability.
+
+Beyond development, Ahmer actively shares technical knowledge through articles
+published across multiple platforms, with more than 30 published articles
+covering software development and emerging technologies.
+
+He has earned more than 20 professional certificates through internationally
+recognized learning platforms and regularly incorporates modern AI-powered
+development tools into his workflow while maintaining a strong focus on
+software engineering fundamentals and independent problem-solving.
+
+His long-term goal is to build reliable, scalable software products and
+establish a career creating technology that delivers practical value for
+businesses and users alike. He is currently expanding his expertise into
+the MERN stack and cross-platform application development.
+
+---
+
+## Tech Stack
+
+### Languages
+- PHP
+- JavaScript
+- Java
+- HTML5
+- CSS3
+
+### Frontend
+- Bootstrap
+- Tailwind CSS
+- jQuery
+- Vanilla JavaScript
+
+### Backend
+- Laravel (PHP)
+- Core Java
+
+### Databases
+- MySQL
+
+### Platforms & Services
+- WordPress
+- Firebase
+- Supabase
+- Vercel
+- Git / GitHub
+
+### Other
+- SEO (Search Engine Optimization)
+
+---
+
+## Education
+
+| Period             | Institution                                              | Qualification                          |
+|--------------------|----------------------------------------------------------|----------------------------------------|
+| Nov 2024 – Dec 2028 | Hyderabad Institute For Technology & Management Science | Bachelor's in Software Engineering     |
+| Aug 2025 – Sep 2028 | Aptech Pakistan                                         | Advanced Diploma in Software Engineering (ADSE) |
+| Jul 2022 – Jul 2024 | Superior College of Science, Hyderabad                  | HSC, Pre-Engineering                   |
+| Apr 2012 – Jul 2022 | St. Bonaventure's High School, Hyderabad (City Branch)  | SSC, Computer Science                  |
+
+---
+
+## Projects
+
+### Commerza — Full Stack E-commerce Platform
+- Repository: https://github.com/ahmershahdev/Commerza
+- Stack: PHP, MySQL, HTML5, Bootstrap, jQuery, JavaScript
+- Description: Production-grade e-commerce platform with a modern storefront
+  and secure admin dashboard. Includes product management, shopping cart,
+  user authentication, checkout (COD + Stripe), order management, reviews,
+  and enterprise-grade security: CSRF protection, CAPTCHA, rate limiting,
+  audit logs, and stock locking.
+- README: https://github.com/ahmershahdev/commerza/blob/main/README.md
+
+---
+
+## Certifications (Selected — 20+ Total)
+
+- IBM iOS and Android Mobile App Developer — Coursera (Mar 2026) | ID: O5XTNLP93YFL
+- Meta React Native — Coursera (Mar 2026) | ID: DYOMSGSDW68E
+- JavaScript Programming with React, Node & MongoDB — Coursera (Mar 2026) | ID: 0ZVBSCIPTMIE
+- IBM Full Stack Software Developer — IBM via Coursera (Mar 2026) | ID: GKN6NX33K09T
+- IBM JavaScript Backend Developer — IBM via Coursera (Mar 2026) | ID: FHUZZ7YUTQP9
+- Microsoft Full-Stack Developer — Microsoft via Coursera (Mar 2026) | ID: V6FN6XK6SEKF
+- SQL Associate — DataCamp (Apr 2026, valid thru Apr 2028) | ID: SQA0010634184425
+- Software Engineer Intern — HackerRank (Mar 2026) | ID: b44b013b3e29
+- JavaScript Intermediate — HackerRank (Mar 2026) | ID: 47da08f71692
+- CSS Basic — HackerRank (Mar 2026) | ID: 4236a29e0662
+
+Full verified list: https://www.credly.com/users/syedahmershah/
+Full LinkedIn list: https://linkedin.com/in/syedahmershah
+
+---
+
+## Online Presence
+
+### Website & Business
+- Portfolio: https://ahmershah.dev/
+- Google Business (verified): https://g.page/r/CS9yn4Q_UhZ4EBM
+- Linktree: https://linktr.ee/syedahmershah
+- Beacons: https://beacons.ai/syedahmershah
+- Gravatar: https://gravatar.com/syedahmershah
+
+### Freelancing
+- Fiverr: https://www.fiverr.com/ahmershahdev
+- Upwork: https://www.upwork.com/freelancers/~01d033487ce8ecd83f
+- PeoplePerHour: https://www.peopleperhour.com/freelancer/technology-programming/syed_ahmer-shah-syed-ahmer-shah-full-stack-web-zxqqamxq
+- Freelancer: https://www.freelancer.com/u/syedahmershah
+- Contra: https://contra.com/syedahmershah
+- Workchest: https://workchest.com/freelancer/syedahmershah
+- Guru: https://www.guru.com/freelancers/syed-ahmer-shah
+
+### Professional Networking
+- LinkedIn: https://linkedin.com/in/syedahmershah
+- LinkedIn (Company Page): https://linkedin.com/company/syedahmershah
+- GitHub: https://github.com/ahmershahdev
+- Wellfound: https://wellfound.com/u/syedahmershah
+- Crunchbase: https://www.crunchbase.com/person/syed-ahmer-shah
+- Arc.dev: https://arc.dev/@syedahmershah
+- AWS Builder Community: https://builder.aws.com/community/syedahmershah
+- Bluesky: https://bsky.app/profile/syedahmershah.bsky.social
+
+### Brand & Content (@ahmershahdev)
+- Instagram: https://instagram.com/ahmershahdev
+- TikTok: https://tiktok.com/@ahmershahdev
+- YouTube: https://youtube.com/@ahmershahdev
+- Facebook: https://www.facebook.com/ahmershahdev
+- X (Twitter): https://x.com/ahmershahdev
+
+### Writing & Publishing (30+ articles)
+- Dev.to: https://dev.to/syedahmershah
+- Medium: https://medium.com/@syedahmershah
+- Hashnode: https://hashnode.com/@syedahmershah
+- Substack: https://substack.com/@syedahmershah
+- HackerNoon: https://hackernoon.com/u/syedahmershah
+- Sessionize (Speaking): https://sessionize.com/syedahmershah
+
+### Coding & Problem Solving
+- LeetCode: https://leetcode.com/syedahmershah
+- HackerRank: https://hackerrank.com/profile/syedahmershah
+- Credly (Certifications): https://www.credly.com/users/syedahmershah/
+
+### Design
+- Behance: https://www.behance.net/syedahmershah
+- Dribbble: https://dribbble.com/syedahmershah
+
+### Personal Profiles (@ahmershah29)
+- Instagram: https://www.instagram.com/ahmershah29/
+- Facebook: https://www.facebook.com/ahmershah29
+- X (Twitter): https://x.com/ahmershah29
+- TikTok: https://tiktok.com/ahmershah29
+- Pinterest: https://pinterest.com/ahmershah29
+
+---
+
+## Contact
+
+- Via portfolio: https://ahmershah.dev/
+- Via LinkedIn: https://linkedin.com/in/syedahmershah
+- Via Linktree: https://linktr.ee/syedahmershah
+
+---
+
+© 2026 Syed Ahmer Shah — All rights reserved.

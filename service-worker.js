@@ -1,24 +1,26 @@
 // ═══════════════════════════════════════════════════════════════════
-// service-worker.js — ahmershah.dev
+// service-worker.js
+// ahmershah.dev
+//
 // Strategy:
-//   navigation  → network-first (always fresh HTML)
-//   static assets → stale-while-revalidate (fast + background update)
-//   everything else → cache-first (offline capable)
+// • HTML pages        → Network First
+// • Static assets     → Stale While Revalidate
+// • Other requests    → Cache First
 // ═══════════════════════════════════════════════════════════════════
 
-const CACHE_VERSION = "2026-07-15";
-const STATIC_CACHE  = `static-v${CACHE_VERSION}`;
+const CACHE_VERSION = "2026-07-19";
+
+const STATIC_CACHE = `static-v${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${CACHE_VERSION}`;
 
-// Core shell — cached at install time
+const MAX_RUNTIME_ITEMS = 100;
+
+// Files cached during installation
 const CORE_ASSETS = [
-  // Pages
   "./",
   "./index.html",
-  "./about/",
-  "./services/",
-  "./testimonials/",
-  // Critical CSS
+  "./about/index.html",
+
   "./assets/css/global.css",
   "./assets/css/loader.css",
   "./assets/css/navigation.css",
@@ -26,6 +28,7 @@ const CORE_ASSETS = [
   "./assets/css/hero.css",
   "./assets/css/skills.css",
   "./assets/css/footer.css",
+
   "./assets/css/light-mode/base.css",
   "./assets/css/light-mode/navigation.css",
   "./assets/css/light-mode/hero-about.css",
@@ -35,123 +38,209 @@ const CORE_ASSETS = [
   "./assets/css/light-mode/contact-settings.css",
   "./assets/css/light-mode/social-footer.css",
   "./assets/css/light-mode/loader.css",
-  // Critical JS
+
   "./assets/js/script.js",
   "./assets/js/animations.js",
   "./assets/js/no-loader-init.js",
-  // Fonts
+
   "./assets/css/fonts/bootstrap-icons.woff2",
-  // Favicon
+
   "./assets/images/favicon/favicon.ico",
   "./assets/images/favicon/favicon-96x96.png",
   "./assets/images/favicon/web-app-manifest-192x192.png",
   "./assets/images/favicon/web-app-manifest-512x512.png",
 ];
 
-const ASSET_EXTENSIONS = [
-  ".css", ".js",
-  ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico",
-  ".woff2", ".woff", ".ttf",
-  ".glb", ".gltf",
+// File extensions treated as static assets
+const STATIC_EXTENSIONS = [
+  ".css",
+  ".js",
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".webp",
+  ".svg",
+  ".ico",
+  ".woff",
+  ".woff2",
+  ".ttf",
+  ".glb",
+  ".gltf",
 ];
 
-// ── Install ───────────────────────────────────────────────────────
+// ───────────────────────────────────────────────
+// Install
+// ───────────────────────────────────────────────
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) =>
-      cache.addAll(CORE_ASSETS).catch((err) => {
-        console.warn("[SW] Core asset pre-cache partial failure:", err);
-      })
-    )
+    caches.open(STATIC_CACHE).then(async (cache) => {
+      try {
+        await cache.addAll(CORE_ASSETS);
+      } catch (err) {
+        console.warn("[SW] Some assets failed to cache:", err);
+      }
+    }),
   );
+
   self.skipWaiting();
 });
 
-// ── Activate — prune old caches ───────────────────────────────────
+// ───────────────────────────────────────────────
+// Activate
+// ───────────────────────────────────────────────
+
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
+    (async () => {
+      // Delete old caches
+      const keys = await caches.keys();
+
+      await Promise.all(
         keys
-          .filter((key) => key !== STATIC_CACHE && key !== RUNTIME_CACHE)
-          .map((key) => caches.delete(key))
-      )
-    )
+          .filter((key) => ![STATIC_CACHE, RUNTIME_CACHE].includes(key))
+          .map((key) => caches.delete(key)),
+      );
+
+      // Enable Navigation Preload (supported browsers)
+      if ("navigationPreload" in self.registration) {
+        await self.registration.navigationPreload.enable();
+      }
+
+      await self.clients.claim();
+    })(),
   );
-  self.clients.claim();
 });
 
-// ── Fetch ─────────────────────────────────────────────────────────
+// ───────────────────────────────────────────────
+// Fetch
+// ───────────────────────────────────────────────
+
 self.addEventListener("fetch", (event) => {
-  const { request } = event;
+  const request = event.request;
 
-  // Only handle same-origin GET requests
+  // Only GET requests
   if (request.method !== "GET") return;
+
+  // Ignore chrome-extension:, data:, blob:, etc.
+  if (!request.url.startsWith("http")) return;
+
   const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return;
 
-  // Navigation (HTML pages) → network-first
+  // Only cache same-origin requests
+  if (url.origin !== location.origin) return;
+
+  // HTML pages
   if (request.mode === "navigate") {
-    event.respondWith(networkFirst(request));
+    event.respondWith(networkFirst(request, event));
     return;
   }
 
-  // Static assets → stale-while-revalidate
-  if (isAsset(url.pathname)) {
-    event.respondWith(staleWhileRevalidate(request));
+  // Static assets
+  if (isStaticAsset(url.pathname)) {
+    event.respondWith(staleWhileRevalidate(request, STATIC_CACHE, event));
     return;
   }
 
-  // Everything else → cache-first
+  // Other requests
   event.respondWith(cacheFirst(request));
 });
 
-// ── Helpers ───────────────────────────────────────────────────────
-function isAsset(pathname) {
-  return ASSET_EXTENSIONS.some((ext) => pathname.endsWith(ext));
-}
+// ───────────────────────────────────────────────
+// Strategies
+// ───────────────────────────────────────────────
 
-async function networkFirst(request) {
+async function networkFirst(request, event) {
   try {
+    const preload = await event.preloadResponse;
+
+    if (preload) {
+      return preload;
+    }
+
     const response = await fetch(request);
-    if (response.ok) {
+
+    if (isCacheable(response)) {
       const cache = await caches.open(RUNTIME_CACHE);
       cache.put(request, response.clone());
+      trimCache(RUNTIME_CACHE, MAX_RUNTIME_ITEMS);
     }
+
     return response;
   } catch {
-    const cached = await caches.match(request);
-    if (cached) return cached;
-    // Offline fallback: serve homepage shell for any navigation
-    return caches.match("./index.html");
+    const cached =
+      (await caches.match(request)) || (await caches.match("./index.html"));
+
+    return cached || new Response("Offline", { status: 503 });
   }
 }
 
 async function cacheFirst(request) {
   const cached = await caches.match(request);
-  if (cached) return cached;
+
+  if (cached) {
+    return cached;
+  }
+
   try {
     const response = await fetch(request);
-    if (response.ok) {
+
+    if (isCacheable(response)) {
       const cache = await caches.open(RUNTIME_CACHE);
+
       cache.put(request, response.clone());
+
+      trimCache(RUNTIME_CACHE, MAX_RUNTIME_ITEMS);
     }
+
     return response;
   } catch {
-    return new Response("Offline", { status: 503 });
+    return new Response("Offline", {
+      status: 503,
+      statusText: "Offline",
+    });
   }
 }
 
-async function staleWhileRevalidate(request) {
-  const cached = await caches.match(request);
-  const revalidate = fetch(request)
-    .then(async (response) => {
-      if (response.ok) {
-        const cache = await caches.open(RUNTIME_CACHE);
+async function staleWhileRevalidate(request, cacheName, event) {
+  const cache = await caches.open(cacheName);
+
+  const cached = await cache.match(request);
+
+  const fetchPromise = fetch(request)
+    .then((response) => {
+      if (isCacheable(response)) {
         cache.put(request, response.clone());
       }
+
       return response;
     })
     .catch(() => cached);
-  return cached ?? revalidate;
+
+  event.waitUntil(fetchPromise);
+
+  return cached || fetchPromise;
+}
+
+// ───────────────────────────────────────────────
+// Helpers
+// ───────────────────────────────────────────────
+
+function isStaticAsset(pathname) {
+  return STATIC_EXTENSIONS.some((ext) => pathname.endsWith(ext));
+}
+
+function isCacheable(response) {
+  return response && response.ok && response.type === "basic";
+}
+
+async function trimCache(cacheName, maxItems) {
+  const cache = await caches.open(cacheName);
+
+  const keys = await cache.keys();
+
+  while (keys.length > maxItems) {
+    await cache.delete(keys[0]);
+    keys.shift();
+  }
 }

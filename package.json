@@ -27,7 +27,7 @@
     "dev": "npx serve . --listen 3000",
     "serve": "npx serve .",
     "build": "echo 'Static site — no build step required'",
-    "validate:html": "npx html-validate index.html about/index.html services/index.html testimonials/index.html",
+    "validate:html": "npx html-validate index.html about/index.html",
     "validate:links": "echo 'Run: npx broken-link-checker https://ahmershah.dev -ro'",
     "lint": "echo 'No JS linter configured for this static site'"
   },

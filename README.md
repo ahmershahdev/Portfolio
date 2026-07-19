@@ -103,7 +103,7 @@ Then visit `http://localhost:8000`
 - Website: https://ahmershah.dev
 - LinkedIn: https://linkedin.com/in/syedahmershah
 - GitHub: https://github.com/ahmershahdev
-- Twitter: https://twitter.com/ahmershah29
+- Twitter: https://twitter.com/ahmershahdev
 
 ## License
 

@@ -60,20 +60,6 @@
       "description": "Learn about Syed Ahmer Shah",
       "url": "/about/",
       "icons": [{ "src": "/assets/images/favicon/favicon-96x96.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Services",
-      "short_name": "Services",
-      "description": "View services offered by Syed Ahmer Shah",
-      "url": "/services/",
-      "icons": [{ "src": "/assets/images/favicon/favicon-96x96.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Contact",
-      "short_name": "Contact",
-      "description": "Get in touch with Syed Ahmer Shah",
-      "url": "/#contact",
-      "icons": [{ "src": "/assets/images/favicon/favicon-96x96.png", "sizes": "96x96" }]
     }
   ],
   "categories": [
