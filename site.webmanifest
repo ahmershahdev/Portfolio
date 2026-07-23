@@ -1,4 +1,5 @@
 {
+  "id": "https://ahmershah.dev/",
   "name": "Syed Ahmer Shah | Software Engineer & Full-Stack Developer",
   "short_name": "Ahmer Shah",
   "description": "Portfolio of Syed Ahmer Shah — full-stack developer & software engineering student building fast, secure web apps with Laravel, PHP, JavaScript, and modern UI systems.",
@@ -6,7 +7,6 @@
   "dir": "ltr",
   "start_url": "/",
   "scope": "/",
-  "id": "https://ahmershah.dev/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "browser"],
   "orientation": "portrait-primary",
@@ -59,7 +59,9 @@
       "short_name": "About",
       "description": "Learn about Syed Ahmer Shah",
       "url": "/about/",
-      "icons": [{ "src": "/assets/images/favicon/favicon-96x96.png", "sizes": "96x96" }]
+      "icons": [
+        { "src": "/assets/images/favicon/favicon-96x96.png", "sizes": "96x96" }
+      ]
     }
   ],
   "categories": [

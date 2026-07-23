@@ -36,6 +36,18 @@
   --panel-accent: 57, 224, 155;
 }
 
+.freelance-panel {
+  --panel-accent: 57, 181, 74;
+}
+
+.brand-panel {
+  --panel-accent: 255, 49, 108;
+}
+
+.design-panel {
+  --panel-accent: 122, 142, 255;
+}
+
 .courses-panel {
   --panel-accent: 255, 176, 0;
 }

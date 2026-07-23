@@ -16,6 +16,9 @@
   .personal-panel,
   .professional-panel,
   .links-panel,
+  .freelance-panel,
+  .brand-panel,
+  .design-panel,
   .courses-panel {
     grid-column: 1;
   }

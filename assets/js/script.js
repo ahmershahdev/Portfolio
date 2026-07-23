@@ -43,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
   window.addEventListener("load", () => {
-    const swUrl = new URL("service-worker.js", window.location.href);
+    const swUrl = new URL("/service-worker.js", window.location.origin);
     navigator.serviceWorker
-      .register(swUrl.href, { scope: "./" })
+      .register(swUrl.href, { scope: "/" })
       .catch((err) => console.warn("Service worker registration failed:", err));
   });
 }

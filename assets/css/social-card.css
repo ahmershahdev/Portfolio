@@ -4,6 +4,12 @@
   gap: 10px;
 }
 
+.professional-panel .social-grid,
+.freelance-panel .social-grid,
+.brand-panel .social-grid {
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+}
+
 .social-card {
   position: relative;
   display: flex;

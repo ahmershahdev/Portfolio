@@ -70,4 +70,27 @@ export function initProjectCarousel() {
   }
 
   if (counter) counter.textContent = `1 / ${total}`;
+  initProjectImageGalleries();
+}
+
+function initProjectImageGalleries() {
+  document.querySelectorAll("[data-project-gallery]").forEach((gallery) => {
+    const image = gallery.querySelector("[data-project-main-image]");
+    const buttons = gallery.querySelectorAll("[data-project-image]");
+    if (!image || !buttons.length) return;
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        buttons.forEach((btn) => {
+          btn.classList.remove("active");
+          btn.setAttribute("aria-pressed", "false");
+        });
+
+        button.classList.add("active");
+        button.setAttribute("aria-pressed", "true");
+        image.src = button.dataset.src;
+        image.alt = button.dataset.alt || image.alt;
+      });
+    });
+  });
 }

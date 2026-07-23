@@ -108,6 +108,30 @@ html[data-theme="light"] .project-placeholder-icon {
   box-shadow: 0 18px 40px rgba(11, 27, 77, 0.14);
 }
 
+html[data-theme="light"] .project-section-intro p {
+  color: rgba(11, 27, 77, 0.72);
+}
+
+html[data-theme="light"] .project-section-stats span {
+  color: rgba(11, 27, 77, 0.68);
+  border-color: rgba(11, 27, 77, 0.16);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+html[data-theme="light"] .project-section-stats strong {
+  color: #9b1227;
+}
+
+html[data-theme="light"] .project-slide > .row {
+  border-color: rgba(11, 27, 77, 0.14);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(255, 90, 31, 0.06)),
+    rgba(255, 255, 255, 0.82);
+  box-shadow:
+    0 22px 54px rgba(11, 27, 77, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
 html[data-theme="light"] .project-nav-btn {
   border-color: rgba(11, 27, 77, 0.35);
   color: #0b1b4d;

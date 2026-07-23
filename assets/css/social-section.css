@@ -67,11 +67,14 @@
   grid-column: span 6;
 }
 
-.professional-panel {
+.professional-panel,
+.freelance-panel,
+.brand-panel {
   grid-column: span 8;
 }
 
-.links-panel {
+.links-panel,
+.design-panel {
   grid-column: span 4;
 }
 
